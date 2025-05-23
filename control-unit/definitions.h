@@ -6,14 +6,24 @@ uint16_t baud_rate = 9600;
 uint8_t string_limit = 255;
 
 class Code {
-public:
-	static constexpr char brake = "br";
-	static constexpr char reverse = "rv";
-	static constexpr char s_reverse = "srv";
-	static constexpr char shift_up = "su";
-	static constexpr char speed = "sp";
-	static constexpr char s_speed = "ssp";
+  private: 
+    struct floatCommands {
+      byte index;
+      char code[4];
+    };
+  public:
+    static const byte number_of = 6;
+    const commands command[number_of] = {
+      {0, "br"},		// brake
+      {1, "rv"},		// reverse
+      {2, "srv"},		// steer reverse
+      {3, "su"},		// shift up
+      {4, "sp"},		// speed
+      {5, "ssp"}		// steer speed
+  	};
 }
+
+Code code;
 
 class Pin {
 public:
@@ -32,6 +42,11 @@ public:
 	//Analog
 	static constexpr uint8_t sda = A4;
 	static constexpr uint8_t scl = A5;
+}
+
+class Address {
+	public:
+		static constexpr int pcf = 0x20;      // Default address
 }
 
 class Relay {

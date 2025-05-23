@@ -11,8 +11,7 @@ void setup(){
 void loop(){
 	if(is_input()){
 		read_input();
-		decode_input();
-		execute_input();
+		run_input();
 		timeout.reset();
 	} else {
 		if(timeout.passed()){
