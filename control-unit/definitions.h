@@ -5,13 +5,6 @@ uint8_t input_timeout = 1000;	// If no command recieved for interval, cut all mo
 uint16_t baud_rate = 9600;
 uint8_t string_limit = 255;
 
-bool brake = false;			//br
-bool reverse = false;		//rv
-bool s_reverse = false;		//srv
-bool shift_up = false;		//su
-uint8_t speed = 0;			//sp
-uint8_t s_speed = 0;		//ssp
-
 class Pin {
 public:
 	//Digital
@@ -49,6 +42,13 @@ public:
 		digitalWrite(pin, LOW);
 		closed = false;
 	}
+    void set(){
+        if(isClosed()){
+            open();
+        } else if(isOpen()){
+            close();
+        }
+    }
 	bool isClosed(){
 		return closed;
 	}
@@ -60,27 +60,27 @@ private:
 	bool closed = false;
 }
 
-Relay brake(pin.brake);
-Relay reverse_1(pin.reverse_1);
-Relay reverse_2(pin.reverse_2);
-Relay s_reverse_1(pin.s_reverse_1);
-Relay s_reverse_2(pin.s_reverse_2);
-Relay shift_1(pin.shift_1);
-Relay shift_2(pin.shift_2);
+Relay brake_relay(pin.brake);
+Relay reverse_1_relay(pin.reverse_1);
+Relay reverse_2_relay(pin.reverse_2);
+Relay s_reverse_1_relay(pin.s_reverse_1);
+Relay s_reverse_2_relay(pin.s_reverse_2);
+Relay shift_1_relay(pin.shift_1);
+Relay shift_2_relay(pin.shift_2);
 
 class PWM {
 public:
 	PWM(uint8_t pin_def) : pin(pin_def) {}
-	void set_power(power){
-		duty_cycle = power;
-		analogWrite(pin, duty_cycle);
-	}
 	void stop(){
 		analogWrite(pin, 0);
 	}
 	void start(){
 		analogWrite(pin, duty_cycle);
 	}
+    void set(power){
+        duty_cycle = power;
+        start();
+    }
 	uint8_t get_power(){
 		return duty_cycle;
 	}
@@ -94,14 +94,30 @@ PWM s_speed(pin.s_speed);
 
 class Control {
     public:
+        bool brake = false;			//br
+        bool reverse = false;		//rv
+        bool s_reverse = false;		//srv
+        bool shift_up = false;		//su
+        uint8_t speed = 0;			//sp
+        uint8_t s_speed = 0;		//ssp
         void brake(bool active){
-
+            brake = active;
         }
-        void set_direction(){
-
+        void set_direction(bool set_reverse){
+            reverse = set_reverse;
         }
-        void
-
+        void set_shift(bool set_series){
+            shift_up = set_series;
+        }
+        void set_speed(uint8_t set_speed){
+            speed = set_speed;
+        }
+        void set_s_direction(bool set_reverse){
+            s_reverse = set_reverse;
+        }
+        void set_s_speed(uint8_t set_speed){
+            s_speed = set_speed;
+        }
 };
 
 Control control;

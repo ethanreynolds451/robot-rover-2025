@@ -83,6 +83,18 @@ void run_input(){
 	}
 }
 
+void update(){
+	brake_relay.set(!control.brake);
+	reverse_1_relay.set(control.reverse);
+	revrse_2_relay.set(control.reverse);
+	s_reverse_1_relay.set(control.s_reverse);
+	s_reverse_2_relay.set(control.s_reverse);
+	shift_1_relay.set(control.shift_up);
+	shift_2_relay.set(control.shift_up);
+	speed.set(control.speed);
+	s_speed.set(control.s_speed);
+}
+
 void input_error(){
 	
 }

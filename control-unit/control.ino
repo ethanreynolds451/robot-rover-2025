@@ -9,6 +9,7 @@ void setup(){
 }
 
 void loop(){
+  	update();
 	if(is_input()){
 		read_input();
 		run_input();
