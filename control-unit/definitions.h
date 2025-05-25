@@ -5,40 +5,12 @@ uint8_t input_timeout = 1000;	// If no command recieved for interval, cut all mo
 uint16_t baud_rate = 9600;
 uint8_t string_limit = 255;
 
-class Command {
-  public:
-    static const byte number_of = 6;
-    const commands command[number_of] = {
-      {0, "br"},		// brake
-      {1, "rv"},		// reverse
-      {2, "srv"},		// steer reverse
-      {3, "su"},		// shift up
-      {4, "sp"},		// speed
-      {5, "ssp"}		// steer speed
-  	};
-    void execute(uint8_t code){
-        if(code == 0) {
-
-        } else if(code == 1) {
-
-        } else if(code == 2) {
-
-        } else if(code == 3) {
-
-        } else if(code == 4) {
-
-        } else if(code == 5) {
-
-        }
-    }
-  private:
-    struct floatCommands {
-        byte index;
-        char code[4];
-    };
-}
-
-Command code;
+bool brake = false;			//br
+bool reverse = false;		//rv
+bool s_reverse = false;		//srv
+bool shift_up = false;		//su
+uint8_t speed = 0;			//sp
+uint8_t s_speed = 0;		//ssp
 
 class Pin {
 public:
@@ -58,6 +30,8 @@ public:
 	static constexpr uint8_t sda = A4;
 	static constexpr uint8_t scl = A5;
 }
+
+Pin pin;
 
 class Address {
 	public:
@@ -86,6 +60,14 @@ private:
 	bool closed = false;
 }
 
+Relay brake(pin.brake);
+Relay reverse_1(pin.reverse_1);
+Relay reverse_2(pin.reverse_2);
+Relay s_reverse_1(pin.s_reverse_1);
+Relay s_reverse_2(pin.s_reverse_2);
+Relay shift_1(pin.shift_1);
+Relay shift_2(pin.shift_2);
+
 class PWM {
 public:
 	PWM(uint8_t pin_def) : pin(pin_def) {}
@@ -106,6 +88,58 @@ private:
 	uint8_t pin;
 	uint8_t duty_cycle;
 }
+
+PWM speed(pin.speed);
+PWM s_speed(pin.s_speed);
+
+class Control {
+    public:
+        void brake(bool active){
+
+        }
+        void set_direction(){
+
+        }
+        void
+
+};
+
+Control control;
+
+class Command {
+  public:
+    static const byte number_of = 6;
+    const commands command[number_of] = {
+        {0, "br"},		// brake
+        {1, "rv"},		// reverse
+        {2, "srv"},		// steer reverse
+        {3, "su"},		// shift up
+        {4, "sp"},		// speed
+        {5, "ssp"}		// steer speed
+};
+    void execute(uint8_t code, char val){
+            if(code == 0) {
+                control.brake(atoi(val));
+            } else if(code == 1) {
+
+            } else if(code == 2) {
+
+            } else if(code == 3) {
+
+            } else if(code == 4) {
+
+            } else if(code == 5) {
+
+            }
+    }
+private:
+    struct floatCommands {
+            byte index;
+            char code[4];
+    };
+}
+
+Command code;
 
 class Time {
 public:

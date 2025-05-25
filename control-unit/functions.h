@@ -3,32 +3,10 @@
 #ifndef FUNCTIONS_h
 #define FUNCTIONS_h
 
-Pin pin;
-
-Relay brake(pin.brake);
-Relay reverse_1(pin.reverse_1);
-Relay reverse_2(pin.reverse_2);
-Relay s_reverse_1(pin.s_reverse_1);
-Relay s_reverse_2(pin.s_reverse_2);
-Relay shift_1(pin.shift_1);
-Relay shift_2(pin.shift_2);
-
-PWM speed(pin.speed);
-PWM s_speed(pin.s_speed);
-
 char input[string_limit];
-
-bool brake = false;			//br
-bool reverse = false;		//rv
-bool s_reverse = false;		//srv
-bool shift_up = false;		//su
-uint8_t speed = 0;			//sp
-uint8_t s_speed = 0;		//ssp
-
 
 // Data format
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
-
 
 bool is_input(){
 	if(Serial.available() > 0) {
@@ -57,10 +35,10 @@ void run_input(){
 	if(input[index] == '{'){					// look for start charcter
 		index++;
 		while(index <= end_index){				// end if strlen exceed
-			if(input[index] == '}'){ 			// break if end characther 
+			if(input[index] == '}'){ 			// break if end characther
 				break;
 			} else {
-				// get the data packet designator 
+				// get the data packet designator
 				uint8_t clr = 0;			// clear temp data buffer
 				while(clr <= tmp_len){
                     tmp_code[clr]) = '';
@@ -77,41 +55,32 @@ void run_input(){
 						break;	// If bad nonalpha or end char encounter
 					}
 				}
-			if(input[index] == '['){		// find data charchter
-				while(true){					// enter data loop
-					uint8_t data_index = 0;	
-					index++;
-					if(input[index] == ']'){	// break if end data character
-						break;
-					} else {
-					
+    			// get data
+				if(input[index] == '['){		// find data charchter
+					while(true){					// enter data loop
+						uint8_t data_index = 0;
+						index++;
+						if(input[index] == ']'){	// break if end data character
+							break;
+						} else {
+	                        tmp_data[data_index] = input[index];
+	                        data_index++;
+						}
 					}
 				}
-			}
-			index--;
-		}
-		// run command with data
+    			// run command with data
 				uint8_t code_index = 0;
 				while(code_index <= code.number_of){
 					if(strcmp(code.command[code_index], tmp)){
-						 command.execute(code_index, value);
+						command.execute(code_index, value);
 						break;
 					} else {
-						code_index++;
-					}
-				}			
-		
-		
+       					code_index++;
+     				}
+				}
+			}
+		}
 	}
-	
-}
-
-void update_relays(){
-	
-}
-
-void update_displays(){
-	
 }
 
 void input_error(){
