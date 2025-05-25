@@ -25,6 +25,7 @@ bool shift_up = false;		//su
 uint8_t speed = 0;			//sp
 uint8_t s_speed = 0;		//ssp
 
+
 // Data format
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
@@ -70,8 +71,8 @@ void run_input(){
 					input(clr) = '';
 					clr++;
 				}
-				tmp_index = 0;				
-				while(true){
+				tmp_index = 0;				// go to start of data buffer
+				while(true){				// until data encountered
 					index++;
 					if(input[index].isalpha() && input[index] != '['){
 						tmp[tmp_index] = input[index];	// read designator into tmp buffer
@@ -80,23 +81,7 @@ void run_input(){
 						break;	// If bad nonalpha or end char encounter
 					}
 				}
-				// assign the data packet to command
-				uint8_t code_index = 0;
-				while(code_index <= code.index_of()){
-					if(strcmp(code.command[code_index], tmp)){
-						// assign it based on function
-						break;
-					} else {
-						code_index++;
-					}
-				}
-
 				
-
-				
-			}
-			
-			
 			
 			if(input[index] == ']'){		// find data charchter
 				while(true){					// enter data loop
@@ -111,6 +96,18 @@ void run_input(){
 			}
 			index--;
 		}
+		// run command with data
+				uint8_t code_index = 0;
+				while(code_index <= code.number_of){
+					if(strcmp(code.command[code_index], tmp)){
+						 command.execute(code_index, value);
+						break;
+					} else {
+						code_index++;
+					}
+				}			
+		
+		
 	}
 	
 }
