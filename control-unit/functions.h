@@ -39,12 +39,6 @@ bool is_input(){
 
 void read_input(){
 	uint16_t index = 0;
-	// clear input
-	// uint16_t clr = 0;
-	//while(clr <= string_limit){
-	//	input(clr) = '';
-	//	 clr++;
-	//}
 	while(Serial.available()){
 		input[index] = Serial.read();
 		if(index == string_limit){:
@@ -56,7 +50,8 @@ void read_input(){
 
 void run_input(){
 	uint8_t tmp_len = 16;						// designate 16 bytes for read buffer
-	char tmp[16];								
+	char tmp_code[16];
+    char tmp_data[16];
 	uint16_t end_index = strlen(input);
 	uint16_t index = 0;
 	if(input[index] == '{'){					// look for start charcter
@@ -68,29 +63,28 @@ void run_input(){
 				// get the data packet designator 
 				uint8_t clr = 0;			// clear temp data buffer
 				while(clr <= tmp_len){
-					input(clr) = '';
+                    tmp_code[clr]) = '';
+                    tmp_data[clr]) = '';
 					clr++;
 				}
 				tmp_index = 0;				// go to start of data buffer
 				while(true){				// until data encountered
 					index++;
 					if(input[index].isalpha() && input[index] != '['){
-						tmp[tmp_index] = input[index];	// read designator into tmp buffer
+						tmp_code[tmp_index] = input[index];	// read designator into tmp buffer
 						tmp_index++;
 					} else {
 						break;	// If bad nonalpha or end char encounter
 					}
 				}
-				
-			
-			if(input[index] == ']'){		// find data charchter
+			if(input[index] == '['){		// find data charchter
 				while(true){					// enter data loop
 					uint8_t data_index = 0;	
-					index--;
-					if(input[index] == '['){	// break if end data character 
+					index++;
+					if(input[index] == ']'){	// break if end data character
 						break;
 					} else {
-					_
+					
 					}
 				}
 			}
@@ -112,23 +106,6 @@ void run_input(){
 	
 }
 
-void execute(uint8_t code){
-	if(code == 0) {
-		
-	} else if(code == 1) {
-		
-	} else if(code == 2) {
-		
-	} else if(code == 3) {
-		
-	} else if(code == 4) {
-		
-	} else if(code == 5) {
-		
-	}
-	
-}
-
 void update_relays(){
 	
 }
@@ -142,3 +119,11 @@ void input_error(){
 }
 
 #endif
+
+
+// clear input
+// uint16_t clr = 0;
+//while(clr <= string_limit){
+//	input(clr) = '';
+//	 clr++;
+//}

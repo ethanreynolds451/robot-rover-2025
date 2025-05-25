@@ -5,12 +5,7 @@ uint8_t input_timeout = 1000;	// If no command recieved for interval, cut all mo
 uint16_t baud_rate = 9600;
 uint8_t string_limit = 255;
 
-class Code {
-  private: 
-    struct floatCommands {
-      byte index;
-      char code[4];
-    };
+class Command {
   public:
     static const byte number_of = 6;
     const commands command[number_of] = {
@@ -21,9 +16,29 @@ class Code {
       {4, "sp"},		// speed
       {5, "ssp"}		// steer speed
   	};
+    void execute(uint8_t code){
+        if(code == 0) {
+
+        } else if(code == 1) {
+
+        } else if(code == 2) {
+
+        } else if(code == 3) {
+
+        } else if(code == 4) {
+
+        } else if(code == 5) {
+
+        }
+    }
+  private:
+    struct floatCommands {
+        byte index;
+        char code[4];
+    };
 }
 
-Code code;
+Command code;
 
 class Pin {
 public:
