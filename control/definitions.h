@@ -7,6 +7,8 @@ uint8_t string_limit = 255;
 uint8_t pwm_min = 50;
 uint8_t pwm_max = 200;
 
+char input[string_limit];
+
 class Pin {
 public:
 	//Digital

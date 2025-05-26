@@ -3,8 +3,6 @@
 #ifndef FUNCTIONS_h
 #define FUNCTIONS_h
 
-char input[string_limit];
-
 // Data format
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
