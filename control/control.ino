@@ -1,3 +1,4 @@
+#include "arduino.h"
 #include "libraries.h"
 #include "definitions.h"
 #include "functions.h"
@@ -20,4 +21,3 @@ void loop(){
 		}
 	}
 }
-

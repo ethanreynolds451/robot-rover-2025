@@ -1,11 +1,13 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-uint8_t input_timeout = 1000;	// If no command recieved for interval, cut all motors
-uint16_t baud_rate = 9600;
-uint8_t string_limit = 255;
-uint8_t pwm_min = 50;
-uint8_t pwm_max = 200;
+static const uint8_t input_timeout = 10000;	// If no command recieved for interval, cut all motors
+static const uint16_t baud_rate = 9600;
+static const uint8_t string_limit = 255;
+static const uint8_t pwm_min = 50;
+static const uint8_t pwm_max = 200;
+
+char input[string_limit];
 
 char input[string_limit];
 
@@ -19,21 +21,23 @@ public:
 	static constexpr uint8_t s_reverse_2 = 6;
 	static constexpr uint8_t shift_1 = 7;
 	static constexpr uint8_t shift_2 = 8;
-	static constexpr uint8_t speed = 9;
+	static constexpr uint8_t speed_ = 9;
 	static constexpr uint8_t s_speed = 10;
 	static constexpr uint8_t fan = 3;
 	static constexpr uint8_t headlight = 11;
 	//Analog
 	static constexpr uint8_t sda = A4;
 	static constexpr uint8_t scl = A5;
-}
+};
 
 Pin pin;
 
 class Address {
 	public:
 		static constexpr int pcf = 0x20;      // Default address
-}
+};
+
+Address address; 
 
 class Relay {
 public:
@@ -46,13 +50,20 @@ public:
 		digitalWrite(pin, LOW);
 		closed = false;
 	}
-    void set(){
-        if(isClosed()){
-            open();
-        } else if(isOpen()){
-            close();
-        }
+  void set(bool value){
+      if(value){
+          close();
+      } else if(!value){
+          open();
+      }
+  }
+  void flip(){
+    if(isClosed()){
+        open();
+    } else if(isOpen()){
+        close();
     }
+  }
 	bool isClosed(){
 		return closed;
 	}
@@ -62,7 +73,7 @@ public:
 private:
 	uint8_t pin;
 	bool closed = false;
-}
+};
 
 Relay brake_relay(pin.brake);
 Relay reverse_1_relay(pin.reverse_1);
@@ -81,19 +92,19 @@ public:
 	void start(){
 		analogWrite(pin, duty_cycle);
 	}
-    void set(power){
-        duty_cycle = power;
-        start();
-    }
+  void set(uint8_t power){
+      duty_cycle = power;
+      start();
+  }
 	uint8_t get_power(){
 		return duty_cycle;
 	}
 private:
 	uint8_t pin;
 	uint8_t duty_cycle;
-}
+};
 
-PWM speed(pin.speed);
+PWM speed_(pin.speed_);
 PWM s_speed(pin.s_speed);
 
 class Control {
@@ -102,9 +113,9 @@ class Control {
         bool reverse = false;		//rv
         bool s_reverse = false;		//srv
         bool shift_up = false;		//su
-        uint8_t speed = 0;			//sp
+        uint8_t speed_ = 0;			//sp
         uint8_t s_speed = 0;		//ssp
-        void brake(bool active){
+        void set_brake(bool active){
             brake = active;
         }
         void set_direction(bool set_reverse){
@@ -114,7 +125,7 @@ class Control {
             shift_up = set_series;
         }
         void set_speed(uint8_t set_speed){
-            speed = map(set_speed, 0, 100, pwm_min, pwm_max);
+            speed_ = map(set_speed, 0, 100, pwm_min, pwm_max);
         }
         void set_s_direction(bool set_reverse){
             s_reverse = set_reverse;
@@ -127,7 +138,7 @@ class Control {
             bool reverse = false;		//rv
             bool s_reverse = false;		//srv
             bool shift_up = false;		//su
-            uint8_t speed = 0;			//sp
+            uint8_t speed_ = 0;			//sp
             uint8_t s_speed = 0;		//ssp
         }
 };
@@ -135,9 +146,14 @@ class Control {
 Control control;
 
 class Command {
+  private:
+    struct _commands {
+            uint8_t index;
+            char code[4];
+    };
   public:
-    static const byte number_of = 6;
-    const commands command[number_of] = {
+    static const uint8_t number_of = 6;
+    const _commands commands[number_of] = {
         {0, "br"},		// brake
         {1, "rv"},		// reverse
         {2, "srv"},		// steer reverse
@@ -145,29 +161,24 @@ class Command {
         {4, "sp"},		// speed
         {5, "ssp"}		// steer speed
     };
-    void execute(uint8_t code, char val){
+    void execute(uint8_t code, const char* val){
             if(code == 0) {
-                control.brake(atoi(val));
+                control.set_brake(atoi(val));
             } else if(code == 1) {
-
+                control.set_direction(atoi(val));
             } else if(code == 2) {
-
+                control.set_s_direction(atoi(val));
             } else if(code == 3) {
-
+                control.set_shift(atoi(val));
             } else if(code == 4) {
-
+                control.set_speed(atoi(val));
             } else if(code == 5) {
-
+                control.set_s_speed(atoi(val));
             }
     }
-private:
-    struct floatCommands {
-            byte index;
-            char code[4];
-    };
-}
+};
 
-Command code;
+Command command;
 
 class Time {
 public:
@@ -175,9 +186,9 @@ public:
     bool passed() {
         return wait(interval);
     }
-	void reset() {
-		currentmillis = 0;
-	}
+  	void reset() {
+  		previousmillis = millis();
+  	}
 private:
     bool wait(unsigned long time) {
         // return false if we're still "delaying", true if time ms has passed.
@@ -194,4 +205,3 @@ private:
 };
 
 #endif 
-
