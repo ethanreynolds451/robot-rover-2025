@@ -96,15 +96,13 @@ void update(){
 }
 
 void input_error(){
-	
+	reset_vehicle();
+}
+
+void reset_vehicle(){
+  	control.set_defaults();
+ 	control.set_brake(true);
+  	update();
 }
 
 #endif
-
-
-// clear input
-// uint16_t clr = 0;
-//while(clr <= string_limit){
-//	input(clr) = '';
-//	 clr++;
-//}

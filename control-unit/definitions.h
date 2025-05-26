@@ -4,6 +4,8 @@
 uint8_t input_timeout = 1000;	// If no command recieved for interval, cut all motors
 uint16_t baud_rate = 9600;
 uint8_t string_limit = 255;
+uint8_t pwm_min = 50;
+uint8_t pwm_max = 200;
 
 class Pin {
 public:
@@ -110,13 +112,21 @@ class Control {
             shift_up = set_series;
         }
         void set_speed(uint8_t set_speed){
-            speed = set_speed;
+            speed = map(set_speed, 0, 100, pwm_min, pwm_max);
         }
         void set_s_direction(bool set_reverse){
             s_reverse = set_reverse;
         }
         void set_s_speed(uint8_t set_speed){
-            s_speed = set_speed;
+            s_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
+        }
+        void set_defaults(){
+            bool brake = false;			//br
+            bool reverse = false;		//rv
+            bool s_reverse = false;		//srv
+            bool shift_up = false;		//su
+            uint8_t speed = 0;			//sp
+            uint8_t s_speed = 0;		//ssp
         }
 };
 
@@ -132,7 +142,7 @@ class Command {
         {3, "su"},		// shift up
         {4, "sp"},		// speed
         {5, "ssp"}		// steer speed
-};
+    };
     void execute(uint8_t code, char val){
             if(code == 0) {
                 control.brake(atoi(val));
