@@ -6,6 +6,7 @@ static const uint16_t baud_rate = 9600;
 static const uint8_t string_limit = 255;
 static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
+static const uint16_t loop_delay = 100;
 
 char input[string_limit];
 
@@ -26,8 +27,8 @@ public:
 	static constexpr uint8_t fan = 3;
 	static constexpr uint8_t headlight = 11;
 	//Analog
-	static constexpr uint8_t sda = A4;
-	static constexpr uint8_t scl = A5;
+	static constexpr uint8_t SDA = A4;
+	static constexpr uint8_t SCL = A5;
 };
 
 Pin pin;

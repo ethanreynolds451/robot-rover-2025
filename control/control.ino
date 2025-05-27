@@ -20,4 +20,5 @@ void loop(){
 			input_error();
 		}
 	}
+ 	delay(loop_delay);
 }
