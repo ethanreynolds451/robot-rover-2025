@@ -1,4 +1,3 @@
-#include "arduino.h"
 #include "libraries.h"
 #include "definitions.h"
 #include "functions.h"
@@ -10,7 +9,7 @@ void setup(){
 }
 
 void loop(){
-  	update();
+  update();
 	if(is_input()){
 		read_input();
 		run_input();

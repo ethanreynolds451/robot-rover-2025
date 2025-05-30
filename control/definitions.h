@@ -1,14 +1,13 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const uint8_t input_timeout = 10000;	// If no command recieved for interval, cut all motors
+static const long input_timeout = 30000;	// If no command recieved for interval, cut all motors
 static const uint16_t baud_rate = 9600;
 static const uint8_t string_limit = 255;
 static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
 static const uint16_t loop_delay = 100;
-
-char input[string_limit];
+static const uint16_t serial_delay = 50;
 
 char input[string_limit];
 

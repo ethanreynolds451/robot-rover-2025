@@ -14,6 +14,7 @@ bool is_input(){
 }
 
 void read_input(){
+  delay(serial_delay);
 	uint16_t index = 0;
 	while(Serial.available()){
 		input[index] = Serial.read();
@@ -22,6 +23,7 @@ void read_input(){
 		}
 		index++;
 	}
+ Serial.println(input);
 }
 
 void run_input(){
@@ -30,46 +32,54 @@ void run_input(){
   char tmp_data[16];
 	uint16_t end_index = strlen(input);
 	uint16_t index = 0;
+  uint8_t data_index = 0;
+  uint8_t code_index = 0;
 	if(input[index] == '{'){					// look for start charcter
-		index++;
+		index++;                        // Advance to next charachter
 		while(index <= end_index){				// end if strlen exceed
 			if(input[index] == '}'){ 			// break if end characther
+        Serial.println("End of string found");
 				break;
 			} else {
 				// get the data packet designator
-				uint8_t clr = 0;			// clear temp data buffer
-				while(clr <= tmp_len){
-          tmp_code[clr] = ' ';                    
-          tmp_data[clr] = ' ';
-					clr++;
-				}
-				uint8_t tmp_index = 0;				// go to start of data buffer
+          // First clear temp data buffer
+				  memset(tmp_code, 0, tmp_len);
+          memset(tmp_data, 0, tmp_len);
+				code_index = 0;				// go to start of data buffer
 				while(true){				// until data encountered
-					index++;
+					index++;          // Advance to next charachter in input
 					if(isalpha(input[index]) && input[index] != '['){
-						tmp_code[tmp_index] = input[index];	// read designator into tmp buffer
-						tmp_index++;
+						tmp_code[code_index] = input[index];	// read designator into tmp buffer
+						code_index++;                        // advance to next buffer character
 					} else {
+            tmp_code[code_index] = '\0';       
+            Serial.print("Code found: "); 
+            Serial.println(tmp_code);
 						break;	// If bad nonalpha or end char encounter
 					}
 				}
     			// get data
 				if(input[index] == '['){		// find data charchter
-					while(true){					// enter data loop
-						uint8_t data_index = 0;
+          data_index = 0;
+					while(true){					// enter data loop	
 						index++;
 						if(input[index] == ']'){	// break if end data character
+              tmp_data[data_index] = '\0';
+              Serial.print("Data found: "); 
+              Serial.println(tmp_data);
 							break;
 						} else {
-	                        tmp_data[data_index] = input[index];
-	                        data_index++;
+	            tmp_data[data_index] = input[index];
+	            data_index++;
 						}
 					}
 				}
     			// run command with data
 				uint8_t code_index = 0;
 				while(code_index <= command.number_of){
-					if(strcmp(command.commands[code_index].code, tmp_code)){
+					if(strcmp(command.commands[code_index].code, tmp_code) == 0){
+            Serial.print("Executing command ");
+            Serial.println(command.commands[code_index].code);
 						command.execute(code_index, tmp_data);
 						break;
 					} else {
