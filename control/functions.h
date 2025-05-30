@@ -23,7 +23,6 @@ void read_input(){
 		}
 		index++;
 	}
- Serial.println(input);
 }
 
 void run_input(){
@@ -38,7 +37,6 @@ void run_input(){
 		index++;                        // Advance to next charachter
 		while(index <= end_index){				// end if strlen exceed
 			if(input[index] == '}'){ 			// break if end characther
-        Serial.println("End of string found");
 				break;
 			} else {
 				// get the data packet designator
@@ -53,8 +51,6 @@ void run_input(){
 						code_index++;                        // advance to next buffer character
 					} else {
             tmp_code[code_index] = '\0';       
-            Serial.print("Code found: "); 
-            Serial.println(tmp_code);
 						break;	// If bad nonalpha or end char encounter
 					}
 				}
@@ -65,8 +61,6 @@ void run_input(){
 						index++;
 						if(input[index] == ']'){	// break if end data character
               tmp_data[data_index] = '\0';
-              Serial.print("Data found: "); 
-              Serial.println(tmp_data);
 							break;
 						} else {
 	            tmp_data[data_index] = input[index];
@@ -78,8 +72,6 @@ void run_input(){
 				uint8_t code_index = 0;
 				while(code_index <= command.number_of){
 					if(strcmp(command.commands[code_index].code, tmp_code) == 0){
-            Serial.print("Executing command ");
-            Serial.println(command.commands[code_index].code);
 						command.execute(code_index, tmp_data);
 						break;
 					} else {

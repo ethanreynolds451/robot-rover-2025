@@ -14,13 +14,13 @@ char input[string_limit];
 class Pin {
 public:
 	//Digital
-	static constexpr uint8_t brake = 12;
-	static constexpr uint8_t reverse_1 = 2;
-	static constexpr uint8_t reverse_2 = 4;
-	static constexpr uint8_t s_reverse_1 = 5;
-	static constexpr uint8_t s_reverse_2 = 6;
-	static constexpr uint8_t shift_1 = 7;
-	static constexpr uint8_t shift_2 = 8;
+	static constexpr uint8_t brake = 2;
+	static constexpr uint8_t reverse_1 = 4;
+	static constexpr uint8_t reverse_2 = 12;
+	static constexpr uint8_t s_reverse_1 = 7;
+	static constexpr uint8_t s_reverse_2 = 8;
+	static constexpr uint8_t shift_1 = 5;
+	static constexpr uint8_t shift_2 = 6;
 	static constexpr uint8_t speed_ = 9;
 	static constexpr uint8_t s_speed = 10;
 	static constexpr uint8_t fan = 3;
