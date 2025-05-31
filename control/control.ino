@@ -4,7 +4,7 @@
 
 Time timeout(input_timeout);
 
-void setup(){
+void setup(){ 
 	Serial.begin(baud_rate);
   // Set pinmodes
   pinMode(pin.brake, OUTPUT); 

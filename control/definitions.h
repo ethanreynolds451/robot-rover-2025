@@ -1,7 +1,7 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const long input_timeout = 30000;	// If no command recieved for interval, cut all motors
+static const long input_timeout = 5000;	// If no command recieved for interval, cut all motors
 static const uint16_t baud_rate = 9600;
 static const uint8_t string_limit = 255;
 static const uint8_t pwm_min = 50;
@@ -109,7 +109,7 @@ PWM s_speed(pin.s_speed);
 
 class Control {
     public:
-        bool brake = false;			//br
+        bool brake = true;			//br
         bool reverse = false;		//rv
         bool s_reverse = false;		//srv
         bool shift_up = false;		//su
@@ -134,12 +134,12 @@ class Control {
             s_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
         }
         void set_defaults(){
-            bool brake = false;			//br
-            bool reverse = false;		//rv
-            bool s_reverse = false;		//srv
-            bool shift_up = false;		//su
-            uint8_t speed_ = 0;			//sp
-            uint8_t s_speed = 0;		//ssp
+            brake = true;			//br
+            reverse = false;		//rv
+            s_reverse = false;		//srv
+            shift_up = false;		//su
+            speed_ = 0;			//sp
+            s_speed = 0;		//ssp
         }
 };
 
