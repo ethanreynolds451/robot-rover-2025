@@ -19,11 +19,11 @@ public:
 	static constexpr uint8_t reverse_2 = 12;
 	static constexpr uint8_t s_reverse_1 = 7;
 	static constexpr uint8_t s_reverse_2 = 8;
-	static constexpr uint8_t shift_1 = 5;
+	static constexpr uint8_t shift_1 = 13;      // Would be 5 but needed for pwm
 	static constexpr uint8_t shift_2 = 6;
 	static constexpr uint8_t speed_ = 9;
 	static constexpr uint8_t s_speed = 10;
-	static constexpr uint8_t fan = 3;
+	static constexpr uint8_t fan = 5;
 	static constexpr uint8_t headlight = 11;
 	//Analog
 	static constexpr uint8_t SDA = A4;
@@ -106,6 +106,7 @@ private:
 
 PWM speed_(pin.speed_);
 PWM s_speed(pin.s_speed);
+PWM fan(pin.fan);
 
 class Control {
     public:
@@ -115,6 +116,7 @@ class Control {
         bool shift_up = false;		//su
         uint8_t speed_ = 0;			//sp
         uint8_t s_speed = 0;		//ssp
+        uint8_t f_speed = 100;    //fan
         void set_brake(bool active){
             brake = active;
         }
@@ -133,13 +135,17 @@ class Control {
         void set_s_speed(uint8_t set_speed){
             s_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
         }
+        void set_f_speed(uint8_t set_speed){
+            f_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
+        }
         void set_defaults(){
-            brake = true;			//br
-            reverse = false;		//rv
-            s_reverse = false;		//srv
-            shift_up = false;		//su
-            speed_ = 0;			//sp
-            s_speed = 0;		//ssp
+            brake = true;		
+            reverse = false;		
+            s_reverse = false;		
+            shift_up = false;		
+            speed_ = 0;		
+            s_speed = 0;	
+            // f_speed = 255;   // Set fan to max
         }
 };
 
@@ -152,14 +158,15 @@ class Command {
             char code[4];
     };
   public:
-    static const uint8_t number_of = 6;
+    static const uint8_t number_of = 7;
     const _commands commands[number_of] = {
         {0, "br"},		// brake
         {1, "rv"},		// reverse
         {2, "srv"},		// steer reverse
         {3, "su"},		// shift up
         {4, "sp"},		// speed
-        {5, "ssp"}		// steer speed
+        {5, "ssp"},		// steer speed
+        {6, "fan"}    // fan speed
     };
     void execute(uint8_t code, const char* val){
             if(code == 0) {
@@ -174,6 +181,8 @@ class Command {
                 control.set_speed(atoi(val));
             } else if(code == 5) {
                 control.set_s_speed(atoi(val));
+            } else if(code == 6) {
+                control.set_f_speed(atoi(val));
             }
     }
 };
