@@ -34,7 +34,6 @@ void run_input(){
   uint8_t data_index = 0;
   uint8_t code_index = 0;
 	if(input[index] == '{'){					// look for start charcter
-		index++;                        // Advance to next charachter
 		while(index <= end_index){				// end if strlen exceed
 			if(input[index] == '}'){ 			// break if end characther
 				break;
