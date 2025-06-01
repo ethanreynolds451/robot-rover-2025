@@ -5,7 +5,7 @@
 Time timeout(input_timeout);
 
 void setup(){ 
-	Serial.begin(baud_rate);
+  Serial.begin(baud_rate);
   // Set pinmodes
   pinMode(pin.brake, OUTPUT); 
   pinMode(pin.reverse_1, OUTPUT); 
