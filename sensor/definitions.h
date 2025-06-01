@@ -64,7 +64,18 @@ class Sensor {
 public:
   // Create instance of HCSR04 array using predefined class
   HCSR04 ultrasonic(pin.HCSR04_t, new int[number_of_HCSR04]{pin.HCSR04_1, pin.HCSR04_2, pin.HCSR04_3, pin.HCSR04_4, pin.HCSR04_5, pin.HCSR04_6}, number_of_HCSR04);
+  // Steering potentiometer
   Potentiometer steer_position(pin.steer_position);
+  // GPS module
+  // Array of LOF sensors
+  // Two gyroscopes
+  // Magnetometer                                                         
+  // IR sensor                                                          
+
+                                                            
+  char* read(){
+    return "something";   
+  }
 };
 
 Sensor sensor;
