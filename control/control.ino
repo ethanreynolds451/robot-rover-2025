@@ -23,9 +23,9 @@ void loop(){
                 input_error();
             }
         }
-        if (update_fan.passed()){
-            check_temp();
-        }
         delay(loop_delay);
+    }
+    if (update_fan.passed()){
+        check_temp();
     }
 }
