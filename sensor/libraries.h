@@ -5,7 +5,9 @@
 #include <SoftwareSerial.h>                                     //Virtual serial port
 #include <SPI.h>                                                //Serial peripheral interface
 #include <Wire.h>                                               //Communication
-Adafruit_BusIO_Register.h "libraries/Adafruit_BusIO-1.17.0/Adafruit_BusIO_Register.h"   // Dependency for mpu library
+
+// Need to install Adafruit IO Bus and Adafruit Sensor
+
 #include "libraries/HCSR04_ultrasonic_sensor/src/HCSR04.h"      //Ultrasonic interface
 #include "libraries/Adafruit_MPU6050/Adafruit_MPU6050.h"        //Gyroscope interface
 #include "libraries/TinyGPSPlus-master/src/TinyGPSPlus.h"           //GPS interface
