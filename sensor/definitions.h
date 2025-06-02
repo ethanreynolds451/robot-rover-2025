@@ -121,41 +121,20 @@ public:
   void read_all(){
 
   }
-//  value get(const String& sensor){
-//    if () {
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    } else if(){
-//
-//    }
-//    return "UNKNOWN";
-//  }
 private:
-//  enum Types {
-//    DATA_INT
-//    DATA_FLOAT
-//    DATA_BOOL
-//    DATA_STRING
-//  };
-//  struct value {
-//    Types sensor_types;
-//    union {
-//      float number_value;
-//      bool bool_value;
-//      const char* string_value;
-//    }
-//  };
+  void read_ultrasonic(uint8_t index) {
+    if (index == 0){
+      for (int i = 0; i < number_of_HCSR04; i++) {
+        value.ultrasonic[i] = hc.dist(i);
+      }
+    } else if (index <= number_of_HCSR04) {
+      value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
+    }
+  }
+  void read_lof(uint8_t index){
+
+  }
+
 };
 
 Sensor sensor;
