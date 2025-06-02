@@ -3,6 +3,7 @@
 #include "functions.h"
 
 Time timeout(input_timeout);
+Time update_fan(fan_delay); 
 
 void setup(){ 
   Serial.begin(baud_rate);
@@ -22,7 +23,6 @@ void setup(){
 }
 
 void loop(){
-  check_temp();
   update();
 	if(is_input()){
 		read_input();
@@ -33,5 +33,8 @@ void loop(){
 			input_error();
 		}
 	}
+  if (update_fan.passed()){
+    check_temp();
+  }
  	delay(loop_delay);
 }

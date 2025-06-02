@@ -40,8 +40,8 @@ void run_input(){
 			} else {
 				// get the data packet designator
           // First clear temp data buffer
-				  memset(tmp_code, 0, tmp_len);
-          memset(tmp_data, 0, tmp_len);
+			memset(tmp_code, 0, tmp_len);
+          	memset(tmp_data, 0, tmp_len);
 				code_index = 0;				// go to start of data buffer
 				while(true){				// until data encountered
 					index++;          // Advance to next charachter in input
@@ -85,6 +85,7 @@ void run_input(){
 void check_temp(){
   uint16_t temp = analogRead(pin.thermistor);
   temp = 30*log(temp) - 95;
+  Serial.println(temp);
   if(temp < 25){
  	control.f_speed = 0;
   } else if(temp > 70){

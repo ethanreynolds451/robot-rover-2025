@@ -8,6 +8,8 @@ static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
 static const uint16_t loop_delay = 100;
 static const uint16_t serial_delay = 50;
+static const uint16_t fan_delay = 10000;
+
 
 char input[string_limit];
 
@@ -117,7 +119,7 @@ class Control {
         bool shift_up = false;		//su
         uint8_t speed_ = 0;			//sp
         uint8_t s_speed = 0;		//ssp
-        uint8_t f_speed = 100;    //fan
+        uint8_t f_speed = 0;    //fan
         void set_brake(bool active){
             brake = active;
         }
