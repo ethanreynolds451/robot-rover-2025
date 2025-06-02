@@ -11,7 +11,7 @@ void setup(){
 
 void loop(){
     if(loop_timer.passed()){
-        update();
+        update_control();
         if(is_input()){
             if(serial_delay_passed()){
                 read_input();
