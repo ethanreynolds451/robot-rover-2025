@@ -18,6 +18,7 @@ void setup(){
   pinMode(pin.s_speed, OUTPUT); 
   pinMode(pin.fan, OUTPUT); 
   pinMode(pin.headlight, OUTPUT); 
+  pinMode(pin.thermistor, INPUT); 
 }
 
 void loop(){
