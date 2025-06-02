@@ -28,7 +28,7 @@ public:
 	//Analog
 	static constexpr uint8_t SDA = A4;
 	static constexpr uint8_t SCL = A5;
-    static constexpr uint8_t thermistor = A0;
+  static constexpr uint8_t thermistor = A0;
 };
 
 Pin pin;

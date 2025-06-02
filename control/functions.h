@@ -82,9 +82,9 @@ void run_input(){
 	}
 }
 
-void set_temp(){
-  unit16_t temp = analogRead(pin.thermistor);
-  temp = 30*ln(temp) - 95
+void check_temp(){
+  uint16_t temp = analogRead(pin.thermistor);
+  temp = 30*log(temp) - 95;
   if(temp < 25){
  	control.f_speed = 0;
   } else if(temp > 70){
@@ -95,7 +95,7 @@ void set_temp(){
 }
 
 void update(){
-    fan.set(map(control.f_speed, 100, 0, 0, 100);
+  fan.set(map(control.f_speed, 100, 0, 0, 100));
 	brake_relay.set(!control.brake);
 	reverse_1_relay.set(control.reverse);
 	reverse_2_relay.set(control.reverse);
