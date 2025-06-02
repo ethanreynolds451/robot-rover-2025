@@ -4,7 +4,7 @@
 
 
 void setup(){
-	Serial.begin(baud_rate);
+    setup_function(); 
 }
 
 void loop(){

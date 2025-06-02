@@ -10,20 +10,22 @@ void setup(){
 }
 
 void loop(){
-  update();
-	if(is_input()){
-        if(serial_delay_passed()){
-            read_input();
-            run_input();
-            timeout.reset();
+    if(loop_timer.passed()){
+        update();
+        if(is_input()){
+            if(serial_delay_passed()){
+                read_input();
+                run_input();
+                timeout.reset();
+            }
+        } else {
+            if(timeout.passed()){
+                input_error();
+            }
         }
-	} else {
-		if(timeout.passed()){
-			input_error();
-		}
-	}
-  if (update_fan.passed()){
-    check_temp();
-  }
- 	delay(loop_delay);
+        if (update_fan.passed()){
+            check_temp();
+        }
+        delay(loop_delay);
+    }
 }

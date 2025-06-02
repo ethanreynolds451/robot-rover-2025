@@ -215,6 +215,7 @@ private:
     unsigned long previousmillis = 0; // Previous millis for this timer instance
 };
 
+Time loop_timer(loop_delay);
 Time timeout(input_timeout);
 Time update_fan(fan_delay);
 
