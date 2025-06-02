@@ -3,6 +3,23 @@
 #ifndef FUNCTIONS_h
 #define FUNCTIONS_h
 
+void setup_function(){
+    Serial.begin(baud_rate);
+    // Set pinmodes
+    pinMode(pin.brake, OUTPUT);
+    pinMode(pin.reverse_1, OUTPUT);
+    pinMode(pin.reverse_2, OUTPUT);
+    pinMode(pin.s_reverse_1, OUTPUT);
+    pinMode(pin.s_reverse_2, OUTPUT);
+    pinMode(pin.shift_1, OUTPUT);
+    pinMode(pin.shift_2, OUTPUT);
+    pinMode(pin.speed_, OUTPUT);
+    pinMode(pin.s_speed, OUTPUT);
+    pinMode(pin.fan, OUTPUT);
+    pinMode(pin.headlight, OUTPUT);
+    pinMode(pin.thermistor, INPUT);
+}
+
 bool is_input(){
 	if(Serial.available() > 0) {
 		return true;

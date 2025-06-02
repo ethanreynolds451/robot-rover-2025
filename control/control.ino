@@ -6,7 +6,7 @@
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
 void setup(){ 
-  _setup(); 
+  setup_function(); 
 }
 
 void loop(){
