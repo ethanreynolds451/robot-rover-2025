@@ -131,7 +131,21 @@ private:
   void read_lof (uint8_t index) {
 
   }
+  void read_steering () {
 
+  }
+  void read_mpu(uint8_t index){
+
+  }
+  void read_qmc(uint8_t index){
+
+  }
+  void read_gps(){
+
+  }
+  void read_ir(){
+
+  }
 };
 
 Sensor::Sensor()
@@ -140,6 +154,44 @@ Sensor::Sensor()
     gps(Pin::TX, Pin::RX) {initialize();}
 
 Sensor sensor;
+
+class Data {
+  private:
+    struct packets {
+            uint8_t index;
+            char code[4];
+    };
+  public:
+    static const uint8_t number_of = 7;
+    const packets code[number_of] = {
+        {0, "hc"},		// brake
+        {1, "vl"},		// reverse
+        {2, "str"},		// steer reverse
+        {3, "mpu"},		// shift up
+        {4, "qmc"},		// speed
+        {5, "gps"},		// steer speed
+        {6, "ir"}    // fan speed
+    };
+    void execute(uint8_t code, const char* val){
+            if(code == 0) {
+                control.set_brake(atoi(val));
+            } else if(code == 1) {
+                control.set_direction(atoi(val));
+            } else if(code == 2) {
+                control.set_s_direction(atoi(val));
+            } else if(code == 3) {
+                control.set_shift(atoi(val));
+            } else if(code == 4) {
+                control.set_speed(atoi(val));
+            } else if(code == 5) {
+                control.set_s_speed(atoi(val));
+            } else if(code == 6) {
+                control.set_f_speed(atoi(val));
+            }
+    }
+};
+
+Data data;
 
 class Time {
 public:
