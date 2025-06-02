@@ -2,7 +2,7 @@
 #define DEFINITIONS_h
 
 static const long input_timeout = 5000;	// If no command recieved for interval, cut all motors
-static const uint16_t baud_rate = 115200;
+static const long baud_rate = 115200;
 static const uint8_t string_limit = 64;
 static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
