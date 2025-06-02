@@ -11,6 +11,7 @@ static const uint16_t serial_delay = 1;     // In loop cycles, NOT ms
 static const uint16_t fan_delay = 10000;
 
 char input[string_limit];
+uint8_t serial_loop_counter = 0;     
 
 class Pin {
 public:

@@ -1,7 +1,7 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const uint16_t baud_rate = 115200;
+static const long baud_rate = 115200;
 static const uint16_t loop_delay = 10;
 static const uint8_t string_limit = 64;
 static const uint8_t number_of_HCSR04 = 6;
