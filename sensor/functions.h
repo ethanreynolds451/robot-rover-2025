@@ -7,7 +7,7 @@ void setup_function(){
     Serial.begin(baud_rate);
 }
 
-void update(){
+void update_sensors(){
 
 }
 

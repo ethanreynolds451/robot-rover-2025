@@ -61,8 +61,7 @@ class Potentiometer {
     float range = 0.75;
 };
 
-
-
+// Composite class to access all sensors, includes all relevant sensor objects
 class Sensor {
 public:
   // Create instance of HCSR04 array using predefined class
@@ -73,12 +72,52 @@ public:
   // Array of LOF sensors
   // Two gyroscopes
   // Magnetometer                                                         
-  // IR sensor                                                          
-
-                                                            
-  char* read(){
-    return "something";   
+  // IR sensor
+  class Values(){
+    uint16_t ultrasonic
   }
+  Values value;
+  void read(const String& sensor){
+
+  }
+  void read_all(){
+
+  }
+//  value get(const String& sensor){
+//    if () {
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    } else if(){
+//
+//    }
+//    return "UNKNOWN";
+//  }
+private:
+//  enum Types {
+//    DATA_INT
+//    DATA_FLOAT
+//    DATA_BOOL
+//    DATA_STRING
+//  };
+//  struct value {
+//    Types sensor_types;
+//    union {
+//      float number_value;
+//      bool bool_value;
+//      const char* string_value;
+//    }
+//  };
 };
 
 Sensor sensor;
