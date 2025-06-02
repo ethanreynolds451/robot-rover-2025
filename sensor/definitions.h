@@ -8,29 +8,19 @@ static const uint8_t string_limit = 64;
 
 static const uint8_t number_of_HCSR04 = 6;
 static const uint8_t number_of_VL53LOX = 5;
-static const uint8_t number_of_qmc = 1;
-static const uint8_t number_of_mpu = 1;
+static const uint8_t number_of_QMC = 1;
+static const uint8_t number_of_MPU = 2;
 
 char output[string_limit];
 
 class Pin {
 public:
-  // Ultrasonic Sensors
-  static constexpr uint8_t HCSR04_t = 5;   // Only one trig pin
-  static constexpr uint8_t HCSR04_1 = 6;
-  static constexpr uint8_t HCSR04_2 = 7;
-  static constexpr uint8_t HCSR04_3 = 8;
-  static constexpr uint8_t HCSR04_4 = 9;
-  static constexpr uint8_t HCSR04_5 = A0;
-  static constexpr uint8_t HCSR04_6 = A1;
-  // Potentiometers
+  static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
   static constexpr uint8_t steer_position = A5;
-  // Signal
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;
   static constexpr uint8_t SDA = A4;
   static constexpr uint8_t SCL = A5;
-  // SD Card
   static constexpr uint8_t MISO = 12;
   static constexpr uint8_t MOSI = 11;
   static constexpr uint8_t SCK = 13;
@@ -39,9 +29,17 @@ public:
 
 Pin pin;
 
+class Address {
+public:
+  // LOF sensors
+  static constexpr uint8_t VL53LOX[number_of_VL53LOX] = {0x29, 0x30, 0x31, 0x32, 0x33}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
+  static constexpr uint8_t QMC[number_of_QMC] = {0x42};           // Default
+  static constexpr uint8_t MPU[number_of_MPU] = {0x68, 0x69};     // First default, second pulled up to 5v
+};
+
 class Potentiometer {
   public:
-    Relay(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min(min_def), max(max_def), range(range_def), center(center_def) {}
+    Potentiometer(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min(min_def), max(max_def), range(range_def), center(center_def) {}
     uint16_t get_value(){
       return analogRead(pin);
     }
@@ -68,16 +66,17 @@ class Potentiometer {
 // Composite class to access all sensors, includes all relevant sensor objects
 class Sensor {
 public:
-  // Create instance of HCSR04 array using predefined class
-  HCSR04 ultrasonic(pin.HCSR04_t, new int[number_of_HCSR04]{pin.HCSR04_1, pin.HCSR04_2, pin.HCSR04_3, pin.HCSR04_4, pin.HCSR04_5, pin.HCSR04_6}, number_of_HCSR04);
-  // Array of LOF sensors
-  
-  // Steering potentiometer
+  HCSR04 ultrasonic(pin.HCSR04[0], new int[number_of_HCSR04]{pin.HCSR04[1], pin.HCSR04[2], pin.HCSR04[3], pin.HCSR04[4], pin.HCSR04[5], pin.HCSR04[6]}, number_of_HCSR04);
+  VL53L0X[number_of_VL53L0X] lof;
   Potentiometer steer_position(pin.steer_position);
-  // GPS module
-  // Two gyroscopes
-  // Magnetometer                                                         
-  // IR sensor
+  Adafruit_MPU6050[number_of_MPU] mpu;
+  QMC5883LCompass[number_of_QMC] qmc;
+  SoftwareSerial gps(pin.TX, pin.RX);
+  
+
+  void initialize() {
+
+  }
 
   class Values(){
     uint16_t ultrasonic[number_of_HCSR04];
@@ -131,7 +130,7 @@ private:
       value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
     }
   }
-  void read_lof(uint8_t index){
+  void read_lof (uint8_t index) {
 
   }
 
