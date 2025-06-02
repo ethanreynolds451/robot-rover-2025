@@ -12,9 +12,11 @@ void setup(){
 void loop(){
   update();
 	if(is_input()){
-		read_input();
-		run_input();
-		timeout.reset();
+        if(serial_delay_passed()){
+            read_input();
+            run_input();
+            timeout.reset();
+        }
 	} else {
 		if(timeout.passed()){
 			input_error();

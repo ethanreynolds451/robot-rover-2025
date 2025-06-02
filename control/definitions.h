@@ -2,12 +2,12 @@
 #define DEFINITIONS_h
 
 static const long input_timeout = 5000;	// If no command recieved for interval, cut all motors
-static const uint16_t baud_rate = 9600;
-static const uint8_t string_limit = 255;
+static const uint16_t baud_rate = 115200;
+static const uint8_t string_limit = 64;
 static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
-static const uint16_t loop_delay = 100;
-static const uint16_t serial_delay = 50;
+static const uint16_t loop_delay = 10;      // Must be at least 6 for data integrity, if less needed find alterante serial approach or increase number of cycles
+static const uint16_t serial_delay = 1;     // In loop cycles, NOT ms
 static const uint16_t fan_delay = 10000;
 
 char input[string_limit];

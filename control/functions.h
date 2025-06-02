@@ -20,11 +20,21 @@ void setup_function(){
     pinMode(pin.thermistor, INPUT);
 }
 
+uint8_t serial_loop_counter = 0;        // Should be in a class but fine here for now
+
 bool is_input(){
 	if(Serial.available() > 0) {
+        serial_loop_counter++;
 		return true;
 	}
 	return false;
+}
+
+bool serial_delay_passed(){
+    if(serial_loop_counter >= serial_delay){
+        serial_loop_counter = 0;
+        return true;
+    }
 }
 
 void read_input(){

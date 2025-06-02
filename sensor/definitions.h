@@ -1,10 +1,12 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const uint16_t loop_delay = 100;
-
+static const uint16_t baud_rate = 115200;
+static const uint16_t loop_delay = 10;
+static const uint8_t string_limit = 64;
 static const uint8_t number_of_HCSR04 = 6;
 
+char output[string_limit];
 
 class Pin {
 public:
@@ -80,3 +82,28 @@ public:
 
 Sensor sensor;
 
+class Time {
+public:
+    Time(unsigned long x) : interval(x) {} // Constructor with member initializer list
+    bool passed() {
+        return wait(interval);
+    }
+  	void reset() {
+  		previousmillis = millis();
+  	}
+private:
+    bool wait(unsigned long time) {
+        // return false if we're still "delaying", true if time ms has passed.
+        // this should look a lot like "blink without delay"
+        unsigned long currentmillis = millis();
+        if (currentmillis - previousmillis >= time) {
+            previousmillis = currentmillis;
+            return true;
+        }
+        return false;
+    }
+    unsigned long interval; // Interval for this timer instance
+    unsigned long previousmillis = 0; // Previous millis for this timer instance
+};
+
+Time send(send_delay);

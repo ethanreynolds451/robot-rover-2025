@@ -9,6 +9,8 @@ void setup(){
 
 void loop(){
   	update();
- if 
-	send_data();
+    if(send.passed()){
+        send_data();
+    }
+    delay(loop_delay);
 }
