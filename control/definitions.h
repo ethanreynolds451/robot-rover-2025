@@ -9,6 +9,7 @@ static const uint8_t pwm_max = 200;
 static const uint16_t loop_delay = 10;      // Must be at least 6 for data integrity, if less needed find alterante serial approach or increase number of cycles
 static const uint16_t serial_delay = 1;     // In loop cycles, NOT ms
 static const uint16_t fan_delay = 10000;
+// Sensd data at 50ms interval
 
 char input[string_limit];
 uint8_t serial_loop_counter = 0;     

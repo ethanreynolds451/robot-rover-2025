@@ -2,7 +2,8 @@
 #define DEFINITIONS_h
 
 static const long baud_rate = 115200;
-static const uint16_t loop_delay = 10;
+static const uint16_t loop_interval = 10;
+static const uint16_t send_delay = 25;
 static const uint8_t string_limit = 64;
 static const uint8_t number_of_HCSR04 = 6;
 
@@ -106,4 +107,5 @@ private:
     unsigned long previousmillis = 0; // Previous millis for this timer instance
 };
 
-Time send(send_delay);
+Time loop_delay(loop_interval);
+Time send_delay(send_interval)
