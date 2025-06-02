@@ -10,7 +10,6 @@ static const uint16_t loop_delay = 100;
 static const uint16_t serial_delay = 50;
 static const uint16_t fan_delay = 10000;
 
-
 char input[string_limit];
 
 class Pin {
@@ -214,5 +213,25 @@ private:
     unsigned long interval; // Interval for this timer instance
     unsigned long previousmillis = 0; // Previous millis for this timer instance
 };
+
+void _setup(){
+    Serial.begin(baud_rate);
+    // Set pinmodes
+    pinMode(pin.brake, OUTPUT);
+    pinMode(pin.reverse_1, OUTPUT);
+    pinMode(pin.reverse_2, OUTPUT);
+    pinMode(pin.s_reverse_1, OUTPUT);
+    pinMode(pin.s_reverse_2, OUTPUT);
+    pinMode(pin.shift_1, OUTPUT);
+    pinMode(pin.shift_2, OUTPUT);
+    pinMode(pin.speed_, OUTPUT);
+    pinMode(pin.s_speed, OUTPUT);
+    pinMode(pin.fan, OUTPUT);
+    pinMode(pin.headlight, OUTPUT);
+    pinMode(pin.thermistor, INPUT);
+}
+
+Time timeout(input_timeout);
+Time update_fan(fan_delay);
 
 #endif 

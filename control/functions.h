@@ -3,9 +3,6 @@
 #ifndef FUNCTIONS_h
 #define FUNCTIONS_h
 
-// Data format
-// {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
-
 bool is_input(){
 	if(Serial.available() > 0) {
 		return true;
