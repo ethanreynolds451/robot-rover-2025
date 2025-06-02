@@ -21,6 +21,7 @@ void setup(){
 }
 
 void loop(){
+  check_temp();
   update();
 	if(is_input()){
 		read_input();

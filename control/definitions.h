@@ -28,6 +28,7 @@ public:
 	//Analog
 	static constexpr uint8_t SDA = A4;
 	static constexpr uint8_t SCL = A5;
+    static constexpr uint8_t thermistor = A0;
 };
 
 Pin pin;
@@ -145,7 +146,6 @@ class Control {
             shift_up = false;		
             speed_ = 0;		
             s_speed = 0;	
-            // f_speed = 255;   // Set fan to max
         }
 };
 

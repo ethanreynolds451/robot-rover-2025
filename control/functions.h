@@ -82,7 +82,20 @@ void run_input(){
 	}
 }
 
+void set_temp(){
+  unit16_t temp = analogRead(pin.thermistor);
+  temp = 30*ln(temp) - 95
+  if(temp < 25){
+ 	control.f_speed = 0;
+  } else if(temp > 70){
+ 	control.f_speed = 100;
+  } else {
+ 	control.f_speed = map(temp, 25, 70, 0, 100);
+  }
+}
+
 void update(){
+    fan.set(map(control.f_speed, 100, 0, 0, 100);
 	brake_relay.set(!control.brake);
 	reverse_1_relay.set(control.reverse);
 	reverse_2_relay.set(control.reverse);
@@ -101,7 +114,7 @@ void reset_vehicle(){
 }
 
 void input_error(){
-	reset_vehicle();
+  reset_vehicle();
   Serial.println("Input timeout, vehicle reset");
 }
 
