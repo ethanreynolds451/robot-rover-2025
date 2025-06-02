@@ -5,7 +5,11 @@ static const long baud_rate = 115200;
 static const uint16_t loop_interval = 10;
 static const uint16_t send_delay = 25;
 static const uint8_t string_limit = 64;
+
 static const uint8_t number_of_HCSR04 = 6;
+static const uint8_t number_of_VL53LOX = 5;
+static const uint8_t number_of_qmc = 1;
+static const uint8_t number_of_mpu = 1;
 
 char output[string_limit];
 
@@ -66,17 +70,51 @@ class Sensor {
 public:
   // Create instance of HCSR04 array using predefined class
   HCSR04 ultrasonic(pin.HCSR04_t, new int[number_of_HCSR04]{pin.HCSR04_1, pin.HCSR04_2, pin.HCSR04_3, pin.HCSR04_4, pin.HCSR04_5, pin.HCSR04_6}, number_of_HCSR04);
+  // Array of LOF sensors
+  
   // Steering potentiometer
   Potentiometer steer_position(pin.steer_position);
   // GPS module
-  // Array of LOF sensors
   // Two gyroscopes
   // Magnetometer                                                         
   // IR sensor
+
   class Values(){
-    uint16_t ultrasonic
-  }
+    uint16_t ultrasonic[number_of_HCSR04];
+    uint16_t lof[number_of_VL53LOX];
+    unsigned long ir;
+    struct vector3_values {
+      int16_t x;
+      int16_t y;
+      int16_t z;
+    };
+    vector3_values qmc[number_of_qmc];;
+    struct mpu_values {
+      vector3_values accel;
+      vector3_values gyro;
+    };
+    mpu_values mpu[number_of_mpu];
+    struct gps_values {
+      double lat;
+      double lng;
+      double alt;
+      double spd;   // km per hour
+      double deg;   // bearing, compare with magnetometer
+//      int hour;
+//      int min;
+//      int sec;
+//      int day;
+//      int month;
+//      int year;
+//      int satelites;
+//      int percision;
+      bool fix;   // Valid gps fix
+    };
+    gps_values gps;
+  };
+
   Values value;
+
   void read(const String& sensor){
 
   }
