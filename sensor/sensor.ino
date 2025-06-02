@@ -14,5 +14,4 @@ void loop(){
     if(send_delay.passed()){
         send_data();
     }
-
 }
