@@ -19,6 +19,7 @@ public:
   static constexpr uint8_t steer_position = A5;
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;
+  static constexpr uint8_t IR = 4;
   static constexpr uint8_t SDA = A4;
   static constexpr uint8_t SCL = A5;
   static constexpr uint8_t MISO = 12;
@@ -72,10 +73,10 @@ public:
   Adafruit_MPU6050[number_of_MPU] mpu;
   QMC5883LCompass[number_of_QMC] qmc;
   SoftwareSerial gps(pin.TX, pin.RX);
-  
+  IRrecv ir(pin.IR);
 
   void initialize() {
-
+    return;
   }
 
   class Values(){
