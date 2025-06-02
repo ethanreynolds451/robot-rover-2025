@@ -85,7 +85,6 @@ void run_input(){
 void check_temp(){
   uint16_t temp = analogRead(pin.thermistor);
   temp = 30*log(temp) - 95;
-  Serial.println(temp);
   if(temp < 25){
  	control.f_speed = 0;
   } else if(temp > 70){
