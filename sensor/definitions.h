@@ -7,7 +7,7 @@ static const uint16_t send_delay = 25;
 static const uint8_t string_limit = 64;
 
 static const uint8_t number_of_HCSR04 = 6;
-static const uint8_t number_of_VL53LOX = 5;
+static const uint8_t number_of_VL53LOX = 4;
 static const uint8_t number_of_QMC = 1;
 static const uint8_t number_of_MPU = 2;
 
@@ -28,19 +28,17 @@ public:
   static constexpr uint8_t CS = 10;
 };
 
-Pin pin;
-
 class Address {
 public:
   // LOF sensors
-  static constexpr uint8_t VL53LOX[number_of_VL53LOX] = {0x29, 0x30, 0x31, 0x32, 0x33}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
+  static constexpr uint8_t VL53LOX[number_of_VL53LOX] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
   static constexpr uint8_t QMC[number_of_QMC] = {0x42};           // Default
   static constexpr uint8_t MPU[number_of_MPU] = {0x68, 0x69};     // First default, second pulled up to 5v
 };
 
 class Potentiometer {
   public:
-    Potentiometer(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min(min_def), max(max_def), range(range_def), center(center_def) {}
+    Potentiometer(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min_val(min_def), max_val(max_def), range(range_def), center(center_def) {}
     uint16_t get_value(){
       return analogRead(pin);
     }
@@ -51,16 +49,16 @@ class Potentiometer {
       return range*360*(1/1023);
     }
     void set_center(){
-      cenetr = get_value();
+      center = get_value();
     }
     void set_center(uint16_t center_def){
       center = center_def;
     }
   private:
     uint8_t pin;
-    uint16_t min = 0;
-    unit16_t max = 1023;
-    unit16_t center = 512;
+    uint16_t min_val = 0;
+    uint16_t max_val = 1023;
+    uint16_t center = 512;
     float range = 0.75;
 };
 
@@ -72,8 +70,8 @@ public:
   Potentiometer steer_position(pin.steer_position);
   Adafruit_MPU6050[number_of_MPU] mpu;
   QMC5883LCompass[number_of_QMC] qmc;
-  SoftwareSerial gps(pin.TX, pin.RX);
-  IRrecv ir(pin.IR);
+  SoftwareSerial gps(pin::TX, pin::RX);
+  IRrecv ir(pin::IR);
 
   void initialize() {
     return;
@@ -164,4 +162,6 @@ private:
 };
 
 Time loop_delay(loop_interval);
-Time send_delay(send_interval)
+Time send_delay(send_interval);
+
+#endif

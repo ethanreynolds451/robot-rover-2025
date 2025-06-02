@@ -19,6 +19,5 @@
 #include "libraries/Adafruit_MPU6050/Adafruit_MPU6050.cpp"  //Gyroscope interface
 #include "libraries/TinyGPSPlus-master/src/TinyGPS++.cpp"           //GPS interface
 #include "libraries/QMC5883LCompass-1.2.3/src/QMC5883LCompass.cpp"  //Compass interface
-#include "libraries/IRremote-4.4.1/src/IRremote.cpp"
 
 #endif
