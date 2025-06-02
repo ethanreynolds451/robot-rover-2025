@@ -14,7 +14,7 @@ void update_sensors(){
 }
 
 void send_data(){
-    
+    Serial.println(data.get());
 }
 
 #endif

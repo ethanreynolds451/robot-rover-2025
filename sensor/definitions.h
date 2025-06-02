@@ -11,8 +11,6 @@ static const uint8_t number_of_VL53L0X = 4;
 static const uint8_t number_of_QMC = 1;
 static const uint8_t number_of_MPU = 2;
 
-char output[string_limit];
-
 class Pin {
 public:
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
@@ -158,10 +156,11 @@ Sensor sensor;
 class Data {
   private:
     struct packets {
-            uint8_t index;
-            char code[4];
+          uint8_t index;
+          char code[4];
     };
   public:
+    char output[string_limit];
     static const uint8_t number_of = 7;
     const packets code[number_of] = {
         {0, "hc"},		// brake
@@ -172,22 +171,12 @@ class Data {
         {5, "gps"},		// steer speed
         {6, "ir"}    // fan speed
     };
-    void execute(uint8_t code, const char* val){
-            if(code == 0) {
-                control.set_brake(atoi(val));
-            } else if(code == 1) {
-                control.set_direction(atoi(val));
-            } else if(code == 2) {
-                control.set_s_direction(atoi(val));
-            } else if(code == 3) {
-                control.set_shift(atoi(val));
-            } else if(code == 4) {
-                control.set_speed(atoi(val));
-            } else if(code == 5) {
-                control.set_s_speed(atoi(val));
-            } else if(code == 6) {
-                control.set_f_speed(atoi(val));
-            }
+    char* get(){
+      memset(output, 0, string_limit);
+      //sensor.value.ultrasonic[index];
+      //sensor.value.lof[index];
+      strcpy(output, "Hello World");
+      return output;
     }
 };
 
