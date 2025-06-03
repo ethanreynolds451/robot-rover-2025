@@ -10,7 +10,7 @@ void setup_function(){
 }
 
 void update_sensors(){
-
+    sensor.read_all(); 
 }
 
 void send_data(){
