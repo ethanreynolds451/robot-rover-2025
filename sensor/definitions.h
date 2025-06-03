@@ -28,7 +28,6 @@ public:
 
 class Address {
 public:
-  // LOF sensors
   static constexpr uint8_t VL53L0X[number_of_VL53L0X] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
   static constexpr uint8_t QMC[number_of_QMC] = {0x42};           // Default
   static constexpr uint8_t MPU[number_of_MPU] = {0x68, 0x69};     // First default, second pulled up to 5v
@@ -71,6 +70,11 @@ public:
   QMC5883LCompass* qmc[number_of_QMC];
   SoftwareSerial gps;                    // Uses software serial to communicate
   void begin() {
+    for(int i = 0; i <= number_of_VL53L0X; i++){
+        VL53L0X[i]->init(); 
+        VL53L0X[i]->setAddress(address.VL53L0X[i]);
+        VL53L0X[i]->startContinuous();
+    }
     IrReceiver.begin(Pin::IR);
   }
   class Values {
