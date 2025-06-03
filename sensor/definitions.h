@@ -148,7 +148,7 @@ private:
 Sensor::Sensor()
   : ultrasonic(Pin::HCSR04[0], new int[number_of_HCSR04]{Pin::HCSR04[1], Pin::HCSR04[2], Pin::HCSR04[3], Pin::HCSR04[4], Pin::HCSR04[5], Pin::HCSR04[6]}, number_of_HCSR04),
     steer_position(Pin::steer_position, 1023, 0, 0.75, 512),
-    gps(Pin::TX, Pin::RX) {initialize();}
+    gps(Pin::TX, Pin::RX) {}
 
 Sensor sensor;
 
