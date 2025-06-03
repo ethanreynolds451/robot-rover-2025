@@ -70,7 +70,7 @@ public:
   Adafruit_MPU6050* mpu[number_of_MPU];
   QMC5883LCompass* qmc[number_of_QMC];
   SoftwareSerial gps;
-  void initialize() {
+  void begin() {
     IrReceiver.begin(Pin::IR);
   }
   class Values {
