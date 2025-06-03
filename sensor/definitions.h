@@ -14,7 +14,7 @@ static const uint8_t number_of_mpu = 2;
 class Pin {
 public:
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
-  static constexpr uint8_t x_shut[number_of_lof]
+  static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins
   static constexpr uint8_t steer_position = A5;
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;
@@ -32,6 +32,7 @@ public:
   static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
   static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
   static constexpr uint8_t MPU[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
+  static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
 };
 
 
