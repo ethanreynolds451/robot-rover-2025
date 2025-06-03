@@ -64,12 +64,12 @@ class Potentiometer {
 class Sensor {
 public:
   Sensor(); // For constructor (needed to initialize arrays of sensors)
-  HCSR04 ultrasonic;
-  VL53L0X* lof[number_of_VL53L0X];
+  HCSR04 ultrasonic;                      // Allows for direct definition of array
+  VL53L0X* lof[number_of_VL53L0X];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
   Potentiometer steer_position;
   Adafruit_MPU6050* mpu[number_of_MPU];
   QMC5883LCompass* qmc[number_of_QMC];
-  SoftwareSerial gps;
+  SoftwareSerial gps;                    // Uses software serial to communicate
   void begin() {
     IrReceiver.begin(Pin::IR);
   }
