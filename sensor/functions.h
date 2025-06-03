@@ -7,6 +7,7 @@
 void setup_function(){
     Serial.begin(baud_rate);
     Wire.begin();
+    Sensor.initialize(); 
 }
 
 void update_sensors(){
