@@ -95,14 +95,6 @@ public:
       double alt;
       double spd;   // km per hour
       double deg;   // bearing, compare with magnetometer
-//      int hour;
-//      int min;
-//      int sec;
-//      int day;
-//      int month;
-//      int year;
-//      int satelites;
-//      int percision;
       bool fix;   // Valid gps fix
     };
     gps_values gps;
@@ -114,7 +106,8 @@ public:
 
   }
   void read_all(){
-
+    read_ultrasonic(0); 
+    read_lof(0); 
   }
 private:
   void read_ultrasonic(uint8_t index) {
@@ -127,7 +120,13 @@ private:
     }
   }
   void read_lof (uint8_t index) {
-
+    if (index == 0){
+      for (int i = 0; i < number_of_VL53L0X; i++) {
+        value.lof[i] = 
+      }
+    } else if (index <= number_of_HCSR04) {
+      value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
+    }
   }
   void read_steering () {
 
@@ -210,3 +209,13 @@ Time loop_delay(loop_interval);
 Time send_delay(send_interval);
 
 #endif
+
+// Other GPS vars, not needed
+//      int hour;
+//      int min;
+//      int sec;
+//      int day;
+//      int month;
+//      int year;
+//      int satelites;
+//      int percision;
