@@ -7,13 +7,14 @@ static const uint16_t send_interval = 25;
 static const uint8_t string_limit = 64;
 
 static const uint8_t number_of_HCSR04 = 6;
-static const uint8_t number_of_VL53L0X = 4;
-static const uint8_t number_of_QMC = 1;
-static const uint8_t number_of_MPU = 2;
+static const uint8_t number_of_lof = 4;
+static const uint8_t number_of_qmc = 1;
+static const uint8_t number_of_mpu = 2;
 
 class Pin {
 public:
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
+  static constexpr uint8_t x_shut[number_of_lof]
   static constexpr uint8_t steer_position = A5;
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;
@@ -28,10 +29,11 @@ public:
 
 class Address {
 public:
-  static constexpr uint8_t VL53L0X[number_of_VL53L0X] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
-  static constexpr uint8_t QMC[number_of_QMC] = {0x42};           // Default
-  static constexpr uint8_t MPU[number_of_MPU] = {0x68, 0x69};     // First default, second pulled up to 5v
+  static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
+  static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
+  static constexpr uint8_t MPU[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
 };
+
 
 class Potentiometer {
   public:
@@ -64,35 +66,37 @@ class Sensor {
 public:
   Sensor(); // For constructor (needed to initialize arrays of sensors)
   HCSR04 ultrasonic;                      // Allows for direct definition of array
-  VL53L0X* lof[number_of_VL53L0X];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
+  VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
   Potentiometer steer_position;
-  Adafruit_MPU6050* mpu[number_of_MPU];
-  QMC5883LCompass* qmc[number_of_QMC];
+  Adafruit_MPU6050* mpu[number_of_mpu];
+  QMC5883LCompass* qmc[number_of_qmc];
   SoftwareSerial gps;                    // Uses software serial to communicate
   void begin() {
-    for(int i = 0; i <= number_of_VL53L0X; i++){
-        VL53L0X[i]->init(); 
-        VL53L0X[i]->setAddress(address.VL53L0X[i]);
-        VL53L0X[i]->startContinuous();
+    for(int i = 0; i < number_of_lof; i++){
+        lof[i] = new VL53L0X();  
+        // Code to assign each to its respective address, 10ms delay blocking 
+        lof[i]->init(); 
+        lof[i]->setAddress(address.VL53L0X[i]);
+        lof[i]->startContinuous();
     }
     IrReceiver.begin(Pin::IR);
   }
   class Values {
    public:
     uint16_t ultrasonic[number_of_HCSR04];
-    uint16_t lof[number_of_VL53L0X];
+    uint16_t lof[number_of_lof];
     unsigned long ir;
     struct vector3_values {
       int16_t x;
       int16_t y;
       int16_t z;
     };
-    vector3_values qmc[number_of_QMC];;
+    vector3_values qmc[number_of_qmc];;
     struct mpu_values {
       vector3_values accel;
       vector3_values gyro;
     };
-    mpu_values mpu[number_of_MPU];
+    mpu_values mpu[number_of_mpu];
     struct gps_values {
       double lat;
       double lng;
@@ -125,7 +129,7 @@ private:
   }
   void read_lof (uint8_t index) {
     if (index == 0){
-      for (int i = 0; i < number_of_VL53L0X; i++) {
+      for (int i = 0; i < number_of_lof; i++) {
         value.lof[i] = 
       }
     } else if (index <= number_of_HCSR04) {
