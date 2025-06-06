@@ -76,6 +76,13 @@ public:
     for(int i = 0; i < number_of_lof; i++){
         lof[i] = new VL53L0X();  
         // Code to assign each to its respective address, 10ms delay blocking 
+        for(int i = 0; i <= number_of_lof; i++){
+          while(true){
+            digitalWrite(Pin::xshut[i], HIGH);
+            // Set the i2c address
+            
+          }
+        }
         lof[i]->init(); 
         lof[i]->setAddress(address.VL53L0X[i]);
         lof[i]->startContinuous();
