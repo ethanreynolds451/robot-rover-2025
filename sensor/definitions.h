@@ -73,20 +73,33 @@ public:
   QMC5883LCompass* qmc[number_of_qmc];
   SoftwareSerial gps;                    // Uses software serial to communicate
   void begin() {
-    for(int i = 0; i < number_of_lof; i++){
-        lof[i] = new VL53L0X();
-        // Code to assign each to its respective address, 10ms delay blocking
-        for(int i = 0; i <= number_of_lof; i++){
-          while(true){
-            digitalWrite(Pin::xshut[i], HIGH);
-            // Set the i2c address
-
-          }
-        }
-        lof[i]->init();
-        lof[i]->setAddress(address.VL53L0X[i]);
-        lof[i]->startContinuous();
+    // Set the I2C addresses of the lof sensors
+    for(int j = 0; j < number_of_lof; j++){
+      digitalWrite(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
     }
+    for(int i = 0; i < number_of_lof; i++){
+        lof[i] = new VL53L0X();                   // Create sensor object
+        digitalWrite(Pin::x_shut[i], HIGH);       // Activate the one to set address
+        delay(10);                                                                                                                                     
+        if (!lof[i]->init()) {
+           if(!error.lof[i]){
+            i--;  // Try again once
+           }
+           error.lof[i] = true;  
+        } else {
+           lof[i]->setAddress(Address::VL53L0X[i]);   
+           digitalWrite(Pin::x_shut[i], LOW);   // Deactivate after setting                                                                                                                                                                                                                                                   
+        }      
+    }
+    for(int i = 0; i < number_of_lof; i++){   
+      digitalWrite(Pin::x_shut[i], HIGH);      // Activate all lof sensors
+      lof[i]->startContinuous();
+    }
+    delay(10); 
+    for(int i = 0; i < number_of_lof; i++){   
+      lof[i]->startContinuous();
+    }
+    // Start the IR reciever
     IrReceiver.begin(Pin::IR);
   }
   class Values {
@@ -118,6 +131,14 @@ public:
 
   Values value;
 
+  class Errors {
+   public:
+    bool ultrasonic[number_of_HCSR04];
+    bool lof[number_of_lof];
+  };
+
+  Errors error; 
+  
   void read(const String& sensor){
 
   }
@@ -138,10 +159,10 @@ private:
   void read_lof (uint8_t index) {
     if (index == 0){
       for (int i = 0; i < number_of_lof; i++) {
-        value.lof[i] =
+        value.lof[i] = lof[i]->readRangeContinuousMillimeters();
       }
-    } else if (index <= number_of_HCSR04) {
-      value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
+    } else if (index <= number_of_lof) {
+      value.lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
     }
   }
   void read_steering () {
