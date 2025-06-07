@@ -74,16 +74,16 @@ public:
   SoftwareSerial gps;                    // Uses software serial to communicate
   void begin() {
     for(int i = 0; i < number_of_lof; i++){
-        lof[i] = new VL53L0X();  
-        // Code to assign each to its respective address, 10ms delay blocking 
+        lof[i] = new VL53L0X();
+        // Code to assign each to its respective address, 10ms delay blocking
         for(int i = 0; i <= number_of_lof; i++){
           while(true){
             digitalWrite(Pin::xshut[i], HIGH);
             // Set the i2c address
-            
+
           }
         }
-        lof[i]->init(); 
+        lof[i]->init();
         lof[i]->setAddress(address.VL53L0X[i]);
         lof[i]->startContinuous();
     }
@@ -122,8 +122,8 @@ public:
 
   }
   void read_all(){
-    read_ultrasonic(0); 
-    read_lof(0); 
+    read_ultrasonic(0);
+    read_lof(0);
   }
 private:
   void read_ultrasonic(uint8_t index) {
@@ -138,7 +138,7 @@ private:
   void read_lof (uint8_t index) {
     if (index == 0){
       for (int i = 0; i < number_of_lof; i++) {
-        value.lof[i] = 
+        value.lof[i] =
       }
     } else if (index <= number_of_HCSR04) {
       value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);

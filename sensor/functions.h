@@ -18,4 +18,11 @@ void send_data(){
     Serial.println(data.get());
 }
 
+void set_pinmodes(){
+    pinMode(Pin::HCSR04[0], OUTPUT);
+    for(int i = 1; i < number_of_HCSR04; i++){
+        pinMode
+    }
+}
+
 #endif
