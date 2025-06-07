@@ -11,8 +11,7 @@ static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
 static const uint8_t number_of_mpu = 2;
 
-class Pin {
-public:
+namespace Pin {
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
   static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins
   static constexpr uint8_t steer_position = A5;
@@ -27,11 +26,7 @@ public:
   static constexpr uint8_t CS = 10;
 };
 
-
-Pin pin;
-
-class Address {
-public:
+namespace Address {
   static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
   static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
   static constexpr uint8_t MPU[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
@@ -75,35 +70,74 @@ public:
   Adafruit_MPU6050* mpu[number_of_mpu];
   QMC5883LCompass* qmc[number_of_qmc];
   SoftwareSerial gps;                    // Uses software serial to communicate
+  bool detect_i2c(uint8_t address) {
+    // Enable internal pull-ups on SDA and SCL pins
+    pinMode(A4, INPUT_PULLUP);
+    pinMode(A5, INPUT_PULLUP);
+  
+    // Small delay to let lines settle
+    delay(10);
+  
+    // Check if lines are actually HIGH (pulled up)
+    bool sda_high = digitalRead(A4);
+    bool scl_high = digitalRead(A5);
+    if (!sda_high || !scl_high) {
+      Serial.println("Warning: I2C lines not pulled high - bus may be floating or no pull-ups.");
+      return false; // Skip scanning, no proper bus setup
+    }
+  
+    unsigned long start = millis();
+    while (millis() - start < 100) { // 100 ms timeout
+      Wire.beginTransmission(address);
+      uint8_t result = Wire.endTransmission(true);
+      if (result == 0) {
+        return true;  // Device responded at this address
+      }
+      delay(5); // small delay before retrying
+    }
+    return false;  // No device responded
+  }
   void begin() {
     // Set the I2C addresses of the lof sensors
+    Serial.println("Starting sensor begin");
     for(int j = 0; j < number_of_lof; j++){
       digitalWrite(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
     }
+    Serial.println("Checkpoint 1");
     for(int i = 0; i < number_of_lof; i++){
-        lof[i] = new VL53L0X();                   // Create sensor object
+        lof[i] = new VL53L0X();                   // Create sensor object  
         digitalWrite(Pin::x_shut[i], HIGH);       // Activate the one to set address
-        delay(10);
+        Serial.println("Checkpoint 1.1");
+        delay(50);
+        if (!detect_i2c(0x29)) { 
+          Serial.println("No device with specified address detected"); 
+          error.lof[i] = true;
+          continue;  // skip to the next sensor
+        }
+        Serial.println("Checkpoint 1.1.5");
         if (!lof[i]->init()) {
-           if(!error.lof[i]){
-            i--;  // Try again once
-           }
+           Serial.println("Lof not initiated");
            error.lof[i] = true;
         } else {
            lof[i]->setAddress(Address::VL53L0X[i]);
            digitalWrite(Pin::x_shut[i], LOW);   // Deactivate after setting
+           Serial.println("Lof initiated");
         }
+        Serial.println("Checkpoint 1.2");
     }
+    Serial.println("Checkpoint 2");
     for(int i = 0; i < number_of_lof; i++){
       digitalWrite(Pin::x_shut[i], HIGH);      // Activate all lof sensors
       lof[i]->startContinuous();
     }
     delay(10);
+    Serial.println("Checkpoint 3");
     for(int i = 0; i < number_of_lof; i++){
       lof[i]->startContinuous();
     }
     // Start the IR reciever
     IrReceiver.begin(Pin::IR);
+    Serial.println("Ending sensor begin");
   }
   class Values {
    public:
@@ -149,8 +183,8 @@ public:
     read_ultrasonic(0);
     read_lof(0);
   }
-private:
-  void read_ultrasonic(uint8_t index) {
+
+  void read_ultrasonic(uint8_t index = 0) {
     if (index == 0){
       for (int i = 0; i < number_of_HCSR04; i++) {
         value.ultrasonic[i] = ultrasonic.dist(i);
