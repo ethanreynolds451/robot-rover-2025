@@ -21,8 +21,13 @@ void send_data(){
 void set_pinmodes(){
     pinMode(Pin::HCSR04[0], OUTPUT);
     for(int i = 1; i < number_of_HCSR04; i++){
-        pinMode
+        pinMode(Pin::HCSR04[i], INPUT);
     }
+    for(int i = 0; i < number_of_lof; i++){
+        pinMode(Pin::x_shut[i], OUTPUT);
+    }
+    pinMode(Pin::steer_position, INPUT);
+    pinMode
 }
 
 #endif
