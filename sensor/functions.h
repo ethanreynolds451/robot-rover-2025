@@ -17,12 +17,12 @@ void set_pinmodes(){
 void setup_function(){
     Serial.begin(baud_rate);
     Wire.begin();
-    set_pinmodes(); 
-    Sensor.begin();     // this will call begin on any objects that require this and assign I2C addresses to the lof sensors
+    set_pinmodes();
+    sensor.begin();     // this will call begin on any objects that require this and assign I2C addresses to the lof sensors
 }
 
 void update_sensors(){
-    sensor.read_all(); 
+    sensor.read_all();
 }
 
 void send_data(){

@@ -27,6 +27,9 @@ public:
   static constexpr uint8_t CS = 10;
 };
 
+
+Pin pin;
+
 class Address {
 public:
   static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
@@ -80,23 +83,23 @@ public:
     for(int i = 0; i < number_of_lof; i++){
         lof[i] = new VL53L0X();                   // Create sensor object
         digitalWrite(Pin::x_shut[i], HIGH);       // Activate the one to set address
-        delay(10);                                                                                                                                     
+        delay(10);
         if (!lof[i]->init()) {
            if(!error.lof[i]){
             i--;  // Try again once
            }
-           error.lof[i] = true;  
+           error.lof[i] = true;
         } else {
-           lof[i]->setAddress(Address::VL53L0X[i]);   
-           digitalWrite(Pin::x_shut[i], LOW);   // Deactivate after setting                                                                                                                                                                                                                                                   
-        }      
+           lof[i]->setAddress(Address::VL53L0X[i]);
+           digitalWrite(Pin::x_shut[i], LOW);   // Deactivate after setting
+        }
     }
-    for(int i = 0; i < number_of_lof; i++){   
+    for(int i = 0; i < number_of_lof; i++){
       digitalWrite(Pin::x_shut[i], HIGH);      // Activate all lof sensors
       lof[i]->startContinuous();
     }
-    delay(10); 
-    for(int i = 0; i < number_of_lof; i++){   
+    delay(10);
+    for(int i = 0; i < number_of_lof; i++){
       lof[i]->startContinuous();
     }
     // Start the IR reciever
@@ -137,8 +140,8 @@ public:
     bool lof[number_of_lof];
   };
 
-  Errors error; 
-  
+  Errors error;
+
   void read(const String& sensor){
 
   }
