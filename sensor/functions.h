@@ -11,6 +11,7 @@ void set_pinmodes(){
   for(int i = 0; i < number_of_lof; i++){
       pinMode(Pin::x_shut[i], OUTPUT);
   }
+  // Adjust for PCF
   pinMode(Pin::steer_position, INPUT);
 }
 
