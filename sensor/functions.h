@@ -4,7 +4,7 @@
 #define FUNCTIONS_h
 
 void setup_function(){
-    Serial.begin(baud_rate);
+    Serial.begin(baudrate);
     Wire.begin();
     PCF.begin();
     sensor.begin();     // this will call begin on any objects that require this and assign I2C addresses to the lof sensors

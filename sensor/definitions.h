@@ -1,7 +1,8 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const long baud_rate = 115200;
+static const long baudrate = 115200;
+static const uint32_t gps_baudrate = 4800;
 static const uint16_t loop_interval = 10;
 static const uint16_t send_interval = 25;
 static const uint8_t string_limit = 64;
@@ -96,7 +97,8 @@ public:
   Potentiometer steer_position;
   Adafruit_mpu6050* mpu[number_of_mpu];
   QMC5883LCompass* qmc[number_of_qmc];
-  SoftwareSerial gps;                    // Uses software serial to communicate
+  TinyGPSPlus gps;
+  SoftwareSerial gps_serial;                    // GPS uses software serial to communicate
 
   bool start_lof(){                                     // Still work in progress
     bool return_val = true;
@@ -156,6 +158,7 @@ public:
       }
       mpu[i].setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
       mpu[i].setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
+      mpu[i].setFilterBandwidth(MPU6050_BAND_44_HZ);         // based on 25 ms relay timeout
     }
     return return_val;
   }
@@ -164,36 +167,48 @@ public:
     bool return_val = true;
     for(int i = 0; i < number_of_qmc; i++){
       if (!address.detect(address.qmc[i])) {
-        error.mpu[i] = 1;   // address not found error
+        error.qmc[i] = 1;   // address not found error
         return_val = false;
         continue;  // skip to the next sensor
-      } else if (!mpu[i].begin()) {
-          for (int i = 0; i < sensor_retry; i++) {
-            delay(500);
-            if(mpu[i].begin()){
-              continue;
-            }
-            return_val = false;
-         }
+      } else {
+        qmc[i].init();    // void function
       }
     }
     return return_val;
   }
 
   void start_ultrasonic(){
+    bool return_val = true;
     pinMode(Pin::HCSR04[0], OUTPUT);
     for(int i = 1; i < number_of_HCSR04; i++){
         pinMode(Pin::HCSR04[i], INPUT);
+        delay(10);
+        if (ultrasonic.dist(i) == 0) {
+          error.ultrasonic[i] = 1;   // address error for sensor not connected
+          return_val = false;
+        }
+       return return_val;
     }
   }
 
   void start_steering(){
-    pinMode(Pin::steer_position, INPUT);
+    pinMode(Pin::steer_position, INPUT);    // No way to perform initial check, maybe with gyro later?
   }
 
   bool start_gps(){
-    // This is a software serial object
-    return true;
+    return_val = true;
+    gps_serial.begin(gps_baudrate);
+    // Suggestion from chat GPT, not sure if this will work
+    unsigned long start = millis();
+    while (millis() - start < 1000) {  // Wait for 1 second
+      while (gps_serial.available()) {
+        gps.encode(gps_serial.read());
+      }
+    }
+    if (gps.charsProcessed() < 10) {
+      error.gps = 1;      // Use device not found error
+    }
+    return return_val;
   }
 
   void begin() {
@@ -206,6 +221,7 @@ public:
     } else {
       Serial.println("All sensors started successfully");
     }
+    delay(100);     // Make sure sensors have time before starting to read
   }
   
   class Values {
@@ -240,20 +256,23 @@ public:
 
   class Errors {
     private:
-      struct codes {
+      struct packet {
         uint8_t index;
         char code[8];
       };
+      static const uint8_t number_of = 4;
+      const codes packet[number_of] = {
+          {0, "none"},		// no error
+          {1, "!addr"},		// address not found
+          {2, "!init"},		// failed to initialize
+          {3, "other"}		// any other failure
+        };
    public:
     uint8_t ultrasonic[number_of_HCSR04];
     uint8_t lof[number_of_lof];
-    static const uint8_t number_of = 4;
-    const packets code[number_of] = {
-      {0, "none"},		// no error
-      {1, "!addr"},		// address not found
-      {2, "!init"},		// failed to initialize
-      {3, "other"}		// any other failure
-    };
+    uint8_t mpu[number_of_mpu];
+    uint8_t qmc[number_of_qmc];
+    uint8_t gps;
   };
 
   Errors error;
@@ -291,7 +310,7 @@ public:
   }
 
   void read_mpu(uint8_t index){
-
+    
   }
 
   void read_qmc(uint8_t index){
