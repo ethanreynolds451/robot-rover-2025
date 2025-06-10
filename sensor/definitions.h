@@ -3,6 +3,7 @@
 
 static const long baudrate = 115200;
 static const uint32_t gps_baudrate = 4800;
+static const uint16_t serial_delay = 10;
 static const uint16_t loop_interval = 10;
 static const uint16_t send_interval = 25;
 static const uint8_t string_limit = 64;
@@ -261,12 +262,13 @@ public:
         uint8_t index;
         char code[8];
       };
-      static const uint8_t number_of = 4;
+      static const uint8_t number_of = 5;
       const codes packet[number_of] = {
           {0, "none"},		// no error
-          {1, "!addr"},		// address not found
-          {2, "!init"},		// failed to initialize
-          {3, "other"}		// any other failure
+          {1, "addr"},		// address not found
+          {2, "init"},		// failed to initialize
+          {3, "read"},		// failed to read data
+          {4, "other"}		// any other failure
         };
    public:
     uint8_t ultrasonic[number_of_HCSR04];
@@ -333,13 +335,40 @@ public:
   }
 
   void read_gps(){
-
+    if (gps_serial.available() > 0){
+      delay(serial_delay);      // Wait for data to finish coming in
+      if (gps.encode(gps_serial.read())){
+        if (gps.location.isValid()) {
+          value.gps.lat = gps.location.lat();
+          value.gps.lng = (gps.location.lng();
+        }
+        if (gps.altitude.isValid()) {
+          value.gps.alt = gps.altitude.meters();
+        }
+        if (gps.course.isValid()){
+          value.gps.deg = gps.course.deg();
+        }
+        if(gps.speed.isValid()){
+          value.gps.spd = gps.speed.kmph();
+        }
+        if (gps.satellites.isValid()){
+          value.gps.fix = gps.satellites.value();
+        }
+      } else {
+        error.gps = 3;       // Failed to read data
+      }
+    }
+    // If data not available, nothing to read - add something to keep track of how long it has been since successful read
   }
 
   void read_ir(){
-
+    if (ir.decode()) {
+      value.ir = ir.decodedIRData.command;
+      ir.resume();
+    } else {
+      value.ir = 0;   // no data recieved
+    }
   }
-
 };
 
 Sensor::Sensor()
