@@ -11,6 +11,8 @@ static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
 static const uint8_t number_of_mpu = 2;
 
+static const uint8_t sensor_retry = 3;
+
 PCF8575 PCF(0x20);
 
 namespace Pin {
@@ -31,8 +33,31 @@ namespace Pin {
 namespace Address {
   static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
   static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
-  static constexpr uint8_t MPU[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
+  static constexpr uint8_t mpu[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
   static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
+  bool detect(uint8_t address) {      // Thanks chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
+    // Enable internal pull-ups on SDA and SCL pins
+    pinMode(A4, INPUT_PULLUP);
+    pinMode(A5, INPUT_PULLUP);
+    // Small delay to let lines settle
+    delay(10);
+    // Check if lines are actually HIGH (pulled up)
+    bool sda_high = digitalRead(A4);
+    bool scl_high = digitalRead(A5);
+    if (!sda_high || !scl_high) {
+    return false; // Skip scanning, no proper bus setup
+    }
+    unsigned long start = millis();
+    while (millis() - start < 100) { // 100 ms timeout
+    Wire.beginTransmission(address);
+    uint8_t result = Wire.endTransmission(true);
+    if (result == 0) {
+      return true;  // Device responded at this address
+    }
+    delay(5); // small delay before retrying
+    }
+    return false;  // No device responded
+  }
 };
 
 
@@ -69,40 +94,13 @@ public:
   HCSR04 ultrasonic;                      // Allows for direct definition of array
   VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
   Potentiometer steer_position;
-  Adafruit_MPU6050* mpu[number_of_mpu];
+  Adafruit_mpu6050* mpu[number_of_mpu];
   QMC5883LCompass* qmc[number_of_qmc];
   SoftwareSerial gps;                    // Uses software serial to communicate
-  bool detect_i2c(uint8_t address) {
-    // Enable internal pull-ups on SDA and SCL pins
-    pinMode(A4, INPUT_PULLUP);
-    pinMode(A5, INPUT_PULLUP);
-  
-    // Small delay to let lines settle
-    delay(10);
-  
-    // Check if lines are actually HIGH (pulled up)
-    bool sda_high = digitalRead(A4);
-    bool scl_high = digitalRead(A5);
-    if (!sda_high || !scl_high) {
-      Serial.println("Warning: I2C lines not pulled high - bus may be floating or no pull-ups.");
-      return false; // Skip scanning, no proper bus setup
-    }
-  
-    unsigned long start = millis();
-    while (millis() - start < 100) { // 100 ms timeout
-      Wire.beginTransmission(address);
-      uint8_t result = Wire.endTransmission(true);
-      if (result == 0) {
-        return true;  // Device responded at this address
-      }
-      delay(5); // small delay before retrying
-    }
-    return false;  // No device responded
-  }
 
-  void begin() {
+  bool start_lof(){                                     // Still work in progress
+    bool return_val = true;
     // Set the I2C addresses of the lof sensors
-    Serial.println("Starting sensor begin");
     for(int j = 0; j < number_of_lof; j++){
       PCF.write(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
     }
@@ -112,19 +110,18 @@ public:
         PCF.write(Pin::x_shut[i], LOW);       // Activate the one to set address
         Serial.println("Checkpoint 1.1");
         delay(50);
-        if (!detect_i2c(0x29)) { 
-          Serial.println("No device with specified address detected"); 
-          error.lof[i] = true;
+        if (!address.detect(0x29)) {
+          error.lof[i] = 1;   // address not found error
+          return_val = false;
           continue;  // skip to the next sensor
         }
         Serial.println("Checkpoint 1.1.5");
         if (!lof[i]->init()) {
-           Serial.println("Lof not initiated");
-           error.lof[i] = true;
+          return_val = false;
+          error.lof[i] = 2;   // failed to initialize error
         } else {
-           lof[i]->setAddress(Address::VL53L0X[i]);
-           PCF.write(Pin::x_shut[i], LOW);   // Deactivate after setting
-           Serial.println("Lof initiated");
+          lof[i]->setAddress(Address::VL53L0X[i]);
+          PCF.write(Pin::x_shut[i], LOW);   // Deactivate after setting
         }
         Serial.println("Checkpoint 1.2");
     }
@@ -138,15 +135,44 @@ public:
     for(int i = 0; i < number_of_lof; i++){
       lof[i]->startContinuous();
     }
-    // Start the IR reciever
-    IrReceiver.begin(Pin::IR);
-    Serial.println("Ending sensor begin");
+    return return_val;
+  }
+
+  bool start_mpu(){
+    bool return_val = true;
+    for(int i = 0; i < number_of_mpu; i++){
+      if (!address.detect(address.mpu[i])) {
+        error.mpu[i] = 1;   // address not found error
+        return_val = false;
+        continue;  // skip to the next sensor
+      } else if (!mpu[i].begin()) {
+          for (int i = 0; i < sensor_retry; i++) {
+            delay(500);
+            if(mpu[i].begin()){
+              continue;
+            }
+            return_val = false;
+         }
+      }
+    }
+    return return_val;
+  }
+
+  void begin() {
+    Serial.println("Starting sensor setup");
+    if(!start_lof || !start_mpu){
+      Serial.println("There was an error starting one or more sensors; see error log for more details");
+    } else {
+      Serial.println("All sensors started successfully");
+    }
+    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
   }
   
   class Values {
    public:
     uint16_t ultrasonic[number_of_HCSR04];
     uint16_t lof[number_of_lof];
+    uint16_t steer_position;
     unsigned long ir;
     struct vector3_values {
       int16_t x;
@@ -173,9 +199,21 @@ public:
   Values value;
 
   class Errors {
+    private:
+      struct codes {
+        uint8_t index;
+        char code[8];
+      };
    public:
-    bool ultrasonic[number_of_HCSR04];
-    bool lof[number_of_lof];
+    uint8_t ultrasonic[number_of_HCSR04];
+    uint8_t lof[number_of_lof];
+    static const uint8_t number_of = 4;
+    const packets code[number_of] = {
+      {0, "none"},		// no error
+      {1, "!addr"},		// address not found
+      {2, "!init"},		// failed to initialize
+      {3, "other"}		// any other failure
+    };
   };
 
   Errors error;
@@ -197,6 +235,7 @@ public:
       value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
     }
   }
+
   void read_lof (uint8_t index) {
     if (index == 0){
       for (int i = 0; i < number_of_lof; i++) {
@@ -206,21 +245,27 @@ public:
       value.lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
     }
   }
-  void read_steering () {
 
+  void read_steering () {
+    value.steer_position = steer_position.get_degrees();
   }
+
   void read_mpu(uint8_t index){
 
   }
+
   void read_qmc(uint8_t index){
 
   }
+
   void read_gps(){
 
   }
+
   void read_ir(){
 
   }
+
 };
 
 Sensor::Sensor()

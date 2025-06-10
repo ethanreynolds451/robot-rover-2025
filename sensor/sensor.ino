@@ -10,9 +10,9 @@ void setup(){
 }
 
 void loop(){
-    if(loop_delay.passed()){
-        update_sensors();
-    }
+//    if(loop_delay.passed()){
+//        update_sensors();
+//    }
     if(send_delay.passed()){
         send_data();
     }
