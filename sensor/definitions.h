@@ -39,13 +39,13 @@ namespace Address {
   static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
   bool detect(uint8_t address) {      // Thanks chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
     // Enable internal pull-ups on SDA and SCL pins
-    pinMode(A4, INPUT_PULLUP);
-    pinMode(A5, INPUT_PULLUP);
+    pinMode(Pin::SDA, INPUT_PULLUP);
+    pinMode(Pin::SCL, INPUT_PULLUP);
     // Small delay to let lines settle
     delay(10);
     // Check if lines are actually HIGH (pulled up)
-    bool sda_high = digitalRead(A4);
-    bool scl_high = digitalRead(A5);
+    bool sda_high = digitalRead(Pin::SDA);
+    bool scl_high = digitalRead(Pin::SCL);
     if (!sda_high || !scl_high) {
     return false; // Skip scanning, no proper bus setup
     }
@@ -70,7 +70,7 @@ class Potentiometer {
       return analogRead(pin);
     }
     uint8_t get_percent(){
-      return 100*(1/1023);
+      return (get_value() * 100) / 1023;
     }
     uint16_t get_degrees(){
       return range*360*(1/1023);
@@ -139,11 +139,12 @@ public:
       lof[i]->startContinuous();
     }
     return return_val;
-  }
+  }   // add address verification, retry to set address if didn't work, exit after n times
 
   bool start_mpu(){
     bool return_val = true;
     for(int i = 0; i < number_of_mpu; i++){
+      mpu[i] = new Adafruit_MPU6050();
       if (!address.detect(address.mpu[i])) {
         error.mpu[i] = 1;   // address not found error
         return_val = false;
@@ -188,8 +189,8 @@ public:
           error.ultrasonic[i] = 1;   // address error for sensor not connected
           return_val = false;
         }
-       return return_val;
-    }
+      }
+    return return_val;
   }
 
   void start_steering(){
@@ -217,7 +218,7 @@ public:
     start_ultrasonic();
     start_steering();
     IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
-    if(!start_lof || !start_mpu || !start_qmc || !start_gps){
+    if (!start_lof() || !start_mpu() || !start_qmc() || !start_gps()){
       Serial.println("There was an error starting one or more sensors; see error log for more details");
     } else {
       Serial.println("All sensors started successfully");
@@ -241,6 +242,7 @@ public:
     struct mpu_values {
       vector3_values accel;
       vector3_values gyro;
+      int temp;
     };
     mpu_values mpu[number_of_mpu];
     struct gps_values {
@@ -286,6 +288,10 @@ public:
   void read_all(){
     read_ultrasonic(0);
     read_lof(0);
+    read_mpu(0);
+    read_qmc(0);
+    read_steering();
+    read_gps();
   }
 
   void read_ultrasonic(uint8_t index = 0) {
@@ -308,12 +314,29 @@ public:
     }
   }
 
-  void read_steering () {
-    value.steer_position = steer_position.get_degrees();
-  }
-
   void read_mpu(uint8_t index){
-    
+    sensors_event_t a, g, temp;
+    if (index == 0){
+      for (int i = 0; i < number_of_mpu; i++) {
+        mpu[i].getEvent(&a, &g, &temp);
+        value.mpu[i].accel.x = a.acceleration.x;
+        value.mpu[i].accel.y = a.acceleration.y;
+        value.mpu[i].accel.z = a.acceleration.z;
+        value.mpu[i].gyro.x = g.gyro.x;
+        value.mpu[i].gyro.y = g.gyro.y;
+        value.mpu[i].gyro.z = g.gyro.z;
+        value.mpu[i].temp = temp.temperature;
+      }
+    } else if (index <= number_of_mpu) {
+        value.mpu[index - 1].getEvent(&a, &g, &temp);
+        value.mpu[index - 1].accel.x = a.acceleration.x;
+        value.mpu[index - 1].accel.y = a.acceleration.y;
+        value.mpu[index - 1i].accel.z = a.acceleration.z;
+        value.mpu[index - 1].gyro.x = g.gyro.x;
+        value.mpu[index - 1].gyro.y = g.gyro.y;
+        value.mpu[index - 1].gyro.z = g.gyro.z;
+        value.mpu[index - 1].temp = temp.temperature;
+    }
   }
 
   void read_qmc(uint8_t index){
@@ -330,8 +353,12 @@ public:
         value.qmc_bearing[index-1] = qmc[index-1].getAzimuth();
         value.qmc[index-1].x = qmc[index-1].getX();
         value.qmc[index-1].y = qmc[index-1].getY();
-        value.qmc[index-1i].z = qmc[index-1].getZ();
+        value.qmc[index-1].z = qmc[index-1].getZ();
     }
+  }
+
+  void read_steering () {
+    value.steer_position = steer_position.get_degrees();
   }
 
   void read_gps(){
@@ -340,7 +367,7 @@ public:
       if (gps.encode(gps_serial.read())){
         if (gps.location.isValid()) {
           value.gps.lat = gps.location.lat();
-          value.gps.lng = (gps.location.lng();
+          value.gps.lng = gps.location.lng();
         }
         if (gps.altitude.isValid()) {
           value.gps.alt = gps.altitude.meters();
@@ -435,13 +462,3 @@ Time loop_delay(loop_interval);
 Time send_delay(send_interval);
 
 #endif
-
-// Other GPS vars, not needed
-//      int hour;
-//      int min;
-//      int sec;
-//      int day;
-//      int month;
-//      int year;
-//      int satelites;
-//      int percision;
