@@ -18,6 +18,7 @@ void set_pinmodes(){
 void setup_function(){
     Serial.begin(baud_rate);
     Wire.begin();
+    PCF.begin();
     set_pinmodes();
     sensor.begin();     // this will call begin on any objects that require this and assign I2C addresses to the lof sensors
 }

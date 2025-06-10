@@ -11,6 +11,8 @@ static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
 static const uint8_t number_of_mpu = 2;
 
+PCF8575 PCF(0x20);
+
 namespace Pin {
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
   static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins - mod for test
@@ -97,16 +99,17 @@ public:
     }
     return false;  // No device responded
   }
+
   void begin() {
     // Set the I2C addresses of the lof sensors
     Serial.println("Starting sensor begin");
     for(int j = 0; j < number_of_lof; j++){
-      digitalWrite(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
+      PCF.write(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
     }
     Serial.println("Checkpoint 1");
     for(int i = 0; i < number_of_lof; i++){
         lof[i] = new VL53L0X();                   // Create sensor object  
-        digitalWrite(Pin::x_shut[i], HIGH);       // Activate the one to set address
+        PCF.write(Pin::x_shut[i], LOW);       // Activate the one to set address
         Serial.println("Checkpoint 1.1");
         delay(50);
         if (!detect_i2c(0x29)) { 
@@ -120,14 +123,14 @@ public:
            error.lof[i] = true;
         } else {
            lof[i]->setAddress(Address::VL53L0X[i]);
-           digitalWrite(Pin::x_shut[i], LOW);   // Deactivate after setting
+           PCF.write(Pin::x_shut[i], LOW);   // Deactivate after setting
            Serial.println("Lof initiated");
         }
         Serial.println("Checkpoint 1.2");
     }
     Serial.println("Checkpoint 2");
     for(int i = 0; i < number_of_lof; i++){
-      digitalWrite(Pin::x_shut[i], HIGH);      // Activate all lof sensors
+      PCF.write(Pin::x_shut[i], HIGH);      // Activate all lof sensors
       lof[i]->startContinuous();
     }
     delay(10);
@@ -139,6 +142,7 @@ public:
     IrReceiver.begin(Pin::IR);
     Serial.println("Ending sensor begin");
   }
+  
   class Values {
    public:
     uint16_t ultrasonic[number_of_HCSR04];
