@@ -158,14 +158,37 @@ public:
     return return_val;
   }
 
+  bool start_qmc(){
+    // Need to finish this
+    return true;
+  }
+
+  void start_ultrasonic(){
+    pinMode(Pin::HCSR04[0], OUTPUT);
+    for(int i = 1; i < number_of_HCSR04; i++){
+        pinMode(Pin::HCSR04[i], INPUT);
+    }
+  }
+
+  void start_steering(){
+    pinMode(Pin::steer_position, INPUT);
+  }
+
+  bool start_gps(){
+    // This is a software serial object
+    return true;
+  }
+
   void begin() {
     Serial.println("Starting sensor setup");
-    if(!start_lof || !start_mpu){
+    start_ultrasonic();
+    start_steering();
+    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
+    if(!start_lof || !start_mpu || !start_qmc || !start_gps){
       Serial.println("There was an error starting one or more sensors; see error log for more details");
     } else {
       Serial.println("All sensors started successfully");
     }
-    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
   }
   
   class Values {
