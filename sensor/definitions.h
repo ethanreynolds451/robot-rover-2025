@@ -154,13 +154,30 @@ public:
             return_val = false;
          }
       }
+      mpu[i].setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
+      mpu[i].setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
     }
     return return_val;
   }
 
   bool start_qmc(){
-    // Need to finish this
-    return true;
+    bool return_val = true;
+    for(int i = 0; i < number_of_qmc; i++){
+      if (!address.detect(address.qmc[i])) {
+        error.mpu[i] = 1;   // address not found error
+        return_val = false;
+        continue;  // skip to the next sensor
+      } else if (!mpu[i].begin()) {
+          for (int i = 0; i < sensor_retry; i++) {
+            delay(500);
+            if(mpu[i].begin()){
+              continue;
+            }
+            return_val = false;
+         }
+      }
+    }
+    return return_val;
   }
 
   void start_ultrasonic(){
