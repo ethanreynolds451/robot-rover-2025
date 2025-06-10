@@ -73,7 +73,7 @@ class Potentiometer {
       return (get_value() * 100) / 1023;
     }
     uint16_t get_degrees(){
-      return range*360*(1/1023);
+      return static_cast<uint16_t>(range * 360.0 * get_value() / 1023.0);
     }
     void set_center(){
       center = get_value();
@@ -150,9 +150,9 @@ public:
         return_val = false;
         continue;  // skip to the next sensor
       } else if (!mpu[i].begin()) {
-          for (int i = 0; i < sensor_retry; i++) {
+          for (int j = 0; j < sensor_retry; j++) {
             delay(500);
-            if(mpu[i].begin()){
+            if(mpu[j].begin()){
               continue;
             }
             return_val = false;
@@ -168,6 +168,7 @@ public:
   bool start_qmc(){
     bool return_val = true;
     for(int i = 0; i < number_of_qmc; i++){
+      qmc[i] = new QMC5883LCompass();
       if (!address.detect(address.qmc[i])) {
         error.qmc[i] = 1;   // address not found error
         return_val = false;
@@ -198,7 +199,7 @@ public:
   }
 
   bool start_gps(){
-    return_val = true;
+    bool return_val = true;
     gps_serial.begin(gps_baudrate);
     // Suggestion from chat GPT, not sure if this will work
     unsigned long start = millis();
@@ -328,10 +329,10 @@ public:
         value.mpu[i].temp = temp.temperature;
       }
     } else if (index <= number_of_mpu) {
-        value.mpu[index - 1].getEvent(&a, &g, &temp);
+        mpu[index - 1].getEvent(&a, &g, &temp);
         value.mpu[index - 1].accel.x = a.acceleration.x;
         value.mpu[index - 1].accel.y = a.acceleration.y;
-        value.mpu[index - 1i].accel.z = a.acceleration.z;
+        value.mpu[index - 1].accel.z = a.acceleration.z;
         value.mpu[index - 1].gyro.x = g.gyro.x;
         value.mpu[index - 1].gyro.y = g.gyro.y;
         value.mpu[index - 1].gyro.z = g.gyro.z;
