@@ -235,7 +235,8 @@ public:
       int16_t y;
       int16_t z;
     };
-    vector3_values qmc[number_of_qmc];;
+    uint16_t qmc_bearing[number_of_qmc];
+    vector3_values qmc[number_of_qmc];
     struct mpu_values {
       vector3_values accel;
       vector3_values gyro;
@@ -314,7 +315,21 @@ public:
   }
 
   void read_qmc(uint8_t index){
-
+    if (index == 0){
+      for (int i = 0; i < number_of_qmc; i++) {
+        qmc[i].read();
+        value.qmc_bearing[i] = qmc[i].getAzimuth();
+        value.qmc[i].x = qmc[i].getX();
+        value.qmc[i].y = qmc[i].getY();
+        value.qmc[i].z = qmc[i].getZ();
+      }
+    } else if (index <= number_of_qmc) {
+        qmc[index - 1].read();
+        value.qmc_bearing[index-1] = qmc[index-1].getAzimuth();
+        value.qmc[index-1].x = qmc[index-1].getX();
+        value.qmc[index-1].y = qmc[index-1].getY();
+        value.qmc[index-1i].z = qmc[index-1].getZ();
+    }
   }
 
   void read_gps(){
