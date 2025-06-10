@@ -13,7 +13,7 @@ static const uint8_t number_of_mpu = 2;
 
 namespace Pin {
   static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
-  static constexpr uint8_t x_shut[number_of_lof] = {2,3,4,5}; // These are PCF pins - mod for test
+  static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins - mod for test
   static constexpr uint8_t steer_position = A5;
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;

@@ -10,19 +10,10 @@ void setup(){
 }
 
 void loop(){
-  sensor.read_ultrasonic();
-  for(int i = 0; i < number_of_HCSR04; i++){
-    Serial.print(Pin::HCSR04[i + 1]); 
-    Serial.print(": "); 
-    Serial.print(sensor.value.ultrasonic[i]);    
-    Serial.print(", "); 
-  }
-  Serial.println();  
-  delay(500); 
-//    if(loop_delay.passed()){
-//        update_sensors(); 
-//    }
-//    if(send_delay.passed()){
-//        send_data();
-//    }
+    if(loop_delay.passed()){
+        update_sensors();
+    }
+    if(send_delay.passed()){
+        send_data();
+    }
 }
