@@ -297,6 +297,7 @@ public:
     read_qmc(0);
     read_steering();
     read_gps();
+    read_ir(); 
   }
 
   void read_ultrasonic(uint8_t index = 0) {
