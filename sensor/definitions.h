@@ -18,9 +18,12 @@ static const uint8_t sensor_retry = 3;
 PCF8575 PCF(0x20);
 
 namespace Pin {
-  static constexpr uint8_t HCSR04[number_of_HCSR04 + 1] = {5, 6, 7, 8, 9, A0, A1};   // 0 is trig pin
+  static constexpr uint8_t HCSR04[number_of_HCSR04+1] = {
+    uint8_t(5), 6, 7, 8, 9,
+    uint8_t(A0), uint8_t(A1)
+  };   // 0 is trig pin
   static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins - mod for test
-  static constexpr uint8_t steer_position = A5;
+  static constexpr uint8_t steer_position = A7;
   static constexpr uint8_t TX = 2;
   static constexpr uint8_t RX = 3;
   static constexpr uint8_t IR = 4;
@@ -98,6 +101,7 @@ public:
   Potentiometer steer_position;
   Adafruit_mpu6050* mpu[number_of_mpu];
   QMC5883LCompass* qmc[number_of_qmc];
+  IRrecv ir(Pin::IR);
   TinyGPSPlus gps;
   SoftwareSerial gps_serial;                    // GPS uses software serial to communicate
 
@@ -113,7 +117,7 @@ public:
         PCF.write(Pin::x_shut[i], LOW);       // Activate the one to set address
         Serial.println("Checkpoint 1.1");
         delay(50);
-        if (!address.detect(0x29)) {
+        if (!Address::detect(0x29)) {
           error.lof[i] = 1;   // address not found error
           return_val = false;
           continue;  // skip to the next sensor
@@ -145,22 +149,22 @@ public:
     bool return_val = true;
     for(int i = 0; i < number_of_mpu; i++){
       mpu[i] = new Adafruit_MPU6050();
-      if (!address.detect(address.mpu[i])) {
+      if (!Address::detect(Address::mpu[i])) {
         error.mpu[i] = 1;   // address not found error
         return_val = false;
         continue;  // skip to the next sensor
-      } else if (!mpu[i].begin()) {
+      } else if (!mpu[i]->begin()) {
           for (int j = 0; j < sensor_retry; j++) {
             delay(500);
-            if(mpu[j].begin()){
+            if(mpu[i]->begin()){
               continue;
             }
             return_val = false;
          }
       }
-      mpu[i].setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
-      mpu[i].setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
-      mpu[i].setFilterBandwidth(MPU6050_BAND_44_HZ);         // based on 25 ms relay timeout
+      mpu[i]->setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
+      mpu[i]->setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
+      mpu[i]->setFilterBandwidth(MPU6050_BAND_44_HZ);         // based on 25 ms relay timeout
     }
     return return_val;
   }
@@ -169,12 +173,12 @@ public:
     bool return_val = true;
     for(int i = 0; i < number_of_qmc; i++){
       qmc[i] = new QMC5883LCompass();
-      if (!address.detect(address.qmc[i])) {
+      if (!Address::detect(Address::qmc[i])) {
         error.qmc[i] = 1;   // address not found error
         return_val = false;
         continue;  // skip to the next sensor
       } else {
-        qmc[i].init();    // void function
+        qmc[i]->init();    // void function
       }
     }
     return return_val;
@@ -319,7 +323,7 @@ public:
     sensors_event_t a, g, temp;
     if (index == 0){
       for (int i = 0; i < number_of_mpu; i++) {
-        mpu[i].getEvent(&a, &g, &temp);
+        mpu[i]->getEvent(&a, &g, &temp);
         value.mpu[i].accel.x = a.acceleration.x;
         value.mpu[i].accel.y = a.acceleration.y;
         value.mpu[i].accel.z = a.acceleration.z;
@@ -329,7 +333,7 @@ public:
         value.mpu[i].temp = temp.temperature;
       }
     } else if (index <= number_of_mpu) {
-        mpu[index - 1].getEvent(&a, &g, &temp);
+        mpu[index - 1]->getEvent(&a, &g, &temp);
         value.mpu[index - 1].accel.x = a.acceleration.x;
         value.mpu[index - 1].accel.y = a.acceleration.y;
         value.mpu[index - 1].accel.z = a.acceleration.z;
@@ -343,18 +347,18 @@ public:
   void read_qmc(uint8_t index){
     if (index == 0){
       for (int i = 0; i < number_of_qmc; i++) {
-        qmc[i].read();
-        value.qmc_bearing[i] = qmc[i].getAzimuth();
-        value.qmc[i].x = qmc[i].getX();
-        value.qmc[i].y = qmc[i].getY();
-        value.qmc[i].z = qmc[i].getZ();
+        qmc[i]->read();
+        value.qmc_bearing[i] = qmc[i]->getAzimuth();
+        value.qmc[i].x = qmc[i]->getX();
+        value.qmc[i].y = qmc[i]->getY();
+        value.qmc[i].z = qmc[i]->getZ();
       }
     } else if (index <= number_of_qmc) {
-        qmc[index - 1].read();
-        value.qmc_bearing[index-1] = qmc[index-1].getAzimuth();
-        value.qmc[index-1].x = qmc[index-1].getX();
-        value.qmc[index-1].y = qmc[index-1].getY();
-        value.qmc[index-1].z = qmc[index-1].getZ();
+        qmc[index - 1]->read();
+        value.qmc_bearing[index-1] = qmc[index-1]->getAzimuth();
+        value.qmc[index-1].x = qmc[index-1]->getX();
+        value.qmc[index-1].y = qmc[index-1]->getY();
+        value.qmc[index-1].z = qmc[index-1]->getZ();
     }
   }
 
