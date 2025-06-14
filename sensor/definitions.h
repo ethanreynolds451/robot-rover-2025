@@ -12,6 +12,11 @@ static const uint8_t number_of_HCSR04 = 6;
 static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
 static const uint8_t number_of_mpu = 2;
+static const uint8_t number_of_ir = 1;
+static const uint8_t number_of_gps = 1;
+static const uint8_t number_of_sensors =
+    number_of_HCSR04 + number_of_lof + number_of_qmc + number_of_mpu +
+    number_of_ir + number_of_gps;
 
 static const uint8_t sensor_retry = 3;
 
@@ -65,6 +70,15 @@ namespace Address {
   }
 };
 
+namespace Code {
+  char* ultrasonic = "hc";
+  char* lof = "lof";
+  char* steering ="str";
+  char* mpu = "mpu";
+  char*  qmc = "qmc";
+  char* gps = "gps";
+  char* remote = "ir";
+};
 
 class Potentiometer {
   public:
@@ -259,6 +273,16 @@ public:
       bool fix;   // Valid gps fix
     };
     gps_values gps;
+    struct is_new {
+        bool ultrasonic[number_of_ultrasonic];
+        bool lof[number_of_lof];
+        bool steering;
+        bool mpu[number_of_mpu];
+        bool qmc[number_of_qmc];
+        bool gps;
+        bool remote; 
+    };
+    is_new updated;
   };
 
   Values value;
@@ -421,18 +445,20 @@ class Data {
     char output[string_limit];
     static const uint8_t number_of = 7;
     const packets code[number_of] = {
-        {0, "hc"},		// brake
-        {1, "vl"},		// reverse
-        {2, "str"},		// steer reverse
-        {3, "mpu"},		// shift up
-        {4, "qmc"},		// speed
-        {5, "gps"},		// steer speed
-        {6, "ir"}    // fan speed
+        {0, Code::ultrasonic},		// hcsr04
+        {1, Code::lof},		// lof
+        {2, Code::steering},		// steer pot
+        {3, Code::mpu},		// accel / gyrp
+        {4, Code::qmc},		// magnetometer
+        {5, Code::gps},		// gps data
+        {6, Code::remote}    // ir remote
     };
     char* get(){
       memset(output, 0, string_limit);
+
       //sensor.value.ultrasonic[index];
       //sensor.value.lof[index];
+      // sensor.value.
       strcpy(output, "Hello World");
       return output;
     }
