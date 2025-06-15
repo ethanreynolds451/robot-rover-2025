@@ -100,6 +100,80 @@ class Potentiometer {
     float range = 0.75;
 };
 
+  namespace values {                      // Storage for sensor values
+    namespace {   // "private" members
+      struct vector3_values {
+        int16_t x;
+        int16_t y;
+        int16_t z;
+      };
+      struct mpu_values {
+        vector3_values accel;
+        vector3_values gyro;
+        float temp;
+      };
+      struct gps_values {
+        double lat;
+        double lng;
+        double alt;
+        double spd;   // km per hour
+        double deg;   // bearing, compare with magnetometer
+        bool fix;   // Valid gps fix
+      };
+      struct is_new {
+        bool ultrasonic[number_of_ultrasonic];
+        bool lof[number_of_lof];
+        bool steering;
+        bool mpu[number_of_mpu];
+        bool qmc[number_of_qmc];
+        bool gps;
+        bool remote;
+      };
+     };
+    uint16_t ultrasonic[number_of_HCSR04];
+    uint16_t lof[number_of_lof];
+    uint16_t steer_position;
+    unsigned long ir;
+    uint16_t qmc_bearing[number_of_qmc];
+    vector3_values qmc[number_of_qmc];
+    mpu_values mpu[number_of_mpu];
+    gps_values gps;
+    is_new updated;
+  };
+
+  namespace error {                    // Storage for sensor errors
+    namespace {
+      static const uint8_t number_of_errors = 5;
+      struct error_packet {
+        uint8_t index;
+        char code[8];   // 8 byte max for codes
+      };
+    };
+    uint8_t ultrasonic[number_of_HCSR04];
+    uint8_t lof[number_of_lof];
+    uint8_t mpu[number_of_mpu];
+    uint8_t qmc[number_of_qmc];
+    uint8_t gps;
+    const error_packet error_codes[number_of_errors] = {
+        {0, "none"},    // no error
+        {1, "addr"},    // address not found
+        {2, "init"},    // failed to initialize
+        {3, "read"},    // failed to read data
+        {4, "nocom"},   // unable to communicate
+        {5, "other"}    // any other failure
+    };
+  };
+
+-  namespace sensor_code {
+    const char* ultrasonic = "hc";
+    const char* lof = "lof";
+    const char* steering ="str";
+    const char* mpu = "mpu";
+    const char*  qmc = "qmc";
+    const char* gps = "gps";
+    const char* remote = "ir";
+  };
+
 // Composite class to access all sensors, includes all relevant sensor objects
 class Sensor {
 public:
@@ -132,80 +206,6 @@ public:
     read_ir();
   }
 
-  namespace values {                      // Storage for sensor values
-    uint16_t ultrasonic[number_of_HCSR04];
-    uint16_t lof[number_of_lof];
-    uint16_t steer_position;
-    unsigned long ir;
-    uint16_t qmc_bearing[number_of_qmc];
-    vector3_values qmc[number_of_qmc];
-    mpu_values mpu[number_of_mpu];
-    gps_values gps;
-    is_new updated;
-    namespace {   // "private" members
-      struct vector3_values {
-        int16_t x;
-        int16_t y;
-        int16_t z;
-      };
-      struct mpu_values {
-        vector3_values accel;
-        vector3_values gyro;
-        float temp;
-      };
-      struct gps_values {
-        double lat;
-        double lng;
-        double alt;
-        double spd;   // km per hour
-        double deg;   // bearing, compare with magnetometer
-        bool fix;   // Valid gps fix
-      };
-      struct is_new {
-        bool ultrasonic[number_of_ultrasonic];
-        bool lof[number_of_lof];
-        bool steering;
-        bool mpu[number_of_mpu];
-        bool qmc[number_of_qmc];
-        bool gps;
-        bool remote;
-      };
-     };
-  };
-
-  namespace error {                    // Storage for sensor errors
-    uint8_t ultrasonic[number_of_HCSR04];
-    uint8_t lof[number_of_lof];
-    uint8_t mpu[number_of_mpu];
-    uint8_t qmc[number_of_qmc];
-    uint8_t gps;
-    const error_packet error_codes[number_of_errors] = {
-        {0, "none"},		// no error
-        {1, "addr"},		// address not found
-        {2, "init"},		// failed to initialize
-        {3, "read"},		// failed to read data
-        {4, "nocom"},		// unable to communicate
-        {5, "other"}		// any other failure
-    };
-    namespace {
-      static const uint8_t number_of_errors = 5;
-      struct error_packet {
-        uint8_t index;
-        char code[8];   // 8 byte max for codes
-      };
-    }
-  };
-
-  namespace sensor_code {
-    const char* ultrasonic = "hc";
-    const char* lof = "lof";
-    const char* steering ="str";
-    const char* mpu = "mpu";
-    const char*  qmc = "qmc";
-    const char* gps = "gps";
-    const char* remote = "ir";
-  };
-
 private:
   HCSR04 ultrasonic;                      // Allows for direct definition of array, no need to use pointers
   VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
@@ -237,7 +237,6 @@ private:
         if (!addr_found) {
           if (!Address::detect(0x29)) {
             error::lof[i] = 1;   // address not found error
-            addr_f
                 return_val = false;
           } else {
             addr_found = true;
@@ -264,7 +263,6 @@ private:
           error::lof[i] = 0;
           break;    // Move on to the next sensor
         }
-
       }
     }
     delay(10);                                                    Serial.println("Checkpoint 2");
