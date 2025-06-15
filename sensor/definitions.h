@@ -74,16 +74,6 @@ namespace Address {
   }
 };
 
-namespace Code {
-  const char* ultrasonic = "hc";
-  const char* lof = "lof";
-  const char* steering ="str";
-  const char* mpu = "mpu";
-  const char*  qmc = "qmc";
-  const char* gps = "gps";
-  const char* remote = "ir";
-};
-
 class Potentiometer {
   public:
     Potentiometer(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min_val(min_def), max_val(max_def), range(range_def), center(center_def) {}
@@ -161,7 +151,7 @@ public:
       struct mpu_values {
         vector3_values accel;
         vector3_values gyro;
-        int temp;
+        float temp;
       };
       struct gps_values {
         double lat;
@@ -189,23 +179,32 @@ public:
     uint8_t mpu[number_of_mpu];
     uint8_t qmc[number_of_qmc];
     uint8_t gps;
-    namespace {
-      static const uint8_t number_of = 5;
-      struct packet {
-      uint8_t index;
-      char code[8];
-      };
-      const codes packet[number_of] = {
+    const error_packet error_codes[number_of_errors] = {
         {0, "none"},		// no error
         {1, "addr"},		// address not found
         {2, "init"},		// failed to initialize
         {3, "read"},		// failed to read data
-        {4, "other"}		// any other failure
-        };
+        {4, "nocom"},		// unable to communicate
+        {5, "other"}		// any other failure
+    };
+    namespace {
+      static const uint8_t number_of_errors = 5;
+      struct error_packet {
+        uint8_t index;
+        char code[8];   // 8 byte max for codes
+      };
     }
   };
 
-  Errors error;
+  namespace sensor_code {
+    const char* ultrasonic = "hc";
+    const char* lof = "lof";
+    const char* steering ="str";
+    const char* mpu = "mpu";
+    const char*  qmc = "qmc";
+    const char* gps = "gps";
+    const char* remote = "ir";
+  };
 
 private:
   HCSR04 ultrasonic;                      // Allows for direct definition of array, no need to use pointers
@@ -219,91 +218,138 @@ private:
 
   bool start_lof(){                                     // Still work in progress
     bool return_val = true;
+    for(int i = 0; i < number_of_lof; i++){   // Initialize all pointers to nullptr
+      lof[i] = nullptr;
+    }
     // Set the I2C addresses of the lof sensors
-    for(int j = 0; j < number_of_lof; j++){
-      PCF.write(Pin::x_shut[j], LOW);      // Deactivate all lof sensors
-    }
-    Serial.println("Checkpoint 1");
     for(int i = 0; i < number_of_lof; i++){
-        lof[i] = new VL53L0X();                   // Create sensor object  
-        PCF.write(Pin::x_shut[i], LOW);       // Activate the one to set address
-        Serial.println("Checkpoint 1.1");
-        delay(50);
-        if (!Address::detect(0x29)) {
-          error::lof[i] = 1;   // address not found error
-          return_val = false;
-          continue;  // skip to the next sensor
-        }
-        Serial.println("Checkpoint 1.1.5");
-        if (!lof[i]->init()) {
-          return_val = false;
-          error::lof[i] = 2;   // failed to initialize error
-        } else {
+      PCF.write(Pin::x_shut[i], LOW);      // Deactivate all lof sensors
+    }
+    delay(50);                                                       Serial.println("Checkpoint 1");
+    for(int i = 0; i < number_of_lof; i++){
+      bool addr_found = false;
+      bool initiated = false;
+      bool addr_set = false;
+      lof[i] = new VL53L0X();                   // Create sensor object  // Activate the one to set address
+      PCF.write(Pin::x_shut[i], LOW);                                                         Serial.println("Checkpoint 1.1");
+      delay(50);
+      for (uint8_t tried = 0; tried < sensor_retry; tried++){
+        if (!addr_found) {
+          if (!Address::detect(0x29)) {
+            error::lof[i] = 1;   // address not found error
+            addr_f
+                return_val = false;
+          } else {
+            addr_found = true;
+          }                                           Serial.println("Checkpoint 1.1.5");
+        } else if (|initiated) {
+          if (!lof[i]->init()) {
+            return_val = false;
+            error::lof[i] = 2;   // failed to initialize error
+          } else {
+            initiated = true;
+          }
+        } else if(!addr_set){
+          delay(10);
           lof[i]->setAddress(Address::VL53L0X[i]);
-          PCF.write(Pin::x_shut[i], LOW);   // Deactivate after setting
+          delay(10);
+          if (!Address::detect(Address::VL53L0X[i])) {        // Verify that sensor is active with address
+            error::lof[i] = 4;   // unable to communicate error
+            return_val = false; // skip to the next sensor
+          } else {
+            addr_set = true;
+          }
+        } else {
+          PCF.write(Pin::x_shut[i], LOW);   // Deactivate after verifyinig
+          error::lof[i] = 0;
+          break;    // Move on to the next sensor
         }
-        Serial.println("Checkpoint 1.2");
+
+      }
     }
-    Serial.println("Checkpoint 2");
+    delay(10);                                                    Serial.println("Checkpoint 2");
     for(int i = 0; i < number_of_lof; i++){
-      PCF.write(Pin::x_shut[i], HIGH);      // Activate all lof sensors
-      lof[i]->startContinuous();
+      if(lof[i] != nullptr && error::lof[i] == 0){
+        lof[i]->startContinuous();
+      }
     }
-    delay(10);
-    Serial.println("Checkpoint 3");
-    for(int i = 0; i < number_of_lof; i++){
-      lof[i]->startContinuous();
-    }
-    return return_val;
   }   // add address verification, retry to set address if didn't work, exit after n times
 
   bool start_mpu(){
     bool return_val = true;
+    for(int i = 0; i < number_of_mpu; i++){   // Initialize all pointers to nullptr
+      mpu[i] = nullptr;
+    }
     for(int i = 0; i < number_of_mpu; i++){
+      bool addr_found = false;
+      bool initiated = false;
       mpu[i] = new Adafruit_MPU6050();
-      if (!Address::detect(Address::mpu[i])) {
-        error::mpu[i] = 1;   // address not found error
-        return_val = false;
-        continue;  // skip to the next sensor
-      } else if (!mpu[i]->begin()) {
-          for (int j = 0; j < sensor_retry; j++) {
-            delay(500);
-            if(mpu[i]->begin()){
-              continue;
-            }
+      for (uint8_t tried = 0; tried < sensor_retry; tried++){
+        if(!addr_found) {
+          if (!Address::detect(Address::mpu[i])) {
+            error::mpu[i] = 1;          // address not found error
             return_val = false;
-         }
+          } else {
+            addr_found = true;
+          }
+        } else if (!initiated) {
+          if (!mpu[i]->begin()) {
+            error::mpu[i] = 2;    // Addr not found error
+            return_val = false;
+          } else {
+            initiated = true;
+          }
+        } else {
+          delay(50);
+          mpu[i]->setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
+          mpu[i]->setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
+          mpu[i]->setFilterBandwidth(MPU6050_BAND_44_HZ);         // based on 25 ms relay timeout
+          error::mpu[i] = 0;
+          break;
+        }
       }
-      mpu[i]->setAccelerometerRange(MPU6050_RANGE_2_G);    // estimate for low speed vehcile, increase if needed
-      mpu[i]->setGyroRange(MPU6050_RANGE_250_DEG);         // estimate for low speed vehcile, increase if needed
-      mpu[i]->setFilterBandwidth(MPU6050_BAND_44_HZ);         // based on 25 ms relay timeout
     }
     return return_val;
   }
 
   bool start_qmc(){
     bool return_val = true;
+    for(int i = 0; i < number_of_qmc; i++){   // Initialize all pointers to nullptr
+      qmc[i] = nullptr;
+    }
     for(int i = 0; i < number_of_qmc; i++){
       qmc[i] = new QMC5883LCompass();
-      if (!Address::detect(Address::qmc[i])) {
-        error::qmc[i] = 1;   // address not found error
-        return_val = false;
-        continue;  // skip to the next sensor
-      } else {
-        qmc[i]->init();    // void function
+      bool addr_found = false;
+      bool initiated = false;
+      for (uint8_t tried = 0; tried < sensor_retry; tried++){
+        if(!addr_found){
+          if (!Address::detect(Address::qmc[i])) {
+            error::qmc[i] = 1;   // address not found error
+            return_val = false;
+            continue;  // skip to the next sensor
+          } else {
+            addr_found = true;
+          }
+        } else if(!initiated){
+          qmc[i]->init();    // void function
+          initiated = true;
+        } else {
+          error::qmc[i] = 0;
+          break;
+        }
       }
     }
     return return_val;
   }
 
-  void start_ultrasonic(){
+  bool start_ultrasonic(){
     bool return_val = true;
     pinMode(Pin::HCSR04[0], OUTPUT);
     for(int i = 1; i < number_of_HCSR04; i++){
         pinMode(Pin::HCSR04[i], INPUT);
         delay(10);
-        if (ultrasonic.dist(i) == 0) {
-          error::ultrasonic[i] = 1;   // address error for sensor not connected
+        if (ultrasonic.dist(i) == 0) {      // They are pulled down so will return 0 if not connected
+          error::ultrasonic[i] = 4;   // address error for sensor not connected
           return_val = false;
         }
       }
@@ -311,21 +357,25 @@ private:
   }
 
   void start_steering(){
-    pinMode(Pin::steer_position, INPUT);    // No way to perform initial check, maybe with gyro later?
+    pinMode(Pin::steer_position, INPUT);    // No way to perform initial check, maybe with gyro / compass later?
   }
 
   bool start_gps(){
     bool return_val = true;
     gps_serial.begin(gps_baudrate);
     // Suggestion from chat GPT, not sure if this will work
-    unsigned long start = millis();
-    while (millis() - start < 1000) {  // Wait for 1 second
-      while (gps_serial.available()) {
-        gps.encode(gps_serial.read());
+    for (uint8_t tried = 0; tried < sensor_retry; tried++){
+      unsigned long start = millis();
+      while (millis() - start < 1000) {  // Wait for 1 second
+        while (gps_serial.available()) {
+          gps.encode(gps_serial.read());
+        }
       }
-    }
-    if (gps.charsProcessed() < 10) {
-      error::gps = 1;      // Use device not found error
+      if (gps.charsProcessed() < 10) {
+        error::gps = 1;      // Use device not found error
+      } else {
+        break;
+      }
     }
     return return_val;
   }
@@ -451,13 +501,13 @@ class Data {
     char output[string_limit];
     static const uint8_t number_of = 7;
     const packets code[number_of] = {
-        {0, Code::ultrasonic},		// hcsr04
-        {1, Code::lof},		// lof
-        {2, Code::steering},		// steer pot
-        {3, Code::mpu},		// accel / gyrp
-        {4, Code::qmc},		// magnetometer
-        {5, Code::gps},		// gps data
-        {6, Code::remote}    // ir remote
+        {0, sensor_code::ultrasonic},		// hcsr04
+        {1, sensor_code::lof},		// lof
+        {2, sensor_code::steering},		// steer pot
+        {3, sensor_code::mpu},		// accel / gyrp
+        {4, sensor_code::qmc},		// magnetometer
+        {5, sensor_code::gps},		// gps data
+        {6, sensor_code::remote}    // ir remote
     };
     char* get(){
       memset(output, 0, string_limit);
