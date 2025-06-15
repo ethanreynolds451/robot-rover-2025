@@ -10,24 +10,22 @@ static const uint16_t send_interval = 25;
 static const uint8_t string_limit = 64;
 
 // How many of each type of sensor
-static const uint8_t number_of_HCSR04 = 6;
+static const uint8_t number_of_ultrasonic = 6;
 static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
 static const uint8_t number_of_mpu = 2;
 static const uint8_t number_of_ir = 1;
 static const uint8_t number_of_gps = 1;
 static const uint8_t number_of_sensors =
-    number_of_HCSR04 + number_of_lof + number_of_qmc + number_of_mpu +
+    number_of_ultrasonic + number_of_lof + number_of_qmc + number_of_mpu +
     number_of_ir + number_of_gps;
 
 // How many times to retry sensor initializations before moving on
 static const uint8_t sensor_retry = 3;
 
-// Create pcf object for port expander
-PCF8575 PCF(0x20);
 
 namespace Pin {
-  static constexpr uint8_t HCSR04[number_of_HCSR04+1] = {
+  static constexpr uint8_t HCSR04[number_of_ultrasonic+1] = {
     uint8_t(5), 6, 7, 8, 9,
     uint8_t(A0), uint8_t(A1)
   };   // 0 is trig pin
@@ -45,10 +43,10 @@ namespace Pin {
 };
 
 namespace Address {
-  static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
-  static constexpr uint8_t QMC[number_of_qmc] = {0x0D};           // Default (verified from datasheeet)
+  static constexpr uint8_t lof[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
+  static constexpr uint8_t qmc[number_of_qmc] = {0x0D};           // Default (verified from datasheeet)
   static constexpr uint8_t mpu[number_of_mpu] = {0x68, 0x69};     // First default, second with adjustor pulled up to 5v
-  static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
+  static constexpr uint8_t pcf = 0x20;     // Default according to ChatGPT, check specific model
   bool detect(uint8_t address) {      // From chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
     // Enable internal pull-ups on SDA and SCL pins
     pinMode(Pin::SDA, INPUT_PULLUP);
@@ -74,6 +72,34 @@ namespace Address {
   }
 };
 
+// Create pcf object for port expander
+PCF8575 PCF(Address::pcf);
+
+bool pcf_active = false;
+
+bool start_pcf(){
+    bool addr_found = false;
+    bool initiated = false;
+    for (uint8_t tried = 0; tried < sensor_retry; tried++){
+      if (!addr_found) {
+        if (!Address::detect(Address::pcf)) {
+
+          delay(50);
+        } else {
+          addr_found = true;
+        }
+      } else if (!initiated) {
+        if (!PCF.begin()) {
+          delay(50);
+        } else {
+          initiated = true;
+        }
+      } else {
+        pcf_active = true;
+      }
+    }
+}
+
 class Potentiometer {
   public:
     Potentiometer(uint8_t pin_def, uint16_t max_def, uint16_t min_def, float range_def, uint16_t center_def) : pin(pin_def), min_val(min_def), max_val(max_def), range(range_def), center(center_def) {}
@@ -98,6 +124,16 @@ class Potentiometer {
     uint16_t max_val = 1023;
     uint16_t center = 512;
     float range = 0.75;
+};
+
+namespace sensor_code {
+  const char* ultrasonic = "hc";
+  const char* lof = "lof";
+  const char* steering ="str";
+  const char* mpu = "mpu";
+  const char*  qmc = "qmc";
+  const char* gps = "gps";
+  const char* remote = "ir";
 };
 
   namespace values {                      // Storage for sensor values
@@ -130,7 +166,7 @@ class Potentiometer {
         bool remote;
       };
      };
-    uint16_t ultrasonic[number_of_HCSR04];
+    uint16_t ultrasonic[number_of_ultrasonic];
     uint16_t lof[number_of_lof];
     uint16_t steer_position;
     unsigned long ir;
@@ -143,13 +179,13 @@ class Potentiometer {
 
   namespace error {                    // Storage for sensor errors
     namespace {
-      static const uint8_t number_of_errors = 5;
+      static const uint8_t number_of_errors = 6;
       struct error_packet {
         uint8_t index;
         char code[8];   // 8 byte max for codes
       };
     };
-    uint8_t ultrasonic[number_of_HCSR04];
+    uint8_t ultrasonic[number_of_ultrasonic];
     uint8_t lof[number_of_lof];
     uint8_t mpu[number_of_mpu];
     uint8_t qmc[number_of_qmc];
@@ -164,15 +200,6 @@ class Potentiometer {
     };
   };
 
--  namespace sensor_code {
-    const char* ultrasonic = "hc";
-    const char* lof = "lof";
-    const char* steering ="str";
-    const char* mpu = "mpu";
-    const char*  qmc = "qmc";
-    const char* gps = "gps";
-    const char* remote = "ir";
-  };
 
 // Composite class to access all sensors, includes all relevant sensor objects
 class Sensor {
@@ -183,7 +210,7 @@ public:
     Serial.println("Starting sensor setup");
     start_ultrasonic();
     start_steering();
-    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
+    start_ir();
     if (!start_lof() || !start_mpu() || !start_qmc() || !start_gps()){
     Serial.println("There was an error starting one or more sensors; see error log for more details");
     } else {
@@ -210,13 +237,14 @@ private:
   HCSR04 ultrasonic;                      // Allows for direct definition of array, no need to use pointers
   VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
   Potentiometer steer_position;
-  Adafruit_mpu6050* mpu[number_of_mpu];
+  Adafruit_MPU6050* mpu[number_of_mpu];
   QMC5883LCompass* qmc[number_of_qmc];
-  IRrecv ir(Pin::IR);
+  IRrecv ir;
   TinyGPSPlus gps;
   SoftwareSerial gps_serial;                    // GPS uses software serial to communicate
 
   bool start_lof(){                                     // Still work in progress
+   if(pcf_active){
     bool return_val = true;
     for(int i = 0; i < number_of_lof; i++){   // Initialize all pointers to nullptr
       lof[i] = nullptr;
@@ -241,7 +269,7 @@ private:
           } else {
             addr_found = true;
           }                                           Serial.println("Checkpoint 1.1.5");
-        } else if (|initiated) {
+        } else if (!initiated) {
           if (!lof[i]->init()) {
             return_val = false;
             error::lof[i] = 2;   // failed to initialize error
@@ -250,9 +278,9 @@ private:
           }
         } else if(!addr_set){
           delay(10);
-          lof[i]->setAddress(Address::VL53L0X[i]);
+          lof[i]->setAddress(Address::lof[i]);
           delay(10);
-          if (!Address::detect(Address::VL53L0X[i])) {        // Verify that sensor is active with address
+          if (!Address::detect(Address::lof[i])) {        // Verify that sensor is active with address
             error::lof[i] = 4;   // unable to communicate error
             return_val = false; // skip to the next sensor
           } else {
@@ -271,6 +299,9 @@ private:
         lof[i]->startContinuous();
       }
     }
+   } else {
+    return false;
+   }
   }   // add address verification, retry to set address if didn't work, exit after n times
 
   bool start_mpu(){
@@ -343,7 +374,7 @@ private:
   bool start_ultrasonic(){
     bool return_val = true;
     pinMode(Pin::HCSR04[0], OUTPUT);
-    for(int i = 1; i < number_of_HCSR04; i++){
+    for(int i = 1; i < number_of_ultrasonic; i++){
         pinMode(Pin::HCSR04[i], INPUT);
         delay(10);
         if (ultrasonic.dist(i) == 0) {      // They are pulled down so will return 0 if not connected
@@ -356,6 +387,10 @@ private:
 
   void start_steering(){
     pinMode(Pin::steer_position, INPUT);    // No way to perform initial check, maybe with gyro / compass later?
+  }
+
+  void start_ir(){
+    ir.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
   }
 
   bool start_gps(){
@@ -380,10 +415,10 @@ private:
 
   void read_ultrasonic(uint8_t index = 0) {
     if (index == 0){
-      for (int i = 0; i < number_of_HCSR04; i++) {
+      for (int i = 0; i < number_of_ultrasonic; i++) {
         values::ultrasonic[i] = ultrasonic.dist(i);
       }
-    } else if (index <= number_of_HCSR04) {
+    } else if (index <= number_of_ultrasonic) {
       values::ultrasonic[index - 1] = ultrasonic.dist(index - 1);
     }
   }
@@ -483,9 +518,9 @@ private:
 };
 
 Sensor::Sensor()
-  : ultrasonic(Pin::HCSR04[0], new int[number_of_HCSR04]{Pin::HCSR04[1], Pin::HCSR04[2], Pin::HCSR04[3], Pin::HCSR04[4], Pin::HCSR04[5], Pin::HCSR04[6]}, number_of_HCSR04),
+  : ultrasonic(Pin::HCSR04[0], new int[number_of_ultrasonic]{Pin::HCSR04[1], Pin::HCSR04[2], Pin::HCSR04[3], Pin::HCSR04[4], Pin::HCSR04[5], Pin::HCSR04[6]}, number_of_ultrasonic),
     steer_position(Pin::steer_position, 1023, 0, 0.75, 512),
-    gps(Pin::TX, Pin::RX) {}
+    gps_serial(Pin::TX, Pin::RX) {}
 
 Sensor sensor;
 
@@ -497,16 +532,16 @@ class Data {
     };
   public:
     char output[string_limit];
-    static const uint8_t number_of = 7;
-    const packets code[number_of] = {
-        {0, sensor_code::ultrasonic},		// hcsr04
-        {1, sensor_code::lof},		// lof
-        {2, sensor_code::steering},		// steer pot
-        {3, sensor_code::mpu},		// accel / gyrp
-        {4, sensor_code::qmc},		// magnetometer
-        {5, sensor_code::gps},		// gps data
-        {6, sensor_code::remote}    // ir remote
-    };
+//    static const uint8_t number_of = 7;
+//    const packets code[number_of] = {
+//        {0, sensor_code::ultrasonic},		// hcsr04
+//        {1, sensor_code::lof},		// lof
+//        {2, sensor_code::steering},		// steer pot
+//        {3, sensor_code::mpu},		// accel / gyrp
+//        {4, sensor_code::qmc},		// magnetometer
+//        {5, sensor_code::gps},		// gps data
+//        {6, sensor_code::remote}    // ir remote
+//    };
     char* get(){
       memset(output, 0, string_limit);
 
