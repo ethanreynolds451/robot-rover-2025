@@ -82,20 +82,20 @@ bool start_pcf(){
     bool initiated = false;
     for (uint8_t tried = 0; tried < sensor_retry; tried++){
       if (!addr_found) {
-        if (!Address::detect(Address::pcf)) {
-
-          delay(50);
+        if (!Address::detect(Address::pcf)) {       
+          
+          delay(50); 
         } else {
           addr_found = true;
-        }
+        }                                          
       } else if (!initiated) {
         if (!PCF.begin()) {
-          delay(50);
+          delay(50); 
         } else {
           initiated = true;
         }
       } else {
-        pcf_active = true;
+        pcf_active = true; 
       }
     }
 }
@@ -136,7 +136,7 @@ namespace sensor_code {
   const char* remote = "ir";
 };
 
-  namespace values {                      // Storage for sensor values
+  namespace value {                      // Storage for sensor values
     namespace {   // "private" members
       struct vector3_values {
         int16_t x;
@@ -210,7 +210,7 @@ public:
     Serial.println("Starting sensor setup");
     start_ultrasonic();
     start_steering();
-    start_ir();
+    start_ir(); 
     if (!start_lof() || !start_mpu() || !start_qmc() || !start_gps()){
     Serial.println("There was an error starting one or more sensors; see error log for more details");
     } else {
@@ -300,7 +300,7 @@ private:
       }
     }
    } else {
-    return false;
+    return false; 
    }
   }   // add address verification, retry to set address if didn't work, exit after n times
 
@@ -416,20 +416,20 @@ private:
   void read_ultrasonic(uint8_t index = 0) {
     if (index == 0){
       for (int i = 0; i < number_of_ultrasonic; i++) {
-        values::ultrasonic[i] = ultrasonic.dist(i);
+        value::ultrasonic[i] = ultrasonic.dist(i);
       }
     } else if (index <= number_of_ultrasonic) {
-      values::ultrasonic[index - 1] = ultrasonic.dist(index - 1);
+      value::ultrasonic[index - 1] = ultrasonic.dist(index - 1);
     }
   }
 
   void read_lof (uint8_t index) {
     if (index == 0){
       for (int i = 0; i < number_of_lof; i++) {
-        values::lof[i] = lof[i]->readRangeContinuousMillimeters();
+        value::lof[i] = lof[i]->readRangeContinuousMillimeters();
       }
     } else if (index <= number_of_lof) {
-      values::lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
+      value::lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
     }
   }
 
@@ -438,23 +438,23 @@ private:
     if (index == 0){
       for (int i = 0; i < number_of_mpu; i++) {
         mpu[i]->getEvent(&a, &g, &temp);
-        values::mpu[i].accel.x = a.acceleration.x;
-        values::mpu[i].accel.y = a.acceleration.y;
-        values::mpu[i].accel.z = a.acceleration.z;
-        values::mpu[i].gyro.x = g.gyro.x;
-        values::mpu[i].gyro.y = g.gyro.y;
-        values::mpu[i].gyro.z = g.gyro.z;
-        values::mpu[i].temp = temp.temperature;
+        value::mpu[i].accel.x = a.acceleration.x;
+        value::mpu[i].accel.y = a.acceleration.y;
+        value::mpu[i].accel.z = a.acceleration.z;
+        value::mpu[i].gyro.x = g.gyro.x;
+        value::mpu[i].gyro.y = g.gyro.y;
+        value::mpu[i].gyro.z = g.gyro.z;
+        value::mpu[i].temp = temp.temperature;
       }
     } else if (index <= number_of_mpu) {
         mpu[index - 1]->getEvent(&a, &g, &temp);
-        values::mpu[index - 1].accel.x = a.acceleration.x;
-        values::mpu[index - 1].accel.y = a.acceleration.y;
-        values::mpu[index - 1].accel.z = a.acceleration.z;
-        values::mpu[index - 1].gyro.x = g.gyro.x;
-        values::mpu[index - 1].gyro.y = g.gyro.y;
-        values::mpu[index - 1].gyro.z = g.gyro.z;
-        values::mpu[index - 1].temp = temp.temperature;
+        value::mpu[index - 1].accel.x = a.acceleration.x;
+        value::mpu[index - 1].accel.y = a.acceleration.y;
+        value::mpu[index - 1].accel.z = a.acceleration.z;
+        value::mpu[index - 1].gyro.x = g.gyro.x;
+        value::mpu[index - 1].gyro.y = g.gyro.y;
+        value::mpu[index - 1].gyro.z = g.gyro.z;
+        value::mpu[index - 1].temp = temp.temperature;
     }
   }
 
@@ -462,22 +462,22 @@ private:
     if (index == 0){
       for (int i = 0; i < number_of_qmc; i++) {
         qmc[i]->read();
-        values::qmc_bearing[i] = qmc[i]->getAzimuth();
-        values::qmc[i].x = qmc[i]->getX();
-        values::qmc[i].y = qmc[i]->getY();
-        values::qmc[i].z = qmc[i]->getZ();
+        value::qmc_bearing[i] = qmc[i]->getAzimuth();
+        value::qmc[i].x = qmc[i]->getX();
+        value::qmc[i].y = qmc[i]->getY();
+        value::qmc[i].z = qmc[i]->getZ();
       }
     } else if (index <= number_of_qmc) {
         qmc[index - 1]->read();
-        values::qmc_bearing[index-1] = qmc[index-1]->getAzimuth();
-        values::qmc[index-1].x = qmc[index-1]->getX();
-        values::qmc[index-1].y = qmc[index-1]->getY();
-        values::qmc[index-1].z = qmc[index-1]->getZ();
+        value::qmc_bearing[index-1] = qmc[index-1]->getAzimuth();
+        value::qmc[index-1].x = qmc[index-1]->getX();
+        value::qmc[index-1].y = qmc[index-1]->getY();
+        value::qmc[index-1].z = qmc[index-1]->getZ();
     }
   }
 
   void read_steering () {
-    values::steer_position = steer_position.get_degrees();
+    value::steer_position = steer_position.get_degrees();
   }
 
   void read_gps(){
@@ -485,20 +485,20 @@ private:
       delay(serial_delay);      // Wait for data to finish coming in
       if (gps.encode(gps_serial.read())){
         if (gps.location.isValid()) {
-          values::gps.lat = gps.location.lat();
-          values::gps.lng = gps.location.lng();
+          value::gps.lat = gps.location.lat();
+          value::gps.lng = gps.location.lng();
         }
         if (gps.altitude.isValid()) {
-          values::gps.alt = gps.altitude.meters();
+          value::gps.alt = gps.altitude.meters();
         }
         if (gps.course.isValid()){
-          values::gps.deg = gps.course.deg();
+          value::gps.deg = gps.course.deg();
         }
         if(gps.speed.isValid()){
-          values::gps.spd = gps.speed.kmph();
+          value::gps.spd = gps.speed.kmph();
         }
         if (gps.satellites.isValid()){
-          values::gps.fix = gps.satellites.value();
+          value::gps.fix = gps.satellites.value();
         }
       } else {
         error::gps = 3;       // Failed to read data
@@ -509,10 +509,10 @@ private:
 
   void read_ir(){
     if (ir.decode()) {
-      values::ir = ir.decodedIRData.command;
+      value::ir = ir.decodedIRData.command;
       ir.resume();
     } else {
-      values::ir = 0;   // no data recieved
+      value::ir = 0;   // no data recieved
     }
   }
 };
@@ -526,28 +526,29 @@ Sensor sensor;
 
 class Data {
   private:
-    struct packets {
-          uint8_t index;
-          char code[4];
-    };
-  public:
+    char buffer[string_limit];
     char output[string_limit];
-//    static const uint8_t number_of = 7;
-//    const packets code[number_of] = {
-//        {0, sensor_code::ultrasonic},		// hcsr04
-//        {1, sensor_code::lof},		// lof
-//        {2, sensor_code::steering},		// steer pot
-//        {3, sensor_code::mpu},		// accel / gyrp
-//        {4, sensor_code::qmc},		// magnetometer
-//        {5, sensor_code::gps},		// gps data
-//        {6, sensor_code::remote}    // ir remote
-//    };
+    char data_start = '[';
+    char data_end = ']'; 
+    char* get_mpu(){
+      memset(buffer, 0, string_limit);
+      strcpy(buffer, sensor_code::ultrasonic); 
+      strcpy(buffer, data_start); 
+      for(int i = 0; i < number_of_mpu; i++){
+        
+        strcpy(buffer, tmp);
+      }
+      strcpy(buffer, data_end); 
+      return buffer; 
+    }
+  public:
+    
     char* get(){
       memset(output, 0, string_limit);
 
-      //sensor.values::ultrasonic[index];
-      //sensor.values::lof[index];
-      // sensor.values::
+      //sensor.value::ultrasonic[index];
+      //sensor.value::lof[index];
+      // sensor.value::
       strcpy(output, "Hello World");
       return output;
     }
