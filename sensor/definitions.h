@@ -1,6 +1,7 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
+// Program flow / functionality parameters
 static const long baudrate = 115200;
 static const uint32_t gps_baudrate = 4800;
 static const uint16_t serial_delay = 10;
@@ -8,6 +9,7 @@ static const uint16_t loop_interval = 10;
 static const uint16_t send_interval = 25;
 static const uint8_t string_limit = 64;
 
+// How many of each type of sensor
 static const uint8_t number_of_HCSR04 = 6;
 static const uint8_t number_of_lof = 4;
 static const uint8_t number_of_qmc = 1;
@@ -18,8 +20,10 @@ static const uint8_t number_of_sensors =
     number_of_HCSR04 + number_of_lof + number_of_qmc + number_of_mpu +
     number_of_ir + number_of_gps;
 
+// How many times to retry sensor initializations before moving on
 static const uint8_t sensor_retry = 3;
 
+// Create pcf object for port expander
 PCF8575 PCF(0x20);
 
 namespace Pin {
@@ -42,8 +46,8 @@ namespace Pin {
 
 namespace Address {
   static constexpr uint8_t VL53L0X[number_of_lof] = {0x29, 0x30, 0x31, 0x32}; // First default, rest must be programmed ON EACH POWER CYCLE IS VOLATILE
-  static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
-  static constexpr uint8_t mpu[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
+  static constexpr uint8_t QMC[number_of_qmc] = {0x0D};           // Default (verified from datasheeet)
+  static constexpr uint8_t mpu[number_of_mpu] = {0x68, 0x69};     // First default, second with adjustor pulled up to 5v
   static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
   bool detect(uint8_t address) {      // From chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
     // Enable internal pull-ups on SDA and SCL pins
@@ -71,13 +75,13 @@ namespace Address {
 };
 
 namespace Code {
-  char* ultrasonic = "hc";
-  char* lof = "lof";
-  char* steering ="str";
-  char* mpu = "mpu";
-  char*  qmc = "qmc";
-  char* gps = "gps";
-  char* remote = "ir";
+  const char* ultrasonic = "hc";
+  const char* lof = "lof";
+  const char* steering ="str";
+  const char* mpu = "mpu";
+  const char*  qmc = "qmc";
+  const char* gps = "gps";
+  const char* remote = "ir";
 };
 
 class Potentiometer {
@@ -110,7 +114,101 @@ class Potentiometer {
 class Sensor {
 public:
   Sensor(); // For constructor (needed to initialize arrays of sensors)
-  HCSR04 ultrasonic;                      // Allows for direct definition of array
+
+  void begin() {        // Calls to read will retrieve data from sensor(s) and store it in values array for further access / processing
+    Serial.println("Starting sensor setup");
+    start_ultrasonic();
+    start_steering();
+    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
+    if (!start_lof() || !start_mpu() || !start_qmc() || !start_gps()){
+    Serial.println("There was an error starting one or more sensors; see error log for more details");
+    } else {
+    Serial.println("All sensors started successfully");
+    }
+    delay(100);     // Make sure sensors have time before starting to read
+  }
+
+  void read(const String& sensor){    // Read an individual sensor, might add this later
+    return;
+  }
+
+  void read_all(){                    // Read all the sensors
+    read_ultrasonic(0);
+    read_lof(0);
+    read_mpu(0);
+    read_qmc(0);
+    read_steering();
+    read_gps();
+    read_ir();
+  }
+
+  namespace values {                      // Storage for sensor values
+    uint16_t ultrasonic[number_of_HCSR04];
+    uint16_t lof[number_of_lof];
+    uint16_t steer_position;
+    unsigned long ir;
+    uint16_t qmc_bearing[number_of_qmc];
+    vector3_values qmc[number_of_qmc];
+    mpu_values mpu[number_of_mpu];
+    gps_values gps;
+    is_new updated;
+    namespace {   // "private" members
+      struct vector3_values {
+        int16_t x;
+        int16_t y;
+        int16_t z;
+      };
+      struct mpu_values {
+        vector3_values accel;
+        vector3_values gyro;
+        int temp;
+      };
+      struct gps_values {
+        double lat;
+        double lng;
+        double alt;
+        double spd;   // km per hour
+        double deg;   // bearing, compare with magnetometer
+        bool fix;   // Valid gps fix
+      };
+      struct is_new {
+        bool ultrasonic[number_of_ultrasonic];
+        bool lof[number_of_lof];
+        bool steering;
+        bool mpu[number_of_mpu];
+        bool qmc[number_of_qmc];
+        bool gps;
+        bool remote;
+      };
+     };
+  };
+
+  namespace error {                    // Storage for sensor errors
+    uint8_t ultrasonic[number_of_HCSR04];
+    uint8_t lof[number_of_lof];
+    uint8_t mpu[number_of_mpu];
+    uint8_t qmc[number_of_qmc];
+    uint8_t gps;
+    namespace {
+      static const uint8_t number_of = 5;
+      struct packet {
+      uint8_t index;
+      char code[8];
+      };
+      const codes packet[number_of] = {
+        {0, "none"},		// no error
+        {1, "addr"},		// address not found
+        {2, "init"},		// failed to initialize
+        {3, "read"},		// failed to read data
+        {4, "other"}		// any other failure
+        };
+    }
+  };
+
+  Errors error;
+
+private:
+  HCSR04 ultrasonic;                      // Allows for direct definition of array, no need to use pointers
   VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION
   Potentiometer steer_position;
   Adafruit_mpu6050* mpu[number_of_mpu];
@@ -132,14 +230,14 @@ public:
         Serial.println("Checkpoint 1.1");
         delay(50);
         if (!Address::detect(0x29)) {
-          error.lof[i] = 1;   // address not found error
+          error::lof[i] = 1;   // address not found error
           return_val = false;
           continue;  // skip to the next sensor
         }
         Serial.println("Checkpoint 1.1.5");
         if (!lof[i]->init()) {
           return_val = false;
-          error.lof[i] = 2;   // failed to initialize error
+          error::lof[i] = 2;   // failed to initialize error
         } else {
           lof[i]->setAddress(Address::VL53L0X[i]);
           PCF.write(Pin::x_shut[i], LOW);   // Deactivate after setting
@@ -164,7 +262,7 @@ public:
     for(int i = 0; i < number_of_mpu; i++){
       mpu[i] = new Adafruit_MPU6050();
       if (!Address::detect(Address::mpu[i])) {
-        error.mpu[i] = 1;   // address not found error
+        error::mpu[i] = 1;   // address not found error
         return_val = false;
         continue;  // skip to the next sensor
       } else if (!mpu[i]->begin()) {
@@ -188,7 +286,7 @@ public:
     for(int i = 0; i < number_of_qmc; i++){
       qmc[i] = new QMC5883LCompass();
       if (!Address::detect(Address::qmc[i])) {
-        error.qmc[i] = 1;   // address not found error
+        error::qmc[i] = 1;   // address not found error
         return_val = false;
         continue;  // skip to the next sensor
       } else {
@@ -205,7 +303,7 @@ public:
         pinMode(Pin::HCSR04[i], INPUT);
         delay(10);
         if (ultrasonic.dist(i) == 0) {
-          error.ultrasonic[i] = 1;   // address error for sensor not connected
+          error::ultrasonic[i] = 1;   // address error for sensor not connected
           return_val = false;
         }
       }
@@ -227,120 +325,28 @@ public:
       }
     }
     if (gps.charsProcessed() < 10) {
-      error.gps = 1;      // Use device not found error
+      error::gps = 1;      // Use device not found error
     }
     return return_val;
-  }
-
-  void begin() {
-    Serial.println("Starting sensor setup");
-    start_ultrasonic();
-    start_steering();
-    IrReceiver.begin(Pin::IR);    // No hardware initialization, just wont get any data if its not connected right
-    if (!start_lof() || !start_mpu() || !start_qmc() || !start_gps()){
-      Serial.println("There was an error starting one or more sensors; see error log for more details");
-    } else {
-      Serial.println("All sensors started successfully");
-    }
-    delay(100);     // Make sure sensors have time before starting to read
-  }
-  
-  class Values {
-   public:
-    uint16_t ultrasonic[number_of_HCSR04];
-    uint16_t lof[number_of_lof];
-    uint16_t steer_position;
-    unsigned long ir;
-    struct vector3_values {
-      int16_t x;
-      int16_t y;
-      int16_t z;
-    };
-    uint16_t qmc_bearing[number_of_qmc];
-    vector3_values qmc[number_of_qmc];
-    struct mpu_values {
-      vector3_values accel;
-      vector3_values gyro;
-      int temp;
-    };
-    mpu_values mpu[number_of_mpu];
-    struct gps_values {
-      double lat;
-      double lng;
-      double alt;
-      double spd;   // km per hour
-      double deg;   // bearing, compare with magnetometer
-      bool fix;   // Valid gps fix
-    };
-    gps_values gps;
-    struct is_new {
-        bool ultrasonic[number_of_ultrasonic];
-        bool lof[number_of_lof];
-        bool steering;
-        bool mpu[number_of_mpu];
-        bool qmc[number_of_qmc];
-        bool gps;
-        bool remote; 
-    };
-    is_new updated;
-  };
-
-  Values value;
-
-  class Errors {
-    private:
-      struct packet {
-        uint8_t index;
-        char code[8];
-      };
-      static const uint8_t number_of = 5;
-      const codes packet[number_of] = {
-          {0, "none"},		// no error
-          {1, "addr"},		// address not found
-          {2, "init"},		// failed to initialize
-          {3, "read"},		// failed to read data
-          {4, "other"}		// any other failure
-        };
-   public:
-    uint8_t ultrasonic[number_of_HCSR04];
-    uint8_t lof[number_of_lof];
-    uint8_t mpu[number_of_mpu];
-    uint8_t qmc[number_of_qmc];
-    uint8_t gps;
-  };
-
-  Errors error;
-
-  void read(const String& sensor){
-
-  }
-  void read_all(){
-    read_ultrasonic(0);
-    read_lof(0);
-    read_mpu(0);
-    read_qmc(0);
-    read_steering();
-    read_gps();
-    read_ir(); 
   }
 
   void read_ultrasonic(uint8_t index = 0) {
     if (index == 0){
       for (int i = 0; i < number_of_HCSR04; i++) {
-        value.ultrasonic[i] = ultrasonic.dist(i);
+        values::ultrasonic[i] = ultrasonic.dist(i);
       }
     } else if (index <= number_of_HCSR04) {
-      value.ultrasonic[index - 1] = ultrasonic.dist(index - 1);
+      values::ultrasonic[index - 1] = ultrasonic.dist(index - 1);
     }
   }
 
   void read_lof (uint8_t index) {
     if (index == 0){
       for (int i = 0; i < number_of_lof; i++) {
-        value.lof[i] = lof[i]->readRangeContinuousMillimeters();
+        values::lof[i] = lof[i]->readRangeContinuousMillimeters();
       }
     } else if (index <= number_of_lof) {
-      value.lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
+      values::lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
     }
   }
 
@@ -349,23 +355,23 @@ public:
     if (index == 0){
       for (int i = 0; i < number_of_mpu; i++) {
         mpu[i]->getEvent(&a, &g, &temp);
-        value.mpu[i].accel.x = a.acceleration.x;
-        value.mpu[i].accel.y = a.acceleration.y;
-        value.mpu[i].accel.z = a.acceleration.z;
-        value.mpu[i].gyro.x = g.gyro.x;
-        value.mpu[i].gyro.y = g.gyro.y;
-        value.mpu[i].gyro.z = g.gyro.z;
-        value.mpu[i].temp = temp.temperature;
+        values::mpu[i].accel.x = a.acceleration.x;
+        values::mpu[i].accel.y = a.acceleration.y;
+        values::mpu[i].accel.z = a.acceleration.z;
+        values::mpu[i].gyro.x = g.gyro.x;
+        values::mpu[i].gyro.y = g.gyro.y;
+        values::mpu[i].gyro.z = g.gyro.z;
+        values::mpu[i].temp = temp.temperature;
       }
     } else if (index <= number_of_mpu) {
         mpu[index - 1]->getEvent(&a, &g, &temp);
-        value.mpu[index - 1].accel.x = a.acceleration.x;
-        value.mpu[index - 1].accel.y = a.acceleration.y;
-        value.mpu[index - 1].accel.z = a.acceleration.z;
-        value.mpu[index - 1].gyro.x = g.gyro.x;
-        value.mpu[index - 1].gyro.y = g.gyro.y;
-        value.mpu[index - 1].gyro.z = g.gyro.z;
-        value.mpu[index - 1].temp = temp.temperature;
+        values::mpu[index - 1].accel.x = a.acceleration.x;
+        values::mpu[index - 1].accel.y = a.acceleration.y;
+        values::mpu[index - 1].accel.z = a.acceleration.z;
+        values::mpu[index - 1].gyro.x = g.gyro.x;
+        values::mpu[index - 1].gyro.y = g.gyro.y;
+        values::mpu[index - 1].gyro.z = g.gyro.z;
+        values::mpu[index - 1].temp = temp.temperature;
     }
   }
 
@@ -373,22 +379,22 @@ public:
     if (index == 0){
       for (int i = 0; i < number_of_qmc; i++) {
         qmc[i]->read();
-        value.qmc_bearing[i] = qmc[i]->getAzimuth();
-        value.qmc[i].x = qmc[i]->getX();
-        value.qmc[i].y = qmc[i]->getY();
-        value.qmc[i].z = qmc[i]->getZ();
+        values::qmc_bearing[i] = qmc[i]->getAzimuth();
+        values::qmc[i].x = qmc[i]->getX();
+        values::qmc[i].y = qmc[i]->getY();
+        values::qmc[i].z = qmc[i]->getZ();
       }
     } else if (index <= number_of_qmc) {
         qmc[index - 1]->read();
-        value.qmc_bearing[index-1] = qmc[index-1]->getAzimuth();
-        value.qmc[index-1].x = qmc[index-1]->getX();
-        value.qmc[index-1].y = qmc[index-1]->getY();
-        value.qmc[index-1].z = qmc[index-1]->getZ();
+        values::qmc_bearing[index-1] = qmc[index-1]->getAzimuth();
+        values::qmc[index-1].x = qmc[index-1]->getX();
+        values::qmc[index-1].y = qmc[index-1]->getY();
+        values::qmc[index-1].z = qmc[index-1]->getZ();
     }
   }
 
   void read_steering () {
-    value.steer_position = steer_position.get_degrees();
+    values::steer_position = steer_position.get_degrees();
   }
 
   void read_gps(){
@@ -396,23 +402,23 @@ public:
       delay(serial_delay);      // Wait for data to finish coming in
       if (gps.encode(gps_serial.read())){
         if (gps.location.isValid()) {
-          value.gps.lat = gps.location.lat();
-          value.gps.lng = gps.location.lng();
+          values::gps.lat = gps.location.lat();
+          values::gps.lng = gps.location.lng();
         }
         if (gps.altitude.isValid()) {
-          value.gps.alt = gps.altitude.meters();
+          values::gps.alt = gps.altitude.meters();
         }
         if (gps.course.isValid()){
-          value.gps.deg = gps.course.deg();
+          values::gps.deg = gps.course.deg();
         }
         if(gps.speed.isValid()){
-          value.gps.spd = gps.speed.kmph();
+          values::gps.spd = gps.speed.kmph();
         }
         if (gps.satellites.isValid()){
-          value.gps.fix = gps.satellites.value();
+          values::gps.fix = gps.satellites.value();
         }
       } else {
-        error.gps = 3;       // Failed to read data
+        error::gps = 3;       // Failed to read data
       }
     }
     // If data not available, nothing to read - add something to keep track of how long it has been since successful read
@@ -420,10 +426,10 @@ public:
 
   void read_ir(){
     if (ir.decode()) {
-      value.ir = ir.decodedIRData.command;
+      values::ir = ir.decodedIRData.command;
       ir.resume();
     } else {
-      value.ir = 0;   // no data recieved
+      values::ir = 0;   // no data recieved
     }
   }
 };
@@ -456,9 +462,9 @@ class Data {
     char* get(){
       memset(output, 0, string_limit);
 
-      //sensor.value.ultrasonic[index];
-      //sensor.value.lof[index];
-      // sensor.value.
+      //sensor.values::ultrasonic[index];
+      //sensor.values::lof[index];
+      // sensor.values::
       strcpy(output, "Hello World");
       return output;
     }
