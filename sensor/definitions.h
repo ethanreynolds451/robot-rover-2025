@@ -45,7 +45,7 @@ namespace Address {
   static constexpr uint8_t QMC[number_of_qmc] = {0x42};           // Default
   static constexpr uint8_t mpu[number_of_mpu] = {0x68, 0x69};     // First default, second pulled up to 5v
   static constexpr uint8_t PCF = 0x20;     // Default according to ChatGPT, check specific model
-  bool detect(uint8_t address) {      // Thanks chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
+  bool detect(uint8_t address) {      // From chat GPT, script to detect if i2c address is on bus, non-blocking and will not freze (hopefully)
     // Enable internal pull-ups on SDA and SCL pins
     pinMode(Pin::SDA, INPUT_PULLUP);
     pinMode(Pin::SCL, INPUT_PULLUP);
