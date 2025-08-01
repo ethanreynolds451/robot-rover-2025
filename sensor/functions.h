@@ -9,6 +9,7 @@ void setup_function(){
     Wire.begin();
     Wire.setTimeout(50); 
     start_pcf(); 
+    Serial.println("PCF started"); 
     sensor.begin();     // this will call begin on any objects that require this and assign I2C addresses to the lof sensors
     Serial.println("Setup complete"); 
 }
