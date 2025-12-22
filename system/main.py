@@ -1,6 +1,6 @@
-from serialManager import Serial
+from serialManager import ArduinoSerial
 
-serial = Serial()
+serial = ArduinoSerial(["port_1", "port_2"], {"sensor":"Sensor_ID", "control":"Control_ID"})
 
 def run():
-    serial.startRelay()
+    serial.startRelay("sensor", "control")
