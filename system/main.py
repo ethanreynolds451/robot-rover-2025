@@ -1,4 +1,6 @@
-import serial
+from serialManager import Serial
+
+serial = Serial()
 
 def run():
-    print("hello world")
+    serial.startRelay()
