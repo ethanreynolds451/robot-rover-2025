@@ -132,7 +132,7 @@ void update_control(){
 void reset_vehicle(){
   control.set_defaults();
   control.set_brake(true);
-  update();
+  update_control();
 }
 
 void input_error(){
