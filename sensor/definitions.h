@@ -27,7 +27,6 @@ namespace sensor_code {
 
 namespace value {                      // Storage for sensor values
   unsigned long ir;
-  is_new updated;
 };
 
 namespace error {                    // Storage for sensor errors
@@ -99,7 +98,7 @@ class Data {
     char* get_ir(){                         // Return formatted value of IR
       memset(buffer, 0, string_limit);
       strcpy(buffer, sensor_code::remote); 
-      strcpy(buffer, value::ir)
+      strcpy(buffer, value::ir);
       strcpy(buffer, data_end); 
       return buffer; 
     }
