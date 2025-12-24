@@ -1,15 +1,29 @@
 import serial
 
 class ArduinoSerial:
-    def __init__(self, ports, devices):
+    def __init__(self, ports = None, device_info = None):
         self.ports = ports
-        self.device_info = devices
-        self.devices = []
+        self.device_info = device_info
+        self.devices = {}
+
     def identify(self):
         for port in self.ports:
             pass
+        # map device names to ports based on data received from device
+    
+    def set_port(self, device_name, port):
+        self.devices[device_name] = port
+        # directly set port for a device name
+
+    def send(self, output, data): 
+        pass
+
+    def read(self, input):
+        return None
+
+    
     def startRelay(self, input, output):
-        print("Hello World")
+        pass
     def stopRelay(self):
         pass
 
