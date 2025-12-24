@@ -106,19 +106,20 @@ void run_input(){
 
 void check_temp(){
   uint16_t temp = analogRead(pin.thermistor);
-  temp = 30*log(temp) - 95;
+  // Added diode to reduce noise, adjusted offset from -95 to -125
+  temp = 30*log(temp) - 125;
   Serial.println("Temp: " + String(temp));	// Debug line
   if(temp < 25){
  	control.f_speed = 0;
-  } else if(temp > 70){
+  } else if(temp > 50){
  	control.f_speed = 100;
   } else {
- 	control.f_speed = map(temp, 25, 70, 0, 100);
+ 	control.f_speed = map(temp, 25, 50, 0, 100);
   }
 }
 
 void update_control(){
-   fan.set(map(control.f_speed, 0, 100, 100, 255));
+   	fan.set(map(control.f_speed, 0, 100, 100, 255));
 	brake_relay.set(!control.brake);
 	reverse_1_relay.set(control.reverse);
 	reverse_2_relay.set(control.reverse);
