@@ -19,9 +19,18 @@ void loop(){
                 timeout.reset();
             }
         } else {
-            if(timeout.passed()){
+            if(timeout.passed()){       // After timout of no input, reset vehicle
                 input_error();
             }
+        }
+        if echo_enabled {
+            Serial.println("br: " + String(control.brake) + 
+                           " rv: " + String(control.reverse) + 
+                           " srv: " + String(control.s_reverse) + 
+                           " su: " + String(control.shift_up) + 
+                           " sp: " + String(control.speed_) + 
+                           " ssp: " + String(control.s_speed) + 
+                           " fan: " + String(control.f_speed));
         }
         delay(loop_delay);
     }

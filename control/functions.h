@@ -108,7 +108,7 @@ void check_temp(){
   uint16_t temp = analogRead(pin.thermistor);
   // Added diode to reduce noise, adjusted offset from -95 to -125
   temp = 30*log(temp) - 125;
-  Serial.println("Temp: " + String(temp));	// Debug line
+  // Serial.println("Temp: " + String(temp));	// Debug line
   if(temp < 25){
  	control.f_speed = 0;
   } else if(temp > 50){

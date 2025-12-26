@@ -8,7 +8,8 @@ static const uint8_t pwm_min = 50;
 static const uint8_t pwm_max = 200;
 static const uint16_t loop_delay = 10;      // Must be at least 6 for data integrity, if less needed find alterante serial approach or increase number of cycles
 static const uint16_t serial_delay = 1;     // In loop cycles, NOT ms
-static const uint16_t fan_delay = 1000;
+static const uint16_t fan_delay = 10000;    // Check and update the temperature every 10 seconds
+uint8_t echo_enabled = 1;                   // Set to 1 to enable serial echo for debugging
 // Sensd data at 50ms interval
 
 char input[string_limit];
