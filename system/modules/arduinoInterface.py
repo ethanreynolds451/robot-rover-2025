@@ -1,7 +1,7 @@
 
 
-class Command:
-    def __init__(self, device_ID):
+class CommandArduino:
+    def __init__(self, device_ID=None):
         self.ID = device_ID
         self.command_codes = {
             "brake": "br",
@@ -10,24 +10,23 @@ class Command:
             "shift_up": "su",
             "speed": "sp",
             "s_speed": "ssp",
-            "f_speed": "fan"
         }
-        self.command_values = {
+        self.current_values = {
             "brake": 1,     # Set to 1 to match default in Arduino code
             "reverse": 0,
             "s_reverse": 0,
             "shift_up": 0,
             "speed": 0,
             "s_speed": 0,
-            "f_speed": 0
         }
+        self.default_values = self.current_values.copy()
     
     def command_string(self):
         command_str = "{"
-        for key in self.command_values:
+        for key in self.current_values:
             code = self.command_codes[key]
-            value = self.command_values[key]
-            command_str += f"{code}{value}"
+            value = self.current_values[key]
+            command_str += f"{code}[{value}]"
         command_str += "}"
         return command_str
             

@@ -27,11 +27,27 @@ class KeysDown:
 
 class KeyToCommand:
 
-    def __init__(self, key_command_map):
+    def __init__(self, key_command_map, key_value_map, interface):
+        self.output = interface.current_values
+        self.defaults = interface.default_values
         self.key_command_map = key_command_map
-        self.active_commands = set()
+        self.key_value_map = key_value_map
     
+    # code for simple testing of vehicle functionality
     def update(self, pressed_keys):
         for scan_code in pressed_keys:
             if scan_code in self.key_command_map:
-                self.active_commands.add(self.key_command_map[scan_code])
+                command = self.key_command_map[scan_code]
+                value = self.key_value_map.get(scan_code)
+                self.output[command] = value
+        else:
+            for command in self.output:
+                if command not in [self.key_command_map[code] for code in pressed_keys if code in self.key_command_map]:
+                    self.output[command] = self.defaults[command]
+
+    # future code to better handle key function mapping
+    def execute_keys(self, pressed_keys):
+        for scan_code in pressed_keys:
+            pass    
+            
+                

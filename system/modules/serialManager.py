@@ -2,6 +2,7 @@ import serial
 
 class ArduinoSerial:
     def __init__(self, ports = None, device_info = None):
+        self.baud_rate = 115200 # hardcoding for now, will make configurable by device later        
         self.ports = ports
         self.device_info = device_info
         self.devices = {}
@@ -16,7 +17,15 @@ class ArduinoSerial:
         # directly set port for a device name
 
     def send(self, output, data): 
-        pass
+        if output in self.devices:
+            port = self.devices[output]
+            try:
+                with serial.Serial(port, self.baud_rate, timeout=1) as ser:
+                    ser.write(data.encode())
+            except serial.SerialException as e:
+                print(f"Error sending data to {output} on port {port}: {e}")
+        else:
+            print(f"Device {output} not found.")
 
     def read(self, input):
         return None
