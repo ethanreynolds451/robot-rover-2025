@@ -121,7 +121,7 @@ class Control {
         bool shift_up = false;		//su
         uint8_t speed_ = 0;			//sp
         uint8_t s_speed = 0;		//ssp
-        uint8_t f_speed = 0;    //fan
+        uint8_t f_speed = 0;        //fan
         void set_brake(bool active){
             brake = active;
         }
