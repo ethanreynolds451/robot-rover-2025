@@ -23,7 +23,7 @@ void loop(){
                 input_error();
             }
         }
-        if echo_enabled {
+        if(echo_enabled){
             Serial.println("br: " + String(control.brake) + 
                            " rv: " + String(control.reverse) + 
                            " srv: " + String(control.s_reverse) + 
