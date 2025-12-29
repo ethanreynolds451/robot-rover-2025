@@ -1,7 +1,7 @@
 #ifndef CLASS2_h
 #define CLASS2_h
 
-#include "subdirectory1/class.h"
+#include "linked/class.h"
 
 class myClass2 {
     public:
