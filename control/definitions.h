@@ -23,7 +23,7 @@ public:
 	static constexpr uint8_t reverse_2 = 12;
 	static constexpr uint8_t s_reverse_1 = 7;
 	static constexpr uint8_t s_reverse_2 = 8;
-	static constexpr uint8_t shift_1 = 13;      // Would be 5 but needed for pwm
+	static constexpr uint8_t shift_1 = 13;      // Would be 5 but needed for fan pwm
 	static constexpr uint8_t shift_2 = 6;
 	static constexpr uint8_t speed_ = 9;
 	static constexpr uint8_t s_speed = 10;
