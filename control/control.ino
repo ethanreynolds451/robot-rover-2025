@@ -1,12 +1,22 @@
 #include "libraries.h"
-#include "definitions.h"
-#include "functions.h"
 
 // Data format
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
-void setup(){ 
+Time loop_timer(loop_delay);
+Time timeout(input_timeout);
+Time update_fan(fan_delay);
+
+void setup(){    
   setup_function(); 
+}
+
+// Move this when needed
+bool serial_delay_passed(){
+    if(serial_loop_counter >= serial_delay){
+        serial_loop_counter = 0;
+        return true;
+    }
 }
 
 void loop(){

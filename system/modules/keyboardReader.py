@@ -27,11 +27,12 @@ class KeysDown:
 
 class KeyToCommand:
 
-    def __init__(self, key_command_map, key_value_map, interface):
+    def __init__(self, key_command_map, key_value_map, sticky_keys, interface):
         self.output = interface.current_values
         self.defaults = interface.default_values
         self.key_command_map = key_command_map
         self.key_value_map = key_value_map
+        self.sticky_keys = sticky_keys
     
     # code for simple testing of vehicle functionality
     def update(self, pressed_keys):
@@ -43,7 +44,9 @@ class KeyToCommand:
         else:
             for command in self.output:
                 if command not in [self.key_command_map[code] for code in pressed_keys if code in self.key_command_map]:
-                    self.output[command] = self.defaults[command]
+                    # Si el comando está en sticky_keys, no lo restablecemos
+                    if command not in self.sticky_keys:
+                        self.output[command] = self.defaults[command]
 
     # future code to better handle key function mapping
     def execute_keys(self, pressed_keys):

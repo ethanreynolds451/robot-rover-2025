@@ -12,7 +12,7 @@ class CommandArduino:
             "s_speed": "ssp",
         }
         self.current_values = {
-            "brake": 1,     # Set to 1 to match default in Arduino code
+            "brake": 0,   
             "reverse": 0,
             "s_reverse": 0,
             "shift_up": 0,
