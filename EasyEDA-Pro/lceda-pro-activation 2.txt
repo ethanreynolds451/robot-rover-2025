@@ -1,8 +1,0 @@
-{
-    "username": "ethanreynolds451",
-    "customer_code": "10019633A",
-    "email": "ethanreynolds451@gmail.com",
-    "phone": "",
-    "company": "",
-    "license": "dXNlcm5hbWV8Y3VzdG9tZXJfY29kZXxlbWFpbHxwaG9uZXxjb21wYW55,xjKZZMYv1O02b8LmTW9GUTb4hhkZCanj4wsNw\/ZVD+S\/9NB6R6eGq+Umi73CDuBUm69ZETAFi93U3OPAuR19TFZSP4n4SZziCPu4N0ryTSWiOmhWSW0laxSs4HQOK+IkzaRaDGm60YBxmSr2i6vwVG6aapOJJiIjEvgPj8WIHK4="
-}
