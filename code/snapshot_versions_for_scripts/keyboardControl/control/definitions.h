@@ -4,8 +4,8 @@
 static const long input_timeout = 5000;	// If no command recieved for interval, cut all motors
 static const long baud_rate = 115200;
 static const uint8_t string_limit = 64;
-static const uint8_t pwm_min = 50;
-static const uint8_t pwm_max = 200;
+static const uint8_t pwm_min = 0;
+static const uint8_t pwm_max = 255;
 static const uint16_t loop_delay = 10;      // Must be at least 6 for data integrity, if less needed find alterante serial approach or increase number of cycles
 static const uint16_t serial_delay = 1;     // In loop cycles, NOT ms
 static const uint16_t fan_delay = 10000;    // Check and update the temperature every 10 seconds
@@ -25,10 +25,10 @@ public:
 	static constexpr uint8_t s_reverse_2 = 8;
 	static constexpr uint8_t shift_1 = 13;      // Would be 5 but needed for fan pwm
 	static constexpr uint8_t shift_2 = 6;
-	static constexpr uint8_t speed_ = 9;
-	static constexpr uint8_t s_speed = 10;
+	static constexpr uint8_t speed_ = 11;
+	static constexpr uint8_t s_speed = 9;
 	static constexpr uint8_t fan = 5;
-	static constexpr uint8_t headlight = 11;
+	static constexpr uint8_t headlight = 12;
 	//Analog
 	static constexpr uint8_t SDA = A4;
 	static constexpr uint8_t SCL = A5;

@@ -119,7 +119,7 @@ void check_temp(){
 }
 
 void update_control(){
-   	fan.set(map(control.f_speed, 0, 100, 100, 255));
+  fan.set(map(control.f_speed, 0, 100, 100, 255));
 	brake_relay.set(!control.brake);
 	reverse_1_relay.set(control.reverse);
 	reverse_2_relay.set(control.reverse);
