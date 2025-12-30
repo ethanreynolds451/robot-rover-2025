@@ -1,9 +1,12 @@
 #ifndef PWM_h
 #define PWM_h
 
+#include "dependencies/libraries.h"
+
 class PWM {
   public:
-	PWM(uint8_t pin_def, uint8_t max_pwm, uint8_t min_pwm) : pin(pin_def) {}
+	PWM(uint8_t pin_def, uint8_t max_pwm_def, uint8_t min_pwm_def) 
+		: pin(pin_def), max_pwm(max_pwm_def), min_pwm(min_pwm_def)  {}
 	void stop(){
 		analogWrite(pin, 0);
 	}

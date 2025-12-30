@@ -1,6 +1,8 @@
 #ifndef RELAY_h
 #define RELAY_h
 
+#include "dependencies/libraries.h"
+
 class Relay {
   public:
 	Relay(uint8_t pin_def) : pin(pin_def) {}

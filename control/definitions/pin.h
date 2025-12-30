@@ -1,7 +1,7 @@
 #ifndef PIN_h
 #define PIN_h
 
-namespace Pin {
+namespace pin {
 	//Digital
 	static constexpr uint8_t brake = 2;
 	static constexpr uint8_t reverse_1 = 4;

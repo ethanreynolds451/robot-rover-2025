@@ -1,7 +1,7 @@
 #ifndef COMMAND_h
 #define COMMAND_h
 
-namespace Command {
+namespace command {
     static const uint8_t number_of = 7;     // Number of valid commands
     struct command_struct {                 // Structure for command mapping
       uint8_t index;

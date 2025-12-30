@@ -1,9 +1,11 @@
 #ifndef TIMER_h
 #define TIMER_h
 
-class Time {
+#include "dependencies/libraries.h"
+
+class Timer {
   public:
-    Time(unsigned long x) : interval(x) {} // Constructor with member initializer list
+    Timer(unsigned long x) : interval(x) {} // Constructor with member initializer list
     bool passed() {
         return wait(interval);
     }

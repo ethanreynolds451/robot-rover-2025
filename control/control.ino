@@ -1,36 +1,30 @@
-#include "libraries.h"
+#include "definitions/global.h"
+#include "objects/timer.h"
+#include "objects/vehicle.h"
 
 // Data format
 // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
-Time loop_timer(loop_delay);
-Time timeout(input_timeout);
-Time update_fan(fan_delay);
+// Create timers to repeat functions at regular intervals
+Timer loop_timer(loop_delay);
+Timer timeout(input_timeout);
+Timer update_fan(fan_delay);
+
+// Create vehicle object
+Vehicle car(baud_rate);
 
 void setup(){    
-  setup_function(); 
-}
-
-// Move this when needed
-bool serial_delay_passed(){
-    if(serial_loop_counter >= serial_delay){
-        serial_loop_counter = 0;
-        return true;
-    }
+  car.initialize(); 
 }
 
 void loop(){
     if(loop_timer.passed()){
-        update_control();
-        if(is_input()){
-            if(serial_delay_passed()){
-                read_input();
-                run_input();
+        if(car.check_for_command()){
                 timeout.reset();
             }
         } else {
             if(timeout.passed()){       // After timout of no input, reset vehicle
-                input_error();
+                car.timeout_error();
             }
         }
         if(echo_enabled){
@@ -42,9 +36,12 @@ void loop(){
                            " ssp: " + String(control.s_speed) + 
                            " fan: " + String(control.f_speed));
         }
-        delay(loop_delay);
     }
     if (update_fan.passed()){
-        check_temp();
+        car.set_fan_from_temp();
+    }
+    if timeout.passed(){
+        // Reset vehicle to default state
+        car.reset();
     }
 }
