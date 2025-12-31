@@ -13,10 +13,10 @@ class PWM {
 	void start(){
 		analogWrite(pin, duty_cycle);
 	}
-  void set(uint8_t power){
-      duty_cycle = power;
-      start();
-  }
+	void set(uint8_t power){
+		duty_cycle = power;
+		start();
+	}
 	uint8_t get_power(){
 		return duty_cycle;
 	}

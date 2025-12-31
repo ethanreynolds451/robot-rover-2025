@@ -7,7 +7,8 @@
 #include "pwm.h"
 #include "relay.h"
 #include "serial.h"
-#include "thermistor.h"
+#include "voltageDivider.h"
+#include "batteryMonitor.h"
 
 class Vehicle {
     public:
@@ -24,7 +25,9 @@ class Vehicle {
             PWM speed_(pin.speed_);
             PWM s_speed(pin.s_speed);
             PWM fan(pin.fan);
-            log_thermistor internal_temp(pin.thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
+            logDivider internal_temp(pin.thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
+            batteryMonitor voltage(pin.batter_monitor, 1/.60, 0, "flooded_lead_acid");
+            fourDigitDisplay display(address.pcf);
         }
         void initialize(){
             reset_vehicle();    // Ensure vehicle is set to default state
@@ -96,6 +99,19 @@ class Vehicle {
                 output_states.f_speed = map(temp, 25, 50, 0, 100);
             }
             update_outputs();
+        }
+        void display_voltage(){
+            float voltage = voltage.read_voltage();
+            char buffer[64];
+            snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", voltage);
+            computer.write(buffer);
+        }
+        void display_voltage_as_percent(){
+            float voltage = voltage.read_voltage();
+            float percent = voltage.read_percentage();
+            char buffer[64];
+            snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V (%.1f%%)\n", voltage, percent);
+            computer.write(buffer);
         }
         void timeout_error(){
             reset();
