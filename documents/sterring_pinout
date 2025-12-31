@@ -1,0 +1,15 @@
+
+    |   1   3   5   7   9   |
+    |   2   4   6   8   10  |
+       | | | | | | | | | |
+
+1   Motor +     orange + orange-white
+2   VCC         green-white
+3   GND         green
+4   Motor -     brown + brown-white
+5   A inverse
+6   A           blue
+7   B inverse
+8   B           blue-white
+9   I inverse
+10  I
