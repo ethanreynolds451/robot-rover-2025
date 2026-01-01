@@ -1,7 +1,7 @@
 #ifndef CODES_h
 #define CODES_h
 
-namespace code {
+namespace Code {
     static const uint8_t number_of_commands = 7;     // Number of valid commands
     static const uint8_t number_of_data = 3;        // Number of data points
     struct code_struct {                 // Structure for code mapping

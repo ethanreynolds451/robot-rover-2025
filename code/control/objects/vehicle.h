@@ -15,19 +15,19 @@ class Vehicle {
         Vehicle(baud_rate_set) : baud_rate(baud_rat_set) {
             // Create objects that are components of control system
             SerialControl computer(baud_rate);
-            Relay brake_relay(pin.brake);
-            Relay reverse_1_relay(pin.reverse_1);
-            Relay reverse_2_relay(pin.reverse_2);
-            Relay s_reverse_1_relay(pin.s_reverse_1);
-            Relay s_reverse_2_relay(pin.s_reverse_2);
-            Relay shift_1_relay(pin.shift_1);
-            Relay shift_2_relay(pin.shift_2);
-            PWM speed_(pin.speed_);                                 // Other PWMs default to 0-255, adjust based on physical need
-            PWM s_speed(pin.s_speed);
-            PWM fan(pin.fan, 100, 255);                             // Fan always on with min speed
-            logDivider internal_temp(pin.thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
-            batteryMonitor voltage(pin.batter_monitor, 1/.60, 0, "flooded_lead_acid");
-            fourDigitDisplayPCF display(address.pcf, pin.digit_1, pin.digit_2, pin.digit_3, pin.digit_4);
+            Relay brake_relay(Pin::brake);
+            Relay reverse_1_relay(Pin::reverse_1);
+            Relay reverse_2_relay(Pin::reverse_2);
+            Relay s_reverse_1_relay(Pin::s_reverse_1);
+            Relay s_reverse_2_relay(Pin::s_reverse_2);
+            Relay shift_1_relay(Pin::shift_1);
+            Relay shift_2_relay(Pin::shift_2);
+            PWM speed_(Pin::speed_);                                 // Other PWMs default to 0-255, adjust based on physical need
+            PWM s_speed(Pin::s_speed);
+            PWM fan(Pin::fan, 100, 255);                             // Fan always on with min speed
+            logDivider internal_temp(Pin::thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
+            batteryMonitor voltage(Pin::batter_monitor, 1/.60, 0, "flooded_lead_acid");
+            fourDigitDisplayPCF display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4);
         }
         void initialize(){
             reset();    // Ensure vehicle is set to default state
@@ -134,7 +134,7 @@ class Vehicle {
         void send_data(){
             // {tmp[0]vlt[0]pct[0]}
             char buffer[STRING_LIMIT];
-            sprintf(buffer, "{code.data[0].code}[%0.2f]{code.data[1].code}[%0.2f]{code.data[2].code}[%0.2f]\n",
+            sprintf(buffer, "{Code::data[0].code}[%0.2f]{Code::data[1].code}[%0.2f]{Code::data[2].code}[%0.2f]\n",
                     data.temp,
                     data.battery_voltage,
                     data.battery_percentage);
@@ -203,18 +203,18 @@ class Vehicle {
         char[STRING_LIMIT] current_command;
         void set_pinmodes(){     
             // Set pinmodes
-            pinMode(pin.brake, OUTPUT);
-            pinMode(pin.reverse_1, OUTPUT);
-            pinMode(pin.reverse_2, OUTPUT);
-            pinMode(pin.s_reverse_1, OUTPUT);
-            pinMode(pin.s_reverse_2, OUTPUT);
-            pinMode(pin.shift_1, OUTPUT);
-            pinMode(pin.shift_2, OUTPUT);
-            pinMode(pin.speed_, OUTPUT);
-            pinMode(pin.s_speed, OUTPUT);
-            pinMode(pin.fan, OUTPUT);
-            pinMode(pin.headlight, OUTPUT);
-            pinMode(pin.thermistor, INPUT);
+            pinMode(Pin::brake, OUTPUT);
+            pinMode(Pin::reverse_1, OUTPUT);
+            pinMode(Pin::reverse_2, OUTPUT);
+            pinMode(Pin::s_reverse_1, OUTPUT);
+            pinMode(Pin::s_reverse_2, OUTPUT);
+            pinMode(Pin::shift_1, OUTPUT);
+            pinMode(Pin::shift_2, OUTPUT);
+            pinMode(Pin::speed_, OUTPUT);
+            pinMode(Pin::s_speed, OUTPUT);
+            pinMode(Pin::fan, OUTPUT);
+            pinMode(Pin::headlight, OUTPUT);
+            pinMode(Pin::thermistor, INPUT);
         }
         void set_defaults(){
             output_states.brake = default_output_states.brake;
@@ -282,7 +282,7 @@ class Vehicle {
                         // run command with data
                         uint8_t code_index = 0;
                         while(code_index <= command.number_of_commands){
-                            if(strcmp(code.commands[code_index].code, tmp_code) == 0){
+                            if(strcmp(Code::commands[code_index].code, tmp_code) == 0){
                                 execute_command_as_string(code_index, tmp_data);
                                 break;
                             } else {

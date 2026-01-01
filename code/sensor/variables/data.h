@@ -1,6 +1,8 @@
 #ifndef DATA_h
 #define DATA_h
   
+// Merge this into data class with get_string function
+
   namespace value {                      // Storage for sensor values
     namespace {   // "private" members
       struct vector3_values {
@@ -41,5 +43,35 @@
     gps_values gps;
     is_new updated;
   };
+
+class Data {
+  private:
+    char buffer[string_limit];
+    char output[string_limit];
+    char data_start = '[';
+    char data_end = ']'; 
+    char* get_mpu(){
+      memset(buffer, 0, string_limit);
+      strcpy(buffer, sensor_code::ultrasonic); 
+      strcpy(buffer, data_start); 
+      for(int i = 0; i < number_of_mpu; i++){
+        
+        strcpy(buffer, tmp);
+      }
+      strcpy(buffer, data_end); 
+      return buffer; 
+    }
+  public:
+    
+    char* get(){
+      memset(output, 0, string_limit);
+
+      //sensor.value::ultrasonic[index];
+      //sensor.value::lof[index];
+      // sensor.value::
+      strcpy(output, "Hello World");
+      return output;
+    }
+};
 
 #endif

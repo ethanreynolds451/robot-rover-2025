@@ -1,7 +1,7 @@
 #ifndef PIN_h
 #define PIN_h
 
-namespace pin {
+namespace Pin {
 	//Digital
 	// pins 0 and 1 are used for serial communication
 	static constexpr uint8_t brake = 2;				// relay 1
