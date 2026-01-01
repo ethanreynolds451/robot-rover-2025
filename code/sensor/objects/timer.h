@@ -1,7 +1,9 @@
+// This file is hardlinked and exists in both control and sensor
+
 #ifndef TIMER_h
 #define TIMER_h
 
-#include "dependencies/libraries.h"
+#include <Arduino.h>      // Include Arduino library for millis() function
 
 class Timer {
   public:

@@ -6,9 +6,11 @@
 
 class batteryMonitor {
     public: 
-        batteryMonitor(uint8_t pin, float slope, float intercept, char* type_def = ""){
-            reader = linearDivider(pin, slope, intercept);
-            type = type_def;
+        batteryMonitor(uint8_t pin, float slope, float intercept, char* type_def = "") 
+        : reader(pin, slope, intercept) {
+            // Copy type_def into type, ensuring no buffer overflow
+            strncpy(type, type_def, sizeof(type)-1);
+            type[sizeof(type)-1] = '\0';
         };
         void set_slope(float m_def){
             reader.set_slope(m_def);
@@ -63,6 +65,7 @@ class batteryMonitor {
             } else if (percentage < 0) {
                 percentage = 0;
             }
+            return percentage;
         }
 };
 

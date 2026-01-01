@@ -1,3 +1,5 @@
+// This file is hardlinked and exists in both control and sensor
+
 #ifndef THERMISTOR_h
 #define THERMISTOR_h
 
@@ -5,7 +7,7 @@
 
 class linearDivider(){
     public:
-        linear_divider(unit8_t pin_def, float slope, float intercept) : (pin(pin_def), m(slope), b(intercept) ) {};
+        linear_divider(uint8_t pin_def, float slope, float intercept) : (pin(pin_def), m(slope), b(intercept) ) {};
         void set_pin(uint8_t pin_def){
             pin = pin_def;
         }
