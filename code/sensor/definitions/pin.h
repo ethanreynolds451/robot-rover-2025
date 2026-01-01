@@ -12,13 +12,13 @@ namespace Pin {
       31, 33, 35, 37, 39
     }; 
   };  
-  namespace Sd{
+  namespace Sd {
     static constexpr uint8_t MISO = 50;
     static constexpr uint8_t MOSI = 51;
     static constexpr uint8_t SCK = 52;
     static constexpr uint8_t CS = 53;
   };
-  namespace Display{
+  namespace Display {
     static constexpr uint8_t RS = 
     static constexpr uint8_t EN =
     static constexpr uint8_t D4 =
