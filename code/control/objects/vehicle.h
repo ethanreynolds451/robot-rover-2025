@@ -27,7 +27,7 @@ class Vehicle {
             PWM fan(pin.fan);
             logDivider internal_temp(pin.thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
             batteryMonitor voltage(pin.batter_monitor, 1/.60, 0, "flooded_lead_acid");
-            fourDigitDisplay display(address.pcf);
+            fourDigitDisplayPCF display(address.pcf, pin.scl, pin.sda, pin.digit_1, pin.digit_2, pin.digit_3, pin.digit_4);
         }
         void initialize(){
             reset_vehicle();    // Ensure vehicle is set to default state

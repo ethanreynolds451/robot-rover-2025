@@ -5,7 +5,7 @@
 
 class linearDivider(){
     public:
-        linear_divider(unit8_t pin_def, float slope, float intercept){};
+        linear_divider(unit8_t pin_def, float slope, float intercept) : (pin(pin_def), m(slope), b(intercept) ) {};
         void set_pin(uint8_t pin_def){
             pin = pin_def;
         }
@@ -36,7 +36,7 @@ class linearDivider(){
 
 class logDivider(){
     public:
-        log_divider(uint8_t pin_def, float a_def = 1, float b_def = 0){};
+        log_divider(uint8_t pin_def, float a_def = 1, float b_def = 0) : (pin(pin_def), a(a_def), b(b_def) ) {};
         void set_pin(uint8_t pin_def){
             pin = pin_def;
         }
