@@ -1,22 +1,42 @@
 #ifndef PIN_h
 #define PIN_h
 
-namespace pin {
-  static constexpr uint8_t HCSR04[number_of_ultrasonic+1] = {
-    uint8_t(5), 6, 7, 8, 9,
-    uint8_t(A0), uint8_t(A1)
-  };   // 0 is trig pin
-  static constexpr uint8_t x_shut[number_of_lof] = {0, 1, 2, 3}; // These are PCF pins - mod for test
-  static constexpr uint8_t steer_position = A7;
-  static constexpr uint8_t TX = 2;
-  static constexpr uint8_t RX = 3;
-  static constexpr uint8_t IR = 4;
-  static constexpr uint8_t SDA = A4;
-  static constexpr uint8_t SCL = A5;
-  static constexpr uint8_t MISO = 12;
-  static constexpr uint8_t MOSI = 11;
-  static constexpr uint8_t SCK = 13;
-  static constexpr uint8_t CS = 10;
+#include "numberOfSensors.h"
+
+namespace Pin {
+  namespace Ultrasonic {
+    static constexpr uint8_t trig[NumberOfSensors::ultrasonic] = {
+      30, 32, 34, 36, 38
+    };  
+    static constexpr uint8_t echo[NumberOfSensors::ultrasonic] = {
+      31, 33, 35, 37, 39
+    }; 
+  };  
+  namespace Sd{
+    static constexpr uint8_t MISO = 50;
+    static constexpr uint8_t MOSI = 51;
+    static constexpr uint8_t SCK = 52;
+    static constexpr uint8_t CS = 53;
+  };
+  namespace Display{
+    static constexpr uint8_t RS = 
+    static constexpr uint8_t EN =
+    static constexpr uint8_t D4 =
+    static constexpr uint8_t D5 =
+    static constexpr uint8_t D6 =
+    static constexpr uint8_t D7 =
+
+  }
+  static constexpr uint8_t x_shut[NumberOfSensors::tof] = {
+    // Add to schematic
+  }; 
+  static constexpr uint8_t ir[NumberOfSenors::ir] = {
+    // PIN
+  };
+  static constexpr uint8_t TX_1 = 18;
+  static constexpr uint8_t RX_1 = 19;
+  static constexpr uint8_t SDA = 20;
+  static constexpr uint8_t SCL = 21;
 };
 
 #endif

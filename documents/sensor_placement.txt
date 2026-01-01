@@ -3,4 +3,9 @@ Ultrasonic: Beam half-angle = 7.5 degrees
 Front: 
 - 36cm from ground
 - 52 cm apart
-- 10 - 15 degrees inward (14.6 for 1m, 12.3 for 1.2m, 9.8 for 1.5m)
+- Pitch level
+- Yaw 10 - 15 degrees inward (14.6 for 1m, 12.3 for 1.2m, 9.8 for 1.5m)
+
+ToF: Beam half-angle = 12.5 degrees
+
+Front: 
