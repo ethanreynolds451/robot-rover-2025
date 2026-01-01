@@ -1,6 +1,8 @@
 #ifndef SENSOR_h
 #define SENSOR_h
 
+// Split this into individual sensor files and instantiate in vehcile class
+
 class Sensor {
 public:
   Sensor(); // For constructor (needed to initialize arrays of sensors)
