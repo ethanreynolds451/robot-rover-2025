@@ -12,7 +12,7 @@
 
 class Vehicle {
     public:
-        Vehicle(baud_rate) : baud_rate(baud_rate) {
+        Vehicle(baud_rate_set) : baud_rate(baud_rat_set) {
             // Create objects that are components of control system
             SerialControl computer(baud_rate);
             Relay brake_relay(pin.brake);
@@ -22,17 +22,18 @@ class Vehicle {
             Relay s_reverse_2_relay(pin.s_reverse_2);
             Relay shift_1_relay(pin.shift_1);
             Relay shift_2_relay(pin.shift_2);
-            PWM speed_(pin.speed_);
+            PWM speed_(pin.speed_);                                 // Other PWMs default to 0-255, adjust based on physical need
             PWM s_speed(pin.s_speed);
-            PWM fan(pin.fan);
+            PWM fan(pin.fan, 100, 255);                             // Fan always on with min speed
             logDivider internal_temp(pin.thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
             batteryMonitor voltage(pin.batter_monitor, 1/.60, 0, "flooded_lead_acid");
-            fourDigitDisplayPCF display(address.pcf, pin.scl, pin.sda, pin.digit_1, pin.digit_2, pin.digit_3, pin.digit_4);
+            fourDigitDisplayPCF display(address.pcf, pin.digit_1, pin.digit_2, pin.digit_3, pin.digit_4);
         }
         void initialize(){
-            reset_vehicle();    // Ensure vehicle is set to default state
+            reset();    // Ensure vehicle is set to default state
             set_pinmodes();     // Initialize hardware pins
             computer.begin();   // Start serial communication with onboard computer
+            displah.begin();    // Start display (PCF8575 with Wire I2C)
         }
         char* read_serial(){
             computer.read_input();
@@ -44,12 +45,12 @@ class Vehicle {
         void get_command(){
             computer.read();
             if computer.is_command() {
-                 computer.get_into(current_command, string_limit);
+                 computer.get_into(current_command, STRING_LIMIT);
                  return true;
             }
             return false; 
         }
-        void check_for_command(){
+        void get_and_run_command(){
             if(get_command()){
                 run_input();
                 return true;
@@ -70,7 +71,7 @@ class Vehicle {
             update_outputs();
         }
         void set_speed(uint8_t set_speed){
-            output_states.speed_ = map(set_speed, 0, 100, pwm_min, pwm_max);
+            output_states.speed_ = set_speed;
             update_outputs();
         }
         void set_s_direction(bool set_reverse){
@@ -78,11 +79,11 @@ class Vehicle {
             update_outputs();
         }
         void set_s_speed(uint8_t set_speed){
-            output_states.s_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
+            output_states.s_speed = set_speed;
             update_outputs();
         }
         void set_f_speed(uint8_t set_speed){
-            output_states.f_speed = map(set_speed, 0, 100, pwm_min, pwm_max);
+            output_states.f_speed = set_speed;
             update_outputs();
         }
         void reset(){
@@ -103,15 +104,56 @@ class Vehicle {
         void display_voltage(){
             float voltage = voltage.read_voltage();
             char buffer[64];
-            snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", voltage);
-            computer.write(buffer);
+            // Display voltage on serial for debug
+                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", voltage);
+                computer.write(buffer);
+            display.print_decimal(voltage);
         }
         void display_voltage_as_percent(){
-            float voltage = voltage.read_voltage();
-            float percent = voltage.read_percentage();
+            // Round percent to nearest whole number
+            int percent = int(round(voltage.read_percentage()));
             char buffer[64];
-            snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V (%.1f%%)\n", voltage, percent);
+            // Display voltage on serial for debug
+                sprintf(buffer, sizeof(buffer), "Battery Voltage: %d%%\n", percent);
+                computer.write(buffer);
+            display.print_integer(percent);     // Print as an integer
+        }
+        void display_temperature(){
+            float temperature = internal_temp.read();
+            char buffer[64];
+            // Display temperature on serial for debug
+                snprintf(buffer, sizeof(buffer), "Internal Temperature: %.2f C\n", temperature);
+                computer.write(buffer);
+            display.print_decimal(temperature);
+        }
+        void read_data(){
+            temp = internal_temp.read();
+            battery_voltage = voltage.read_voltage();
+            battery_percentage = voltage.read_percentage();
+        }
+        void send_data(){
+            // {tmp[0]vlt[0]pct[0]}
+            char buffer[STRING_LIMIT];
+            sprintf(buffer, "{code.data[0].code}[%0.2f]{code.data[1].code}[%0.2f]{code.data[2].code}[%0.2f]\n",
+                    data.temp,
+                    data.battery_voltage,
+                    data.battery_percentage);
             computer.write(buffer);
+        }
+        void read_and_send_data(){
+            read_data();
+            send_data();
+        }
+        void send_states(){
+            // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+            // Format later if needed, output just for debug now and not processed by computer
+            Serial.println("br: " + String(output_states.brake) + 
+                           " rv: " + String(output_states.reverse) + 
+                           " srv: " + String(output_states.s_reverse) + 
+                           " su: " + String(output_states.shift_up) + 
+                           " sp: " + String(output_states.speed_) + 
+                           " ssp: " + String(output_states.s_speed) + 
+                           " fan: " + String(output_states.f_speed));
         }
         void timeout_error(){
             reset();
@@ -153,7 +195,12 @@ class Vehicle {
             static const uint8_t s_speed = 0;	
             static const uint8_t f_speed = 0;
         }
-        char[string_limit] current_command;
+        namespace data {
+            float temp; 
+            float battery_voltage;
+            float battery_percentage; 
+        }
+        char[STRING_LIMIT] current_command;
         void set_pinmodes(){     
             // Set pinmodes
             pinMode(pin.brake, OUTPUT);
@@ -179,7 +226,7 @@ class Vehicle {
             output_states.f_speed = default_output_states.f_speed;
         }
         void update_outputs(){
-            fan.set(map(control.f_speed, 0, 100, 100, 255));
+            fan.set(control.f_speed);
             brake_relay.set(!control.brake);
             reverse_1_relay.set(control.reverse);
             reverse_2_relay.set(control.reverse);
@@ -187,8 +234,8 @@ class Vehicle {
             s_reverse_2_relay.set(control.s_reverse);
             shift_1_relay.set(control.shift_up);
             shift_2_relay.set(control.shift_up);
-            speed_.set(control.speed_);
-            s_speed.set(control.s_speed);
+            speed_.set_power(control.speed_);
+            s_speed.set_power(control.s_speed);
         }
         void run_input(){
             uint8_t tmp_len = 16;						// designate 16 bytes for read buffer
@@ -234,9 +281,9 @@ class Vehicle {
                         }
                         // run command with data
                         uint8_t code_index = 0;
-                        while(code_index <= command.number_of){
-                            if(strcmp(command.commands[code_index].code, tmp_code) == 0){
-                                command.execute(code_index, tmp_data);
+                        while(code_index <= command.number_of_commands){
+                            if(strcmp(code.commands[code_index].code, tmp_code) == 0){
+                                execute_command_as_string(code_index, tmp_data);
                                 break;
                             } else {
                                 code_index++;

@@ -2,7 +2,7 @@
 #define _DEFINITIONS_h
 
 #include "address.h"
-#include "command.h"
+#include "codes.h"
 #include "global.h"
 #include "pin.h"
 

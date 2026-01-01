@@ -2,46 +2,43 @@
 #include "objects/timer.h"
 #include "objects/vehicle.h"
 
-// Data format
-// {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+// Data format: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+
+uint8_t echo_enabled = 1;     // Set to 1 to enable serial echo for debugging
 
 // Create timers to repeat functions at regular intervals
-Timer loop_timer(loop_delay);
-Timer timeout(input_timeout);
-Timer update_fan(fan_delay);
+Timer mainloop_timer(10);        // Must be at least 6 for data integrity
+Timer timeout(5000);
+Timer update_fan(10000);
+Timer update_voltage(500);
+Timer send_data(1000);
 
-// Create vehicle object
-Vehicle car(baud_rate);
+Vehicle car(BAUD_RATE);     // Create vehicle object
 
 void setup(){    
   car.initialize(); 
 }
 
 void loop(){
-    if(loop_timer.passed()){
-        if(car.check_for_command()){
-                timeout.reset();
-            }
+    if(mainloop_timer.passed()){
+        if(car.get_and_run_command()){
+            timeout.reset();
         } else {
             if(timeout.passed()){       // After timout of no input, reset vehicle
-                car.timeout_error();
+                car.timeout_error();    
             }
         }
         if(echo_enabled){
-            Serial.println("br: " + String(control.brake) + 
-                           " rv: " + String(control.reverse) + 
-                           " srv: " + String(control.s_reverse) + 
-                           " su: " + String(control.shift_up) + 
-                           " sp: " + String(control.speed_) + 
-                           " ssp: " + String(control.s_speed) + 
-                           " fan: " + String(control.f_speed));
+            car.send_states();
         }
     }
     if (update_fan.passed()){
         car.set_fan_from_temp();
     }
-    if timeout.passed(){
-        // Reset vehicle to default state
-        car.reset();
+    if (send_data.passed()){
+        car.read_and_send_data();
+    }
+    if (update_voltage.passed()){
+        car.display_voltage();
     }
 }

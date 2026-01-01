@@ -23,7 +23,7 @@ class batteryMonitor {
             return get_voltage();
         }
         float read_percentage(){
-            return get_percentage(); 
+            return get_percentage();
         }
 
     private:

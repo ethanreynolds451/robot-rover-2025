@@ -53,7 +53,9 @@ class SerialControl {
 		}
 	}
   private:
-	char input[string_limit];
+  	// I have no idea what this is supposed to be for
+  		static const uint8_t serial_delay = 1;     // In loop cycles, NOT ms
+	char input[STRING_LIMIT];
 	uint8_t loop_counter = 0;     
 	bool is_input(){
 		if(Serial.available() > 0) {
@@ -67,7 +69,7 @@ class SerialControl {
 		uint16_t index = 0;
 		while(Serial.available()){
 			input[index] = Serial.read();
-			if(index == string_limit){
+			if(index == STRING_LIMIT){
 				break;
 			}
 			index++;
