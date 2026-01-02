@@ -1,28 +1,70 @@
+// Compiled successfully 2025-01-02
+
 #ifndef CODES_h
 #define CODES_h
 
+/*
+    Stores components of data and command strings
+    Ability to traverse array of codes or access by variable name
+*/
+
 namespace Code {
-    static const uint8_t number_of_commands = 7;     // Number of valid commands
-    static const uint8_t number_of_data = 3;        // Number of data points
-    struct code_struct {                 // Structure for code mapping
+    static constexpr uint8_t device_ID = 0x00; 
+
+    struct code_struct {         // Structure for code mapping
       uint8_t index;
-      char code[4];
+      char code[4];              // max 3 chars, includes null terminator
     };
-    // Create an array of commands with their corresponding codes
-    const code_struct commands[number_of_commands] = {    
-        {0, "br"},		// brake
-        {1, "rv"},		// reverse
-        {2, "srv"},		// steer reverse
-        {3, "su"},		// shift up
-        {4, "sp"},		// speed
-        {5, "ssp"},		// steer speed
-        {6, "fan"}    // fan speed
-    };
-    const code_struct data[number_of_codes] = {
-        {0, "tmp"},    // internal temperature
-        {1, "vlt"},    // battery voltage
-        {2, "pct"}     // battery percentage
-    };
+
+    namespace Delimiter {
+        static constexpr char start_designator = '{';
+        static constexpr char end_designator = '}';
+        static constexpr char value_start_designator = '[';
+        static constexpr char value_end_designator = ']';
+    }
+
+    namespace Command {
+        // 0x00{br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+        static constexpr uint8_t number_of = 7;
+
+        static constexpr code_struct key[number_of] PROGMEM = {
+            {0, "br"},
+            {1, "rv"},
+            {2, "srv"},
+            {3, "su"},
+            {4, "sp"},
+            {5, "ssp"},
+            {6, "fan"}
+        };
+
+        namespace Index {
+            static constexpr uint8_t brake = 0;
+            static constexpr uint8_t reverse = 1;
+            static constexpr uint8_t steering_reverse = 2;
+            static constexpr uint8_t shift_up = 3;
+            static constexpr uint8_t speed = 4;
+            static constexpr uint8_t steering_speed = 5;
+            static constexpr uint8_t fan = 6;
+        }
+
+    }
+
+    namespace Data {
+        // 0x00{tmp[0]vlt[0]pct[0]}
+        static constexpr uint8_t number_of = 3; 
+
+        namespace Index {
+            static constexpr uint8_t internal_temp = 0;
+            static constexpr uint8_t battery_voltage = 1;
+            static constexpr uint8_t vattery_percent = 2;
+        }
+
+        static constexpr code_struct key[number_of] PROGMEM = {
+            {0, "tmp"},
+            {1, "vlt"},
+            {2, "pct"}
+        };
+    }  
 };
 
 #endif

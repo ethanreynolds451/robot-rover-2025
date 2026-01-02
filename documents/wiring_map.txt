@@ -1,0 +1,101 @@
+For external components
+*NC = not connected
+
+Battery (high current power cord with white wrapping)
+    Negative        black
+    Positive        white
+
+Power (main harness)
+    Left
+        GND         black
+        VCC         red
+    Right
+        GND         blue
+        VCC         orange
+
+Steering (brown ethernet cable)
+    Power
+        M+          orange pair
+        M-          brown pair
+    Data
+        GND         green
+        VCC         green-white
+        A           blue
+        B           blue-white
+
+Front and Side ToF (blue ethernet cable)
+    I2C        
+        GND         brown
+        VCC         brown-white
+        SCL         green
+        SDA         green-white
+    Left       
+        GPIO        orange
+        XSHUT       orange-white
+    Right      
+        GPIO        blue
+        XSHUT       blue-white
+        
+Front and Side Ultrasonic (blue ethernet cable)
+    Left
+        GND         brown
+        VCC         brown-white
+        Trig        orange-white    
+        Echo        orange
+    Right
+        GND         green
+        VCC         green-white
+        Trig        blue-white    
+        Echo        blue
+
+Rear Ultrasonic and Rear ToF (blue ethernet cable three stripes)
+    Shared
+        GND         brown
+        VCC         brown-white
+    Ultrasonic
+        Trig        blue-white    
+        Echo        blue
+    ToF
+        SCL         green
+        SDA         green-white
+        GPIO        orange    
+        XSHUT       orange-white
+
+Display (needs 21 wires, three ethernet cables combined will yield three extra)
+    Cable 1: LCD Pannel (one stripe)
+        V0          brown
+        E           brown-white
+        RS          green
+        *NC         green-white
+        D4          orange
+        D5          orange-white
+        D6          blue       
+        D7          blue-white
+    Cable 2 Power and Battery Display (two stripes)
+        GND         brown
+        VCC         brown-white
+        *NC         green
+        *NC         green-white
+        Digit 1     orange
+        Digit 2     orange-white
+        Digit 3     blue
+        Digit 4     blue-white
+    Cable 3: Battery Display (three stripes)
+        A           brown
+        B           brown-white
+        C           green    
+        D           green-white
+        E           orange
+        F           orange-white 
+        G           blue
+        Decimal     blue-white
+
+IR Sensor (white four-wire cable)
+    VCC             red
+    GND             black
+    Signal          yellow
+    *NC             green
+  
+Thermistor (two-wire cable)
+    Wire 1          black
+    Wire 2          black-white
