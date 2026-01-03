@@ -1,42 +1,44 @@
+// Compiled successfully 2025-01-02
+
 #ifndef RELAY_h
 #define RELAY_h
 
-#include "dependencies/libraries.h"
+#include <Arduino.h>
 
 class Relay {
   public:
-	Relay(uint8_t pin_def) : pin(pin_def) {}
+	Relay(uint8_t pin_def, bool nc_def = false) : pin(pin_def), nc(nc_def), closed(nc_def){
+		pinMode(pin, OUTPUT);
+		digitalWrite(pin, LOW);		// Always start in de-energized state
+	}
 	void close(){
-		digitalWrite(pin, HIGH);
+		digitalWrite(pin, nc ? LOW : HIGH);
 		closed = true;
 	}
 	void open(){
-		digitalWrite(pin, LOW);
+		digitalWrite(pin, nc ? HIGH : LOW);
 		closed = false;
 	}
-  void set(bool value){
-      if(value){
-          close();
-      } else if(!value){
-          open();
-      }
-  }
-  void flip(){
-    if(isClosed()){
-        open();
-    } else if(isOpen()){
-        close();
-    }
-  }
-	bool isClosed(){
+	void set(bool state){
+		if(state){
+			close();
+		} else {
+			open();
+		}
+	}
+	void flip(){
+		set(!closed);
+	}
+	inline bool isClosed() const {
 		return closed;
 	}
-	bool isOpen(){
+	inline bool isOpen() const {
 		return !closed;
 	}
   private:
 	uint8_t pin;
-	bool closed = false;
+	bool nc;
+	bool closed;
 };
 
 #endif

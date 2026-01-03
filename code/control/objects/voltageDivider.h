@@ -1,15 +1,20 @@
-// This file is hardlinked and exists in both control and sensor
+// This file is hardlinked and exists in both control and sensor folders
 
-#ifndef THERMISTOR_h
-#define THERMISTOR_h
+// Compiled successfully 2025-01-02
 
-#include "dependencies/libraries.h"
+#ifndef VOLTAGEDIVIDER_h
+#define VOLTAGEDIVIDER_h
 
-class linearDivider(){
+#include <Arduino.h>
+
+class linearDivider {
     public:
-        linear_divider(uint8_t pin_def, float slope, float intercept) : (pin(pin_def), m(slope), b(intercept) ) {};
+        linearDivider(uint8_t pin_def, float slope, float intercept) : pin(pin_def), m(slope), b(intercept) {
+            pinMode(pin, INPUT);
+        };
         void set_pin(uint8_t pin_def){
             pin = pin_def;
+            pinMode(pin, INPUT);
         }
         void set_slope(float m_def){
             m = m_def;
@@ -17,30 +22,33 @@ class linearDivider(){
         void set_offset(float b_def){
             b = b_def;
         }
-        void set(unit8_t pin_def, float m_def, float b_def){
-            pin = pin_def;
-            m = m_def;
-            b = b_def;
+        void set(uint8_t pin_def, float m_def, float b_def){
+            set_pin(pin_def);
+            set_slope(m_def);
+            set_offset(b_def);
         }
-        float read(){
-            return get_value();
+        inline float read() const { 
+            return get_value(); 
         }
     private:
         uint8_t pin;
         float m;
         float b;
         float get_value(){
-            uint16_t value = analogRead(pin);
+            float value = analogRead(pin);
             value = m*value + b;
             return value; 
         }
-}
+};
 
-class logDivider(){
+class logDivider {
     public:
-        log_divider(uint8_t pin_def, float a_def = 1, float b_def = 0) : (pin(pin_def), a(a_def), b(b_def) ) {};
+        logDivider(uint8_t pin_def, float a_def = 1, float b_def = 0) : pin(pin_def), a(a_def), b(b_def) {
+            pinMode(pin, INPUT);
+        };
         void set_pin(uint8_t pin_def){
             pin = pin_def;
+            pinMode(pin, INPUT);
         }
         void set_factor(float a_def){
             a = a_def;
@@ -48,20 +56,20 @@ class logDivider(){
         void set_offset(float b_def){
             b = b_def;
         }
-        void set(unit8_t pin_def, float a_def, float b_def){
-            pin = pin_def;
-            a = a_def;
-            b = b_def;
+        void set(uint8_t pin_def, float a_def, float b_def){
+            set_pin(pin_def);
+            set_factor(a_def);
+            set_offset(b_def);
         }
-        float read(){
-            return get_value();
+        inline float read() const { 
+            return get_value(); 
         }
     private:
         uint8_t pin;
         float a;
         float b;
         float get_value(){
-            uint16_t value = analogRead(pin);
+            float value = analogRead(pin);
             value = a*log(value) - b;
             return value; 
         }  

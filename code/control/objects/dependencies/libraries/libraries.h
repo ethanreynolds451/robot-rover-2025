@@ -7,7 +7,7 @@
 #include <Wire.h>                                               //Communication
 #include <SD.h>                                                 //SD card interface
 #include <Servo.h>                                              //Servo control
-#include "I2CDisplayController-main/src/i2cdisplaycontroller.h"             //7-segment display
-#include "I2CDisplayController-main/src/i2cdisplaycontroller.cpp"           //7-segment display
+#include "I2CDisplayController/src/i2cdisplaycontroller.h"             //7-segment display
+#include "I2CDisplayController/src/i2cdisplaycontroller.cpp"           //7-segment display
 
 #endif

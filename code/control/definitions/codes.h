@@ -1,12 +1,12 @@
 // Compiled successfully 2025-01-02
 
-#ifndef CODES_h
-#define CODES_h
-
 /*
     Stores components of data and command strings
-    Ability to traverse array of codes or access by variable name
+    Ability to traverse array of codes or access by variable name using indeces
 */
+
+#ifndef CODES_h
+#define CODES_h
 
 namespace Code {
     static constexpr uint8_t device_ID = 0x00; 
@@ -24,7 +24,7 @@ namespace Code {
     }
 
     namespace Command {
-        // 0x00{br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+        // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
         static constexpr uint8_t number_of = 7;
 
         static constexpr code_struct key[number_of] PROGMEM = {
@@ -50,7 +50,7 @@ namespace Code {
     }
 
     namespace Data {
-        // 0x00{tmp[0]vlt[0]pct[0]}
+        // {tmp[0]vlt[0]pct[0]}
         static constexpr uint8_t number_of = 3; 
 
         namespace Index {

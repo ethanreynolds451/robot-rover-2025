@@ -1,7 +1,8 @@
 #ifndef SERIAL_h
 #define SERIAL_h
 
-#include "dependencies/libraries.h"
+#include <Arduino.h>
+#include "dependencies/definitions.h"
 
 class SerialControl {
   public:
@@ -43,18 +44,8 @@ class SerialControl {
 		}
 		return false;
 	}
-	void reset_loop(){
-		loop_counter = 0;
-	}
-	bool delay_passed(){
-		if(serial_loop_counter >= serial_delay){
-			serial_loop_counter = 0;
-			return true;
-		}
-	}
   private:
-  	// I have no idea what this is supposed to be for
-  		static const uint8_t serial_delay = 1;     // In loop cycles, NOT ms
+  	static const uint8_t serial_delay = 1;
 	char input[STRING_LIMIT];
 	uint8_t loop_counter = 0;     
 	bool is_input(){
@@ -74,6 +65,7 @@ class SerialControl {
 			}
 			index++;
 		}
+		input[index] = '\0'; // Null-terminate the string
 	}
 };
 

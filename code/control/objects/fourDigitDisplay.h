@@ -1,16 +1,18 @@
+// Compiled successfully 2025-01-02
+
 #ifndef FOURDIGITDISPLAY_h
 #define FOURDIGITDISPLAY_h
 
-#include "dependencies/libraries.h"
+#include "dependencies/libraries/I2CDisplayController/src/i2cdisplaycontroller.h"
 
 class fourDigitDisplayPCF {
     public:
         fourDigitDisplayPCF(
-        uint8_t address_def,
-        uint8_t pin1,
-        uint8_t pin2,
-        uint8_t pin3,
-        uint8_t pin4
+            uint8_t address_def,
+            uint8_t pin1,
+            uint8_t pin2,
+            uint8_t pin3,
+            uint8_t pin4
         )
         : display(address_def)
         {
@@ -18,19 +20,18 @@ class fourDigitDisplayPCF {
             digit_pins[1] = pin2;
             digit_pins[2] = pin3;
             digit_pins[3] = pin4;
-        }
-        void set_polarity(char* polarity){
-            if(strcmp(polarity, "common_anode") == 0){
-                display.setCommonAnode(true);
-            } else if(strcmp(polarity, "common_cathode") == 0){
-                display.setCommonAnode(false);
-            }
-        }
-        void begin(){
+
             display.begin();
             for (int i = 0; i < 4; i++) {
                 pinMode(digit_pins[i], OUTPUT);
-                digitalWrite(digit_pin[i], LOW);
+                digitalWrite(digit_pins[i], LOW);
+            }
+        }
+        void set_common_annode(bool is_common_anode){
+            if (is_common_anode){
+                display.setDisplayConfiguration(true);
+            } else {
+                display.setDisplayConfiguration(false);
             }
         }
         void set_delay(unsigned long delay_time){
@@ -38,15 +39,15 @@ class fourDigitDisplayPCF {
         }
         void print_digit(uint8_t digit, uint8_t position){
             if(position < 1 || position > 4) return; // Invalid position
+            if(digit > 15) return; // Invalid digit
             display.print(digitToSegment[digit], digit_pins[position - 1]);
         }
         void set_decimal_point(uint8_t position, bool state){
-            display.setDecimalPoint(7, position, status);
+            display.setDecimalPoint(DECIMAL_PIN, position, state);
         }
-        // assumes configuration with decimal pin on PCF pin 07
         void clear_decimal_point(){
             for (int i = 0; i < 4; i++) {
-                display.setDecimalPoint(7, digit_pins[i], false);
+                display.setDecimalPoint(DECIMAL_PIN, digit_pins[i], false);
             }
         }
         void print_integer(uint16_t number){
@@ -56,37 +57,47 @@ class fourDigitDisplayPCF {
                 print_digit(0b01110011, 4);
             }; // Print "Err" for numbers > 9999
             clear_decimal_point();
-            for (int i = 0; i < 4; i++) {
-                uint8_t digit = (number / pow(10, 3 - i)) % 10;
+            uint16_t divisors[] = {1000, 100, 10, 1};
+            for (uint8_t i = 0; i < 4; i++) {
+                uint8_t digit = (number / divisors[i]) % 10;
                 print_digit(digit, i + 1);
             }
         }
         void print_decimal(float number){
-            int integer_component = (int)number;
-            int digits;
-            int decimal_place;
-            if(integer_component > 999) {
+            uint16_t integer_component = static_cast<uint16_t>(number);
+            uint16_t digits;
+            uint8_t decimal_place;
+
+            if (integer_component > 999) {
+                // 4-digit integer, no decimal
                 digits = integer_component;
-                decimal_place = 4; // No decimal point
-            } else if(integer_component > 99){
-                digits = integer_component * 10 + (int)((number - integer_component) * 10) % 10;
+                decimal_place = 4; // no decimal point
+            } else if (integer_component > 99) {
+                // 3-digit integer → 1 decimal place
+                digits = static_cast<uint16_t>(round(number * 10));
                 decimal_place = 3;
-            } else if(integer_component > 9){
-                digits = integer_component * 100 + (int)((number - integer_component) * 100) % 100;
+            } else if (integer_component > 9) {
+                // 2-digit integer → 2 decimal places
+                digits = static_cast<uint16_t>(round(number * 100));
                 decimal_place = 2;
             } else {
-                digits = integer_component * 1000 + (int)((number - integer_component) * 1000) % 1000;
+                // 1-digit integer → 3 decimal places
+                digits = static_cast<uint16_t>(round(number * 1000));
                 decimal_place = 1;
             }
-            print_integer(digits);
+
             clear_decimal_point();
-            set_decimal_point(decimal_place, true);
+            print_integer(digits);           // print as 4-digit integer
+            if (decimal_place < 4) {         // only set decimal if needed
+                set_decimal_point(decimal_place, true);
+            }
         }
     private:
         I2CDisplayController display;
-        int address;
+        uint8_t address;
         uint8_t digit_pins[4];
-        const uint8_t digitToSegment[] = {
+        static constexpr uint8_t DECIMAL_PIN = 7;
+        static constexpr uint8_t digitToSegment[16] = {
             // XGFEDCBA
             0b00111111,    // 0
             0b00000110,    // 1
@@ -112,7 +123,7 @@ class fourDigitDisplayPCF {
 // Functions in the source library:
     // I2CDisplayController display(pcf_address);
     // display.setDigitsPort(portselect);
-    // display.setCommonAnode(true);
+    // display.setCommonAnode(true); actually setDisplayConfiguration
     // display.setDecimalPoint(decimal_pin, switching_pin, status);
     // display.begin(); //connection with PCF8575
     // display.setDelay(500);
