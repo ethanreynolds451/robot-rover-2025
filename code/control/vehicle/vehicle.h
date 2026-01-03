@@ -5,30 +5,29 @@
 
 class Vehicle {
     public:
-        Vehicle(baud_rate_set) : baud_rate(baud_rat_set) {
-            // Create objects that are components of control system
-            SerialControl computer(baud_rate);
-            Relay brake_relay(Pin::brake);
-            Relay reverse_1_relay(Pin::reverse_1);
-            Relay reverse_2_relay(Pin::reverse_2);
-            Relay s_reverse_1_relay(Pin::s_reverse_1);
-            Relay s_reverse_2_relay(Pin::s_reverse_2);
-            Relay shift_1_relay(Pin::shift_1);
-            Relay shift_2_relay(Pin::shift_2);
-            // All PWMs default to 0-255; adjust based on robot behaviour
-            PWM speed_(Pin::speed_);                                
-            PWM s_speed(Pin::s_speed);
-            PWM fan(Pin::fan, 100, 255);                             // Fan always on with min speed
-            logDivider internal_temp(Pin::thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
-            batteryMonitor voltage(Pin::batter_monitor, 1/.60, 0, "flooded_lead_acid");
-            fourDigitDisplay display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4);
-        }
-        void initialize(){
-            reset();    // Ensure vehicle is set to default state
-            set_pinmodes();     // Initialize hardware pins
+        Vehicle(baud_rate) 
+            :   computer(baud_rate),
+                brake_relay(Pin::brake),
+                reverse_1_relay(Pin::reverse_1),
+                reverse_2_relay(Pin::reverse_2),
+                s_reverse_1_relay(Pin::s_reverse_1),
+                s_reverse_2_relay(Pin::s_reverse_2),
+                shift_1_relay(Pin::shift_1),
+                shift_2_relay(Pin::shift_2),
+                speed_(Pin::speed_),
+                s_speed(Pin::s_speed),
+                fan(Pin::fan, 100, 255),
+                internal_temp(Pin::thermistor, 30, 125),
+                voltage(Pin::battery_monitor, BATTERY_VOLTAGE_SLOPE, 0, BATTERY_TYPE),
+                display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4)   
+            {}
+        void begin(){
+            // Pinmodes are already set within each class constructor or inirializer
+            reset();            // Ensure vehicle is set to default state
             computer.begin();   // Start serial communication with onboard computer
             display.begin();    // Start display (PCF8575 with Wire I2C)
         }
+        // Gotten to here in rewrite
         char* read_serial(){
             computer.read_input();
             return computer.read();
@@ -171,6 +170,24 @@ class Vehicle {
             }
         }
     private:
+        SerialControl computer;
+        namespace Control {
+            Relay brake;
+            Relay reverse_1;
+            Relay reverse_2;
+            Relay s_reverse_1;
+            Relay s_reverse_2;
+            Relay shift_1;
+            Relay shift_2;
+            PWM speed;
+            PWM s_speed;
+            PWM fan;
+        }
+    
+        logDivider internal_temp;
+        batteryMonitor voltage;
+        fourDigitDisplay display;
+
         namespace output_states {
             bool brake = true;			//br
             bool reverse = false;		//rv
@@ -195,21 +212,6 @@ class Vehicle {
             float battery_percentage; 
         }
         char[STRING_LIMIT] current_command;
-        void set_pinmodes(){     
-            // Set pinmodes
-            pinMode(Pin::brake, OUTPUT);
-            pinMode(Pin::reverse_1, OUTPUT);
-            pinMode(Pin::reverse_2, OUTPUT);
-            pinMode(Pin::s_reverse_1, OUTPUT);
-            pinMode(Pin::s_reverse_2, OUTPUT);
-            pinMode(Pin::shift_1, OUTPUT);
-            pinMode(Pin::shift_2, OUTPUT);
-            pinMode(Pin::speed_, OUTPUT);
-            pinMode(Pin::s_speed, OUTPUT);
-            pinMode(Pin::fan, OUTPUT);
-            pinMode(Pin::headlight, OUTPUT);
-            pinMode(Pin::thermistor, INPUT);
-        }
         void set_defaults(){
             output_states.brake = default_output_states.brake;
             output_states.reverse = default_output_states.reverse;
