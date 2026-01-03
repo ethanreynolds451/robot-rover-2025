@@ -7,7 +7,7 @@
 
 class Relay {
   public:
-	Relay(uint8_t pin_def, bool nc_def = false) : pin(pin_def), nc(nc_def), closed(nc_def){
+	Relay(uint8_t pin, bool nc = false) : pin(pin), nc(nc), closed(nc){
 		pinMode(pin, OUTPUT);
 		digitalWrite(pin, LOW);		// Always start in de-energized state
 	}

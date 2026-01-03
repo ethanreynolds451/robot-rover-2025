@@ -9,23 +9,23 @@
 
 class linearDivider {
     public:
-        linearDivider(uint8_t pin_def, float slope, float intercept) : pin(pin_def), m(slope), b(intercept) {
+        linearDivider(uint8_t pin, float slope, float intercept) : pin(pin), m(slope), b(intercept) {
             pinMode(pin, INPUT);
         };
-        void set_pin(uint8_t pin_def){
-            pin = pin_def;
+        void set_pin(uint8_t pin){
+            this->pin = pin;
             pinMode(pin, INPUT);
         }
-        void set_slope(float m_def){
-            m = m_def;
+        void set_slope(float m){
+            this->m = m;
         }
-        void set_offset(float b_def){
-            b = b_def;
+        void set_offset(float b){
+            this->b = b;
         }
-        void set(uint8_t pin_def, float m_def, float b_def){
-            set_pin(pin_def);
-            set_slope(m_def);
-            set_offset(b_def);
+        void set(uint8_t pin, float m, float b){
+            set_pin(pin);
+            set_slope(m);
+            set_offset(b);
         }
         inline float read() const { 
             return get_value(); 
@@ -43,23 +43,23 @@ class linearDivider {
 
 class logDivider {
     public:
-        logDivider(uint8_t pin_def, float a_def = 1, float b_def = 0) : pin(pin_def), a(a_def), b(b_def) {
+        logDivider(uint8_t pin, float a = 1, float b = 0) : pin(pin), a(a), b(b) {
             pinMode(pin, INPUT);
         };
-        void set_pin(uint8_t pin_def){
-            pin = pin_def;
+        void set_pin(uint8_t pin){
+            this->pin = pin;
             pinMode(pin, INPUT);
         }
-        void set_factor(float a_def){
-            a = a_def;
+        void set_factor(float a){
+            this->a = a;
         }
-        void set_offset(float b_def){
-            b = b_def;
+        void set_offset(float b){
+            this->b = b;
         }
-        void set(uint8_t pin_def, float a_def, float b_def){
-            set_pin(pin_def);
-            set_factor(a_def);
-            set_offset(b_def);
+        void set(uint8_t pin, float a, float b){
+            set_pin(pin);
+            set_factor(a);
+            set_offset(b);
         }
         inline float read() const { 
             return get_value(); 

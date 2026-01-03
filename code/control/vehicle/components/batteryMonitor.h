@@ -8,60 +8,60 @@
 
 class batteryMonitor {
     public: 
-        batteryMonitor(uint8_t pin, float slope, float intercept, const char* type_def = "") 
+        batteryMonitor(uint8_t pin, float slope, float intercept, const char* type = "") 
         : reader(pin, slope, intercept) {
-            if (strcmp(type_def, "FLOODED") == 0) {
-                type = FLOODED;
-            } else if (strcmp(type_def, "AGM") == 0) {
-                type = AGM;
-            } else if (strcmp(type_def, "GEL") == 0) {
-                type = GEL;
+            if (strcmp(type, "FLOODED") == 0) {
+                this->type = FLOODED;
+            } else if (strcmp(type, "AGM") == 0) {
+                this->type = AGM;
+            } else if (strcmp(type, "GEL") == 0) {
+                this->type = GEL;
             } else {
-                type = UNKNOWN;
+                this->type = UNKNOWN;
             }            
             
         };
-        void set_type(const char* type_def){
-            if (strcmp(type_def, "FLOODED") == 0) {
-                type = FLOODED;
-            } else if (strcmp(type_def, "AGM") == 0) {
-                type = AGM;
-            } else if (strcmp(type_def, "GEL") == 0) {
-                type = GEL;
+        void set_type(const char* type){
+            if (strcmp(type, "FLOODED") == 0) {
+                this->type = FLOODED;
+            } else if (strcmp(type, "AGM") == 0) {
+                this->type = AGM;
+            } else if (strcmp(type, "GEL") == 0) {
+                this->type = GEL;
             } else {
-                type = UNKNOWN;
+                this->type = UNKNOWN;
             }
         }
-        void set_pin(uint8_t pin_def){
-            reader.set_pin(pin_def);
+        void set_pin(uint8_t pin){
+            this->reader.set_pin(pin);
         }
-        void set_slope(float m_def){
-            reader.set_slope(m_def);
+        void set_slope(float m){
+            this->reader.set_slope(m);
         }
-        void set_offset(float b_def){
-            reader.set_offset(b_def);
+        void set_offset(float m){
+            this->reader.set_offset(m);
         }
-        void set(uint8_t pin_def, float m_def, float b_def){
-            reader.set(pin_def, m_def, b_def);
+        void set(uint8_t pin, float m, float b){
+            this->reader.set(pin, m, b);
         }
         inline float read_voltage() const { 
-            return reader.read(); 
+            return this->reader.read(); 
         }
         inline float read_percentage() const {
             return get_percentage();
         }
-        inline float read_percentage(const char* type_def) const {
-            uint8_t battery_type;
-            if (strcmp(type_def, "FLOODED") == 0) {
-                battery_type = FLOODED;
-            } else if (strcmp(type_def, "AGM") == 0) {
-                battery_type = AGM;
-            } else if (strcmp(type_def, "GEL") == 0) {
-                battery_type = GEL;
+        inline float read_percentage(const char* type) const {
+            uint8_t _type;
+            if (strcmp(type, "FLOODED") == 0) {
+                _type = FLOODED;
+            } else if (strcmp(type, "AGM") == 0) {
+                _type = AGM;
+            } else if (strcmp(type, "GEL") == 0) {
+                _type = GEL;
             } else {
-                battery_type = UNKNOWN;
+                _type = UNKNOWN;
             }
-            return get_percentage(battery_type);
+            return get_percentage(_type);
         }
     private:
         enum BatteryType { UNKNOWN, FLOODED, AGM, GEL };

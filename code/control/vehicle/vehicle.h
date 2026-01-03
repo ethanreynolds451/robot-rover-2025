@@ -1,14 +1,7 @@
 #ifndef VEHICLE_h
 #define VEHICLE_h
 
-#include "dependencies/definitions.h"
-#include "dependencies/libraries.h"
-
-#include "pwm.h"
-#include "relay.h"
-#include "serial.h"
-#include "voltageDivider.h"
-#include "batteryMonitor.h"
+#include "components.h"
 
 class Vehicle {
     public:
@@ -22,12 +15,13 @@ class Vehicle {
             Relay s_reverse_2_relay(Pin::s_reverse_2);
             Relay shift_1_relay(Pin::shift_1);
             Relay shift_2_relay(Pin::shift_2);
-            PWM speed_(Pin::speed_);                                 // Other PWMs default to 0-255, adjust based on physical need
+            // All PWMs default to 0-255; adjust based on robot behaviour
+            PWM speed_(Pin::speed_);                                
             PWM s_speed(Pin::s_speed);
             PWM fan(Pin::fan, 100, 255);                             // Fan always on with min speed
             logDivider internal_temp(Pin::thermistor, 30, 125);      // Added diode to reduce noise, adjusted offset from -95 to -125
             batteryMonitor voltage(Pin::batter_monitor, 1/.60, 0, "flooded_lead_acid");
-            fourDigitDisplayPCF display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4);
+            fourDigitDisplay display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4);
         }
         void initialize(){
             reset();    // Ensure vehicle is set to default state

@@ -1,6 +1,4 @@
-#include "definitions/global.h"
-#include "objects/timer.h"
-#include "objects/vehicle.h"
+#include "vehicle/vehicle.h"
 
 // Data format: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
