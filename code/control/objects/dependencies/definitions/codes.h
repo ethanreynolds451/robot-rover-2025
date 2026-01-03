@@ -17,10 +17,10 @@ namespace Code {
     };
 
     namespace Delimiter {
-        static constexpr char start_designator = '{';
-        static constexpr char end_designator = '}';
-        static constexpr char value_start_designator = '[';
-        static constexpr char value_end_designator = ']';
+        static constexpr char start = '{';
+        static constexpr char end = '}';
+        static constexpr char value_start = '[';
+        static constexpr char value_end = ']';
     }
 
     namespace Command {

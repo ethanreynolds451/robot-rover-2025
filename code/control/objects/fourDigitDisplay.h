@@ -21,11 +21,13 @@ class fourDigitDisplayPCF {
             digit_pins[2] = pin3;
             digit_pins[3] = pin4;
 
-            display.begin();
             for (int i = 0; i < 4; i++) {
                 pinMode(digit_pins[i], OUTPUT);
                 digitalWrite(digit_pins[i], LOW);
             }
+        }
+        void begin(){
+            display.begin();              // Initialize I2C communication
         }
         void set_common_annode(bool is_common_anode){
             if (is_common_anode){

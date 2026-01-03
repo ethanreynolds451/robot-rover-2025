@@ -33,7 +33,7 @@ class Vehicle {
             reset();    // Ensure vehicle is set to default state
             set_pinmodes();     // Initialize hardware pins
             computer.begin();   // Start serial communication with onboard computer
-            displah.begin();    // Start display (PCF8575 with Wire I2C)
+            display.begin();    // Start display (PCF8575 with Wire I2C)
         }
         char* read_serial(){
             computer.read_input();

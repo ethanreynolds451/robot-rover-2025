@@ -1,6 +1,6 @@
 VIN     red
 GND     brown
 SCL     green
-SDA     yellow
+SDA     yellow (white)
 GPIO    blue
-XSHUT   orange
+XSHUT   orange (yellow)
