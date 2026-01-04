@@ -2,14 +2,18 @@
 #define INPUT_h
 
 namespace Data {
+    struct Values {
+        float internal_temp;
+        float battery_voltage;
+        float battery_percentage;
+    };
+
     static constexpr float not_measured = -255.0f;
-    float internal_temp = not_measured; 
-    float battery_voltage = not_measured;
-    float battery_percentage = not_measured; 
+    static constexpr Values default_values = {not_measured, not_measured, not_measured};
+    Values current = default_values;
+
     void reset() {
-        internal_temp = not_measured;
-        battery_voltage = not_measured;
-        battery_percentage = not_measured;
+       current = default_values;
     }
 }
 
