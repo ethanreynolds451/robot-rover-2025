@@ -5,6 +5,7 @@
 
 class Vehicle {
     public:
+        SerialControl computer; // Made this public to allow direct access to serial interface
         Vehicle(baud_rate) 
             :   computer(baud_rate),
                 brake_relay(Pin::brake),
@@ -26,15 +27,7 @@ class Vehicle {
             reset();            // Ensure vehicle is set to default state
             computer.begin();   // Start serial communication with onboard computer
             display.begin();    // Start display (PCF8575 with Wire I2C)
-        }
-        // Gotten to here in rewrite
-        char* read_serial(){
-            computer.read_input();
-            return computer.read();
-        }
-        void send_serial(const char* output){
-            computer.send_output(output);
-        }
+        }        
         void get_command(){
             computer.read();
             if computer.is_command() {
@@ -170,7 +163,6 @@ class Vehicle {
             }
         }
     private:
-        SerialControl computer;
         namespace Control {
             Relay brake;
             Relay reverse_1;

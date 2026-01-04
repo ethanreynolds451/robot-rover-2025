@@ -1,5 +1,7 @@
 #include "vehicle/vehicle.h"
 
+#include "dependencies/timer.h"
+
 // Data format: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
 uint8_t echo_enabled = 1;     // Set to 1 to enable serial echo for debugging
