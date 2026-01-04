@@ -11,30 +11,25 @@
 namespace Code {
     static constexpr uint8_t device_ID = 0x00; 
 
-    struct code_struct {         // Structure for code mapping
-      uint8_t index;
-      char code[4];              // max 3 chars, includes null terminator
-    };
-
     namespace Delimiter {
-        static constexpr char start = '{';
-        static constexpr char end = '}';
-        static constexpr char value_start = '[';
-        static constexpr char value_end = ']';
+        static constexpr char* start = "{";
+        static constexpr char* end = "}";
+        static constexpr char* v_start = "[";
+        static constexpr char* v_end = "]";
     }
 
     namespace Command {
         // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
         static constexpr uint8_t number_of = 7;
 
-        static constexpr code_struct key[number_of] PROGMEM = {
-            {0, "br"},
-            {1, "rv"},
-            {2, "srv"},
-            {3, "su"},
-            {4, "sp"},
-            {5, "ssp"},
-            {6, "fan"}
+        static constexpr const char* key[] = {
+            "br",
+            "rv",
+            "srv",
+            "su",
+            "sp",
+            "ssp",
+            "fan"
         };
 
         namespace Index {
@@ -56,13 +51,13 @@ namespace Code {
         namespace Index {
             static constexpr uint8_t internal_temp = 0;
             static constexpr uint8_t battery_voltage = 1;
-            static constexpr uint8_t vattery_percent = 2;
+            static constexpr uint8_t battery_percent = 2;
         }
 
-        static constexpr code_struct key[number_of] PROGMEM = {
-            {0, "tmp"},
-            {1, "vlt"},
-            {2, "pct"}
+        static constexpr const char* key[] = {
+            "tmp",
+            "vlt",
+            "pct"
         };
     }  
 };

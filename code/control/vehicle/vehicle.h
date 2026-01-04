@@ -5,8 +5,8 @@
 
 class Vehicle {
     public:
-        SerialControl computer; // Made this public to allow direct access to serial interface
-        Vehicle(baud_rate) 
+        RobotSerial computer;         // Made this public to allow direct access to serial interface
+        Vehicle(uint16_t baud_rate) 
             :   computer(baud_rate),
                 brake_relay(Pin::brake),
                 reverse_1_relay(Pin::reverse_1),
@@ -45,45 +45,45 @@ class Vehicle {
         }
         // Setters
         void set_brake(bool active){
-            output_states.brake = active;
+            OutputStates::brake = active;
             update_outputs();
         }
         void set_direction(bool set_reverse){
-            output_states.reverse = set_reverse;
+            OutputStates::reverse = set_reverse;
             update_outputs();
         }
         void set_shift(bool set_series){
-            output_states.shift_up = set_series;
+            OutputStates::shift_up = set_series;
             update_outputs();
         }
         void set_speed(uint8_t set_speed){
-            output_states.speed_ = set_speed;
+            OutputStates::speed_ = set_speed;
             update_outputs();
         }
         void set_s_direction(bool set_reverse){
-            output_states.s_reverse = set_reverse;
+            OutputStates::s_reverse = set_reverse;
             update_outputs();
         }
         void set_s_speed(uint8_t set_speed){
-            output_states.s_speed = set_speed;
+            OutputStates::s_speed = set_speed;
             update_outputs();
         }
         void set_f_speed(uint8_t set_speed){
-            output_states.f_speed = set_speed;
+            OutputStates::f_speed = set_speed;
             update_outputs();
         }
         void reset(){
-            set_defaults();
+            OutputStates::reset();
             update_outputs();
         }
         void set_fan_from_temp(){
             temp = internal_temp.read();
-            if(temp < 25){
-                output_states.f_speed = 0;
-            } else if(temp > 50){
-                output_states.f_speed = 100;
+            if(temp < MIN_FAN_TEMP){
+                OutputStates::f_speed = 0;
+            } else if(temp > MAX_FAN_TEMP){
+                OutputStates::f_speed = 100;
             } else {
-                output_states.f_speed = map(temp, 25, 50, 0, 100);
+                OutputStates::f_speed = map(temp, MIN_FAN_TEMP, MAX_FAN_TEMP, 0, 100);
             }
             update_outputs();
         }
@@ -113,17 +113,39 @@ class Vehicle {
             display.print_decimal(temperature);
         }
         void read_data(){
-            temp = internal_temp.read();
-            battery_voltage = voltage.read_voltage();
-            battery_percentage = voltage.read_percentage();
+            Data::internal_temp = internal_temp.read();
+            Data::battery_voltage = voltage.read_voltage();
+            Data::battery_percentage = voltage.read_percentage();
         }
-        void send_data(){
+        void send_data() {
             // {tmp[0]vlt[0]pct[0]}
             char buffer[STRING_LIMIT];
-            sprintf(buffer, "{Code::data[0].code}[%0.2f]{Code::data[1].code}[%0.2f]{Code::data[2].code}[%0.2f]\n",
-                    data.temp,
-                    data.battery_voltage,
-                    data.battery_percentage);
+            using namespace Code;
+            snprintf(
+                buffer,
+                sizeof(buffer),
+                "%s%s%s%0.2f%s%s%s%0.2f%s%s%s%0.2f%s%s\n",
+                
+                Delimiter::start,
+
+                Data::key[Data::Index::internal_temp],
+                Delimiter::v_start,
+                Data::temp,
+                Delimiter::v_end,
+                
+                Data::key[Data::Index::battery_voltage],
+                Delimiter::v_start,
+                Data::battery_voltage,
+                Delimiter::v_end,
+
+                Data::key[Data::Index::battery_percentage],
+                Delimiter::v_start,
+                Data::battery_percentage,
+                Delimiter::v_end,
+
+                Delimiter::end
+            );
+
             computer.write(buffer);
         }
         void read_and_send_data(){
@@ -133,37 +155,38 @@ class Vehicle {
         void send_states(){
             // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
             // Format later if needed, output just for debug now and not processed by computer
-            Serial.println("br: " + String(output_states.brake) + 
-                           " rv: " + String(output_states.reverse) + 
-                           " srv: " + String(output_states.s_reverse) + 
-                           " su: " + String(output_states.shift_up) + 
-                           " sp: " + String(output_states.speed_) + 
-                           " ssp: " + String(output_states.s_speed) + 
-                           " fan: " + String(output_states.f_speed));
+            Serial.println("br: " + String(OutputStates::brake) + 
+                           " rv: " + String(OutputStates::reverse) + 
+                           " srv: " + String(OutputStates::s_reverse) + 
+                           " su: " + String(OutputStates::shift_up) + 
+                           " sp: " + String(OutputStates::speed_) + 
+                           " ssp: " + String(OutputStates::s_speed) + 
+                           " fan: " + String(OutputStates::f_speed));
         }
         void timeout_error(){
             reset();
             computer.write("Vehicle reset due to input timeout.\n");
         }
         void execute_command_as_string(uint8_t code, const char* val){
-            if(code == 0) {
+            if(code == Command::Index::brake) {
                 set_brake(atoi(val));
-            } else if(code == 1) {
+            } else if(code == Command::Index::reverse) {
                 set_direction(atoi(val));
-            } else if(code == 2) {
+            } else if(code == Command::Index::steering_reverse) {
                 set_s_direction(atoi(val));
-            } else if(code == 3) {
+            } else if(code == Command::Index::shift_up) {
                 set_shift(atoi(val));
-            } else if(code == 4) {
+            } else if(code == Command::Index::speed) {
                 set_speed(atoi(val));
-            } else if(code == 5) {
+            } else if(code == Command::Index::steering_speed) {
                 set_s_speed(atoi(val));
-            } else if(code == 6) {
+            } else if(code == Command::Index::fan) {
                 set_f_speed(atoi(val));
             }
         }
     private:
-        namespace Control {
+        // Vehicle objects
+        namespace OutputStates::{
             Relay brake;
             Relay reverse_1;
             Relay reverse_2;
@@ -174,61 +197,30 @@ class Vehicle {
             PWM speed;
             PWM s_speed;
             PWM fan;
-        }
-    
+        };
         logDivider internal_temp;
         batteryMonitor voltage;
         fourDigitDisplay display;
 
-        namespace output_states {
-            bool brake = true;			//br
-            bool reverse = false;		//rv
-            bool s_reverse = false;		//srv
-            bool shift_up = false;		//su
-            uint8_t speed_ = 0;			//sp
-            uint8_t s_speed = 0;		//ssp
-            uint8_t f_speed = 0;        //fan
-        }
-        namespace default_output_states {
-            static const bool brake = true;		
-            static const bool reverse = false;		
-            static const bool s_reverse = false;		
-            static const bool shift_up = false;		
-            static const uint8_t speed_ = 0;		
-            static const uint8_t s_speed = 0;	
-            static const uint8_t f_speed = 0;
-        }
-        namespace data {
-            float temp; 
-            float battery_voltage;
-            float battery_percentage; 
-        }
         char[STRING_LIMIT] current_command;
-        void set_defaults(){
-            output_states.brake = default_output_states.brake;
-            output_states.reverse = default_output_states.reverse;
-            output_states.s_reverse = default_output_states.s_reverse;
-            output_states.shift_up = default_output_states.shift_up;
-            output_states.speed_ = default_output_states.speed_;
-            output_states.s_speed = default_output_states.s_speed;
-            output_states.f_speed = default_output_states.f_speed;
-        }
+    
         void update_outputs(){
-            fan.set(control.f_speed);
-            brake_relay.set(!control.brake);
-            reverse_1_relay.set(control.reverse);
-            reverse_2_relay.set(control.reverse);
-            s_reverse_1_relay.set(control.s_reverse);
-            s_reverse_2_relay.set(control.s_reverse);
-            shift_1_relay.set(control.shift_up);
-            shift_2_relay.set(control.shift_up);
-            speed_.set_power(control.speed_);
-            s_speed.set_power(control.s_speed);
+            fan.set(OutputStates::f_speed);
+            brake_relay.set(!OutputStates::brake);
+            reverse_1_relay.set(OutputStates::reverse);
+            reverse_2_relay.set(OutputStates::reverse);
+            s_reverse_1_relay.set(OutputStates::s_reverse);
+            s_reverse_2_relay.set(OutputStates::s_reverse);
+            shift_1_relay.set(OutputStates::shift_up);
+            shift_2_relay.set(OutputStates::shift_up);
+            speed_.set_power(OutputStates::speed_);
+            s_speed.set_power(OutputStates::s_speed);
         }
+
         void run_input(){
             uint8_t tmp_len = 16;						// designate 16 bytes for read buffer
             char tmp_code[16];
-            char tmp_data[16];
+            char tmp_data16];
             uint16_t end_index = strlen(input);
             uint16_t index = 0;
             uint8_t data_index = 0;
@@ -238,12 +230,12 @@ class Vehicle {
                     if(input[index] == '}'){ 			// break if end characther
                         break;
                     } else {
-                        // get the data packet designator
-                // First clear temp data buffer
+                        // get the Data::packet designator
+                // First clear temp Data::buffer
                     memset(tmp_code, 0, tmp_len);
-                    memset(tmp_data, 0, tmp_len);
-                        code_index = 0;				// go to start of data buffer
-                        while(true){				// until data encountered
+                    memset(tmp_data 0, tmp_len);
+                        code_index = 0;				// go to start of Data::buffer
+                        while(true){				// until Data::encountered
                             index++;          // Advance to next charachter in input
                             if(isalpha(input[index]) && input[index] != '['){
                                 tmp_code[code_index] = input[index];	// read designator into tmp buffer
@@ -254,16 +246,16 @@ class Vehicle {
                             }
                         }
                         // get data
-                        if(input[index] == '['){		// find data charchter
-                            data_index = 0;
-                            while(true){					// enter data loop	
+                        if(input[index] == '['){		// find Data::charchter
+                            Data::index = 0;
+                            while(true){					// enter Data::loop	
                                 index++;
-                                if(input[index] == ']'){	// break if end data character
-                                    tmp_data[data_index] = '\0';
+                                if(input[index] == ']'){	// break if end Data::character
+                                    tmp_dataData::index] = '\0';
                                     break;
                                 } else {
-                                    tmp_data[data_index] = input[index];
-                                    data_index++;
+                                    tmp_dataData::index] = input[index];
+                                    Data::index++;
                                 }
                             }
                         }
@@ -271,7 +263,7 @@ class Vehicle {
                         uint8_t code_index = 0;
                         while(code_index <= command.number_of_commands){
                             if(strcmp(Code::commands[code_index].code, tmp_code) == 0){
-                                execute_command_as_string(code_index, tmp_data);
+                                execute_command_as_string(code_index, tmp_data;
                                 break;
                             } else {
                                 code_index++;
