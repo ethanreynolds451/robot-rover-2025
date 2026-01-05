@@ -1,7 +1,7 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-static const long input_timeout = 5000;	// If no command recieved for interval, cut all motors
+static const long input_timeout = 1000;	// If no command recieved for interval, cut all motors
 static const long baud_rate = 115200;
 static const uint8_t string_limit = 64;
 static const uint8_t pwm_min = 0;
@@ -25,8 +25,8 @@ public:
 	static constexpr uint8_t s_reverse_2 = 8;
 	static constexpr uint8_t shift_1 = 13;      // Would be 5 but needed for fan pwm
 	static constexpr uint8_t shift_2 = 6;
-	static constexpr uint8_t speed_ = 11;
-	static constexpr uint8_t s_speed = 9;
+	static constexpr uint8_t speed_ = 9;
+	static constexpr uint8_t s_speed = 10;
 	static constexpr uint8_t fan = 5;
 	static constexpr uint8_t headlight = 12;
 	//Analog
