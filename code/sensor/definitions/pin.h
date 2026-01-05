@@ -25,8 +25,8 @@ namespace Pin {
     static constexpr uint8_t CS = 53;
   };
   namespace Display {
-    static constexpr uint8_t RS = 43;
     static constexpr uint8_t EN = 44;
+    static constexpr uint8_t RS = 43;
     static constexpr uint8_t D4 = 45;
     static constexpr uint8_t D5 = 46;
     static constexpr uint8_t D6 = 47;

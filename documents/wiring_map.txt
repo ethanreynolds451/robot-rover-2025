@@ -14,6 +14,7 @@ Power (main harness)
         VCC         orange
 
 Steering (brown ethernet cable)
+Note: Wire splits into motor power and data cables in rear junction box
     Power
         M+          orange pair
         M-          brown pair
@@ -37,6 +38,7 @@ Front and Side ToF (blue ethernet cable)
         XSHUT       blue-white
         
 Front and Side Ultrasonic (blue ethernet cable)
+Note: side splits into two brown six-wire cables with shared power and I2C in rear junction box
     Left
         GND         brown
         VCC         brown-white
@@ -91,10 +93,11 @@ Display (needs 21 wires, three ethernet cables combined will yield three extra)
         Decimal     blue-white
 
 IR Sensor (white four-wire cable)
-    VCC             red
-    GND             black
-    Signal          yellow
-    *NC             green
+    VCC             red     -> brown-white
+    GND             black   -> brown
+    Signal          yellow  -> blue
+    *NC             green   -> blue-white
+
   
 Thermistor (two-wire cable)
     Wire 1          black
