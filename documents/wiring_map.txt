@@ -68,7 +68,7 @@ Display (needs 21 wires, three ethernet cables combined will yield three extra)
         V0          brown
         E           brown-white
         RS          green
-        *NC         green-white
+        *NC         green-white 
         D4          orange
         D5          orange-white
         D6          blue       
@@ -93,9 +93,9 @@ Display (needs 21 wires, three ethernet cables combined will yield three extra)
         Decimal     blue-white
 
 IR Sensor (white four-wire cable)
-    VCC             red     -> brown-white
-    GND             black   -> brown
-    Signal          yellow  -> blue
+    VCC             red     -> brown-white          Display 2 green-white
+    GND             black   -> brown                Display 2 green
+    Signal          yellow  -> blue                 Display 1 green-white
     *NC             green   -> blue-white
 
   

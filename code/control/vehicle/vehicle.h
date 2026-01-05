@@ -277,17 +277,18 @@ class Vehicle {
             char tmp_delimiter[tmp_len];
             char tmp_code[tmp_len];
             char tmp_data[tmp_len];
+            uint8_t tmp_len = 0; 
             uint16_t end_index = strlen(input);
             uint16_t index = 0;
             uint8_t data_index = 0;
             uint8_t code_index = 0;
             using namespace Code;
 
+            // Step 1: Verify start delimiter, exit if invalid
             memset(tmp_delimiter, 0, tmp_len);
             strcpy(tmp_delimiter, Delimiter::start);
-
-            // Step 1: Check for the start delimiter (iterate if multiple characters)
-            for(int i = 0; i < strlen(Delimiter::start); i++){
+            tmp_len = strlen(Delimiter::start);
+            for(int i = 0; i < tmp_len; i++){
                 if(input[index] == Delimiter::start[i]){		
                     index++;	
                 } else {
@@ -296,7 +297,8 @@ class Vehicle {
             }
             // This will advance index to the character after the start delimiter
 
-            // Step 2: Check for the end delimiter
+            // Step 2: Verify end delimiter, exit if invalid
+            tmp_len = strlen(Delimiter::end);
             memset(tmp_delimiter, 0, tmp_len);
             strcpy(tmp_delimiter, Delimiter::start);
             unit8_t reverse_index = end_index;
