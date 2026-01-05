@@ -283,11 +283,12 @@ class Vehicle {
             uint8_t code_index = 0;
             using namespace Code;
 
-            // Step 1: Check for the start delimiter
             memset(tmp_delimiter, 0, tmp_len);
             strcpy(tmp_delimiter, Delimiter::start);
-            for(int i = 0; i < strlen(tmp_delimiter); i++){
-                if(input[index] == tmp_delimiter[i]){		
+
+            // Step 1: Check for the start delimiter (iterate if multiple characters)
+            for(int i = 0; i < strlen(Delimiter::start); i++){
+                if(input[index] == Delimiter::start[i]){		
                     index++;	
                 } else {
                     return 0;					
@@ -312,48 +313,54 @@ class Vehicle {
 
             // Siep 3: Read commands and data between the delimiters
             while(index <= reverse_index){	
-                // Step 3a: Check for end delimiter
+
+            // A) get command code
+                memset(tmp_code, 0, tmp_len);
                 memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::end);
-                if(input[index] == tmp_delimiter[0]){       // Check the first character of delimiter			
-                    for(int i = 0; i < strlen(tmp_delimiter); i++){     // If it matches, start checking the rest
-                        if(input[index] == tmp_delimiter[i]){		    // If the next one matches, keep checking 
-                            index++;	
-                        } else {
-                            break;					                    // If one of them doesn't match, keep going with the data
-                        }		
+                strcpy(tmp_delimiter, Delimiter::v_start);
+                code_index = 0;				// go to start of data buffer
+                while(true){				// until data encountered
+                    if(isalpha(input[index]) && input[index] != tmp_delimiter[0]){
+                        tmp_code[code_index] = input[index];	// read designator into tmp buffer
+                        code_index++;                        // advance to next buffer character
+                        index++;                             // advance to next input character
+                    } else {
+                        tmp_code[code_index] = '\0';       
+                        break;	// If bad nonalpha or end char encounter
                     }
                 }
-                   
-            
-                // Step 2b: Read command code and data
-                memset(tmp_code, 0, tmp_len);
+                // This will leave off at the first character of the value delimiter
+
+            // B) get the data 
+        
+                // Check the rest of the start delimiter (or just advance to the next char if single char delimiter)
+                for(int i = 0; i < strlen(tmp_delimiter); i++){
+                    if(input[index] == tmp_delimiter[i]){		
+                        index++;	
+                    } else {
+                        return 0;					
+                    }		
+                }
+                // This will advance index to the character after the value start delimiter
+
+                // Reset buffers and prepare to read data
                 memset(tmp_data 0, tmp_len);
-                    code_index = 0;				// go to start of data buffer
-                    while(true){				// until data encountered
-                        index++;          // Advance to next charachter in input
-                        if(isalpha(input[index]) && input[index] != '['){
-                            tmp_code[code_index] = input[index];	// read designator into tmp buffer
-                            code_index++;                        // advance to next buffer character
-                        } else {
-                            tmp_code[code_index] = '\0';       
-                            break;	// If bad nonalpha or end char encounter
-                        }
+                memset(tmp_delimiter, 0, tmp_len);
+                strcpy(tmp_delimiter, Delimiter::v_end);
+
+                // Read data until end delimiter
+                data_index = 0;
+                while(true){					  
+                    if(input[index] != tmp_delimiter[0]){	
+                        tmp_data[data_index] = input[index];
+                        data_index++;               // advance to next buffer character 
+                        index++;                    // advance to next input character
+                    } else {
+                        tmp_data[data_index] = '\0';
+                        break;
                     }
-                    // get data
-                    if(input[index] == '['){		// find Data::current.charchter
-                        Data::current.index = 0;
-                        while(true){					// enter Data::current.loop	
-                            index++;
-                            if(input[index] == ']'){	// break if end Data::current.character
-                                tmp_dataData::current.index] = '\0';
-                                break;
-                            } else {
-                                tmp_dataData::current.index] = input[index];
-                                Data::current.index++;
-                            }
-                        }
-                    }
+                }
+            }
                     // run command with data
                     uint8_t code_index = 0;
                     while(code_index <= command.number_of_commands){
@@ -364,6 +371,8 @@ class Vehicle {
                             code_index++;
                         }
                     }
+                index++;          // Advance to next charachter in input
+
             }
             return 0;  // Return false if no end deimiter not read successfully
             
