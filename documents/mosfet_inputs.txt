@@ -1,0 +1,6 @@
+
+sensor board     ->     vent
+
+purple  grey    blue    green
+
+To Do: 
