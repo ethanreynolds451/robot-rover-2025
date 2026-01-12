@@ -12,11 +12,43 @@ namespace OutputStates {
         uint8_t f_speed;
     };
 
+    static constexpr uint8_t max_length = 4;    // Length of longest value AS STRING including null terminator (3 digits)
+
     static constexpr Values default_values = { true, false, false, false, 0, 0, 0 };
     Values current = default_values;
-    Values input = default_values;
+    Values input_buffer = default_values;
 
-    void reset(){
+    // Check values and index bounds elsewhere, this is a low-level function to reduce code duplication
+    // This allows the different data types to be handled differently if needed
+    void set_by_index(Values *value_struct, unit8_t index, const char* value_string){
+        switch(index){
+            case 0:
+                value_struct->brake = atoi(value_string);
+                break;
+            case 1:
+                value_struct->reverse = atoi(value_string);
+                break;
+            case 2:
+                value_struct->s_reverse = atoi(value_string);
+                break;
+            case 3:
+                value_struct->shift_up = atoi(value_string);
+                break;
+            case 4:
+                value_struct->speed = atoi(value_string);
+                break;
+            case 5:
+                value_struct->s_speed = atoi(value_string);
+                break;
+            case 6:
+                value_struct->f_speed = atoi(value_string);
+                break;
+            default: 
+                break;
+        };
+    }
+
+    void reset() {
         current = default_values;
     }
 

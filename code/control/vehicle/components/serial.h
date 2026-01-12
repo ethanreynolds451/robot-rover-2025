@@ -49,7 +49,15 @@ class RobotSerial {
 		return is_command(this->input_buffer);
 	}
 	bool is_command(const char* input_string){
-		return ((strlen(input_string) > 1) && (input_string[0] == Code::Delimiter::start && input_string[strlen(input_string)-1] == Code::Delimiter::end));
+		if (!input_string) return false;		// Check for null pointer
+		namespace D = Code::Delimiter;			// Local namespace alias
+		const size_t start_length = strlen(D::start);
+		const size_t end_length = strlen(D::end);
+		const size_t input_length = strlen(input_string);
+		return ((input_length >= start_length + end_length) && 
+				(strncmp(input_string, D::start, start_length) == 0) &&
+				(strncmp(input_string + input_length - end_length, D::end, end_length) == 0)
+				);
 	}
   private:
   	static constexpr uint8_t serial_delay = 1;

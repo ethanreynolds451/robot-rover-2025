@@ -10,5 +10,6 @@
 #include "components/serial.h"
 #include "components/voltageDivider.h"
 #include "components/batteryMonitor.h"
+#include "components/fourDigitDisplay.h"
 
 #endif

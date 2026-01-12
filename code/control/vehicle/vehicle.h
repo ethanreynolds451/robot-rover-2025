@@ -15,9 +15,9 @@ class Vehicle {
                 s_reverse_2_relay(Pin::s_reverse_2),
                 shift_1_relay(Pin::shift_1),
                 shift_2_relay(Pin::shift_2),
-                speed(Pin::speed),
-                s_speed(Pin::s_speed),
-                fan(Pin::fan, 100, 255),
+                speed_pwm(Pin::speed),
+                s_speed_pwm(Pin::s_speed),
+                fan_pwm(Pin::fan, 100, 255),
                 internal_temp(Pin::thermistor, 30, 125),
                 voltage(Pin::battery_monitor, BATTERY_VOLTAGE_SLOPE, 0, BATTERY_TYPE),
                 display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4)   
@@ -30,9 +30,9 @@ class Vehicle {
         }   
 
         // Command functions     
-        void get_command(){
+        bool get_command(){
             computer.read();
-            if computer.is_command() {
+            if (computer.is_command()) {
                  // This only checks the start delimiter, use more rigerous data integrity checks later
                  computer.get_into(current_command, STRING_LIMIT);
                  return true;
@@ -104,32 +104,35 @@ class Vehicle {
             return OutputStates::current.f_speed;
         }
         float get_internal_temp(){
-            return Data::current.internal_temp;
+            return InputData::current.internal_temp;
         }
         float get_battery_voltage(){
-            return Data::current.battery_voltage;
+            return InputData::current.battery_voltage;
         }
         float get_battery_percentage(){
-            return Data::current.battery_percentage;
+            return InputData::current.battery_percentage;
         }
 
         // Sensor reader functions
         float read_internal_temp(){
-            Data::current.internal_temp = internal_temp.read();
-            return Data::current.internal_temp;
+            namespace D = InputData;
+            D::current.internal_temp = internal_temp.read();
+            return D::current.internal_temp;
         }
         float read_battery_voltage(){
-            Data::current.battery_voltage = voltage.read_voltage();
-            return Data::current.battery_voltage;
+            namespace D = InputData;
+            D::current.battery_voltage = voltage.read_voltage();
+            return D::current.battery_voltage;
         }
         float read_battery_percentage(){
-            Data::current.battery_percentage = voltage.read_percentage();
-            return Data::current.battery_percentage;
+            namespace D = InputData;
+            D::current.battery_percentage = voltage.read_percentage();
+            return D::current.battery_percentage;
         }
 
         // Vehicle functions for control loop
         void set_fan_from_temp(){
-            temp = internal_temp.read();
+            uint16_t temp = internal_temp.read();
             if(temp < MIN_FAN_TEMP){
                 OutputStates::current.f_speed = 0;
             } else if(temp > MAX_FAN_TEMP){
@@ -140,12 +143,12 @@ class Vehicle {
             update_outputs();
         }
         void display_voltage(){
-            float voltage = voltage.read_voltage();
+            float volts = voltage.read_voltage();
             char buffer[64];
             // Display voltage on serial for debug
-                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", voltage);
+                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", volts);
                 computer.write(buffer);
-            display.print_decimal(voltage);
+            display.print_decimal(volts);
         }
         void display_voltage_as_percent(){
             // Round percent to nearest whole number
@@ -165,37 +168,40 @@ class Vehicle {
             display.print_decimal(temperature);
         }
         void read_data(){
-            Data::current.internal_temp = internal_temp.read();
-            Data::current.battery_voltage = voltage.read_voltage();
-            Data::current.battery_percentage = voltage.read_percentage();
+            namespace D = InputData;
+            D::current.internal_temp = internal_temp.read();
+            D::current.battery_voltage = voltage.read_voltage();
+            D::current.battery_percentage = voltage.read_percentage();
         }
         void send_data() {
             // {tmp[0]vlt[0]pct[0]}
             char buffer[STRING_LIMIT];
-            using namespace Code;
+            namespace C = Code::Data;
+            namespace D = Code::Delimiter;
+            namespace V = InputData;
             snprintf(
                 buffer,
                 sizeof(buffer),
                 "%s%s%s%0.2f%s%s%s%0.2f%s%s%s%0.2f%s%s\n",
                 
-                Delimiter::start,
+                D::start,
 
-                Data::current.key[Data::current.Index::internal_temp],
-                Delimiter::v_start,
-                Data::current.temp,
-                Delimiter::v_end,
+                C::str[C::Index::internal_temp],
+                D::v_start,
+                V::current.internal_temp,
+                D::v_end,
                 
-                Data::current.key[Data::current.Index::battery_voltage],
-                Delimiter::v_start,
-                Data::current.battery_voltage,
-                Delimiter::v_end,
+                C::str[C::Index::battery_voltage],
+                D::v_start,
+                V::current.battery_voltage,
+                D::v_end,
 
-                Data::current.key[Data::current.Index::battery_percentage],
-                Delimiter::v_start,
-                Data::current.battery_percentage,
-                Delimiter::v_end,
+                C::str[C::Index::battery_percentage],
+                D::v_start,
+                V::current.battery_percentage,
+                D::v_end,
 
-                Delimiter::end
+                D::end
             );
 
             computer.write(buffer);
@@ -219,46 +225,46 @@ class Vehicle {
             reset();
             computer.write("Vehicle reset due to input timeout.\n");
         }
-        void execute_command_as_string(uint8_t code, const char* val){
-            if(code == Command::Index::brake) {
+        void set_command_as_string(uint8_t code, const char* val){
+            namespace I = Code::Command::Index;
+            if(code == I::brake) {
                 set_brake(atoi(val));
-            } else if(code == Command::Index::reverse) {
+            } else if(code == I::reverse) {
                 set_direction(atoi(val));
-            } else if(code == Command::Index::steering_reverse) {
+            } else if(code == I::steering_reverse) {
                 set_s_direction(atoi(val));
-            } else if(code == Command::Index::shift_up) {
+            } else if(code == I::shift_up) {
                 set_shift(atoi(val));
-            } else if(code == Command::Index::speed) {
+            } else if(code == I::speed) {
                 set_speed(atoi(val));
-            } else if(code == Command::Index::steering_speed) {
+            } else if(code == I::steering_speed) {
                 set_s_speed(atoi(val));
-            } else if(code == Command::Index::fan) {
+            } else if(code == I::fan) {
                 set_f_speed(atoi(val));
             }
         }
     
     private:
         // Vehicle objects
-        namespace Control {
-            Relay brake;
-            Relay reverse_1;
-            Relay reverse_2;
-            Relay s_reverse_1;
-            Relay s_reverse_2;
-            Relay shift_1;
-            Relay shift_2;
-            PWM speed;
-            PWM s_speed;
-            PWM fan;
-        };
+        Relay brake_relay;
+        Relay reverse_1_relay;
+        Relay reverse_2_relay;
+        Relay s_reverse_1_relay;
+        Relay s_reverse_2_relay;
+        Relay shift_1_relay;
+        Relay shift_2_relay;
+        PWM speed_pwm;
+        PWM s_speed_pwm;
+        PWM fan_pwm;
         logDivider internal_temp;
         batteryMonitor voltage;
-        fourDigitDisplay display;
+        fourDigitDisplayPCF display;
 
-        char[STRING_LIMIT] current_command;
+        // Buffer for command processing
+        char current_command[STRING_LIMIT];
     
         void update_outputs(){
-            fan.set(OutputStates::current.f_speed);
+            fan_pwm.set(OutputStates::current.f_speed);
             brake_relay.set(!OutputStates::current.brake);
             reverse_1_relay.set(OutputStates::current.reverse);
             reverse_2_relay.set(OutputStates::current.reverse);
@@ -266,118 +272,8 @@ class Vehicle {
             s_reverse_2_relay.set(OutputStates::current.s_reverse);
             shift_1_relay.set(OutputStates::current.shift_up);
             shift_2_relay.set(OutputStates::current.shift_up);
-            speed.set_power(OutputStates::current.speed);
-            s_speed.set_power(OutputStates::current.s_speed);
-        }
-
-        bool run_input(char* input_string){                                               // Returns true if all commands read successfully
-            char input[STRING_LIMIT];
-            strcpy(input, input_string);
-            static constexpr uint8_t tmp_len = 16;						// designate 16 bytes for read buffer
-            char tmp_delimiter[tmp_len];
-            char tmp_code[tmp_len];
-            char tmp_data[tmp_len];
-            uint8_t tmp_len = 0; 
-            uint16_t end_index = strlen(input);
-            uint16_t index = 0;
-            uint8_t data_index = 0;
-            uint8_t code_index = 0;
-            using namespace Code;
-
-            // Step 1: Verify start delimiter, exit if invalid
-            memset(tmp_delimiter, 0, tmp_len);
-            strcpy(tmp_delimiter, Delimiter::start);
-            tmp_len = strlen(Delimiter::start);
-            for(int i = 0; i < tmp_len; i++){
-                if(input[index] == Delimiter::start[i]){		
-                    index++;	
-                } else {
-                    return 0;					
-                }		
-            }
-            // This will advance index to the character after the start delimiter
-
-            // Step 2: Verify end delimiter, exit if invalid
-            tmp_len = strlen(Delimiter::end);
-            memset(tmp_delimiter, 0, tmp_len);
-            strcpy(tmp_delimiter, Delimiter::start);
-            unit8_t reverse_index = end_index;
-            for(int i = strlen(tmp_delimiter); i > 0; i--){		// check from end to start
-                if(input[reverse_index] == tmp_delimiter[i]){		
-                    reverse_index--;	
-                } else {
-                    return 0;			
-                }		
-            }
-            // This will advance reverse_index to the character before the end delimiter
-
-            // The data to read can now be constrained between the start and end delimiters
-
-            // Siep 3: Read commands and data between the delimiters
-            while(index <= reverse_index){	
-
-            // A) get command code
-                memset(tmp_code, 0, tmp_len);
-                memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::v_start);
-                code_index = 0;				// go to start of data buffer
-                while(true){				// until data encountered
-                    if(isalpha(input[index]) && input[index] != tmp_delimiter[0]){
-                        tmp_code[code_index] = input[index];	// read designator into tmp buffer
-                        code_index++;                        // advance to next buffer character
-                        index++;                             // advance to next input character
-                    } else {
-                        tmp_code[code_index] = '\0';       
-                        break;	// If bad nonalpha or end char encounter
-                    }
-                }
-                // This will leave off at the first character of the value delimiter
-
-            // B) get the data 
-        
-                // Check the rest of the start delimiter (or just advance to the next char if single char delimiter)
-                for(int i = 0; i < strlen(tmp_delimiter); i++){
-                    if(input[index] == tmp_delimiter[i]){		
-                        index++;	
-                    } else {
-                        return 0;					
-                    }		
-                }
-                // This will advance index to the character after the value start delimiter
-
-                // Reset buffers and prepare to read data
-                memset(tmp_data 0, tmp_len);
-                memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::v_end);
-
-                // Read data until end delimiter
-                data_index = 0;
-                while(true){					  
-                    if(input[index] != tmp_delimiter[0]){	
-                        tmp_data[data_index] = input[index];
-                        data_index++;               // advance to next buffer character 
-                        index++;                    // advance to next input character
-                    } else {
-                        tmp_data[data_index] = '\0';
-                        break;
-                    }
-                }
-            }
-                    // run command with data
-                    uint8_t code_index = 0;
-                    while(code_index <= command.number_of_commands){
-                        if(strcmp(Code::commands[code_index].code, tmp_code) == 0){
-                            execute_command_as_string(code_index, tmp_data;
-                            break;
-                        } else {
-                            code_index++;
-                        }
-                    }
-                index++;          // Advance to next charachter in input
-
-            }
-            return 0;  // Return false if no end deimiter not read successfully
-            
+            speed_pwm.set_power(OutputStates::current.speed);
+            s_speed_pwm.set_power(OutputStates::current.s_speed);
         }
 };  
 

@@ -16,13 +16,15 @@ namespace Code {
         static constexpr char* end = "}";
         static constexpr char* v_start = "[";
         static constexpr char* v_end = "]";
+        static constexpr uint8_t max_length = 1;    // Max length of delimiters including null terminator (2 characters)
     }
 
     namespace Command {
         // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
         static constexpr uint8_t number_of = 7;
+        static constexpr uint8_t max_length = 4;    // Max length of command strings including null terminator (3 letters)
 
-        static constexpr const char* key[] = {
+        static constexpr const char* str[] = {
             "br",
             "rv",
             "srv",
@@ -51,10 +53,10 @@ namespace Code {
         namespace Index {
             static constexpr uint8_t internal_temp = 0;
             static constexpr uint8_t battery_voltage = 1;
-            static constexpr uint8_t battery_percent = 2;
+            static constexpr uint8_t battery_percentage = 2;
         }
 
-        static constexpr const char* key[] = {
+        static constexpr const char* str[] = {
             "tmp",
             "vlt",
             "pct"
