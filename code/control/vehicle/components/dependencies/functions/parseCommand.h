@@ -58,226 +58,108 @@ class commandParser {
         return set_value_from_index(commands, index, value_str);
     }
 
-    bool extract_commands(Values &commands, const char* input){     
+    enum extraction_errors {
+        SUCCESS = 0,
+        INVALID_START_DELIMITER = 1,
+        INVALID_END_DELIMITER = 2,
+        INVALID_DATA_START_DELIMITER = 3,
+        INVALID_DATA_END_DELIMITER = 4,
+        INVALID_COMMAND_CODE = 5,
+        INVALID_DATA_VALUE = 6,
+        STRING_LIMIT_EXCEEDED = 7
+    };
+
+    // Optional index parameter to know where parser left off if there is an error
+    int extract_commands(Values &commands, const char* input, size_t* current_index = nullptr){     
+
+        size_t local_index = 0;             // If no current index provided, start at 0
+        if(current_index == nullptr) {
+            current_index = &local_index;   // use a local index if none provided
+        }
+
         // Step 1: Verify start and end delimiter, exit if invalid
-        if(!start_valid(input) || !end_valid(input)){
-            return 0;
-        } 
+        if(!start_valid(input)){
+            return 1;
+        } else if(!end_valid(input)){
+            return 2;
+        }
 
         // Step 2: Read commands and data between the delimiters
         // already verified that command string fills entire input from 0 to null terminator
        
         // Declare temporary buffers and indexes
-        size_t current_index = strlen(Code::Delimiter::start) + 1;                    // Start after last char of start delimiter
         size_t end_index = strlen(input) - strlen(Code::Delimiter::end) - 1;          // End before first char of end delimiter 
-        
-        size_t tmp_code_len = Code::Command::max_length;
-        char tmp_code[tmp_code_len];
-        size_t code_index = 0;
 
-        size_t tmp_data_len = OutputStates::max_length;
-        char tmp_data[tmp_data_len];
-        size_t data_index = 0;
+        char current_code[Code::Command::max_length];
+        char current_value[OutputStates::max_length];
 
         // Loop through delimiters and values until the end is reached 
         while(current_index <= end_index){	
-            // A) get a command code
-            memset(tmp_code, 0, tmp_code_len);      // Reset code buffer      
-            code_index = 0;				            // Go to start of code buffer
-            while(true){	                       
-                if(isalpha(input[index]) &&         // Make sure it is a valid characther
-                        input[index] != Code::Delimiter::v_start[0]) {     
-                    tmp_code[code_index] = input[index];	// read designator into tmp buffer
-                    code_index++;                           // advance to next buffer character
-                    index++;                                // advance to next input character
-                } else {                             // Break if it is not a valid character or 
-                    tmp_code[code_index] = '\0';       
-                    break;	// If bad nonalpha or end char encounter
+            if(read_code(current_code, current_index)){
+                if (!data_start_valid(current_index)){
+                    return 3;   // Invalid start delimiter
                 }
-            }
-            // This will leave off at the first character of the value delimiter
-
-            // B) get the data 
-        
-                // Check the rest of the start delimiter (or just advance to the next char if single char delimiter)
-                for(int i = 0; i < strlen(tmp_delimiter); i++){
-                    if(input[index] == tmp_delimiter[i]){		
-                        index++;	
-                    } else {
-                        return 0;					
-                    }		
-                }
-                // This will advance index to the character after the value start delimiter
-
-                // Reset buffers and prepare to read data
-                memset(tmp_data 0, tmp_len);
-                memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::v_end);
-
-                // Read data until end delimiter
-                data_index = 0;
-                while(true){					  
-                    if(input[index] != tmp_delimiter[0]){	
-                        tmp_data[data_index] = input[index];
-                        data_index++;               // advance to next buffer character 
-                        index++;                    // advance to next input character
-                    } else {
-                        tmp_data[data_index] = '\0';
-                        break;
+                if(read_data(current_value, current_index)){
+                    if (!data_end_valid(current_index)){
+                        return 4;   // Invalid end delimiter
                     }
-                }
-            }
-                    // run command with data
-                    uint8_t code_index = 0;
-                    while(code_index <= command.number_of_commands){
-                        if(strcmp(Code::commands[code_index].code, tmp_code) == 0){
-                            execute_command_as_string(code_index, tmp_data;
-                            break;
-                        } else {
-                            code_index++;
-                        }
+                    // Set command value
+                    if(!set_value_from_string(commands, current_code, current_value)){
+                        return 6;   // Invalid data value
                     }
-                index++;          // Advance to next charachter in input
-            return 0;  // Return false if no end deimiter not read successfully
-            
+                } else {
+                    return 6;   // Invalid data while reading
+                }
+            } else {
+                return 5;   // Invalid command code
+            }
         }
-        
-
     }
   private:
     size_t string_limit;    // Maximum length of input string, local constant
-    char* read_code(size_t &index){ 
+    
+    bool read_code(char* output, size_t &index){ 
+        // This will advance the index provided to the first character of the value delimiter
         size_t tmp_code_len = Code::Command::max_length;
         char tmp_code[tmp_code_len];
         size_t code_index = 0;
-        while(true){	                       
-            if(isalpha(input[index]) &&         // Make sure it is a valid characther
-                    input[index] != Code::Delimiter::v_start[0]) {     
+        while(index < string_limit){	                       
+            if(isalnum(input[index])){          // Make sure it is a valid characther
+                return false; 
+            } else if(input[index] == Code::Delimiter::v_start[0]) {    // Exit if the end found
+                tmp_code[code_index] = '\0';   // Add null terminator
+                strcpy(output, tmp_code);    
+                return true;	             // For success    
+            } else {                             // Otherwise keep going 
                 tmp_code[code_index] = input[index];	// read designator into tmp buffer
                 code_index++;                           // advance to next buffer character
                 index++;                                // advance to next input character
-            } else {                             // Break if it is not a valid character or 
-                tmp_code[code_index] = '\0';       
-                break;	// If bad nonalpha or end char encounter
             }
         }
+        return false;   // Return false if string limit exceeded without finding value start delimiter
     }
-    char* read_data(){
-        
+
+    // Expects input index to be first char of data
+    char* read_data(char* output, size_t &index){
+        size_t tmp_data_len = OutputStates::max_length;
+        char tmp_data[tmp_data_len];
+        size_t data_index = 0;
+        while(index < string_limit){					  
+            if(isalnum(input[index])){          // Make sure it is a valid characther
+                return false; 
+            else if(input[index] == Code::Delimiter::v_end[0]){	
+                tmp_data[data_index] = '\0';
+                strcpy(tmp_data, output);
+                return true;	             // For success
+            } else {                             // Otherwise keep going 
+                tmp_data[data_index] = input[index];    // read character into tmp buffer
+                data_index++;               // advance to next buffer character 
+                index++;                    // advance to next input character
+            }
+        }
     }
 
 };
 
-
-
-
-        bool run_input(char* input_string){                                               // Returns true if all commands read successfully
-            char input[STRING_LIMIT];
-            strcpy(input, input_string);
-            static constexpr uint8_t tmp_len = 16;						// designate 16 bytes for read buffer
-            char tmp_delimiter[tmp_len];
-            char tmp_code[tmp_len];
-            char tmp_data[tmp_len];
-            uint8_t tmp_len = 0; 
-            uint16_t end_index = strlen(input);
-            uint16_t index = 0;
-            uint8_t data_index = 0;
-            uint8_t code_index = 0;
-            using namespace Code;
-
-            // Step 1: Verify start delimiter, exit if invalid
-            memset(tmp_delimiter, 0, tmp_len);
-            strcpy(tmp_delimiter, Delimiter::start);
-            tmp_len = strlen(Delimiter::start);
-            for(int i = 0; i < tmp_len; i++){
-                if(input[index] == Delimiter::start[i]){		
-                    index++;	
-                } else {
-                    return 0;					
-                }		
-            }
-            // This will advance index to the character after the start delimiter
-
-            // Step 2: Verify end delimiter, exit if invalid
-            tmp_len = strlen(Delimiter::end);
-            memset(tmp_delimiter, 0, tmp_len);
-            strcpy(tmp_delimiter, Delimiter::start);
-            unit8_t reverse_index = end_index;
-            for(int i = strlen(tmp_delimiter); i > 0; i--){		// check from end to start
-                if(input[reverse_index] == tmp_delimiter[i]){		
-                    reverse_index--;	
-                } else {
-                    return 0;			
-                }		
-            }
-            // This will advance reverse_index to the character before the end delimiter
-
-            // The data to read can now be constrained between the start and end delimiters
-
-            // Siep 3: Read commands and data between the delimiters
-            while(index <= reverse_index){	
-
-            // A) get command code
-                memset(tmp_code, 0, tmp_len);
-                memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::v_start);
-                code_index = 0;				// go to start of data buffer
-                while(true){				// until data encountered
-                    if(isalpha(input[index]) && input[index] != tmp_delimiter[0]){
-                        tmp_code[code_index] = input[index];	// read designator into tmp buffer
-                        code_index++;                        // advance to next buffer character
-                        index++;                             // advance to next input character
-                    } else {
-                        tmp_code[code_index] = '\0';       
-                        break;	// If bad nonalpha or end char encounter
-                    }
-                }
-                // This will leave off at the first character of the value delimiter
-
-            // B) get the data 
-        
-                // Check the rest of the start delimiter (or just advance to the next char if single char delimiter)
-                for(int i = 0; i < strlen(tmp_delimiter); i++){
-                    if(input[index] == tmp_delimiter[i]){		
-                        index++;	
-                    } else {
-                        return 0;					
-                    }		
-                }
-                // This will advance index to the character after the value start delimiter
-
-                // Reset buffers and prepare to read data
-                memset(tmp_data 0, tmp_len);
-                memset(tmp_delimiter, 0, tmp_len);
-                strcpy(tmp_delimiter, Delimiter::v_end);
-
-                // Read data until end delimiter
-                data_index = 0;
-                while(true){					  
-                    if(input[index] != tmp_delimiter[0]){	
-                        tmp_data[data_index] = input[index];
-                        data_index++;               // advance to next buffer character 
-                        index++;                    // advance to next input character
-                    } else {
-                        tmp_data[data_index] = '\0';
-                        break;
-                    }
-                }
-            }
-                    // run command with data
-                    uint8_t code_index = 0;
-                    while(code_index <= command.number_of_commands){
-                        if(strcmp(Code::commands[code_index].code, tmp_code) == 0){
-                            execute_command_as_string(code_index, tmp_data;
-                            break;
-                        } else {
-                            code_index++;
-                        }
-                    }
-                index++;          // Advance to next charachter in input
-            return 0;  // Return false if no end deimiter not read successfully
-            
-        }
-}
 
 #endif
