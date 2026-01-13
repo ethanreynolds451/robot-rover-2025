@@ -20,7 +20,7 @@ namespace OutputStates {
 
     // Check values and index bounds elsewhere, this is a low-level function to reduce code duplication
     // This allows the different data types to be handled differently if needed
-    void set_by_index(Values *value_struct, unit8_t index, const char* value_string){
+    void set_by_index(Values *value_struct, uint8_t index, const char* value_string){
         switch(index){
             case 0:
                 value_struct->brake = atoi(value_string);
@@ -53,21 +53,21 @@ namespace OutputStates {
     }
 
     void reset_input(){
-       input = default_values;
+       input_buffer = default_values;
     }
 
     bool validate_input(){
         return (
             // Unsigned ints always >= 0
-            (input.speed <= 100) &&
-            (input.s_speed <= 100) &&
-            (input.f_speed <= 100)
+            (input_buffer.speed <= 100) &&
+            (input_buffer.s_speed <= 100) &&
+            (input_buffer.f_speed <= 100)
         );
     }
 
     bool set_from_input(){
         if(validate_input()){
-            current = input;
+            current = input_buffer;
             return true;
         }
         return false; 

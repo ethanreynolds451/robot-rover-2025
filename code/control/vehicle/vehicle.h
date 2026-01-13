@@ -5,6 +5,7 @@
 
 class Vehicle {
     public:
+        // Setup functions
         RobotSerial computer;         // Made this public to allow direct access to serial interface
         Vehicle(uint16_t baud_rate) 
             :   computer(baud_rate),
@@ -20,7 +21,8 @@ class Vehicle {
                 fan_pwm(Pin::fan, 100, 255),
                 internal_temp(Pin::thermistor, 30, 125),
                 voltage(Pin::battery_monitor, BATTERY_VOLTAGE_SLOPE, 0, BATTERY_TYPE),
-                display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4)   
+                display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4),
+                parser(STRING_LIMIT)
             {}
         void begin(){
             // Pinmodes are already set within each class constructor or inirializer
@@ -29,7 +31,7 @@ class Vehicle {
             display.begin();    // Start display (PCF8575 with Wire I2C)
         }   
 
-        // Command functions     
+        // Command interface functions     
         bool get_command(){
             computer.read();
             if (computer.is_command()) {
@@ -39,10 +41,29 @@ class Vehicle {
             }
             return false; 
         }
-        void get_and_run_command(){
+
+        // Returns the error code from the command parser
+        uint8_t get_and_extract_command(){
             if(get_command()){
-                run_input(current_command);
-                return true;
+                this->error_index = 0; 
+                // Extract command into input buffer, use error index to track failure location if applicable
+                return parser.extract_commands(OutputStates::input_buffer, this->current_command, this->error_index);
+            }
+        }
+
+        // This should be the only command interface function used externally in deployment
+        // Returns true if there was no error at any part of the process
+        bool get_and_run_command(){
+            // Save the error for future reference 
+            this->command_error = get_and_extract_command();
+            if (!this->command_error){
+                // May add better error management here in the futrue
+                if (OutputStates::validate_input()){
+                    if (OutputStates::set_from_input()){
+                        update_outputs();
+                        return true;
+                    }
+                }
             }
             return false;
         }
@@ -225,6 +246,7 @@ class Vehicle {
             reset();
             computer.write("Vehicle reset due to input timeout.\n");
         }
+        // This one calls the vehicle specific functions
         void set_command_as_string(uint8_t code, const char* val){
             namespace I = Code::Command::Index;
             if(code == I::brake) {
@@ -260,8 +282,12 @@ class Vehicle {
         batteryMonitor voltage;
         fourDigitDisplayPCF display;
 
+        commandParser parser; 
+
         // Buffer for command processing
         char current_command[STRING_LIMIT];
+        uint8_t command_error = 0; 
+        size_t error_index = 0; 
     
         void update_outputs(){
             fan_pwm.set(OutputStates::current.f_speed);
