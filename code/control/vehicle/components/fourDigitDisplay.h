@@ -94,13 +94,13 @@ class fourDigitDisplayPCF {
             if (decimal_place < 4) {         // only set decimal if needed
                 set_decimal_point(decimal_place, true);
             }
-        }
+        }   
     private:
         I2CDisplayController display;
         uint8_t address;
         uint8_t digit_pins[4];
         static constexpr uint8_t DECIMAL_PIN = 7;
-        static constexpr uint8_t digitToSegment[16] = {
+        const uint8_t digitToSegment[16] = {
             // XGFEDCBA
             0b00111111,    // 0
             0b00000110,    // 1
