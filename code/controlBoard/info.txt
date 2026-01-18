@@ -1,1 +1,5 @@
-Code to run on motor, relay, and display control arduino.
+Code to run on control arduino
+
+To Do: 
+- Fix coms
+- Add serial beacon with identifier
