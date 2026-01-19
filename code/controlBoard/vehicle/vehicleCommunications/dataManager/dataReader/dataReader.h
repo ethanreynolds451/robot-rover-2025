@@ -1,14 +1,15 @@
-#ifndef DATAREAD_h
-#define DATAREAD_h
+// Successfully compiled 2026-01-18
 
-#include "inputCodes/inputCodes.h"
-#include "inputData/inputData"			
+#ifndef DATAREADER_h
+#define DATAREADER_h
 
-// Note: this depends on vars in codes.h, output.h, and input.h; any changes to these files will need to be updated
+#include "inputCode/inputCode.h"
+#include "inputData/inputData.h"			
 
-class commandParser {
+class dataReader {
   public:
-    commandParser(size_t string_limit) : string_limit(string_limit) {}
+    // Takes the global max string length as parameter
+    dataRead(size_t string_limit) : string_limit(string_limit) {}
     bool verify_delimiter(const char* input, const char* delimiter, uint16_t start){               // Returns true if delimiter is valid
         const size_t len = strlen(delimiter);       // Get length of delimiter
         size_t index = start;                       // Initialize string index to start position
@@ -25,36 +26,36 @@ class commandParser {
         return 1;                                   // Return true if delimiter read successfully
     }
     bool start_valid(const char* input){                                               // Returns true if start delimiter is valid
-        return verify_delimiter(input, Code::Delimiter::start, 0);
+        return verify_delimiter(input, InputCode::Delimiter::start, 0);
     }
     bool end_valid(const char* input){
-        return verify_delimiter(input, Code::Delimiter::end, strlen(input) - strlen(Code::Delimiter::end));
+        return verify_delimiter(input, InputCode::Delimiter::end, strlen(input) - strlen(Code::Delimiter::end));
     }
     bool data_start_valid(const char* input, uint16_t current_index){
-        return verify_delimiter(input, Code::Delimiter::v_start, current_index);
+        return verify_delimiter(input, InputCode::Delimiter::v_start, current_index);
     }   
     bool data_end_valid(const char* input, uint16_t current_index){
-        return verify_delimiter(input, Code::Delimiter::v_end, current_index);
+        return verify_delimiter(input, InputCode::Delimiter::v_end, current_index);
     }
 
     int8_t get_command_index_from_string(const char* code_str){
-        for(int i = 0; i < Code::Command::number_of; i++){
-            if(strcmp(Code::Command::str[i], code_str) == 0){
+        for(int i = 0; i < InputCode::Command::number_of; i++){
+            if(strcmp(InputCode::Command::str[i], code_str) == 0){
                 return i;
             }
         }
         return -1;  // Return -1 if command not found
     }
 
-    bool set_value_from_index(OutputStates::Values &commands, uint8_t index, const char* value_str){
-        if (index >= Code::Command::number_of) {
+    bool set_value_from_index(InputData::Values &commands, uint8_t index, const char* value_str){
+        if (index >= InputCode::Command::number_of) {
             return 0;   // Return false if index out of bounds
         }
-        OutputStates::set_by_index(&commands, index, value_str);
+        InputData::set_by_index(&commands, index, value_str);
         return 1;  // Return true if value set successfully
     }
 
-    bool set_value_from_string(OutputStates::Values &commands, const char* code_str, const char* value_str){
+    bool set_value_from_string(InputData::Values &commands, const char* code_str, const char* value_str){
         size_t index = get_command_index_from_string(code_str);
         return set_value_from_index(commands, index, value_str);
     }
@@ -70,8 +71,8 @@ class commandParser {
     };
 
     // Optional index parameter to know where parser left off if there is an error
-    uint8_t extract_commands(OutputStates::Values &commands, const char* input, size_t& current_index){     
-        OutputStates::reset_input();   // Clear input buffer before extracting new command
+    uint8_t extract_commands(InputData::Values &commands, const char* input, size_t& current_index){     
+        InputData::reset_input();   // Clear input buffer before extracting new command
 
         // Step 1: Verify start and end delimiter, exit if invalid
         if(!start_valid(input)){
@@ -84,10 +85,10 @@ class commandParser {
         // already verified that command string fills entire input from 0 to null terminator
        
         // Declare temporary buffers and indexes
-        size_t end_index = strlen(input) - strlen(Code::Delimiter::end) - 1;          // End before first char of end delimiter 
+        size_t end_index = strlen(input) - strlen(InputCode::Delimiter::end) - 1;          // End before first char of end delimiter 
 
-        char current_code[Code::Command::max_length];
-        char current_value[OutputStates::max_length];
+        char current_code[InputCode::Command::max_length];
+        char current_value[InputData::max_length];
 
         // Loop through delimiters and values until the end is reached 
         while(current_index <= end_index){	
@@ -113,7 +114,7 @@ class commandParser {
         return 0; 
     }
 
-    uint8_t extract_commands(OutputStates::Values &commands, const char* input){   
+    uint8_t extract_commands(InputData::Values &commands, const char* input){   
         size_t tmp_index = 0; 
         return extract_commands(commands, input, tmp_index);
     }  
@@ -123,13 +124,13 @@ class commandParser {
     
     bool read_code(char* input, char* output, size_t& index){ 
         // This will advance the index provided to the first character of the value delimiter
-        size_t tmp_code_len = Code::Command::max_length;
+        size_t tmp_code_len = InputCode::Command::max_length;
         char tmp_code[tmp_code_len];
         size_t code_index = 0;
         while(index < string_limit){	                       
             if(!isalnum(input[index])){          // Make sure it is a valid characther
                 return false; 
-            } else if(input[index] == Code::Delimiter::v_start[0]) {    // Exit if the end found
+            } else if(input[index] == InputCode::Delimiter::v_start[0]) {    // Exit if the end found
                 tmp_code[code_index] = '\0';   // Add null terminator
                 strcpy(output, tmp_code);    
                 return true;	             // For success    
@@ -145,13 +146,13 @@ class commandParser {
 
     // Expects input index to be first char of data
     bool read_data(char* input, char* output, size_t& index){
-        size_t tmp_data_len = OutputStates::max_length;
+        size_t tmp_data_len = InputData::max_length;
         char tmp_data[tmp_data_len];
         size_t data_index = 0;
         while(index < string_limit){					  
             if(!isalnum(input[index])){          // Make sure it is a valid characther
                 return false; 
-            } else if(input[index] == Code::Delimiter::v_end[0]){	
+            } else if(input[index] == InputCode::Delimiter::v_end[0]){	
                 tmp_data[data_index] = '\0';
                 strcpy(output, tmp_data);
                 return true;	             // For success

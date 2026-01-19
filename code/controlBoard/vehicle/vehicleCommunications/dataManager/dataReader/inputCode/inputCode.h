@@ -5,10 +5,10 @@
     Ability to traverse array of codes or access by variable name using indeces
 */
 
-#ifndef INPUTCODES_h
-#define INPUTCODES_h
+#ifndef INPUTCODE_h
+#define INPUTCODE_h
 
-namespace Code {
+namespace InputCode {
     namespace Delimiter {
         static constexpr char* start = "{";
         static constexpr char* end = "}";

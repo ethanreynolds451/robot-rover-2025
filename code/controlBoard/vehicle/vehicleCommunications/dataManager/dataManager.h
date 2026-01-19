@@ -4,4 +4,14 @@
 #include "dataIn/dataIn.h"
 #include "dataOut/dataOut.h"
 
+// Only purpose of this is to merge the modular read and write classes for easier access
+
+class dataManager {
+  public:
+    dataReader input;
+    dataSender output;
+    dataManager(size_t input_string_limit, size_t output_string_limit) 
+      : input(input_string_limit), output(output_string_limit) {}
+};
+
 #endif

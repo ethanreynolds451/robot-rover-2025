@@ -1,7 +1,7 @@
-#ifndef OUTPUT_h
-#define OUTPUT_h
+#ifndef INPUTDATA_h
+#define INPUTDATA_h
 
-namespace OutputStates {
+namespace InputData {
     struct Values {
         bool brake;
         bool reverse;

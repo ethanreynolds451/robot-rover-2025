@@ -1,7 +1,7 @@
-#ifndef INPUTDATA_h
-#define INPUTDATA_h
+#ifndef OUTPUTDATA_h
+#define OUTPUTDATA_h
 
-namespace InputData {
+namespace OutputData {
     struct Values {
         float internal_temp;
         float battery_voltage;
