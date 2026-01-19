@@ -1,5 +1,5 @@
-#ifndef INPUT_h
-#define INPUT_h
+#ifndef INPUTDATA_h
+#define INPUTDATA_h
 
 namespace InputData {
     struct Values {

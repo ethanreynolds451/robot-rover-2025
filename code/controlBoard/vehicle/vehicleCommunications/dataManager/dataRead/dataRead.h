@@ -1,8 +1,8 @@
-#ifndef COMMANDPARSER_h
-#define COMMANDPARSER_h
+#ifndef DATAREAD_h
+#define DATAREAD_h
 
-#include "dependencies/definitions.h"		// NEED TO GET RID OF THS
-#include "data/data.h"			
+#include "inputCodes/inputCodes.h"
+#include "inputData/inputData"			
 
 // Note: this depends on vars in codes.h, output.h, and input.h; any changes to these files will need to be updated
 
