@@ -6,10 +6,10 @@
 #include "inputCode/inputCode.h"
 #include "inputData/inputData.h"			
 
-class dataReader {
+class dataIn {
   public:
     // Takes the global max string length as parameter
-    dataRead(size_t string_limit) : string_limit(string_limit) {}
+    dataIn(size_t string_limit) : string_limit(string_limit) {}
     bool verify_delimiter(const char* input, const char* delimiter, uint16_t start){               // Returns true if delimiter is valid
         const size_t len = strlen(delimiter);       // Get length of delimiter
         size_t index = start;                       // Initialize string index to start position
@@ -29,7 +29,7 @@ class dataReader {
         return verify_delimiter(input, InputCode::Delimiter::start, 0);
     }
     bool end_valid(const char* input){
-        return verify_delimiter(input, InputCode::Delimiter::end, strlen(input) - strlen(Code::Delimiter::end));
+        return verify_delimiter(input, InputCode::Delimiter::end, strlen(input) - strlen(InputCode::Delimiter::end));
     }
     bool data_start_valid(const char* input, uint16_t current_index){
         return verify_delimiter(input, InputCode::Delimiter::v_start, current_index);

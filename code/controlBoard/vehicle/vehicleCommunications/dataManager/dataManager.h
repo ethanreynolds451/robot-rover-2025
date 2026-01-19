@@ -8,8 +8,8 @@
 
 class dataManager {
   public:
-    dataReader input;
-    dataSender output;
+    dataIn input;
+    dataOut output;
     dataManager(size_t input_string_limit, size_t output_string_limit) 
       : input(input_string_limit), output(output_string_limit) {}
 };

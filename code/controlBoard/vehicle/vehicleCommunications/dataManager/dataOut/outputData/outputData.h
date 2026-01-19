@@ -9,6 +9,7 @@ namespace OutputData {
     };
 
     static constexpr float not_measured = -255.0f;
+
     static constexpr Values default_values = {not_measured, not_measured, not_measured};
     Values current = default_values;
 
