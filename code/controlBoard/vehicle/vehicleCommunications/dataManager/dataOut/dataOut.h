@@ -8,24 +8,32 @@ class dataOut {
   public:
     dataOut(size_t string_limit) : string_limit(string_limit) {}
 
-    // Get the formated strong of all data values
+    // Get the formated string with all data values
     char* get(){
+      // Return format {tmp[0]vlt[0]pct[0]}
 
     }
 
     // Overloaded function to get single value by index
     float get(uint8_t index){
-      return getData<float>(index);
+      if (index >= OutputCodes::Data::number_of){
+        return getData<float>(index);
+      } 
+      return OutputData::float_invalid;
     }
 
-    float get(char *code){
-      uint8_t index = 
-      return getData<float>(index); 
+    // Overloaded function to get single value by code
+    float get(char *code){ 
+      int8_t index = OutputCodes::Data::index_from_code(code);
+      if (index >= 0){
+        return getData<float>(OutputCodes::Data::index_from_code(code)); 
+      }
+      return OutputData::float_invalid;
     }
-
 
 
     // Set all output data from list of provided values
+    // Need to modify whenever new values are added
     void set(){
 
     }
@@ -36,11 +44,14 @@ class dataOut {
     }
 
     void reset(){
-      // Sets all output data to default values
+      // Sets all output data to default values, pass-through function
       OutputData::reset();
     }
 
     private:
+      size_t string_limit; 
+      // Template function for different return types
+      // Just floats for now but in case somehting else is added
       template <typename T>
       T getData(unit8_t index) {
           T data;

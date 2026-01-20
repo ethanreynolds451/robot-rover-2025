@@ -9,8 +9,7 @@
 #define OUTPUTCODES_h
 
 namespace OutputCodes {
-    static constexpr uint8_t device_ID = 0x00; 
-
+    // Communication parsing delimiters
     namespace Delimiter {
         static constexpr char* start = "{";
         static constexpr char* end = "}";
@@ -19,21 +18,39 @@ namespace OutputCodes {
         static constexpr uint8_t max_length = 1;    // Max length of delimiters including null terminator (2 characters)
     }
 
+    // Data codes
     namespace Data {
         // {tmp[0]vlt[0]pct[0]}
         static constexpr uint8_t number_of = 3; 
 
+        // The index of each data variable
         enum Index : uint8_t {
-            internal_temp,
-            battery_voltage,
-            battery_percentage
+            INTERNAL_TEMP,
+            BATTERY_VOLTAGE,
+            BATTERY_PERCENTAGE
         }
 
+        // String code for each variable
         static constexpr const char* str[] = {
             "tmp",
             "vlt",
             "pct"
         };
+
+        // Make sure to account for signed int return val when using
+        int8_t index_from_code(char* code){
+            for (uint8_t i = 0; i < number_of; i++){
+                if (!strcmp(code, str[i])){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        char* code_from_index(uint8_t index){
+            return str[index];
+        }
+
     }  
 };
 
