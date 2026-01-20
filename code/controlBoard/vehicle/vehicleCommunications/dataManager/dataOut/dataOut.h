@@ -1,7 +1,6 @@
 #ifndef DATASENDER_h
 #ifndef DATASENDER_h
 
-#include "outputCodes/outputCodes.h"
 #include "outputData/outputData.h"
 
 class dataOut {
@@ -33,7 +32,7 @@ class dataOut {
 
 
     // Set all output data from list of provided values
-    // Need to modify whenever new values are added
+    // Need to modify whenever new values are
     void set(){
 
     }

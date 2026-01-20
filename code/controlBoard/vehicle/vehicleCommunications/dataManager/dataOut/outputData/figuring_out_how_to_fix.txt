@@ -1,0 +1,9 @@
+First merge data and code files for cross-reference
+
+
+Struct containing different data types for vars
+
+float datastruct.var1
+int datastruct.var2
+etc.
+
