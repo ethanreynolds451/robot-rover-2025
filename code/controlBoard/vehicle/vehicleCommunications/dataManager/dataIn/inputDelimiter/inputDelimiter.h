@@ -1,8 +1,7 @@
-#ifndef OUTPUTDELIMITER_h
-#define OUTPUTDELIMITER_h
+#ifndef INPUTDELIMITER_h
+#define INPUTDELIMITER_h
 
-// Communication parsing delimiters
-namespace OutputDelimiter {
+namespace InputDelimiter {
     static constexpr char* start = "{";
     static constexpr char* end = "}";
     static constexpr char* v_start = "[";

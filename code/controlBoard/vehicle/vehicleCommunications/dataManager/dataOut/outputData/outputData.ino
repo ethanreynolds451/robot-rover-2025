@@ -1,8 +1,9 @@
 #include "outputData.h"
 
-outputDataInstance outputData();
+outputData outputDataInstance();
 
 void setup(){
+    
 
 }
 

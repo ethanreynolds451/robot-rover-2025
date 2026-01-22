@@ -1,7 +1,8 @@
-#ifndef DATASENDER_h
-#ifndef DATASENDER_h
+#ifndef DATAOUT_h
+#define DATAOUT_h
 
 #include "outputData/outputData.h"
+#include "outputDelimiter/outputDelimiter.h"
 
 class dataOut {
   public:
@@ -10,83 +11,72 @@ class dataOut {
     // Get the formated string with all data values
     char* get(){
       // Return format {tmp[0]vlt[0]pct[0]}
+      return get_output_string();
 
     }
 
-    // Overloaded function to get single value by index
-    float get(uint8_t index){
-      if (index >= OutputCodes::Data::number_of){
-        return getData<float>(index);
-      } 
-      return OutputData::float_invalid;
+    // Setter functions
+    float get_internal_temp(){
+      return *(float*)data.get(outputData::Index::INTERNAL_TEMP);
+    }
+    float get_battery_voltage(){
+      return *(float*)data.get(outputData::Index::BATTERY_VOLTAGE);
+    }
+    float get_battery_percentage(){
+      return *(float*)data.get(outputData::Index::BATTERY_PERCENTAGE);
     }
 
-    // Overloaded function to get single value by code
-    float get(char *code){ 
-      int8_t index = OutputCodes::Data::index_from_code(code);
-      if (index >= 0){
-        return getData<float>(OutputCodes::Data::index_from_code(code)); 
-      }
-      return OutputData::float_invalid;
+    // Getter functions
+    void set_internal_temp(float value){
+      data.set(outputData::Index::INTERNAL_TEMP, value);
     }
-
-
-    // Set all output data from list of provided values
-    // Need to modify whenever new values are
-    void set(){
-
+    void set_battery_voltage(float value){
+      data.set(outputData::Index::BATTERY_VOLTAGE, value);
     }
-
-    // Overloaded function to set single value by index
-    void set(){
-
+    void set_battery_percentage(float value){
+      data.set(outputData::Index::BATTERY_PERCENTAGE, value);
     }
 
     void reset(){
       // Sets all output data to default values, pass-through function
-      OutputData::reset();
+      data.reset();
     }
 
-    private:
-      size_t string_limit; 
-      // Template function for different return types
-      // Just floats for now but in case somehting else is added
-      template <typename T>
-      T getData(unit8_t index) {
-          T data;
-          data = OutputData::current[index];
-          return data;
-      }
+  private:
+    size_t string_limit; 
 
+    // Create instance of output data 
+    outputData data; 
 
-    // {tmp[0]vlt[0]pct[0]}
-    char buffer[STRING_LIMIT];
-    namespace C = Code::Data;
-    namespace D = Code::Delimiter;
-    namespace V = InputData;
-    snprintf(
-        buffer,
-        sizeof(buffer),
-        "%s%s%s%0.2f%s%s%s%0.2f%s%s%s%0.2f%s%s\n",
-        
-        D::start,
+    char* get_output_string(){
+      // {tmp[0]vlt[0]pct[0]}
+      char buffer[string_limit];
+      snprintf(
+          buffer,
+          sizeof(buffer),
+          "%s%s%s%0.2f%s%s%s%0.2f%s%s%s%0.2f%s%s\n",
+          
+          OutputDelimiter::start,
 
-        C::str[C::Index::internal_temp],
-        D::v_start,
-        V::current.internal_temp,
-        D::v_end,
-        
-        C::str[C::Index::battery_voltage],
-        D::v_start,
-        V::current.battery_voltage,
-        D::v_end,
+          *(float*)data.code_from_index(outputData::Index::INTERNAL_TEMP),
+          OutputDelimiter::v_start,
+          data.get(outputData::Index::INTERNAL_TEMP),
+          OutputDelimiter::v_end,
+          
+          *(float*)data.code_from_index(outputData::Index::BATTERY_VOLTAGE),
+          OutputDelimiter::v_start,
+          data.get(outputData::Index::BATTERY_VOLTAGE),
+          OutputDelimiter::v_end,
 
-        C::str[C::Index::battery_percentage],
-        D::v_start,
-        V::current.battery_percentage,
-        D::v_end,
+          *(float*)data.code_from_index(outputData::Index::BATTERY_PERCENTAGE),
+          OutputDelimiter::v_start,
+          data.get(outputData::Index::BATTERY_PERCENTAGE),
+          OutputDelimiter::v_end,
 
-        D::end
-    );
+          OutputDelimiter::end
+      );
+      return buffer;
+    };
+};
 
 #endif
