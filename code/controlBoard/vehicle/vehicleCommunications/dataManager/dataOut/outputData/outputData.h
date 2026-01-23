@@ -11,6 +11,7 @@
 // get(index) -> get any value based on index, returns untyped pointer
 // index_from_code(code) -> get index from string code
 // code_from_index(index) -> get string code from index
+// outputData::Index -> enumeration of indecies
 
 class outputData {
   public:
@@ -52,7 +53,6 @@ class outputData {
                 return i;
             }
         }
-        // Make sure to account for signed error value 
         return index_error;
     };
     char* code_from_index(uint8_t index){

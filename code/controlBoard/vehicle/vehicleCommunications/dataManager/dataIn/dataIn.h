@@ -3,40 +3,62 @@
 #ifndef DATAREADER_h
 #define DATAREADER_h
 
-#include "inputCode/inputCode.h"
+#include "inputDelimiter/inputDelimiter.h"
 #include "inputData/inputData.h"			
 
 class dataIn {
   public:
-    // Takes the global max string length as parameter
-    dataIn(size_t string_limit) : string_limit(string_limit) {}
-    bool verify_delimiter(const char* input, const char* delimiter, uint16_t start){               // Returns true if delimiter is valid
-        const size_t len = strlen(delimiter);       // Get length of delimiter
-        size_t index = start;                       // Initialize string index to start position
-        for(int i = 0; i < len; i++){               // Check each character in delimiter
-            if(index >= string_limit){               // Ensure no exceed string limit
-                return 0;                           // Return false if limit exceeded
-            }
-            if(input[index] == delimiter[i]){		// Compare input character to delimiter character
-                index++;	                        // Advance string index
-            } else {                                
-                return 0;					        // If they don't match, return false (delimiter is invalid)
-            }		
-        }
-        return 1;                                   // Return true if delimiter read successfully
+    dataIn(size_t string_limit) : string_limit(string_limit){}
+
+    enum extraction_errors {
+        SUCCESS = 0,
+        INVALID_START_DELIMITER = 1,
+        INVALID_END_DELIMITER = 2,
+        INVALID_DATA_START_DELIMITER = 3,
+        INVALID_DATA_END_DELIMITER = 4,
+        INVALID_COMMAND_CODE = 5,
+        INVALID_DATA_VALUE = 6,
+    };
+
+    // Extract commands from input string and store in commands struct
+    uint8_t extract_commands(InputData::Values &commands, const char* input){
+        return extract_commands(commands, input);
     }
-    bool start_valid(const char* input){                                               // Returns true if start delimiter is valid
-        return verify_delimiter(input, InputCode::Delimiter::start, 0);
+
+    // Getter pass-through functions
+    bool get_brake(){
+        return *(bool*)InputData::get(InputData::Index::BRAKE, &commands);
     }
-    bool end_valid(const char* input){
-        return verify_delimiter(input, InputCode::Delimiter::end, strlen(input) - strlen(InputCode::Delimiter::end));
+    bool get_reverse(){
+        return *(bool*)InputData::get(InputData::Index::REVERSE, &commands);
     }
-    bool data_start_valid(const char* input, uint16_t current_index){
-        return verify_delimiter(input, InputCode::Delimiter::v_start, current_index);
-    }   
-    bool data_end_valid(const char* input, uint16_t current_index){
-        return verify_delimiter(input, InputCode::Delimiter::v_end, current_index);
+    bool get_s_reverse(){
+        return *(bool*)InputData::get(InputData::Index::S_REVERSE, &commands);
     }
+    bool get_shift_up(){
+        return *(bool*)InputData::get(InputData::Index::SHIFT_UP, &commands);
+    }
+    uint8_t get_speed(){
+        return *(uint8_t*)InputData::get(InputData::Index::SPEED, &commands);
+    }
+    uint8_t get_s_speed(){
+        return *(uint8_t*)InputData::get(InputData::Index::S_SPEED, &commands);
+    }
+    uint8_t get_f_speed(){
+        return *(uint8_t*)InputData::get(InputData::Index::F_SPEED, &commands);
+    }
+
+
+  private:
+    size_t string_limit;    // Maximum length of input string, local constant
+    
+    inputData data;    // Instance of input data manager
+
+};
+
+#endif
+
+
 
     int8_t get_command_index_from_string(const char* code_str){
         for(int i = 0; i < InputCode::Command::number_of; i++){
@@ -60,24 +82,16 @@ class dataIn {
         return set_value_from_index(commands, index, value_str);
     }
 
-    enum extraction_errors {
-        SUCCESS = 0,
-        INVALID_START_DELIMITER = 1,
-        INVALID_END_DELIMITER = 2,
-        INVALID_DATA_START_DELIMITER = 3,
-        INVALID_DATA_END_DELIMITER = 4,
-        INVALID_COMMAND_CODE = 5,
-        INVALID_DATA_VALUE = 6,
-    };
+
 
     // Optional index parameter to know where parser left off if there is an error
-    uint8_t extract_commands(InputData::Values &commands, const char* input, size_t& current_index){     
-        InputData::reset_input();   // Clear input buffer before extracting new command
+    uint8_t extract_commands(const char* input, size_t& current_index){     
+        data.reset_input();   // Clear input buffer before extracting new command
 
         // Step 1: Verify start and end delimiter, exit if invalid
-        if(!start_valid(input)){
+        if(!InputDelimiter::start_valid(input)){
             return INVALID_START_DELIMITER;
-        } else if(!end_valid(input)){
+        } else if(!InputDelimiter::end_valid(input)){
             return INVALID_END_DELIMITER;
         }
 
@@ -85,10 +99,10 @@ class dataIn {
         // already verified that command string fills entire input from 0 to null terminator
        
         // Declare temporary buffers and indexes
-        size_t end_index = strlen(input) - strlen(InputCode::Delimiter::end) - 1;          // End before first char of end delimiter 
+        size_t end_index = strlen(input) - strlen(InputDelimiter::end) - 1;          // End before first char of end delimiter 
 
-        char current_code[InputCode::Command::max_length];
-        char current_value[InputData::max_length];
+        char current_code[InputDelimiter::max_length];
+        char current_value[data.max_length];
 
         // Loop through delimiters and values until the end is reached 
         while(current_index <= end_index){	
@@ -112,17 +126,23 @@ class dataIn {
             }
         }
         return 0; 
-    }
+    };
 
-    uint8_t extract_commands(InputData::Values &commands, const char* input){   
+    // Overload version that doesn't track index externally
+    uint8_t extract_commands(const char* input){   
         size_t tmp_index = 0; 
-        return extract_commands(commands, input, tmp_index);
-    }  
+        return extract_commands(input, tmp_index);
+    };
 
-  private:
-    size_t string_limit;    // Maximum length of input string, local constant
-    
-    bool read_code(char* input, char* output, size_t& index){ 
+
+
+
+
+
+
+
+
+bool read_code(char* input, char* output, size_t& index){ 
         // This will advance the index provided to the first character of the value delimiter
         size_t tmp_code_len = InputCode::Command::max_length;
         char tmp_code[tmp_code_len];
@@ -165,7 +185,3 @@ class dataIn {
         }
         return false;   // Return false if string limit exceeded without finding value end delimiter
     }
-
-};
-
-#endif

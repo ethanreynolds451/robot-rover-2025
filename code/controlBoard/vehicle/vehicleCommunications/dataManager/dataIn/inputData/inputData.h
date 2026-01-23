@@ -1,24 +1,68 @@
 #ifndef INPUTDATA_h
 #define INPUTDATA_h
 
-class inputData(){
+// **Class functions**
+// reset() -> current vals to default vals
+// reset_input() -> buffer vals to default vals
+// commit_buffer() -> current vals to buffer vals no validation
+// validate_input() -> check if buffer vals are valid
+// set_from_input() -> if buffer vals valid, set current vals to buffer vals
+// set(index, value) -> set any value based on index
+// get(index) -> get any value based on index, returns untyped pointer
+// index_from_code(code) -> get index from string code
+// code_from_index(index) -> get string code from index
+// inputData::Index -> enumeration of indecies
+
+class inputData {
   public: 
     inputData(){}
+    enum Bound {
+        BOUND_MIN,
+        BOUND_MAX
+    };
+
+    // Ordered indicies
+    enum Index : uint8_t {
+        BRAKE,
+        REVERSE,
+        S_REVERSE,
+        SHIFT_UP, 
+        SPEED,
+        S_SPEED,
+        F_SPEED
+    };
+    static constexpr uint8_t index_error = 255;
+
+    static constexpr uint8_t total[2] = {0,6};
+    static constexpr uint8_t bool_values[2] = {0,3};
+    static constexpr uint8_t uint8_t_values[2] = {4,6};
+
+    // Struct for storing output variables
+    struct Values {
+        bool bool_values[bool_values[BOUND_MAX] - bool_values[BOUND_MIN] + 1];
+        uint8_t uint8_t_values[uint8_t_values[BOUND_MAX] - uint8_t_values[BOUND_MIN] + 1];
+    };
+
+    size_t max_length = 4;    // Max length of value as string including null terminator   
 
     void reset() {
-        current = default_values
+        current = default_values;
     };
        
     void reset_input() {
         input_buffer = default_values;
     };
 
+    void commit_buffer() {
+        current = input_buffer;
+    };
+
     bool validate_input(){
         return (
             // Unsigned ints always >= 0
-            (input_buffer.speed <= 100) &&
-            (input_buffer.s_speed <= 100) &&
-            (input_buffer.f_speed <= 100)
+            (*(uint8_t*)get(SPEED, &input_buffer) <= 100) &&
+            (*(uint8_t*)get(S_SPEED, &input_buffer) <= 100) &&
+            (*(uint8_t*)get(F_SPEED, &input_buffer) <= 100)
         );
     }
 
@@ -30,10 +74,6 @@ class inputData(){
         return false; 
     }
 
-    void commit_buffer() {
-        current = input_buffer;
-    };
-
     // Assign an individual value in current data struct
     void set(uint8_t index, uint8_t value) {
         set(index, value, &input_buffer);
@@ -44,13 +84,17 @@ class inputData(){
         set(index, value, &input_buffer);
     };
 
-
-    void* get(uint8_t index){
+    // Getter function, uses unntyped pointer, MUST CHECK AND CAST AFTER CALLING
+    void* get(uint8_t index, Values *target){
         // Make sure the index is valid
         if (in(index, total)){
-            // Return a float if in the float range
-            if (in(index, float_values)){
-                return &current.float_values[offset(index, float_values)];
+            // Return a bool if in the range
+            if (in(index, bool_values)){
+                return &target->bool_values[offset(index, bool_values)];
+            }
+            // Return a uint8_t if in the range
+            if (in(index, uint8_t_values)){
+                return &target->uint8_t_values[offset(index, uint8_t_values)];
             }
         }
         return nullptr;
@@ -78,23 +122,7 @@ class inputData(){
         return ""; 
     };
 
-    // Ordered indicies
-    enum Index : uint8_t {
-        BRAKE,
-        REVERSE,
-        S_REVERSE,
-        SHIFT_UP, 
-        SPEED,
-        S_SPEED,
-        F_SPEED
-    };
-
   private:
-
-    enum Bound {
-        BOUND_MIN,
-        BOUND_MAX
-    };
     bool in(uint8_t index, uint8_t range[2]) {
         return ((index >= range[BOUND_MIN]) && (index <= range[BOUND_MAX]));
     };
@@ -104,16 +132,6 @@ class inputData(){
     uint8_t count(uint8_t range[2]) {
         return (range[BOUND_MAX] - range[BOUND_MIN] + 1);
     };
-    static constexpr uint8_t total[2] = {0,6};
-    static constexpr uint8_t bool_values[2] = {0,3};
-    static constexpr uint8_t uint8_t_values[2] = {4,6};
-
-    // Struct for storing output variables
-    struct Values {
-        bool bool_values[bool_values[BOUND_MAX] - bool_values[BOUND_MIN] + 1];
-        uint8_t uint8_t_values[uint8_t_values[BOUND_MAX] - uint8_t_values[BOUND_MIN] + 1];
-    };
-
 
     inline static constexpr Values default_values = {
         // Bools
@@ -139,7 +157,7 @@ class inputData(){
         // Double check the var trying to set is a float
         if (in(index, bool_values)){
             // Set appropriate variable using range offset
-            target->float_values[offset(index, bool_values)] = value;
+            target->bool_values[offset(index, bool_values)] = value;
         }
     };
     // uint8_t setter function 
@@ -147,7 +165,7 @@ class inputData(){
         // Double check the var trying to set is a float
         if (in(index, uint8_t_values)){
             // Set appropriate variable using range offset
-            target->float_values[offset(index, uint8_t_values)] = value;
+            target->uint8_t_values[offset(index, uint8_t_values)] = value;
         }
     };
     // Overload as needed for different data types
@@ -175,41 +193,5 @@ class inputData(){
 //     uint8_t s_speed;
 //     uint8_t f_speed;
 // };
-
-
-
-    // Check values and index bounds elsewhere, this is a low-level function to reduce code duplication
-    // This allows the different data types to be handled differently if needed
-    void set_by_index(Values *value_struct, uint8_t index, const char* value_string){
-        switch(index){
-            case 0:
-                value_struct->brake = atoi(value_string);
-                break;
-            case 1:
-                value_struct->reverse = atoi(value_string);
-                break;
-            case 2:
-                value_struct->s_reverse = atoi(value_string);
-                break;
-            case 3:
-                value_struct->shift_up = atoi(value_string);
-                break;
-            case 4:
-                value_struct->speed = atoi(value_string);
-                break;
-            case 5:
-                value_struct->s_speed = atoi(value_string);
-                break;
-            case 6:
-                value_struct->f_speed = atoi(value_string);
-                break;
-            default: 
-                break;
-        };
-    }
-
-    
-
-   
 
 

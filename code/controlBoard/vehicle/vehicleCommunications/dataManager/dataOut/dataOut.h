@@ -12,7 +12,6 @@ class dataOut {
     char* get(){
       // Return format {tmp[0]vlt[0]pct[0]}
       return get_output_string();
-
     }
 
     // Setter functions
