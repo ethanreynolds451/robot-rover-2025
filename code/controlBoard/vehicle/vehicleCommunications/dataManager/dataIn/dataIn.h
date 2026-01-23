@@ -3,6 +3,11 @@
 #ifndef DATAREADER_h
 #define DATAREADER_h
 
+// Class functions: 
+// Read and parse input string, return error code (0 for success)
+// Validate data values and transfer if successful by calling inputData validation function
+// Return the latest values for each command
+
 #include "inputDelimiter/inputDelimiter.h"
 #include "inputData/inputData.h"			
 
@@ -21,69 +26,74 @@ class dataIn {
     };
 
     // Extract commands from input string and store in commands struct
-    uint8_t extract_commands(InputData::Values &commands, const char* input){
-        return extract_commands(commands, input);
+    uint8_t extract(const char* input){
+        // Returns the error code associated with it
+        return extract_commands(input);
+    }
+    uint8_t extract(const char* input, size_t& index){
+        // Returns the error code associated with it
+        return extract_commands(input, index);
+    }
+
+    bool validate_commands(){
+        return data.set_from_input();
+    }
+
+    // Override invalid commands and directly transfer to current
+    void set_commands(){
+        data.commit_buffer();
+    }
+    void set(uint8_t index, bool value){
+        data.set_buffer(index, value);
+    }
+    void set(uint8_t index, uint8_t value){
+        data.set_buffer(index, value);
     }
 
     // Getter pass-through functions
+    bool get(uint8_t index){
+        return *(bool*)data.get_current(index);
+    }
+    bool get(char* code_str){
+        return get(code_to_index(code_str));
+    }
     bool get_brake(){
-        return *(bool*)InputData::get(InputData::Index::BRAKE, &commands);
+        return *(bool*)data.get_current(inputData::Index::BRAKE);
     }
     bool get_reverse(){
-        return *(bool*)InputData::get(InputData::Index::REVERSE, &commands);
+        return *(bool*)data.get_current(inputData::Index::REVERSE);
     }
     bool get_s_reverse(){
-        return *(bool*)InputData::get(InputData::Index::S_REVERSE, &commands);
+        return *(bool*)data.get_current(inputData::Index::S_REVERSE);
     }
     bool get_shift_up(){
-        return *(bool*)InputData::get(InputData::Index::SHIFT_UP, &commands);
+        return *(bool*)data.get_current(inputData::Index::SHIFT_UP);
     }
     uint8_t get_speed(){
-        return *(uint8_t*)InputData::get(InputData::Index::SPEED, &commands);
+        return *(uint8_t*)data.get_current(inputData::Index::SPEED);
     }
     uint8_t get_s_speed(){
-        return *(uint8_t*)InputData::get(InputData::Index::S_SPEED, &commands);
+        return *(uint8_t*)data.get_current(inputData::Index::S_SPEED);
     }
     uint8_t get_f_speed(){
-        return *(uint8_t*)InputData::get(InputData::Index::F_SPEED, &commands);
+        return *(uint8_t*)data.get_current(inputData::Index::F_SPEED);
     }
+
+    uint8_t code_to_index(const char* code_str){
+        return data.index_from_code(code_str);
+    };
+
+    char* index_to_code(uint8_t index){
+        return data.code_from_index(index);
+    };
+    
 
 
   private:
     size_t string_limit;    // Maximum length of input string, local constant
     
     inputData data;    // Instance of input data manager
-
-};
-
-#endif
-
-
-
-    int8_t get_command_index_from_string(const char* code_str){
-        for(int i = 0; i < InputCode::Command::number_of; i++){
-            if(strcmp(InputCode::Command::str[i], code_str) == 0){
-                return i;
-            }
-        }
-        return -1;  // Return -1 if command not found
-    }
-
-    bool set_value_from_index(InputData::Values &commands, uint8_t index, const char* value_str){
-        if (index >= InputCode::Command::number_of) {
-            return 0;   // Return false if index out of bounds
-        }
-        InputData::set_by_index(&commands, index, value_str);
-        return 1;  // Return true if value set successfully
-    }
-
-    bool set_value_from_string(InputData::Values &commands, const char* code_str, const char* value_str){
-        size_t index = get_command_index_from_string(code_str);
-        return set_value_from_index(commands, index, value_str);
-    }
-
-
-
+    
     // Optional index parameter to know where parser left off if there is an error
     uint8_t extract_commands(const char* input, size_t& current_index){     
         data.reset_input();   // Clear input buffer before extracting new command
@@ -107,17 +117,15 @@ class dataIn {
         // Loop through delimiters and values until the end is reached 
         while(current_index <= end_index){	
             if(read_code(input, current_code, current_index)){
-                if (!data_start_valid(input, current_index)){
+                if (!InputDelimiter::data_start_valid(input, current_index)){
                     return INVALID_DATA_START_DELIMITER;   // Invalid start delimiter
                 }
                 if(read_data(input, current_value, current_index)){
-                    if (!data_end_valid(input, current_index)){
+                    if (!InputDelimiter::data_end_valid(input, current_index)){
                         return INVALID_END_DELIMITER;   // Invalid end delimiter
                     }
                     // Set command value
-                    if(!set_value_from_string(commands, current_code, current_value)){
-                        return INVALID_DATA_VALUE;   // Invalid data value
-                    }
+                    set(code_to_index(current_code), current_value);
                 } else {
                     return INVALID_COMMAND_CODE;   // Invalid data while reading
                 }
@@ -134,23 +142,15 @@ class dataIn {
         return extract_commands(input, tmp_index);
     };
 
-
-
-
-
-
-
-
-
-bool read_code(char* input, char* output, size_t& index){ 
+    bool read_code(char* input, char* output, size_t& index){ 
         // This will advance the index provided to the first character of the value delimiter
-        size_t tmp_code_len = InputCode::Command::max_length;
+        size_t tmp_code_len = InputDelimiter::max_length;
         char tmp_code[tmp_code_len];
         size_t code_index = 0;
         while(index < string_limit){	                       
             if(!isalnum(input[index])){          // Make sure it is a valid characther
                 return false; 
-            } else if(input[index] == InputCode::Delimiter::v_start[0]) {    // Exit if the end found
+            } else if(input[index] == InputDelimiter::v_start[0]) {    // Exit if the end found
                 tmp_code[code_index] = '\0';   // Add null terminator
                 strcpy(output, tmp_code);    
                 return true;	             // For success    
@@ -166,13 +166,13 @@ bool read_code(char* input, char* output, size_t& index){
 
     // Expects input index to be first char of data
     bool read_data(char* input, char* output, size_t& index){
-        size_t tmp_data_len = InputData::max_length;
+        size_t tmp_data_len = data.max_length;
         char tmp_data[tmp_data_len];
         size_t data_index = 0;
         while(index < string_limit){					  
             if(!isalnum(input[index])){          // Make sure it is a valid characther
                 return false; 
-            } else if(input[index] == InputCode::Delimiter::v_end[0]){	
+            } else if(input[index] == InputDelimiter::v_end[0]){	
                 tmp_data[data_index] = '\0';
                 strcpy(output, tmp_data);
                 return true;	             // For success
@@ -184,4 +184,9 @@ bool read_code(char* input, char* output, size_t& index){
             }
         }
         return false;   // Return false if string limit exceeded without finding value end delimiter
-    }
+    };
+
+
+};
+
+#endif

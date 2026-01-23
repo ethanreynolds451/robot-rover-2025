@@ -33,17 +33,28 @@ class inputData {
     };
     static constexpr uint8_t index_error = 255;
 
+    size_t max_length = 4;    // Max length of value as string including null terminator   
+
     static constexpr uint8_t total[2] = {0,6};
     static constexpr uint8_t bool_values[2] = {0,3};
     static constexpr uint8_t uint8_t_values[2] = {4,6};
+
+    static constexpr const char* Code[] = {
+        "br",
+        "rv",
+        "srv",
+        "su",
+        "sp",
+        "ssp",
+        "fan"
+    };
+
 
     // Struct for storing output variables
     struct Values {
         bool bool_values[bool_values[BOUND_MAX] - bool_values[BOUND_MIN] + 1];
         uint8_t uint8_t_values[uint8_t_values[BOUND_MAX] - uint8_t_values[BOUND_MIN] + 1];
     };
-
-    size_t max_length = 4;    // Max length of value as string including null terminator   
 
     void reset() {
         current = default_values;
@@ -100,9 +111,18 @@ class inputData {
         return nullptr;
     };
 
+    // Need these getter functions because actual data structs are private
+    void* get_current(uint8_t index){
+        return get(index, &current);
+    };
+
+    void* get_default(uint8_t index){
+        return get(index, (Values*)&default_values);
+    };
+
 
     // Data code management translator helper functions
-    uint8_t index_from_code(char* code){
+    uint8_t index_from_code(const char* code){
         uint8_t number = count(total);
         for (uint8_t i = 0; i < number; i++){
             if (!strcmp(code, Code[i])){
@@ -169,17 +189,6 @@ class inputData {
         }
     };
     // Overload as needed for different data types
-
-    static constexpr const char* Code[] = {
-        "br",
-        "rv",
-        "srv",
-        "su",
-        "sp",
-        "ssp",
-        "fan"
-    };
-
 };
 
 #endif

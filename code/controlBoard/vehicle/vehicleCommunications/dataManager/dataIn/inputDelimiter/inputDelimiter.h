@@ -13,7 +13,7 @@ namespace InputDelimiter {
 
     // Functions to verify delimiters in a data string
 
-    bool verify(const char* input, const char* delimiter, uint16_t start){               // Returns true if delimiter is valid
+    bool verify(const char* input, const char* delimiter, size_t start){               // Returns true if delimiter is valid
         const size_t len = strlen(delimiter);       // Get length of delimiter
         size_t index = start;                       // Initialize string index to start position
         for(int i = 0; i < len; i++){               // Check each character in delimiter
@@ -37,11 +37,11 @@ namespace InputDelimiter {
         return verify(input, end, strlen(input) - strlen(end));
     }
 
-    bool data_start_valid(const char* input, uint16_t current_index){
+    bool data_start_valid(const char* input, size_t current_index){
         return verify(input, v_start, current_index);
     }   
     
-    bool data_end_valid(const char* input, uint16_t current_index){
+    bool data_end_valid(const char* input, size_t current_index){
         return verify(input, v_end, current_index);
     }
 
