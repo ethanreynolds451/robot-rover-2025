@@ -7,10 +7,11 @@ class RobotSerial {
   public:
 	RobotSerial(uint16_t baud_rate) : baud_rate(baud_rate) {
 		this->input_buffer[0] = '\0';	// Initialize input string to empty
+		this->output_buffer[0] = '\0'; // Initialize output string to empty
 	}
 	void begin(){
 		Serial.begin(this->baud_rate);	// Start serial communication
-		delay(100); // Allow time for serial to initialize, has to be blocking?
+		while (!Serial) { }  // only on USB-based boards, wait till serial is ready
 		Serial.println("Serial started successfully"); 
 	}
 	char* read(){
@@ -46,7 +47,7 @@ class RobotSerial {
 	}
 
   private:
-  	static constexpr uint8_t serial_delay = 1;
+  	static constexpr uint8_t serial_delay = 10;
   	uint16_t baud_rate;
 	char input_buffer[STRING_LIMIT];
 	char output_buffer[STRING_LIMIT];
@@ -61,8 +62,10 @@ class RobotSerial {
 	void read_input(){
 		delay(RobotSerial::serial_delay);
 		uint16_t index = 0;
-		while(Serial.available()){
-			this->input_buffer[index] = Serial.read();
+		while(Serial.available()){	
+			int c = Serial.read();		// Returns int, -1 if no data available
+			if (c < 0) break; // Safety to ensure invalid character isn't read
+			this->input_buffer[index] = (char)c;	// Need to cast to char
 			if(index == STRING_LIMIT - 1){
 				break;
 			}
