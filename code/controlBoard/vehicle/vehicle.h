@@ -228,6 +228,7 @@ class Vehicle {
         }
         void send_states(){
             char* buffer = data.input.get_string();
+            //char* buffer = "Hello World\n"; // Temporary placeholder until input string function is fixed    
             computer.write(buffer);
         }
         void timeout_error(){

@@ -16,7 +16,9 @@ Timer send_data(1000);
 Vehicle car(BAUD_RATE);     // Create vehicle object
 
 void setup(){    
-  car.begin(); 
+  car.begin();
+  Serial.println("Control board starting...");
+  delay(10000);
 }
 
 void loop(){

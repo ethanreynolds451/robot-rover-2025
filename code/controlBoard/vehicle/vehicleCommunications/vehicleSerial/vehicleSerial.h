@@ -3,8 +3,6 @@
 #ifndef VEHICLESERIAL_h
 #define VEHICLESERIAL_h
 
-#include <Arduino.h>
-
 class RobotSerial {
   public:
 	RobotSerial(uint16_t baud_rate) : baud_rate(baud_rate) {
@@ -12,6 +10,8 @@ class RobotSerial {
 	}
 	void begin(){
 		Serial.begin(this->baud_rate);	// Start serial communication
+		delay(100); // Allow time for serial to initialize, has to be blocking?
+		Serial.println("Serial started successfully"); 
 	}
 	char* read(){
 		if (is_input()){
