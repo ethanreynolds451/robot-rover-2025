@@ -3,13 +3,14 @@
 
 #include "outputData/outputData.h"
 #include "outputDelimiter/outputDelimiter.h"
+#include "outputCode/outputCode.h"
 
 class dataOut {
   public:
     dataOut(size_t string_limit) : string_limit(string_limit) {}
 
     // Get the formated string with all data values
-    char* get(){
+    char* get_string(){
       // Return format {tmp[0]vlt[0]pct[0]}
       return get_output_string();
     }
@@ -57,17 +58,17 @@ class dataOut {
           
           OutputDelimiter::start,
 
-          *(float*)data.code_from_index(outputData::Index::INTERNAL_TEMP),
+          *(float*)OutputCode::index_to_code(outputData::Index::INTERNAL_TEMP),
           OutputDelimiter::v_start,
           data.get(outputData::Index::INTERNAL_TEMP),
           OutputDelimiter::v_end,
           
-          *(float*)data.code_from_index(outputData::Index::BATTERY_VOLTAGE),
+          *(float*)OutputCode::index_to_code(outputData::Index::BATTERY_VOLTAGE),
           OutputDelimiter::v_start,
           data.get(outputData::Index::BATTERY_VOLTAGE),
           OutputDelimiter::v_end,
 
-          *(float*)data.code_from_index(outputData::Index::BATTERY_PERCENTAGE),
+          *(float*)OutputCode::index_to_code(outputData::Index::BATTERY_PERCENTAGE),
           OutputDelimiter::v_start,
           data.get(outputData::Index::BATTERY_PERCENTAGE),
           OutputDelimiter::v_end,

@@ -4,7 +4,6 @@
 #define VEHICLESERIAL_h
 
 #include <Arduino.h>
-#include "dependencies/definitions.h" // NEED TO GET RID OF THS
 
 class RobotSerial {
   public:

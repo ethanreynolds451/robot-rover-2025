@@ -3,7 +3,7 @@
 #ifndef FOURDIGITDISPLAY_h
 #define FOURDIGITDISPLAY_h
 
-#include <i2cdisplaycontroller.h>
+// #include <i2cdisplaycontroller.h>
 
 class fourDigitDisplayPCF {
     public:

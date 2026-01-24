@@ -1,7 +1,7 @@
 // Successfully compiled 2026-01-18
 
-#ifndef DATAREADER_h
-#define DATAREADER_h
+#ifndef DATAIN_h
+#define DATAIN_h
 
 // Class functions: 
 // Read and parse input string, return error code (0 for success)
@@ -9,6 +9,7 @@
 // Return the latest values for each command
 
 #include "inputDelimiter/inputDelimiter.h"
+#include "inputCode/inputCode.h"
 #include "inputData/inputData.h"			
 
 class dataIn {
@@ -35,19 +36,63 @@ class dataIn {
         return extract_commands(input, index);
     }
 
-    bool validate_commands(){
+    bool validate_and_set(){
         return data.set_from_input();
     }
 
-    // Override invalid commands and directly transfer to current
+    // Override invalid commands and directly transfer to current output
     void set_commands(){
         data.commit_buffer();
     }
+
+    char* get_string(){
+        // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+        char buffer[string_limit];
+        sprintf(buffer, "br: %d rv: %d rv: %d srv: %d su: %d sp: %d ssp: %d fan: %d",
+                get_brake(), get_reverse(), get_s_reverse(), get_shift_up(),
+                get_speed(), get_s_speed(), get_f_speed());
+        return buffer;
+    }
+
+    // Setter pass-through functions
     void set(uint8_t index, bool value){
         data.set_buffer(index, value);
     }
     void set(uint8_t index, uint8_t value){
         data.set_buffer(index, value);
+    }
+    void set(const char* code_str, const char* value_str){
+        // This MUST BE FIXED if other data types are added
+        set(InputCode::code_to_index(code_str), atoi(value_str));
+    }
+
+    // Setter pass-through functions for specific commands
+    void set_brake(bool value){
+        data.set_buffer(inputData::Index::BRAKE, value);
+    }
+    void set_reverse(bool value){
+        data.set_buffer(inputData::Index::REVERSE, value);
+    }
+    void set_s_reverse(bool value){
+        data.set_buffer(inputData::Index::S_REVERSE, value);
+    }
+    void set_shift_up(bool value){
+        data.set_buffer(inputData::Index::SHIFT_UP, value);
+    }
+    void set_speed(uint8_t value){
+        data.set_buffer(inputData::Index::SPEED, value);
+    }
+    void set_s_speed(uint8_t value){
+        data.set_buffer(inputData::Index::S_SPEED, value);
+    }
+    void set_f_speed(uint8_t value){
+        data.set_buffer(inputData::Index::F_SPEED, value);
+    }
+    void reset_input(){
+        data.reset_input(); 
+    }
+    void reset(){
+        data.reset(); 
     }
 
     // Getter pass-through functions
@@ -55,8 +100,9 @@ class dataIn {
         return *(bool*)data.get_current(index);
     }
     bool get(char* code_str){
-        return get(code_to_index(code_str));
+        return get(InputCode::code_to_index(code_str));
     }
+
     bool get_brake(){
         return *(bool*)data.get_current(inputData::Index::BRAKE);
     }
@@ -79,16 +125,7 @@ class dataIn {
         return *(uint8_t*)data.get_current(inputData::Index::F_SPEED);
     }
 
-    uint8_t code_to_index(const char* code_str){
-        return data.index_from_code(code_str);
-    };
-
-    char* index_to_code(uint8_t index){
-        return data.code_from_index(index);
-    };
     
-
-
   private:
     size_t string_limit;    // Maximum length of input string, local constant
     
@@ -125,7 +162,7 @@ class dataIn {
                         return INVALID_END_DELIMITER;   // Invalid end delimiter
                     }
                     // Set command value
-                    set(code_to_index(current_code), current_value);
+                    set(InputCode::code_to_index(current_code), current_value);
                 } else {
                     return INVALID_COMMAND_CODE;   // Invalid data while reading
                 }

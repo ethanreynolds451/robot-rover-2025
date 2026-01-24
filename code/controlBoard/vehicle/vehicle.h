@@ -1,9 +1,10 @@
 #ifndef VEHICLE_h
 #define VEHICLE_h
 
+#include "vehicleDefinitions/vehicleDefinitions.h"
 #include "vehicleCommunications/vehicleCommunications.h"
 #include "vehicleDisplay/vehicleDisplay.h"
-#include "vehcileMotorControl/vehicleMotorControl.h"
+#include "vehicleMotorControl/vehicleMotorControl.h"
 #include "vehicleSensors/vehicleSensors.h"
 
 class Vehicle {
@@ -25,11 +26,11 @@ class Vehicle {
                 internal_temp(Pin::thermistor, 30, 125),
                 voltage(Pin::battery_monitor, BATTERY_VOLTAGE_SLOPE, 0, BATTERY_TYPE),
                 display(Address::pcf, Pin::digit_1, Pin::digit_2, Pin::digit_3, Pin::digit_4),
-                parser(STRING_LIMIT)
+                data(STRING_LIMIT, STRING_LIMIT)
             {}
         void begin(){
             // Pinmodes are already set within each class constructor or inirializer
-            reset();            // Ensure vehicle is set to default state
+            reset_control();            // Ensure vehicle is set to default state
             computer.begin();   // Start serial communication with onboard computer
             display.begin();    // Start display (PCF8575 with Wire I2C)
         }   
@@ -48,9 +49,10 @@ class Vehicle {
         // Returns the error code from the command parser
         uint8_t get_and_extract_command(){
             if(get_command()){
+                // Reset the current error index
                 this->error_index = 0; 
                 // Extract command into input buffer, use error index to track failure location if applicable
-                return parser.extract_commands(OutputStates::input_buffer, this->current_command, this->error_index);
+                return data.input.extract(this->current_command, this->error_index);
             }
         }
 
@@ -59,113 +61,132 @@ class Vehicle {
         bool get_and_run_command(){
             // Save the error for future reference 
             this->command_error = get_and_extract_command();
-            if (!this->command_error){
+            if (this->command_error == dataIn::extraction_errors::SUCCESS){
                 // May add better error management here in the futrue
-                if (OutputStates::validate_input()){
-                    if (OutputStates::set_from_input()){
-                        update_outputs();
-                        return true;
-                    }
+                if (data.input.validate_and_set()){
+                    update_outputs();
+                    return true;
                 }
             }
             return false;
         }
 
         // Direct setters and getters to access individual states and data values
-        void set_brake(bool active){
-            OutputStates::current.brake = active;
-            update_outputs();
+        void set_brake(bool state){
+            data.input.set_brake(state);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }   
         }
-        void set_direction(bool set_reverse){
-            OutputStates::current.reverse = set_reverse;
-            update_outputs();
+        void set_direction(bool state){
+            data.input.set_reverse(state);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void set_shift(bool set_series){
-            OutputStates::current.shift_up = set_series;
-            update_outputs();
+        void set_shift(bool state){
+            data.input.set_shift_up(state);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void set_speed(uint8_t set_speed){
-            OutputStates::current.speed = set_speed;
-            update_outputs();
+        void set_speed(uint8_t value){
+            data.input.set_speed(value);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void set_s_direction(bool set_reverse){
-            OutputStates::current.s_reverse = set_reverse;
-            update_outputs();
+        void set_s_direction(bool state){
+            data.input.set_s_reverse(state);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void set_s_speed(uint8_t set_speed){
-            OutputStates::current.s_speed = set_speed;
-            update_outputs();
+        void set_s_speed(uint8_t value){
+            data.input.set_s_speed(value);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void set_f_speed(uint8_t set_speed){
-            OutputStates::current.f_speed = set_speed;
-            update_outputs();
+        void set_f_speed(uint8_t value){
+            data.input.set_f_speed(value);
+            if(data.input.validate_and_set()){
+                update_outputs();
+            }
         }
-        void reset(){
-            OutputStates::reset();
+        void reset_input(){
+            data.input.reset_input();
+            data.input.set_commands();     // no need to validate since they are defaults
+        }
+        void reset_control(){
+            data.input.reset();
             update_outputs();
         }
 
         // Direct getters to retrieve individual states
         void get_brake(){
-            return OutputStates::current.brake;
+            return data.input.get_brake();
         }
         void get_direction(){
-            return OutputStates::current.reverse;
+            return data.input.get_reverse();
         }
         void get_shift(){
-            return OutputStates::current.shift_up;
+            return data.input.get_shift_up();
         }
         uint8_t get_speed(){
-            return OutputStates::current.speed;
+            return data.input.get_speed();
         }
         bool get_s_direction(){
-            return OutputStates::current.s_reverse;
+            return data.input.get_s_reverse();
         }
         uint8_t get_s_speed(){
-            return OutputStates::current.s_speed;
+            return data.input.get_s_speed();
         }
         uint8_t get_f_speed(){
-            return OutputStates::current.f_speed;
+            return data.input.get_f_speed();
         }
+
         float get_internal_temp(){
-            return InputData::current.internal_temp;
+            return data.output.get_internal_temp();
         }
         float get_battery_voltage(){
-            return InputData::current.battery_voltage;
+            return data.output.get_battery_voltage();
         }
         float get_battery_percentage(){
-            return InputData::current.battery_percentage;
+            return data.output.get_battery_percentage();
         }
 
         // Sensor reader functions
         float read_internal_temp(){
-            namespace D = InputData;
-            D::current.internal_temp = internal_temp.read();
-            return D::current.internal_temp;
+            float temp = internal_temp.read(); 
+            data.output.set_internal_temp(temp);
+            return temp;
         }
         float read_battery_voltage(){
-            namespace D = InputData;
-            D::current.battery_voltage = voltage.read_voltage();
-            return D::current.battery_voltage;
+            float volts = voltage.read_voltage();
+            data.output.set_battery_voltage(volts);
+            return volts;
         }
         float read_battery_percentage(){
-            namespace D = InputData;
-            D::current.battery_percentage = voltage.read_percentage();
-            return D::current.battery_percentage;
+            float percent = voltage.read_percentage();
+            data.output.set_battery_percentage(percent);
+            return percent;
         }
 
         // Vehicle functions for control loop
         void set_fan_from_temp(){
             uint16_t temp = internal_temp.read();
             if(temp < MIN_FAN_TEMP){
-                OutputStates::current.f_speed = 0;
+                data.input.set_f_speed(0);
             } else if(temp > MAX_FAN_TEMP){
-                OutputStates::current.f_speed = 100;
+                data.input.set_f_speed(100);
             } else {
-                OutputStates::current.f_speed = map(temp, MIN_FAN_TEMP, MAX_FAN_TEMP, 0, 100);
+                uint8_t speed = map(temp, MIN_FAN_TEMP, MAX_FAN_TEMP, 0, 100);
+                data.input.set_f_speed(speed);
             }
             update_outputs();
         }
+
         void display_voltage(){
             float volts = voltage.read_voltage();
             char buffer[64];
@@ -192,14 +213,13 @@ class Vehicle {
             display.print_decimal(temperature);
         }
         void read_data(){
-            namespace D = InputData;
-            D::current.internal_temp = internal_temp.read();
-            D::current.battery_voltage = voltage.read_voltage();
-            D::current.battery_percentage = voltage.read_percentage();
+            read_internal_temp();
+            read_battery_voltage();
+            read_battery_percentage();
         }
         void send_data() {
-	// Get the data into a var called buffer using data functions********
-
+	        // Get the data into a var called buffer using data functions********
+            char* buffer = data.output.get_string();
             computer.write(buffer);
         }
         void read_and_send_data(){
@@ -207,37 +227,19 @@ class Vehicle {
             send_data();
         }
         void send_states(){
-            // {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
-            // Format later if needed, output just for debug now and not processed by computer
-            Serial.println("br: " + String(OutputStates::current.brake) + 
-                           " rv: " + String(OutputStates::current.reverse) + 
-                           " srv: " + String(OutputStates::current.s_reverse) + 
-                           " su: " + String(OutputStates::current.shift_up) + 
-                           " sp: " + String(OutputStates::current.speed) + 
-                           " ssp: " + String(OutputStates::current.s_speed) + 
-                           " fan: " + String(OutputStates::current.f_speed));
+            char* buffer = data.input.get_string();
+            computer.write(buffer);
         }
         void timeout_error(){
-            reset();
+            reset_control();
             computer.write("Vehicle reset due to input timeout.\n");
         }
+        
         // This one calls the vehicle specific functions
         void set_command_as_string(uint8_t code, const char* val){
-            namespace I = Code::Command::Index;
-            if(code == I::brake) {
-                set_brake(atoi(val));
-            } else if(code == I::reverse) {
-                set_direction(atoi(val));
-            } else if(code == I::steering_reverse) {
-                set_s_direction(atoi(val));
-            } else if(code == I::shift_up) {
-                set_shift(atoi(val));
-            } else if(code == I::speed) {
-                set_speed(atoi(val));
-            } else if(code == I::steering_speed) {
-                set_s_speed(atoi(val));
-            } else if(code == I::fan) {
-                set_f_speed(atoi(val));
+            data.input.set(code, val);
+            if(data.input.validate_and_set()){
+                update_outputs();
             }
         }
     
@@ -257,7 +259,7 @@ class Vehicle {
         batteryMonitor voltage;
         fourDigitDisplayPCF display;
 
-        commandParser parser; 
+        dataManager data; 
 
         // Buffer for command processing
         char current_command[STRING_LIMIT];
@@ -265,16 +267,16 @@ class Vehicle {
         size_t error_index = 0; 
     
         void update_outputs(){
-            fan_pwm.set(OutputStates::current.f_speed);
-            brake_relay.set(!OutputStates::current.brake);
-            reverse_1_relay.set(OutputStates::current.reverse);
-            reverse_2_relay.set(OutputStates::current.reverse);
-            s_reverse_1_relay.set(OutputStates::current.s_reverse);
-            s_reverse_2_relay.set(OutputStates::current.s_reverse);
-            shift_1_relay.set(OutputStates::current.shift_up);
-            shift_2_relay.set(OutputStates::current.shift_up);
-            speed_pwm.set_power(OutputStates::current.speed);
-            s_speed_pwm.set_power(OutputStates::current.s_speed);
+            fan_pwm.set(data.input.get_f_speed());
+            brake_relay.set(!data.input.get_brake());
+            reverse_1_relay.set(data.input.get_reverse());
+            reverse_2_relay.set(data.input.get_reverse());
+            s_reverse_1_relay.set(data.input.get_s_reverse());
+            s_reverse_2_relay.set(data.input.get_s_reverse());
+            shift_1_relay.set(data.input.get_shift_up());
+            shift_2_relay.set(data.input.get_shift_up());
+            speed_pwm.set_power(data.input.get_speed());
+            s_speed_pwm.set_power(data.input.get_s_speed());
         }
 };  
 

@@ -45,25 +45,6 @@ class outputData {
         return nullptr;
     };
 
-    // Data code management translator helper functions
-    uint8_t index_from_code(char* code){
-        uint8_t number = count(total);
-        for (uint8_t i = 0; i < number; i++){
-            if (!strcmp(code, Code[i])){
-                return i;
-            }
-        }
-        return index_error;
-    };
-    char* code_from_index(uint8_t index){
-        uint8_t number = count(total);
-        if (index < number){
-            return this->Code[index];
-        }
-        // Make sure to account for empty string as error value
-        return ""; 
-    };
-
     // Ordered indicies
     enum Index : uint8_t {
         INTERNAL_TEMP,
@@ -96,9 +77,6 @@ class outputData {
         float float_values[total[BOUND_MAX] - total[BOUND_MIN] + 1];
     };
 
-    // Designate this as the value returned from an invalid index conversion 
-    static constexpr uint8_t index_error = 255; 
-
     // Define not_measured sentinal values for each variable
     // Because they are sensors, there should be some value outside realistic range to use
     inline static constexpr Values not_measured = {
@@ -119,14 +97,6 @@ class outputData {
     void set_to_defaults(){
         current = default_values;
     }
-
-    // String code for each variable
-    static constexpr const char* Code[] = {
-        "tmp",
-        "vlt",
-        "pct"
-    };
-
 };
 
 

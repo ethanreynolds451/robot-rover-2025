@@ -1,6 +1,8 @@
 #ifndef INPUTDELIMITER_h
 #define INPUTDELIMITER_h
 
+// This namespace contains and validates delimiters for processing incoming data
+
 namespace InputDelimiter {
     static constexpr char* start = "{";
     static constexpr char* end = "}";

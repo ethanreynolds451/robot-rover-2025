@@ -1,6 +1,8 @@
 #ifndef INPUTDATA_h
 #define INPUTDATA_h
 
+// This class simulates array manipulation for different data types by using ranges and offsets
+
 // **Class functions**
 // reset() -> current vals to default vals
 // reset_input() -> buffer vals to default vals
@@ -31,24 +33,12 @@ class inputData {
         S_SPEED,
         F_SPEED
     };
-    static constexpr uint8_t index_error = 255;
 
     size_t max_length = 4;    // Max length of value as string including null terminator   
 
     static constexpr uint8_t total[2] = {0,6};
     static constexpr uint8_t bool_values[2] = {0,3};
     static constexpr uint8_t uint8_t_values[2] = {4,6};
-
-    static constexpr const char* Code[] = {
-        "br",
-        "rv",
-        "srv",
-        "su",
-        "sp",
-        "ssp",
-        "fan"
-    };
-
 
     // Struct for storing output variables
     struct Values {
@@ -71,9 +61,9 @@ class inputData {
     bool validate_input(){
         return (
             // Unsigned ints always >= 0
-            (*(uint8_t*)get(SPEED, &input_buffer) <= 100) &&
-            (*(uint8_t*)get(S_SPEED, &input_buffer) <= 100) &&
-            (*(uint8_t*)get(F_SPEED, &input_buffer) <= 100)
+            (*(uint8_t*)get_internal(SPEED, &input_buffer) <= 100) &&
+            (*(uint8_t*)get_internal(S_SPEED, &input_buffer) <= 100) &&
+            (*(uint8_t*)get_internal(F_SPEED, &input_buffer) <= 100)
         );
     }
 
@@ -86,60 +76,26 @@ class inputData {
     }
 
     // Assign an individual value in current data struct
-    void set(uint8_t index, uint8_t value) {
-        set(index, value, &input_buffer);
+    void set_buffer(uint8_t index, uint8_t value) {
+        set_internal(index, value, &input_buffer);
     };
 
     // Assign an individual value in buffer data struct
-    void set_buffer(uint8_t index, bool value) {
-        set(index, value, &input_buffer);
-    };
-
-    // Getter function, uses unntyped pointer, MUST CHECK AND CAST AFTER CALLING
-    void* get(uint8_t index, Values *target){
-        // Make sure the index is valid
-        if (in(index, total)){
-            // Return a bool if in the range
-            if (in(index, bool_values)){
-                return &target->bool_values[offset(index, bool_values)];
-            }
-            // Return a uint8_t if in the range
-            if (in(index, uint8_t_values)){
-                return &target->uint8_t_values[offset(index, uint8_t_values)];
-            }
-        }
-        return nullptr;
+    void set_current(uint8_t index, bool value) {
+        set_internal(index, value, &current);
     };
 
     // Need these getter functions because actual data structs are private
     void* get_current(uint8_t index){
-        return get(index, &current);
+        return get_internal(index, &current);
     };
 
     void* get_default(uint8_t index){
-        return get(index, (Values*)&default_values);
+        return get_internal(index, &default_values);
     };
 
-
-    // Data code management translator helper functions
-    uint8_t index_from_code(const char* code){
-        uint8_t number = count(total);
-        for (uint8_t i = 0; i < number; i++){
-            if (!strcmp(code, Code[i])){
-                return i;
-            }
-        }
-        // Make sure to account for signed error value 
-        return index_error;
-    };
-
-    char* code_from_index(uint8_t index){
-        uint8_t number = count(total);
-        if (index < number){
-            return this->Code[index];
-        }
-        // Make sure to account for empty string as error value
-        return ""; 
+    void* get_buffer(uint8_t index){
+        return get_internal(index, &input_buffer);
     };
 
   private:
@@ -173,7 +129,7 @@ class inputData {
     Values input_buffer = default_values;
 
     // Bool setter function 
-    void set(uint8_t index, bool value, Values *target) {
+    void set_internal(uint8_t index, bool value, Values *target) {
         // Double check the var trying to set is a float
         if (in(index, bool_values)){
             // Set appropriate variable using range offset
@@ -181,7 +137,7 @@ class inputData {
         }
     };
     // uint8_t setter function 
-    void set(uint8_t index, uint8_t value, Values *target) {
+    void set_internal(uint8_t index, uint8_t value, Values *target) {
         // Double check the var trying to set is a float
         if (in(index, uint8_t_values)){
             // Set appropriate variable using range offset
@@ -189,6 +145,22 @@ class inputData {
         }
     };
     // Overload as needed for different data types
+
+    // Getter function, uses unntyped pointer, MUST CHECK AND CAST AFTER CALLING
+    void* get_internal(uint8_t index, Values *target){
+        // Make sure the index is valid
+        if (in(index, total)){
+            // Return a bool if in the range
+            if (in(index, bool_values)){
+                return &target->bool_values[offset(index, bool_values)];
+            }
+            // Return a uint8_t if in the range
+            if (in(index, uint8_t_values)){
+                return &target->uint8_t_values[offset(index, uint8_t_values)];
+            }
+        }
+        return nullptr;
+    };
 };
 
 #endif
