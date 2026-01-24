@@ -54,39 +54,50 @@ class dataIn {
         return buffer;
     }
 
+	bool is_command(const char* input_string){
+		if (!input_string) return false;		// Check for null pointer
+		const size_t start_length = strlen(InputDelimiter::start);
+		const size_t end_length = strlen(InputDelimiter::end);
+		const size_t input_length = strlen(input_string);
+		return ((input_length >= start_length + end_length) && 
+				(strncmp(input_string, InputDelimiter::start, start_length) == 0) &&
+				(strncmp(input_string + input_length - end_length, InputDelimiter::end, end_length) == 0)
+				);
+	}
+
     // Setter pass-through functions
     void set(uint8_t index, bool value){
-        data.set_buffer(index, value);
+        data.set_input(index, value);
     }
     void set(uint8_t index, uint8_t value){
-        data.set_buffer(index, value);
+        data.set_input(index, value);
     }
     void set(const char* code_str, const char* value_str){
         // This MUST BE FIXED if other data types are added
-        set(InputCode::code_to_index(code_str), atoi(value_str));
+        data.set_input(InputCode::code_to_index(code_str), value_str);
     }
 
     // Setter pass-through functions for specific commands
     void set_brake(bool value){
-        data.set_buffer(inputData::Index::BRAKE, value);
+        data.set_input(inputData::Index::BRAKE, value);
     }
     void set_reverse(bool value){
-        data.set_buffer(inputData::Index::REVERSE, value);
+        data.set_input(inputData::Index::REVERSE, value);
     }
     void set_s_reverse(bool value){
-        data.set_buffer(inputData::Index::S_REVERSE, value);
+        data.set_input(inputData::Index::S_REVERSE, value);
     }
     void set_shift_up(bool value){
-        data.set_buffer(inputData::Index::SHIFT_UP, value);
+        data.set_input(inputData::Index::SHIFT_UP, value);
     }
     void set_speed(uint8_t value){
-        data.set_buffer(inputData::Index::SPEED, value);
+        data.set_input(inputData::Index::SPEED, value);
     }
     void set_s_speed(uint8_t value){
-        data.set_buffer(inputData::Index::S_SPEED, value);
+        data.set_input(inputData::Index::S_SPEED, value);
     }
     void set_f_speed(uint8_t value){
-        data.set_buffer(inputData::Index::F_SPEED, value);
+        data.set_input(inputData::Index::F_SPEED, value);
     }
     void reset_input(){
         data.reset_input(); 
@@ -95,13 +106,6 @@ class dataIn {
         data.reset(); 
     }
 
-    // Getter pass-through functions
-    bool get(uint8_t index){
-        return *(bool*)data.get_current(index);
-    }
-    bool get(char* code_str){
-        return get(InputCode::code_to_index(code_str));
-    }
 
     bool get_brake(){
         return *(bool*)data.get_current(inputData::Index::BRAKE);

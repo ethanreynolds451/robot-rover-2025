@@ -38,7 +38,7 @@ class Vehicle {
         // Command interface functions     
         bool get_command(){
             computer.read();
-            if (computer.is_command()) {
+            if (data.input.is_command(computer.get())) {
                  // This only checks the start delimiter, use more rigerous data integrity checks later
                  computer.get_into(current_command, STRING_LIMIT);
                  return true;

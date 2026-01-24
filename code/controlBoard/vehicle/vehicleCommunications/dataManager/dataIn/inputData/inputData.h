@@ -75,14 +75,22 @@ class inputData {
         return false; 
     }
 
-    // Assign an individual value in current data struct
-    void set_buffer(uint8_t index, uint8_t value) {
+    // Casts from a string to appropriate data type based on index 
+    void set_input(uint8_t index, char* value){
+        if(in(index, uint8_t_values)){
+            uint8_t val = (uint8_t)atoi(value);
+            set_internal(index, val, &input_buffer);
+        } else if (in(index, bool_values)){
+            bool val = (bool)atoi(value);
+            set_internal(index, val, &input_buffer);
+        }
+    }
+    // Overloaded setter functions for different data types
+    void set_input(uint8_t index, bool value) {
         set_internal(index, value, &input_buffer);
     };
-
-    // Assign an individual value in buffer data struct
-    void set_current(uint8_t index, bool value) {
-        set_internal(index, value, &current);
+    void set_input(uint8_t index, uint8_t value) {
+        set_internal(index, value, &input_buffer);
     };
 
     // Need these getter functions because actual data structs are private
