@@ -189,10 +189,11 @@ class Vehicle {
 
         void display_voltage(){
             float volts = voltage.read_voltage();
-            Serial.println(volts); // Debug
             char buffer[64];
+            char vstr[10];
+            dtostrf(volts, 4, 2, vstr);  // width=4, precision=2
             // Display voltage on serial for debug
-                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V", volts);
+                snprintf(buffer, sizeof(buffer), "Battery Voltage: %s V", vstr);
                 computer.writeln(buffer);
             display.print_decimal(volts);
         }
@@ -208,8 +209,10 @@ class Vehicle {
         void display_temperature(){
             float temp = internal_temp.read();
             char buffer[64];
+            char tstr[10];
+            dtostrf(temp, 3, 1, tstr);  // width=4, precision=2
             // Display temperature on serial for debug
-                snprintf(buffer, sizeof(buffer), "Internal Temperature: %.2f C", temp);
+                snprintf(buffer, sizeof(buffer), "Internal Temperature: %s C", tstr);
                 computer.writeln(buffer);
             display.print_decimal(temp);
         }
