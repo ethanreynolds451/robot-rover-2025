@@ -41,6 +41,6 @@ void loop(){
     }
     if (update_voltage.passed()){
         car.display_voltage();
-        car.display_voltage_as_percent();
+        //car.display_voltage_as_percent();
     }
 }

@@ -189,6 +189,7 @@ class Vehicle {
 
         void display_voltage(){
             float volts = voltage.read_voltage();
+            Serial.println(volts); // Debug
             char buffer[64];
             // Display voltage on serial for debug
                 snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V", volts);
