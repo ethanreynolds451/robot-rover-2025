@@ -3,6 +3,9 @@
 #ifndef FOURDIGITDISPLAY_h
 #define FOURDIGITDISPLAY_h
 
+// Include library in the main library header file
+// Uncomment to debug only this file
+
 // #include <i2cdisplaycontroller.h>
 
 class fourDigitDisplayPCF {

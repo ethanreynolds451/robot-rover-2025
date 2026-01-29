@@ -11,8 +11,8 @@ class Vehicle {
     public:
         // Setup functions
         RobotSerial computer;         // Made this public to allow direct access to serial interface
-        Vehicle(uint16_t baud_rate) 
-            :   computer(baud_rate),
+        Vehicle(uint32_t baud_rate) 
+            :   computer(baud_rate, STRING_LIMIT),
                 brake_relay(Pin::brake),
                 reverse_1_relay(Pin::reverse_1),
                 reverse_2_relay(Pin::reverse_2),
@@ -191,8 +191,8 @@ class Vehicle {
             float volts = voltage.read_voltage();
             char buffer[64];
             // Display voltage on serial for debug
-                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V\n", volts);
-                computer.write(buffer);
+                snprintf(buffer, sizeof(buffer), "Battery Voltage: %.2f V", volts);
+                computer.writeln(buffer);
             display.print_decimal(volts);
         }
         void display_voltage_as_percent(){
@@ -200,17 +200,17 @@ class Vehicle {
             int percent = int(round(voltage.read_percentage()));
             char buffer[64];
             // Display voltage on serial for debug
-                sprintf(buffer, sizeof(buffer), "Battery Voltage: %d%%\n", percent);
-                computer.write(buffer);
+                sprintf(buffer, sizeof(buffer), "Battery Voltage: %d%%", percent);
+                computer.writeln(buffer);
             display.print_integer(percent);     // Print as an integer
         }
         void display_temperature(){
-            float temperature = internal_temp.read();
+            float temp = internal_temp.read();
             char buffer[64];
             // Display temperature on serial for debug
-                snprintf(buffer, sizeof(buffer), "Internal Temperature: %.2f C\n", temperature);
-                computer.write(buffer);
-            display.print_decimal(temperature);
+                snprintf(buffer, sizeof(buffer), "Internal Temperature: %.2f C", temp);
+                computer.writeln(buffer);
+            display.print_decimal(temp);
         }
         void read_data(){
             read_internal_temp();
@@ -220,7 +220,7 @@ class Vehicle {
         void send_data() {
 	        // Get the data into a var called buffer using data functions********
             char* buffer = data.output.get_string();
-            computer.write(buffer);
+            computer.writeln(buffer);
         }
         void read_and_send_data(){
             read_data();
@@ -229,11 +229,11 @@ class Vehicle {
         void send_states(){
             char* buffer = data.input.get_string();
             //char* buffer = "Hello World\n"; // Temporary placeholder until input string function is fixed    
-            computer.write(buffer);
+            computer.writeln(buffer);
         }
         void timeout_error(){
             reset_control();
-            computer.write("Vehicle reset due to input timeout.\n");
+            computer.writeln("Vehicle reset due to input timeout.");
         }
         
         // This one calls the vehicle specific functions

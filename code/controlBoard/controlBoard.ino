@@ -9,16 +9,14 @@ uint8_t echo_enabled = 1;     // Set to 1 to enable serial echo for debugging
 // Create timers to repeat functions at regular intervals
 Timer mainloop_timer(10);        // Must be at least 6 for data integrity
 Timer timeout(5000);
-Timer update_fan(10000);
-Timer update_voltage(500);
+Timer update_fan(1000);
+Timer update_voltage(1000);
 Timer send_data(1000);
 
 Vehicle car(BAUD_RATE);     // Create vehicle object
 
 void setup(){    
   car.begin();
-  Serial.println("Control board starting...");
-  delay(10000);
 }
 
 void loop(){
@@ -36,11 +34,13 @@ void loop(){
     }
     if (update_fan.passed()){
         car.set_fan_from_temp();
+        car.display_temperature();
     }
     if (send_data.passed()){
         car.read_and_send_data();
     }
     if (update_voltage.passed()){
         car.display_voltage();
+        car.display_voltage_as_percent();
     }
 }
