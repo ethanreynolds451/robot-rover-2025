@@ -129,6 +129,11 @@ class RobotSerial {
 
 	// Add data to output buffer, returns true if successful
 	bool add_data(const char* data){
+		// Must be a null terminated string
+		if(data == nullptr || strlen(data) == 0){
+			return false; // No data to add
+		}
+
 		// Make sure there is enough space in the buffer
 		if(total_space_remaining(this->output_buffer) < strlen(data)){
 			return false; // Not enough space to add data
@@ -137,10 +142,11 @@ class RobotSerial {
 		// Allocate data to the packets in the output buffer
 		uint8_t current_packet = 0;
 		uint8_t highest_index = 0;
-		char* remaining_data = (char*)data; // Cast to non-const for manipulation
+		const char* remaining_data = data;
 
 		// Try to fill the latest partially filled packet if there is one
 		if(total_space_filled(this->output_buffer) > 0){
+			Serial.println("Filling partial packet");
 			for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
 				// Find highest index packet
 				if(output_order[i] > current_packet){
@@ -151,13 +157,14 @@ class RobotSerial {
 		
 			// If there is space in this packet, fill it
 			if(space_remaining(this->output_buffer, current_packet) > 0){
-				remaining_data = fill_packet(this->output_buffer, remaining_data, current_packet);
+				remaining_data += fill_packet(this->output_buffer, remaining_data, current_packet);
 				Serial.print("Filling packet ");
 				Serial.println(current_packet);
 				// If all data has been allocated, return true
 				if(strlen(remaining_data) == 0){
 					return true;
 				} else {
+					Serial.print("Bytes remaining after filling partial packet: ");
 					Serial.println(strlen(remaining_data)); 
 					Serial.print("Data remaining after filling partial packet: ");
 					Serial.println(remaining_data);
@@ -169,6 +176,7 @@ class RobotSerial {
 
 		// Move on to empty packets
 		while(true){
+			Serial.println("Filling new packet");
 			uint8_t timeout = 0;
 			// Find an empty packet
 			current_packet = 0;
@@ -181,7 +189,11 @@ class RobotSerial {
 			// Fill the packet
 			Serial.print("Adding data to packet ");
 			Serial.println(current_packet);
-			remaining_data = fill_packet(this->output_buffer, remaining_data, current_packet);
+
+			remaining_data += fill_packet(this->output_buffer, remaining_data, current_packet);
+			
+			Serial.print("Bytes remaining: ");
+			Serial.println(remaining_data);
 
 			// Set the index 
 			highest_index++;
@@ -281,26 +293,26 @@ class RobotSerial {
 		}
 	}
 
-	char* fill_packet(char* buffer, const char* new_data, uint8_t packet_number){
+	// Fill packet with new data, returns how many bytes were written
+	uint8_t fill_packet(char* buffer, const char* new_data, uint8_t packet_number){
+		// First index in the packet that doesn't have data
 		size_t start_index = space_filled(buffer, packet_number) + packet_number * PACKET_LENGTH;
+		// End of the packet
 		size_t end_index = (packet_number + 1) * PACKET_LENGTH - 1;
+		// Index to increment through input data
 		size_t data_index = 0;
+		// Total length of input data
 		size_t data_length = strlen(new_data);
+		// End index in packet
 		size_t end = data_length <= end_index ? data_length : end_index;
 		for(int i = start_index; i <= end; i++){
 			buffer[i] = new_data[data_index];
 			data_index++;
 		}
-		// CAN'T DO THIS NEED TO RETURN INDEX AND MODIFY POINTER IN CALLER
-		// Allocate buffer big enough to hold remaining data
-		char remaining_data[data_length - data_index + 1]; 
-		remaining_data[0] = '\0'; // Initialize to empty string
-		for(int i = data_index; i < data_length; i++){
-			// Return remaining data that didn't fit in packet
-			remaining_data[i - data_index] = new_data[i];
-		}
-		return remaining_data;
-		// If all the data fit, returns empty string
+
+		// return the number of bytes written
+		return data_index;
+		Serial.println(data_index); 
 	}
 
 	// Return index of first empty packet
