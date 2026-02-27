@@ -22,15 +22,6 @@ class RobotSerial {
 		this->output_buffer[0] = '\0'; // Initialize output string to empty	
 	}
 
-	// Calculate delays based on baud rate and length of packet, add 10% buffer for safety
-	// Used for initialization of timers
-	uint8_t read_delay(uint32_t baud){
-		return (uint8_t)round(((float)OUTPUT_LENGTH*10.*10000./(float)baud)*1.1);
-	}
-	uint8_t write_delay(uint32_t baud){
-		return (uint8_t)round(((float)INPUT_LENGTH*10.*10000./(float)baud)*1.1);
-	}
-
 	void begin(){
 		Serial.begin(this->baud_rate);	// Start serial communication
 		while (!Serial) { }  // only on USB-based boards, wait till serial is ready
@@ -62,10 +53,19 @@ class RobotSerial {
 		return this->add_data(output);
 	}
 
+	bool add_packet(const char* output, uint8_t packet_number){
+		return this->set_packet(this->output_buffer, output, packet_number);
+	}
+
 	// Send the next packet, delete once sent and re-index the remaining packets
 	// Will only send if the write delay has passed, otherwise returns false
 	bool send(){
 		return this->send_next_packet();
+	}
+
+	bool send(uint8_t packet_number){
+		this->send_packet(packet_number);
+		return true; // This function does not manage timing, so it always succeeds
 	}
 
 	// Not implemented yet
@@ -81,6 +81,20 @@ class RobotSerial {
 
 	// ** Input (receiving) functions **
 
+	bool read(){
+		if(is_input()){
+			return this->read_next_packet();
+		}
+		return false;
+	}
+
+	bool read(uint8_t packet_number){
+		if(is_input()){
+			return this->read_packet(packet_number);
+		}
+		return false;
+	}
+
 	// Directly return the entire input buffer
 	char* get_buffer(){
 		return this->input_buffer;
@@ -91,13 +105,15 @@ class RobotSerial {
 		return this->get_input();
 	}
 
-	// Get a packet by index
-	char* get_packet(){
-		return this->get_packet();
+	// Get an input packet by index
+	char* get_packet(uint8_t packet_number){
+		return this->retrieve_packet(this->input_buffer, packet_number);
 	};
 
-	// Get the next packet in order, delete once read and re-index the remaining packets
-	char* get_next_packet(){};
+	// Get the next input packet in order, delete once read and re-index the remaining packets
+	char* get_next_packet(){
+		return this->get_next_input_packet(); 
+	};
 
 	// Clear the entire input buffer
 	void clear_input(){
@@ -131,22 +147,22 @@ class RobotSerial {
 	// *** Direct serial functions (blocking) ***
 
 	// Pass-through read and write functions
-	char* read(){
+	char* serial_read(){
 		if (is_input()){
-			read_input();		// This is a blocking call
+			read_serial_input();		// This is a blocking call
 		}
 		return this->input_buffer;
 	}
-	void read_into(char* output_buffer, uint16_t length = PACKET_LENGTH){
+	void serial_read_into(char* output_buffer, uint16_t length = PACKET_LENGTH){
 		if (is_input()){
-			read_input();
+			read_serial_input();
 			strncpy(output_buffer, this->input_buffer, length);
 		}
 	}
-	void write(const char* output){
+	void serial_write(const char* output){
 		Serial.print(output);
 	}
-	void writeln(const char* output){
+	void serial_writeln(const char* output){
 		Serial.println(output);
 	}
 
@@ -155,9 +171,15 @@ class RobotSerial {
   private:	
 	// Declaration parameters
   	uint32_t baud_rate;
-
-	// Just for now for backwards compatability before its replaced
-	uint8_t old_read_delay = 100; 
+	
+	// Calculate delays based on baud rate and length of packet, add 10% buffer for safety
+	// Used for initialization of timers
+	uint8_t read_delay(uint32_t baud){
+		return (uint8_t)round(((float)OUTPUT_LENGTH*10.*10000./(float)baud)*1.1);
+	}
+	uint8_t write_delay(uint32_t baud){
+		return (uint8_t)round(((float)INPUT_LENGTH*10.*10000./(float)baud)*1.1);
+	}
 
 	// Hardcoded parameters
 	static constexpr size_t PACKET_LENGTH = 64;			// Max packet length from arduino serial buffer
@@ -246,15 +268,6 @@ class RobotSerial {
 		return true;
 	}
 
-	// Read data from input buffer into specified pacjet
-	char* read_packet(unit8_t packet_number){
-
-	}
-
-	// Read data from the input buffer into the
-	char* read_next_packet(){
-
-	}
 
 	// Send a specific packet from the buffer
 	void send_packet(uint8_t packet_number){
@@ -304,24 +317,68 @@ class RobotSerial {
 	// This version is not used in implementation but could be useful in future
 
 
+	char* retrieve_packet(uint8_t packet_number){
+		char buffer[PACKET_LENGTH];
+		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
+			buffer[i] = buffer[packet_number * PACKET_LENGTH + i];
+		}
+		return buffer;
+	}
+
+	// Return the contents of the next packet in order, will not re-index or clear
+	char* retrieve_next_packet(){
+		uint8_t highest_index = 0;
+		uint8_t current_packet = 0;
+
+		for(uint8_t i = 0; i < input_PACKETS; i++){
+			// Find highest index packet
+			if(output_order[i] > current_packet){
+				current_packet = i;
+				highest_index = input_order[i];
+			}
+		}
+
+		// If the highest packet is 1 or greater, return it
+		if(highest_index > 0){
+			return retrieve_packet(this->input_buffer, current_packet);
+		}
+	}
+
+	// Read data from input buffer into specified pacjet
+	char* read_packet(unit8_t packet_number){
+
+	}
+
+	// Read data from the input buffer into the next packet
+	char* read_next_packet(){
+		
+	}
+
 
 	// ** Core functions to interact with packets in buffer **
 	// Packet numbers are zero indexed
 
-	// Return the contents of a specified packet from INPUT buffer
-	char* get_packet(uint8_t packet_number){
-		char buffer[PACKET_LENGTH];
+	// Return the contents of a specified packet
+	char* retrieve_packet(char* buffer, uint8_t packet_number){
+		char packet_data[PACKET_LENGTH];
 		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
-			buffer[i] = this->input_buffer[packet_number * PACKET_LENGTH + i];
+			packet_data[i] = buffer[packet_number * PACKET_LENGTH + i];
 		}
-		return buffer;
+		return packet_data;
 	}
 	
-	// Write new data to specific packet in OUTPUT buffer
-	void write_packet(const char* new_data, uint8_t packet_number){
-		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
-			this->output_buffer[packet_number * PACKET_LENGTH + i] = new_data[i];
+	// Write new data to specific packet
+	bool set_packet(char* buffer, const char* new_data, uint8_t packet_number){
+		if (packet_number >= OUTPUT_PACKETS){
+			return false; // Invalid packet number
 		}
+		if (strlen(new_data) > PACKET_LENGTH){
+			return false; // Data too long for packet
+		}
+		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
+			buffer[packet_number * PACKET_LENGTH + i] = new_data[i];
+		}
+		return true;
 	}
 
 	// The rest of these can be applied to any buffer with same structure
@@ -402,8 +459,8 @@ class RobotSerial {
 	}
 
 	// The old blocking read function
-	void read_input(){
-		delay(old_read_delay);
+	void read_serial_input(){
+		delay(read_delay(baud_rate));
 		uint16_t index = 0;
 		while(Serial.available()){	
 			int c = Serial.read();		// Returns int, -1 if no data available

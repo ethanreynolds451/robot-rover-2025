@@ -1,0 +1,63 @@
+Public:
+    begin()                start serial functions 
+    update()               non-blocking loop function for serial read / write
+    
+    * Note: packet-specific functions ignore indexing system, will not interfere with 
+            indexed packets but may be overwritten if indexing calls are used after
+    
+    add()                               add data to output buffer, returns true if successful
+    add_packet(const char*, uint8_t)    add data to specific packet in output buffer, returns true if successful
+    clear_output()                      clear the entire output buffer
+
+    send()                              send the next packet, delete once sent and re-index the remaining packets, returns true if successful
+    send(uint8_t)                       send a specific packet
+
+    get()                               return the contents of the input buffer, sorted by packet order
+    get_buffer()                        return the entire input buffer without sorting
+    get_packet(uint8_t)                 return the contents of a specified packet from INPUT buffer
+    get_next_packet()                   return the next packet from the input buffer in order, delete and re-index
+    + into versions
+
+    read()                              read from serial buffer into next available packet, returns true if successful                
+    read(uint8_t)                       read into a specific packet from the serial buffer, returns true if successful     
+
+    serial_write(const char*)                pass-through write function (Serial.print)
+    serial_writeln(const char*)              pass-through writeln function (Serial.println)
+    serial_read()                            pass-through read function, blocking, returns serial buffer
+    serial_read_into(char*, uint16_t)        pass-through read function, blocking, writes into provided buffer
+
+Private:
+    read_delay(uint32_t)              get read delay from baud rate, +10% for safety margin     
+    write_delay(uint32_t)             get write delay from baud rate, +10% for safety margin
+
+    add_data(const char*)             add data to output buffer, return true if successful, false if not enough space
+    send_packet(uint8_t)              
+    send_next_packet()
+
+
+    *retrieve_packet()
+    *retrieve_next_packet()
+    *read_packet(uint8_t)
+    *read_next_packet()
+
+
+    Buffer Management: 
+
+    Basic read write
+    retrieve_packet(uint8_t)                 return the contents of a specified packet
+    set_packet(const char*, uint8_t)         write new data to specific packet
+    
+    fill_packet()                   fill a specific packet with data, return number of characters written, will not write more than packet length and will not overwrite existing data
+    space_filled()                  space filled in single specified packet
+    space_remaining()               space remaining in single specified packet
+    total_space_filled()            space filled in entire buffer
+    total_space_remaining()         space remianing in entire buffer
+    clear_packet()                  clear a single packet in the specified buffer
+    clear_data()                    clear all packets in the specified buffer
+
+
+    Basic Serial:
+
+    is_input()                          check if there is serial input available
+    read_serial_input()                 blocking read function, read all available serial input into buffer, called by read() and read_into()
+
