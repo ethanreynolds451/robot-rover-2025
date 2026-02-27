@@ -32,20 +32,20 @@ Private:
 
     add_data(const char*)             add data to output buffer, return true if successful, false if not enough space
     send_packet(uint8_t)              
-    send_next_packet()
+    send_next_packet()  
 
 
-    *retrieve_packet()
-    *retrieve_next_packet()
-    *read_packet(uint8_t)
-    *read_next_packet()
+    retrieve_packet()
+    retrieve_next_packet()
+    *read_packet(uint8_t)             if there is data available, read it into specified packet, return true
+    *read_next_packet()               if there is data available, read it into the next packet in order, return true
 
 
     Buffer Management: 
 
     Basic read write
-    retrieve_packet(uint8_t)                 return the contents of a specified packet
-    set_packet(const char*, uint8_t)         write new data to specific packet
+    get_packet_in(buffer, uint8_t)                 return the contents of a specified packet
+    set_packet_in(buffer, const char*, uint8_t)         write new data to specific packet
     
     fill_packet()                   fill a specific packet with data, return number of characters written, will not write more than packet length and will not overwrite existing data
     space_filled()                  space filled in single specified packet

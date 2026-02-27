@@ -54,7 +54,7 @@ class RobotSerial {
 	}
 
 	bool add_packet(const char* output, uint8_t packet_number){
-		return this->set_packet(this->output_buffer, output, packet_number);
+		return this->set_packet_in(this->output_buffer, output, packet_number);
 	}
 
 	// Send the next packet, delete once sent and re-index the remaining packets
@@ -208,6 +208,8 @@ class RobotSerial {
 
 	// ** Intermediate functions to manage data in buffer **
 
+	// ** OUTPUT management **
+
 	// Add data to output buffer, returns true if successful
 	bool add_data(const char* data){
 		// Must be a null terminated string
@@ -316,7 +318,9 @@ class RobotSerial {
 	bool send_next_packet_with_validation(){}
 	// This version is not used in implementation but could be useful in future
 
+	// ** INPUT management **
 
+	// Retrieve a specific packet from input
 	char* retrieve_packet(uint8_t packet_number){
 		char buffer[PACKET_LENGTH];
 		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
@@ -325,8 +329,9 @@ class RobotSerial {
 		return buffer;
 	}
 
-	// Return the contents of the next packet in order, will not re-index or clear
+	// Return the contents of the next input packet in order, clear and re-index
 	char* retrieve_next_packet(){
+		char buffer[PACKET_LENGTH];
 		uint8_t highest_index = 0;
 		uint8_t current_packet = 0;
 
@@ -340,18 +345,87 @@ class RobotSerial {
 
 		// If the highest packet is 1 or greater, return it
 		if(highest_index > 0){
-			return retrieve_packet(this->input_buffer, current_packet);
+			// Copy the packet to a buffer
+			strncpy(buffer, retrieve_packet(this->input_buffer, current_packet), PACKET_LENGTH);
+
+			// Clear the packet
+			clear_packet(this->input_buffer, current_packet);
+
+			// Re-index the remaining packets
+			for(uint8_t i = 0; i < INPUT_PACKETS; i++){
+				if(input_order[i] > 1){
+					input_order[i]--;
+				} else if(input_order[i] == 1){
+					input_order[i] = 0; // Clear the sent packet index
+				}
+			}
+
+			return buffer;
 		}
 	}
 
-	// Read data from input buffer into specified pacjet
-	char* read_packet(unit8_t packet_number){
-
+	// Read data from serial input buffer into specified packet
+	// Return true of successful, false if no data available 
+	// Written by AI, test and verify
+	bool read_packet(unit8_t packet_number){
+		clear_packet(this->input_buffer, packet_number); // Clear the packet before writing new data
+		uint16_t index = 0;
+		if(is_input()){
+			while(Serial.available()){	
+				int c = Serial.read();		// Returns int, -1 if no data available
+				if (c < 0) break; // Safety to ensure invalid character isn't read
+				this->input_buffer[packet_number * PACKET_LENGTH + index] = (char)c;	// Need to cast to char
+				if(index == PACKET_LENGTH - 1){
+					break;
+				}
+				index++;
+			}
+			this->input_buffer[packet_number * PACKET_LENGTH + index] = '\0'; // Null-terminate the string
+			return true;
+		}
+		return false;
 	}
 
-	// Read data from the input buffer into the next packet
-	char* read_next_packet(){
-		
+
+	// Note: this should be re-written to share lower level functions with the add_data function but I didn't feel like it
+
+	// Uses same implementation as the add function to fill the highest packet then move on to empty packets, but with the read buffer instead of the output buffer
+	// Will only read if there is data available, otherwise returns false
+	// If there is an overflow, the lowest packet will be cleared and data will be read into it, continuing until all data is read
+	// AI wrote this, need to test
+	bool read_next_packet() {
+		uint8_t highest_packet = 0;
+		uint16_t index = 0;
+
+		// Check for available data
+		if (is_input()) {
+			// Read data into the highest packet first
+			while (Serial.available()) {
+				int c = Serial.read();
+				if (c < 0) break; // Safety check
+
+				// If we have reached the end of the highest packet, move to the next
+				if (index >= PACKET_LENGTH) {
+					highest_packet++;
+					index = 0;
+				}
+
+				// If we exceed the number of input packets, clear the lowest one
+				if (highest_packet >= INPUT_PACKETS) {
+					clear_packet(this->input_buffer, 0); // Clear the lowest packet
+					highest_packet = 0; // Reset to start filling from the lowest packet
+				}
+
+				// Store the character in the appropriate packet
+				this->input_buffer[highest_packet * PACKET_LENGTH + index] = (char)c;
+				index++;
+			}
+
+			// Null-terminate the last packet
+			this->input_buffer[highest_packet * PACKET_LENGTH + index] = '\0';
+			return true;
+		}
+		return false;
 	}
 
 
@@ -359,7 +433,7 @@ class RobotSerial {
 	// Packet numbers are zero indexed
 
 	// Return the contents of a specified packet
-	char* retrieve_packet(char* buffer, uint8_t packet_number){
+	char* get_packet_in(char* buffer, uint8_t packet_number){
 		char packet_data[PACKET_LENGTH];
 		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
 			packet_data[i] = buffer[packet_number * PACKET_LENGTH + i];
@@ -368,7 +442,7 @@ class RobotSerial {
 	}
 	
 	// Write new data to specific packet
-	bool set_packet(char* buffer, const char* new_data, uint8_t packet_number){
+	bool set_packet_in(char* buffer, const char* new_data, uint8_t packet_number){
 		if (packet_number >= OUTPUT_PACKETS){
 			return false; // Invalid packet number
 		}
