@@ -18,8 +18,13 @@ class RobotSerial {
       	write_timer(write_delay(baud_rate))
 	{
 		// These buffers are handled using packets, not as full strings
-		this->input_buffer[0] = '\0';	// Initialize input string to empty
-		this->output_buffer[0] = '\0'; // Initialize output string to empty	
+		// Initialize all characters in buffers to nuill character
+		for(uint16_t i = 0; i < INPUT_LENGTH; i++){
+			this->input_buffer[i] = '\0';
+		}
+		for(uint16_t i = 0; i < OUTPUT_LENGTH; i++){
+			this->output_buffer[i] = '\0';
+		}
 	}
 
 	void begin(){
@@ -31,17 +36,21 @@ class RobotSerial {
 	void update(){
 		// If there is outgoing data and the send delay has passed, send it
 		if (this->write_timer.passed()){
-			if(total_space_filled(this->output_buffer) > 0){
+			if(total_space_filled(this->output_buffer, OUTPUT_PACKETS) > 0){
 				this->send_next_packet();
 			}
 		}
 		// If there is incoming data and the read delay has passed, read it into buffer
 		if(this->read_timer.passed()){
-			if(is_input()){
-				this->read_next_packet();
-			}
+			// Already checks if there is data available
+			this->read_next_packet();
 		}
 	}
+
+	size_t available(){
+		return total_space_filled(this->input_buffer, INPUT_PACKETS);
+	}
+
 
 	// *** Buffer manipulation functions ***
 
@@ -75,7 +84,7 @@ class RobotSerial {
 
 	// Clear the entire output buffer
 	void clear_output(){
-		clear_data(this->output_buffer);
+		clear_data(this->output_buffer, OUTPUT_LENGTH);
 	}
 
 
@@ -96,28 +105,34 @@ class RobotSerial {
 	}
 
 	// Directly return the entire input buffer
-	char* get_buffer(){
-		return this->input_buffer;
+	void get_buffer(char* return_buffer, uint16_t length = INPUT_LENGTH){
+		char* data = this->input_buffer;		// Declare a pointer to the input buffer
+		strncpy(return_buffer, data, length);
 	}
 
-	// Sort the packets and return data in order
+	// Sort the packets and return data in order, clear and re-index to zero
 	char* get(){
-		return this->get_input();
+		if(total_space_filled(this->input_buffer, INPUT_PACKETS) == 0){
+			//Serial.println("No data available to return"); // Debugging statement to verify no data is available
+			return nullptr; // No data to return
+		} else {
+			return this->get_input();
+		}
 	}
 
 	// Get an input packet by index
 	char* get_packet(uint8_t packet_number){
-		return this->retrieve_packet(this->input_buffer, packet_number);
+		return this->get_packet_in(this->input_buffer, packet_number);
 	};
 
 	// Get the next input packet in order, delete once read and re-index the remaining packets
 	char* get_next_packet(){
-		return this->get_next_input_packet(); 
+		return this->retrieve_next_packet(); 
 	};
 
 	// Clear the entire input buffer
 	void clear_input(){
-		clear_data(this->input_buffer);
+		clear_data(this->input_buffer, INPUT_LENGTH);
 	}
 
 	// Get functions into a provided buffer, will only copy up to the specified length to avoid overflow
@@ -128,11 +143,8 @@ class RobotSerial {
 		strncpy(return_buffer, ordered_data, length);
 	}
 
-	// For raw buffer
-	void get_buffer_into(char* return_buffer, uint16_t length = INPUT_LENGTH){
-		char* data = this->get_buffer();
-		strncpy(return_buffer, data, length);
-	}
+
+
 
 	void get_packet_into(char* return_buffer, uint8_t packet_number, uint16_t length = INPUT_LENGTH){
 		char* data = this->get_packet(packet_number);
@@ -218,7 +230,7 @@ class RobotSerial {
 		}
 
 		// Make sure there is enough space in the buffer
-		if(total_space_remaining(this->output_buffer) < strlen(data)){
+		if(total_space_remaining(this->output_buffer, OUTPUT_PACKETS, OUTPUT_LENGTH) < strlen(data)){
 			return false; // Not enough space to add data
 		}
 
@@ -228,7 +240,7 @@ class RobotSerial {
 		const char* remaining_data = data;
 
 		// Try to fill the latest partially filled packet if there is one
-		if(total_space_filled(this->output_buffer) > 0){
+		if(total_space_filled(this->output_buffer, OUTPUT_PACKETS) > 0){
 			for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
 				// Find highest index packet
 				if(output_order[i] > current_packet){
@@ -335,7 +347,7 @@ class RobotSerial {
 		uint8_t highest_index = 0;
 		uint8_t current_packet = 0;
 
-		for(uint8_t i = 0; i < input_PACKETS; i++){
+		for(uint8_t i = 0; i < INPUT_PACKETS; i++){
 			// Find highest index packet
 			if(output_order[i] > current_packet){
 				current_packet = i;
@@ -346,7 +358,7 @@ class RobotSerial {
 		// If the highest packet is 1 or greater, return it
 		if(highest_index > 0){
 			// Copy the packet to a buffer
-			strncpy(buffer, retrieve_packet(this->input_buffer, current_packet), PACKET_LENGTH);
+			strncpy(buffer, get_packet_in(this->input_buffer, current_packet), PACKET_LENGTH);
 
 			// Clear the packet
 			clear_packet(this->input_buffer, current_packet);
@@ -364,10 +376,42 @@ class RobotSerial {
 		}
 	}
 
+	// Written by AI, need to check
+	char* get_input() {
+		char buffer[INPUT_LENGTH];
+		uint8_t current_packet = 0;
+		uint8_t highest_index = 0;
+
+		for(uint8_t i = 0; i < INPUT_PACKETS; i++){
+			// Find highest index packet
+			if(input_order[i] > current_packet){
+				current_packet = i;
+				highest_index = input_order[i];
+			}
+		}
+
+		// If there is data in the buffer, return it in order
+		if(highest_index > 0){
+			size_t buffer_index = 0;
+			for(uint8_t index = 1; index <= highest_index; index++){
+				for(uint8_t i = 0; i < INPUT_PACKETS; i++){
+					if(input_order[i] == index){
+						strncpy(buffer + buffer_index, get_packet_in(this->input_buffer, i), PACKET_LENGTH);
+						buffer_index += space_filled(this->input_buffer, i);
+						break;
+					}
+				}
+			}
+			return buffer;
+		} else {
+			return nullptr; // No data to return
+		}
+	}
+	
 	// Read data from serial input buffer into specified packet
 	// Return true of successful, false if no data available 
 	// Written by AI, test and verify
-	bool read_packet(unit8_t packet_number){
+	bool read_packet(uint8_t packet_number){
 		clear_packet(this->input_buffer, packet_number); // Clear the packet before writing new data
 		uint16_t index = 0;
 		if(is_input()){
@@ -399,6 +443,7 @@ class RobotSerial {
 
 		// Check for available data
 		if (is_input()) {
+			//Serial.println("Data available, reading into buffer..."); // Debugging statement
 			// Read data into the highest packet first
 			while (Serial.available()) {
 				int c = Serial.read();
@@ -483,7 +528,7 @@ class RobotSerial {
 	size_t space_filled(char* buffer, uint8_t packet){
 		uint8_t index = 0;
 		// Can't use strlen for this because contiguous packets may also be filled
-		for(int i = 0; i < PACKET_LENGTH; i++){
+		for(uint8_t i = 0; i < PACKET_LENGTH; i++){
 			if(buffer[packet * PACKET_LENGTH + i] != '\0'){
 				index++;
 			}
@@ -495,16 +540,16 @@ class RobotSerial {
 		return PACKET_LENGTH - space_filled(buffer, packet);
 	}
 
-	size_t total_space_filled(char* buffer){
+	size_t total_space_filled(char* buffer, uint8_t number_of_packets){
 		size_t total = 0;
-		for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
+		for(uint8_t i = 0; i < number_of_packets; i++){
 			total += space_filled(buffer, i);
 		}
 		return total;
 	}
 
-	size_t total_space_remaining(char* buffer){
-		return OUTPUT_LENGTH - total_space_filled(buffer);
+	size_t total_space_remaining(char* buffer, uint8_t number_of_packets, uint8_t total_length){
+		return total_length - total_space_filled(buffer, number_of_packets);
 	}
 
 	// Write null characters to specific packet in buffer
@@ -515,9 +560,8 @@ class RobotSerial {
 	}
 
 	// Write null characters to entire buffer
-	void clear_data(char* buffer){
-		size_t length = sizeof(buffer)/sizeof(buffer[0]);
-		for(uint16_t i = 0; i < length; i++){
+	void clear_data(char* buffer, size_t length) {
+		for (size_t i = 0; i < length; i++) {
 			buffer[i] = '\0';
 		}
 	}

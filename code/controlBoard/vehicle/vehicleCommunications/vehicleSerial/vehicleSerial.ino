@@ -9,7 +9,7 @@ void setup(){
     computer.add("Hello ");
     computer.add("World!\n");
     computer.add("This is a really long string of text that will not fit in a single 64 byte packet. It is being added to test functionality of the packet management feature.\n");
-    if(computer.add("This text will overflow the buffer. It is being added to verify that the safeguards to handle buffer overflow are in place and working properly. asfhqiluwehriluwahflkuahweslukfghawelsujgfluqweagfahjklfdasbhjsdfgbfdjklassdbfjklsdhajkflhewaskljdfghklweajsgflkjashdfeilqwhflukqjweghaqgfliueghsaklfjhweqailsuekfhwlqeiufgh")){
+    if(computer.add("This text will overflow the buffer. It is being added to verify that the safeguards to handle buffer overflow are in place and working properly. asfhqiluwehriluwahflkuahweslukfghawelsujgfluqweagfahjklfdasbhjsdfgbfdjklassdbfjklsdhajkflhewaskljdfghklweajsgflkjashdfeilqwhflukqjweghaqgfliueghsaklfjhweqailsuekfhwlqeiufghewlqihstoiuqewhfiuqwelhjfipmoqewhrdcoaiuwhlrcawihemrsñjqmoiwepahfiqlwñaefjdpoiqwñelahdjljrqlwekhjasfiopañljsfpmilqwjeciorlmhwerp,fqñjierxpqolñihrejpiocmaopwmrhAIPWMEFPIOAJEIMFHWA,EIUWHMF")){
       Serial.println("This shouldn't be happening"); 
     } else {
       Serial.println("A packet wasn't added because it was too long"); 
@@ -19,5 +19,13 @@ void setup(){
 
 void loop(){
     computer.update();
+    if(computer.available()){
+      // Serial.println(computer.available());
+        // Degug why isn't this zero?
+      // Serial.println(computer.get_buffer());
+        // Debug: is there actually anyting in there?
+      Serial.print("Received: ");
+      Serial.println(computer.get());
+    }
     delay(1000); 
 }
