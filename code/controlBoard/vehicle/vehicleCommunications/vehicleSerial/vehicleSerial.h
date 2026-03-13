@@ -13,16 +13,18 @@
 class RobotSerial {
   public:
 	RobotSerial(uint32_t baud_rate) 
-		: baud_rate(baud_rate), 
-	    read_timer(read_delay(baud_rate)),
-      	write_timer(write_delay(baud_rate))
+		: baud_rate(baud_rate), 				// Store the baud rate input
+	    read_timer(read_delay(baud_rate)),		// Use baud rate to calculate appropriate read delay, initialize timer
+      	write_timer(write_delay(baud_rate))		// Use baud rate to calculate appropriate write delay, initialize timer
 	{
 		// These buffers are handled using packets, not as full strings
-		// Initialize all characters in buffers to nuill character
+		// Initialize all characters in buffers to null character
 		for(uint16_t i = 0; i < INPUT_LENGTH; i++){
+			// Write null character to each position in the memory buffer
 			this->input_buffer[i] = '\0';
 		}
 		for(uint16_t i = 0; i < OUTPUT_LENGTH; i++){
+			// Write null character to each position in the memory buffer
 			this->output_buffer[i] = '\0';
 		}
 	}
@@ -32,25 +34,29 @@ class RobotSerial {
 		while (!Serial) { }  // only on USB-based boards, wait till serial is ready
 	}
 
-	// Non-blocking loop function 
+	// Update function called in main program loop, manages timing of reads and writes
 	void update(){
 		// If there is outgoing data and the send delay has passed, send it
 		if (this->write_timer.passed()){
-			if(total_space_filled(this->output_buffer, OUTPUT_PACKETS) > 0){
-				this->send_next_packet();
-			}
+			// Sends next packet in output buffer over serial if there is data to send
+			this->send_next_packet();
 		}
 		// If there is incoming data and the read delay has passed, read it into buffer
 		if(this->read_timer.passed()){
-			// Already checks if there is data available
+			// Reads from serial buffer into input buffer if data available
 			this->read_next_packet();
 		}
 	}
 
+	// Return the number of bytes available to retrieve from the input buffer
 	size_t available(){
 		return total_space_filled(this->input_buffer, INPUT_PACKETS);
 	}
 
+	// Return the amount of space left in the output buffer to read new data
+	size_t free(){
+		return total_space_remaining(this->output_buffer, OUTPUT_PACKETS, OUTPUT_LENGTH);
+	}
 
 	// *** Buffer manipulation functions ***
 
@@ -298,32 +304,35 @@ class RobotSerial {
 	
 	// Send the next packet, clear and re-index
 	bool send_next_packet(){
-		// Find packet with index 1
-		uint8_t current_packet = 0;
-		for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
-			if(output_order[i] == 1){
-				current_packet = i;
-				break;
+		// Make sure there is data in the buffer before trying to send
+		if(total_space_filled(this->output_buffer, OUTPUT_PACKETS) > 0){
+			// Find packet with index 1
+			uint8_t current_packet = 0;
+			for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
+				if(output_order[i] == 1){
+					current_packet = i;
+					break;
+				}
+				// No packet with index 1 found, buffer is empty
+				return false;
 			}
-			// No packet with index 1 found, buffer is empty
-			return false;
-		}
 
-		// Send the packet (automatically selects output buffer)
-		send_packet(current_packet);
+			// Send the packet (automatically selects output buffer)
+			send_packet(current_packet);
 
-		// Clear the packet
-		clear_packet(this->output_buffer, current_packet);
+			// Clear the packet
+			clear_packet(this->output_buffer, current_packet);
 
-		// Re-index the remaining packets
-		for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
-			if(output_order[i] > 1){
-				output_order[i]--;
-			} else if(output_order[i] == 1){
-				output_order[i] = 0; // Clear the sent packet index
+			// Re-index the remaining packets
+			for(uint8_t i = 0; i < OUTPUT_PACKETS; i++){
+				if(output_order[i] > 1){
+					output_order[i]--;
+				} else if(output_order[i] == 1){
+					output_order[i] = 0; // Clear the sent packet index
+				}
 			}
+			return true; 
 		}
-		return true; 
 	}
 
 	// Don't clear or re-index until a validation response is received
@@ -443,7 +452,7 @@ class RobotSerial {
 
 		// Check for available data
 		if (is_input()) {
-			//Serial.println("Data available, reading into buffer..."); // Debugging statement
+			// Serial.println("Data available, reading into buffer..."); // Debugging statement
 			// Read data into the highest packet first
 			while (Serial.available()) {
 				int c = Serial.read();

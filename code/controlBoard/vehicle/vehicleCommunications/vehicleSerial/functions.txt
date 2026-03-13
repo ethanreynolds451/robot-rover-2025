@@ -2,6 +2,11 @@ Public:
     begin()                start serial functions 
     update()               non-blocking loop function for serial read / write
     
+    available()            number of bytes of data available to retrieve
+    free()                 number of bytes free to read new data from the serial buffer
+
+    ---checked to here---
+
     * Note: packet-specific functions ignore indexing system, will not interfere with 
             indexed packets but may be overwritten if indexing calls are used after
     
