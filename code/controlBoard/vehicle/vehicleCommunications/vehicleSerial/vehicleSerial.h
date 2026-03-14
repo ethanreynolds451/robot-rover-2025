@@ -60,7 +60,6 @@ class RobotSerial {
 
 	// *** Buffer manipulation functions ***
 
-
 	// ** Output (sending) functions **
 
 	// Add data to the output buffer, return true if successful, false if not enough space
@@ -110,25 +109,32 @@ class RobotSerial {
 		return false;
 	}
 
+	// Data retrieving functions
+
 	// Directly return the entire input buffer
-	void get_buffer(char* return_buffer, uint16_t length = INPUT_LENGTH){
+	bool get_buffer(char* return_buffer, uint16_t length = INPUT_LENGTH){
 		char* data = this->input_buffer;		// Declare a pointer to the input buffer
-		strncpy(return_buffer, data, length);
+		if(strlen(data) == 0){
+			return false; // No data to		 return
+		}
+		strncpy(return_buffer, data, length);	// Copy the data to the return buffer up to specified length
+		return true; 							// Data successfully copied to return buffer
 	}
 
 	// Sort the packets and return data in order, clear and re-index to zero
-	char* get(){
+	bool get(char* return_buffer, uint16_t length = INPUT_LENGTH){
 		if(total_space_filled(this->input_buffer, INPUT_PACKETS) == 0){
-			//Serial.println("No data available to return"); // Debugging statement to verify no data is available
-			return nullptr; // No data to return
-		} else {
-			return this->get_input();
-		}
+			return false; 						// No data to return
+		this->get(return_buffer, length);		// Get the ordered data from the input buffer
+		return true;
 	}
 
 	// Get an input packet by index
-	char* get_packet(uint8_t packet_number){
-		return this->get_packet_in(this->input_buffer, packet_number);
+	bool get_packet(uint8_t packet_number, unit16_t length = PACKET_LENGTH){
+		if(space_filled(this->input_buffer, packet_number) == 0){
+			return false; 						// No data in this packet to return
+		}
+		this->get_packet_in(this->input_buffer, packet_number);
 	};
 
 	// Get the next input packet in order, delete once read and re-index the remaining packets

@@ -7,15 +7,15 @@ namespace Pin {
 	//Digital
 	// pins 0 and 1 are used for serial communication
 	static constexpr uint8_t brake = 2;				// relay 1
-	static constexpr uint8_t headlight = 3;			// power_module_1, pwm
+	static constexpr uint8_t speed = 3;				// power_module_1, pwm
 	static constexpr uint8_t reverse_1 = 4;			// relay 2
-	static constexpr uint8_t fan = 5;				// pwm
+	static constexpr uint8_t fan = 5;				// pwm pin for fan
 	static constexpr uint8_t shift_2 = 6;		  	// relay 6
 	static constexpr uint8_t s_reverse_1 = 7;		// relay 5
 	static constexpr uint8_t s_reverse_2 = 8;		// relay 4
-	static constexpr uint8_t speed = 9;			// power_module_2, pwm
-	static constexpr uint8_t s_speed = 10;			// power_module_3, pwm
-	static constexpr uint8_t power_module_4 = 11;	// power_module_4, pwm
+	static constexpr uint8_t s_speed = 9;			// power_module_2, pwm
+	static constexpr uint8_t headlight = 10;		// power_module_3, pwm
+	static constexpr uint8_t power_module_4 = 11;	// power_module_4, pwm (unassigned)
 	static constexpr uint8_t reverse_2 = 12;		// relay 3
 	static constexpr uint8_t shift_1 = 13;   		// relay 7
 	//Analog

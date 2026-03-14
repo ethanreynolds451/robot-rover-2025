@@ -5,7 +5,6 @@ Public:
     available()            number of bytes of data available to retrieve
     free()                 number of bytes free to read new data from the serial buffer
 
-    ---checked to here---
 
     * Note: packet-specific functions ignore indexing system, will not interfere with 
             indexed packets but may be overwritten if indexing calls are used after
@@ -16,6 +15,8 @@ Public:
 
     send()                              send the next packet, delete once sent and re-index the remaining packets, returns true if successful
     send(uint8_t)                       send a specific packet
+
+    ---checked to here---
 
     get()                               return the contents of the input buffer, sorted by packet order
     get_buffer()                        return the entire input buffer without sorting

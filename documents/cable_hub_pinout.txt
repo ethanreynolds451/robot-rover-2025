@@ -53,11 +53,11 @@ Front
 4   Side ToF (x2)
 5   Rear Ultrasonic + ToF
 
-6   Display Cable 1 (LCD Pannel, one extra wire)
-7   Display Cable 2 (LCD Pannel, + Battery Display, two extra wires)
+6   Display Cable 1 (LCD Pannel, IR signal)
+7   Display Cable 2 (LCD Pannel, + Battery Display, IR power)
 8   Display Cable 3 (Battery Display)
-9   IR Sensor + 5 unused wires (to console junction box)
-10  Steering Feedback + 4 unused wires (to rear junction box)
+9   Front Signal Wire (Headlight, Horn, 4 unused)
+10  Steering Feedback + Temperature + 2 unused wires (to rear junction box)
 
 
 Board Out (upside down)

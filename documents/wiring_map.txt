@@ -96,9 +96,16 @@ IR Sensor (white four-wire cable)
     VCC             red     -> brown-white          Display 2 green-white
     GND             black   -> brown                Display 2 green
     Signal          yellow  -> blue                 Display 1 green-white
-    *NC             green   -> blue-white
+    *NC             green
 
-  
-Thermistor (two-wire cable)
-    Wire 1          black
-    Wire 2          black-white
+Front Signal Wire
+    Horn
+        +           blue-white
+        -           blue
+    Headlights
+        +           brown-white
+        -           brown
+
+Thermistor (two-wire cable) - to steering feedback 
+    Wire 1          black           -> orange
+    Wire 2          black-white     -> orange-white
