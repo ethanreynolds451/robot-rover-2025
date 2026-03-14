@@ -130,16 +130,21 @@ class RobotSerial {
 	}
 
 	// Get an input packet by index
-	bool get_packet(uint8_t packet_number, unit16_t length = PACKET_LENGTH){
+	bool get_packet(char* return_buffer, uint8_t packet_number, unit16_t length = PACKET_LENGTH){
 		if(space_filled(this->input_buffer, packet_number) == 0){
 			return false; 						// No data in this packet to return
 		}
-		this->get_packet_in(this->input_buffer, packet_number);
+		this->get_packet_in(return_buffer, this->input_buffer, packet_number);
+		return true;
 	};
 
 	// Get the next input packet in order, delete once read and re-index the remaining packets
-	char* get_next_packet(){
-		return this->retrieve_next_packet(); 
+	bool get_next_packet(char* return_buffer, uint8_t packet_number, uint16_t length = PACKET_LENGTH){
+		if(space_filled(this->input_buffer, packet_number) == 0){
+			return false; 						// No data in this packet to return
+		}
+		this->retrieve_next_packet(return_buffer);
+		return true;
 	};
 
 	// Clear the entire input buffer
@@ -147,37 +152,10 @@ class RobotSerial {
 		clear_data(this->input_buffer, INPUT_LENGTH);
 	}
 
-	// Get functions into a provided buffer, will only copy up to the specified length to avoid overflow
-
-	// For ordered packets
-	void get_into(char* return_buffer, uint16_t length = INPUT_LENGTH){
-		char* ordered_data = this->get();
-		strncpy(return_buffer, ordered_data, length);
-	}
-
-
-
-
-	void get_packet_into(char* return_buffer, uint8_t packet_number, uint16_t length = INPUT_LENGTH){
-		char* data = this->get_packet(packet_number);
-		strncpy(return_buffer, data, length);
-	}
-
-	void get_next_packet_into(char* return_buffer, uint16_t length = INPUT_LENGTH){
-		char* data = this->get_next_packet();
-		strncpy(return_buffer, data, length);
-	}
-
 	// *** Direct serial functions (blocking) ***
 
 	// Pass-through read and write functions
-	char* serial_read(){
-		if (is_input()){
-			read_serial_input();		// This is a blocking call
-		}
-		return this->input_buffer;
-	}
-	void serial_read_into(char* output_buffer, uint16_t length = PACKET_LENGTH){
+	void serial_read(char* output_buffer, uint16_t length = PACKET_LENGTH){
 		if (is_input()){
 			read_serial_input();
 			strncpy(output_buffer, this->input_buffer, length);
@@ -347,18 +325,20 @@ class RobotSerial {
 
 	// ** INPUT management **
 
-	// Retrieve a specific packet from input
-	char* retrieve_packet(uint8_t packet_number){
-		char buffer[PACKET_LENGTH];
-		for(uint16_t i = 0; i < PACKET_LENGTH; i++){
-			buffer[i] = buffer[packet_number * PACKET_LENGTH + i];
+	// Retrieve a specific packet from given buffer
+	bool retrieve_packet(char* return_buffer, char* buffer, uint8_t packet_number, size_t length = PACKET_LENGTH){
+		if((space_filled(buffer, packet_number) == 0)
+			|| (length < space_filled(buffer, packet_number))){
+			return false; 						// No data in this packet or not enough space to hold it
 		}
-		return buffer;
+		for(uint16_t i = 0; i < length; i++){
+			return_buffer[i] = buffer[packet_number * PACKET_LENGTH + i];
+		}
+		return true;
 	}
 
-	// Return the contents of the next input packet in order, clear and re-index
-	char* retrieve_next_packet(){
-		char buffer[PACKET_LENGTH];
+	// Return the contents of the next packet in order, clear and re-index
+	bool retrieve_next_packet(char* return_buffer, char* buffer){
 		uint8_t highest_index = 0;
 		uint8_t current_packet = 0;
 

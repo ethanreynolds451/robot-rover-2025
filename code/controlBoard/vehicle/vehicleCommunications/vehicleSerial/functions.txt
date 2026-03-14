@@ -16,21 +16,19 @@ Public:
     send()                              send the next packet, delete once sent and re-index the remaining packets, returns true if successful
     send(uint8_t)                       send a specific packet
 
-    ---checked to here---
+    read()                              read from serial buffer into next available packet, returns true if successful                
+    read(uint8_t)                       read into a specific packet from the serial buffer, returns true if successful     
 
     get()                               return the contents of the input buffer, sorted by packet order
     get_buffer()                        return the entire input buffer without sorting
     get_packet(uint8_t)                 return the contents of a specified packet from INPUT buffer
     get_next_packet()                   return the next packet from the input buffer in order, delete and re-index
-    + into versions
 
-    read()                              read from serial buffer into next available packet, returns true if successful                
-    read(uint8_t)                       read into a specific packet from the serial buffer, returns true if successful     
+        ---checked to here---
 
     serial_write(const char*)                pass-through write function (Serial.print)
     serial_writeln(const char*)              pass-through writeln function (Serial.println)
-    serial_read()                            pass-through read function, blocking, returns serial buffer
-    serial_read_into(char*, uint16_t)        pass-through read function, blocking, writes into provided buffer
+    serial_read(char*, uint16_t)             pass-through read function, blocking, writes into provided buffer
 
 Private:
     read_delay(uint32_t)              get read delay from baud rate, +10% for safety margin     
