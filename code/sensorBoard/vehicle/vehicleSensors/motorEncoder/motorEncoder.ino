@@ -1,7 +1,9 @@
-#include "motorEncoder.h"
+#include <Arduino.h>
+#include <Encoder.h>
 
-#include "Encoder/Encoder.cpp"
 #include "Encoder/Encoder.h"
+
+#include "motorEncoder.h"
 
 #define PIN_A 2
 #define PIN_B 3

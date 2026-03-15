@@ -1,6 +1,6 @@
 #ifndef VEHICLESENSORS_h
 #define VEHICLESENSORS_h
 
-#include "ir/ir.h"
+#include "irSensor/irSensor.h"
 
 #endif

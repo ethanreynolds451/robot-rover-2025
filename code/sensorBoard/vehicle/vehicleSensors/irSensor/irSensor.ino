@@ -1,4 +1,6 @@
-#include <IRremote.h>
+//#include <IRremote.h>
+
+#include "IRremote-4.4.1/src/IRremote.h"
 
 #include "irSensor.h"
 
