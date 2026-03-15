@@ -11,6 +11,7 @@ irSensor testIR(IR_PIN);
 void setup() {
   Serial.begin(9600); 
   testIR.begin(); 
+  Serial.println("Initiated IR sensor"); 
 }
 
 void loop() {

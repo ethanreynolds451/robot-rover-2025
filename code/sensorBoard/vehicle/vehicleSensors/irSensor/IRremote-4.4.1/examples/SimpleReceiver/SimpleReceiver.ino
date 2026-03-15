@@ -70,6 +70,8 @@
 #include "PinDefinitionsAndMore.h"
 #include <IRremote.hpp> // include the library
 
+//#define IR_RECEIVE_PIN 4  // Redefinition to override default
+
 void setup() {
     Serial.begin(115200);
     while (!Serial)
