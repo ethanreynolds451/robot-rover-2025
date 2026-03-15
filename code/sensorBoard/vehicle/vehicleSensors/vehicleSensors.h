@@ -1,10 +1,6 @@
-#ifndef SENSOR_h
-#define SENSOR_h
+#ifndef VEHICLESENSORS_h
+#define VEHICLESENSORS_h
 
-// Might add composite sensor class but probably not
-
-class Sensor {
-
-};
+#include "ir/ir.h"
 
 #endif
