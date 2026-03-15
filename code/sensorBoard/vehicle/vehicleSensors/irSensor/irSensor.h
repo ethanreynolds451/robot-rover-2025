@@ -17,15 +17,18 @@ class irSensor {
     }
     // Read the data from the IR sensor
     void read(){
-      uint16_t prev_command = this->_command; 
-      this->_command = IrReceiver.decodedIRData.command;
-      this->command_updated = (_command == prev_command) ? 0 : 1; 
-      uint16_t prev_address = this->_address; 
-      this->_address = IrReceiver.decodedIRData.address;
-      this->address_updated = (_address == prev_address) ? 0 : 1; 
-      IRRawDataType prev_data = this->_data; 
-      this->_data = IrReceiver.decodedIRData.decodedRawData;
-      this->data_updated = (_data == prev_data) ? 0 : 1; 
+      uint16_t prevcommand = this->command; 
+      this->command = IrReceiver.decodedIRData.command;
+      this->command_updated = (command == prevcommand) ? 0 : 1; 
+      this->command_timestamp = command_updated ? millis() : this->command_timestamp;
+      uint16_t prevaddress = this->address; 
+      this->address = IrReceiver.decodedIRData.address;
+      this->address_updated = (address == prevaddress) ? 0 : 1; 
+      this->address_timestamp = address_updated ? millis() : this->address_timestamp;
+      IRRawDataType prevdata = this->data; 
+      this->data = IrReceiver.decodedIRData.decodedRawData;
+      this->data_updated = (data == prevdata) ? 0 : 1; 
+      this->data_timestamp = data_updated ? millis() : this->data_timestamp;
       IrReceiver.resume();
     }
     bool update(){
@@ -36,35 +39,50 @@ class irSensor {
       return false;     // No data to read
     }
     // Getter functions
-    bool new_command(){
+    uint8_t get_pin(){
+      return this->pin; 
+    }
+    bool is_new_command(){
       return this->command_updated; 
     }
-    uint16_t command(){
-      return this->_command; 
+    uint16_t get_command(){
+      this->command_updated = false; 
+      return this->command; 
     }
-    bool new_address(){
+    unsigned long get_command_timestamp(){
+      return this->command_timestamp; 
+    }
+    bool is_new_address(){
       return this->address_updated; 
     }
-    uint16_t address(){
-      return this->_address; 
+    uint16_t get_address(){
+      this->address_updated = false; 
+      return this->address; 
     }
-    bool new_data(){
+    unsigned long get_address_timestamp(){
+      return this->address_timestamp;
+    }
+    bool is_new_data(){
       return this->data_updated; 
     }
-    IRRawDataType data(){
-      return this->_data; 
+    IRRawDataType get_data(){
+      this->data_updated = false; 
+      return this->data; 
     }
-    uint8_t getPin(){
-      return this->pin; 
+    unsigned long get_data_timestamp(){
+      return this->data_timestamp; 
     }
   private: 
     uint8_t pin; 
-    uint16_t _command = 0; 
+    uint16_t command = 0; 
     bool command_updated = 0; 
-    uint16_t _address = 0; 
+    unsigned long command_timestamp = 0;
+    uint16_t address = 0; 
     bool address_updated = 0; 
-    IRRawDataType _data = 0;    // Defined in IRremote library based on archetecture
+    unsigned long address_timestamp = 0;
+    IRRawDataType data = 0;    // Defined in IRremote library based on archetecture
     bool data_updated = 0; 
+    unsigned long data_timestamp = 0;
 };
 
 #endif
