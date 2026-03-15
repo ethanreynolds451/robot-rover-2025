@@ -4,7 +4,7 @@
 
 #include "irSensor.h"
 
-uint8_t IR_PIN = 2; 
+uint8_t IR_PIN = 4; 
 
 irSensor testIR(IR_PIN); 
 

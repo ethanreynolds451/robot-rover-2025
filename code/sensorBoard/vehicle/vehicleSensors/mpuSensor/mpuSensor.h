@@ -12,8 +12,9 @@ class mpuSensor {
     mpuSensor(uint8_t address = 0x68) : address(address) {}
     // This is a blocking function; no non-blocking version implemented, so be careful when using in main loop
     bool begin(uint8_t retry = 0){
+        Wire.begin(); // Will this conflict with other devices?
         for(uint8_t i = 0; i <= retry; i++) {
-            if(!mpu.testConnection()){
+            if(getWhoAmI() != address){
                 mpu.begin(this->address);
             } else {
                 // If the device is properly initialized, set the default parameters
@@ -25,16 +26,16 @@ class mpuSensor {
         return false; 
     }
     bool connected(){
-        return mpu.testConnection();
+        return (getWhoAmI() == address); 
     }
     // Setters for internal parameters
-    void set_accel_range(uint8_t range){
+    void set_accel_range(mpu6050_accel_range_t range){
         this->accel_range = range; 
     }
-    void set_gyro_range(uint8_t range){
+    void set_gyro_range(mpu6050_gyro_range_t range){
         this->gyro_range = range;
     }
-    void set_bandwidth(uint8_t bandwidth){
+    void set_bandwidth(mpu6050_bandwidth_t bandwidth){
         this->bandwidth = bandwidth;
     }    
     // Send new parameters to the mpu
@@ -52,8 +53,8 @@ class mpuSensor {
     
     // Reading and data retrieval functions
     void update(){
-        sensors_event_t a, g, temp;     // Data type from MPU library
-        mpu.getEvent(&a, &g, &temp);
+        sensors_event_t a, g, t;     // Data type from MPU library
+        mpu.getEvent(&a, &g, &t);
         // Only update each parameter if there are valid readings
         // No error handling because timestamp can be used to tell if readings have stopped
         if (!isnan(a.acceleration.x) && !isnan(a.acceleration.y) && !isnan(a.acceleration.z)) {
@@ -61,27 +62,27 @@ class mpuSensor {
             accel_y = a.acceleration.y;
             accel_z = a.acceleration.z;
             accel_updated = true;
-            accel_timestamp = a.timestamp;
+            accel_timestamp = millis();
         } 
         if (!isnan(g.gyro.x) && !isnan(g.gyro.y) && !isnan(g.gyro.z)) {
             gyro_x = g.gyro.x;
             gyro_y = g.gyro.y;
             gyro_z = g.gyro.z;
             gyro_updated = true;
-            gyro_timestamp = g.timestamp;
+            gyro_timestamp = millis();
         }
-        if(!isnan(temp.temperature)) {
-            temp = temp.temperature;
+        if(!isnan(t.temperature)) {
+            temp = t.temperature;
             temp_updated = true;
-            temp_timestamp = temp.timestamp;
+            temp_timestamp = millis(); 
         }
     }
     // getters for data
     bool is_new_accel(){
         return accel_updated;
     }
-    sensor_events_t get_accel(){
-        sensor_events_t accel_data;
+    sensors_event_t get_accel(){
+        sensors_event_t accel_data;
         accel_data.acceleration.x = accel_x;
         accel_data.acceleration.y = accel_y;
         accel_data.acceleration.z = accel_z;
@@ -94,8 +95,8 @@ class mpuSensor {
     bool is_new_gyro(){
         return gyro_updated;
     }
-    sensor_events_t get_gyro(){
-        sensor_events_t gyro_data;
+    sensors_event_t get_gyro(){
+        sensors_event_t gyro_data;
         gyro_data.gyro.x = gyro_x;
         gyro_data.gyro.y = gyro_y;
         gyro_data.gyro.z = gyro_z;
@@ -108,8 +109,8 @@ class mpuSensor {
     bool is_new_temp(){
         return temp_updated;
     }
-    sensor_events_t get_temp(){
-        sensor_events_t temp_data;
+    sensors_event_t get_temp(){
+        sensors_event_t temp_data;
         temp_data.temperature = temp;
         temp_updated = false;
         return temp_data;
@@ -121,8 +122,8 @@ class mpuSensor {
     bool data_updated(){
         return accel_updated || gyro_updated || temp_updated;
     }
-    sensot_events_t get_data(){
-        sensor_events_t data;
+    sensors_event_t get_data(){
+        sensors_event_t data;
         data.acceleration.x = accel_x;
         data.acceleration.y = accel_y;
         data.acceleration.z = accel_z;
@@ -141,9 +142,9 @@ class mpuSensor {
     Adafruit_MPU6050 mpu;
 
     uint8_t address;
-    uint8_t accel_range = MPUPARAM_ACCELRANGE_DEFAULT; 
-    uint8_t gyro_range = MPUPARAM_GYRORANGE_DEFAULT;
-    uint8_t bandwidth = MPUPARAM_BANDWIDTH_DEFAULT;
+    mpu6050_accel_range_t accel_range = MPUPARAM_ACCELRANGE_DEFAULT; 
+    mpu6050_gyro_range_t gyro_range = MPUPARAM_GYRORANGE_DEFAULT;
+    mpu6050_bandwidth_t bandwidth = MPUPARAM_BANDWIDTH_DEFAULT;
 
     float accel_x; 
     float accel_y;
@@ -158,8 +159,26 @@ class mpuSensor {
     float temp;
     bool temp_updated = false;
     unsigned long temp_timestamp;
-}   
 
+    // ChatGPT code to test connection with device
+    byte getWhoAmI() {
+      byte whoAmI = 0;  // Variable to store the WHO_AM_I value
+    
+      // Start communication with the MPU6050 at the specified I2C address
+      Wire.beginTransmission(address);
+      Wire.write(0x75);  // WHO_AM_I register address
+      Wire.endTransmission(false);  // Keep the connection open
+    
+      // Request 1 byte from the MPU6050
+      Wire.requestFrom((uint8_t)address, (uint8_t)1);
+      
+      if (Wire.available()) {
+        whoAmI = Wire.read();  // Read the value from the WHO_AM_I register
+      }
+    
+      return whoAmI;  // Return the value read from the register
+    }
+};   
 
 
 #endif
