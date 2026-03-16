@@ -5,7 +5,8 @@
 mpuSensor testMPU;        // At default address
 
 void setup(){
-    Serial.begin(9600); 
+    Serial.begin(115200); 
+    Serial.println("Initializing MPU");
     if(testMPU.begin(3)) {
         Serial.println("MPU6050 initialized successfully");
     } else {

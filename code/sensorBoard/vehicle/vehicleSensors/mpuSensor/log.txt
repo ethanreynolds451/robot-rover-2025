@@ -2,3 +2,7 @@
 	Initial code build
 	Compiled successfully
 }
+2026-03-16 {
+	Test failed, resetting Arduino continually in MPU setup
+	Might be a hardware issue, need to do I2C bus test
+}
