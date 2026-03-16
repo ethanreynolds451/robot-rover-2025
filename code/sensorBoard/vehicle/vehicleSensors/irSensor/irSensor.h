@@ -5,30 +5,57 @@
 #ifndef IRSENSOR_h
 #define IRSENSOR_h
 
+enum {
+  IR_LED_OFF,
+  IR_LED_ON
+};
+
 class irSensor {
   public: 
-    irSensor(uint8_t pin) : pin(pin) {}   // Save the pin for future reference
+    irSensor(uint8_t pin, bool led = 0) : pin(pin), led_active(led) {}   // Save the pin for future reference
     void begin(){
-      IrReceiver.begin(pin);    // No hardware initialization, just wont get any data if its not connected right
+      if(led_active){
+        IrReceiver.begin(pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
+      } else {
+        IrReceiver.begin(pin); 
+      }
     }
     // Return if there is new data from the IR sensor
     bool decode(){
-      return IrReceiver.decode(); 
+        if(IrReceiver.decode()){
+            // Filtrar señales que no sean de protocolos conocidos
+            if(IrReceiver.decodedIRData.protocol == UNKNOWN){
+                IrReceiver.resume();  // Ignorar la señal y preparar para la siguiente
+                return false;
+            }
+            return true;  // Señal válida
+        }
+        return false;  // No hay datos
     }
     // Read the data from the IR sensor
+    // Validity checks are placeholder, can perform more complex based on later needs; zero is not valid for controller being used
     void read(){
-      uint16_t prevcommand = this->command; 
-      this->command = IrReceiver.decodedIRData.command;
-      this->command_updated = (command == prevcommand) ? 0 : 1; 
-      this->command_timestamp = command_updated ? millis() : this->command_timestamp;
-      uint16_t prevaddress = this->address; 
-      this->address = IrReceiver.decodedIRData.address;
-      this->address_updated = (address == prevaddress) ? 0 : 1; 
-      this->address_timestamp = address_updated ? millis() : this->address_timestamp;
-      IRRawDataType prevdata = this->data; 
-      this->data = IrReceiver.decodedIRData.decodedRawData;
-      this->data_updated = (data == prevdata) ? 0 : 1; 
-      this->data_timestamp = data_updated ? millis() : this->data_timestamp;
+      // Read incoming command
+      uint8_t new_command = IrReceiver.decodedIRData.command;
+      if(new_command != 0){
+        this->command_timestamp = millis();
+        this->command = new_command; 
+        this->command_updated = 1; 
+      }
+      // Read incoming address
+      uint16_t new_address = IrReceiver.decodedIRData.address;
+      if (new_address != 0){
+        this->address_timestamp = millis();
+        this->address = new_address; 
+        this->address_updated = 1;
+      }
+      // Read incoming data 
+      IRRawDataType new_data = IrReceiver.decodedIRData.decodedRawData;
+      if(new_data != 0){      
+        this->data_timestamp = millis();
+        this->data = new_data; 
+        this->data_updated = 1;
+      }
       IrReceiver.resume();
     }
     bool update(){
@@ -74,6 +101,7 @@ class irSensor {
     }
   private: 
     uint8_t pin; 
+    bool led_active; 
     uint16_t command = 0; 
     bool command_updated = 0; 
     unsigned long command_timestamp = 0;

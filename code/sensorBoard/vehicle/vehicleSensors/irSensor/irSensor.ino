@@ -4,12 +4,12 @@
 
 #include "irSensor.h"
 
-uint8_t IR_PIN = 4; 
+uint8_t IR_PIN = 2; 
 
-irSensor testIR(IR_PIN); 
+irSensor testIR(IR_PIN, IR_LED_OFF); 
 
 void setup() {
-  Serial.begin(9600); 
+  Serial.begin(115200); 
   testIR.begin(); 
   Serial.println("Initiated IR sensor"); 
 }
