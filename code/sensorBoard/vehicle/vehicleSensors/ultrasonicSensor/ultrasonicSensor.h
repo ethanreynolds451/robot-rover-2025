@@ -1,3 +1,25 @@
+#ifndef ULTRASONICSENSOR_h
+#define ULTRASONICSENSOR_h
+
+class ultrasonicSensor {
+    public:
+        ultrasonicSensor(uint8_t trig, uint8_t echo) : trig_pin(trig), echo_pin(echo) {
+            ultrasonic = HCSR04(trig, echo);
+        }
+        bool begin(){
+            
+        }
+    private: 
+        HCSR04 ultrasonic;
+        uint8_t trig_pin; 
+        uint8_t echo_pin;
+};
+
+
+#endif
+
+// Old code
+
 bool start_ultrasonic(){
     bool return_val = true;
     pinMode(Pin::HCSR04[0], OUTPUT);
@@ -22,4 +44,3 @@ void read_ultrasonic(uint8_t index = 0) {
     }
 }
 
-HCSR04 ultrasonic;      // Library allows for direct definition of array, no need to use pointers
