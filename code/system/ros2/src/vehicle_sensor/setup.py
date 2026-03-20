@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'vehicle_networking'
+package_name = 'vehicle_sensor'
 
 setup(
     name=package_name,
@@ -15,13 +15,11 @@ setup(
     zip_safe=True,
     maintainer='ethanreynolds',
     maintainer_email='ethanreynolds451@gmail.com',
-    description='All code to manage interfacing between computer and connected devices',
-    license='None',
+    description='TODO: Package description',
+    license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'serial_manager = vehicle_networking.serial_manager:main',
-            'control_serial_interface = vehicle_networking.control_serial_interface:main',
         ],
     },
 )
