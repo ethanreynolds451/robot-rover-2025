@@ -1,6 +1,4 @@
-source;share/vehicle_networking/hook/pythonpath.ps1
 source;share/vehicle_networking/hook/pythonpath.dsv
 source;share/vehicle_networking/hook/pythonpath.sh
-source;share/vehicle_networking/hook/ament_prefix_path.ps1
 source;share/vehicle_networking/hook/ament_prefix_path.dsv
 source;share/vehicle_networking/hook/ament_prefix_path.sh

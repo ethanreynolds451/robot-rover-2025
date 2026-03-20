@@ -13,7 +13,11 @@ Services:
     - Uses saved cache to return port if already found
 - /vehicle/serial_manager/reset_serial_port
     - Resets the cached serial port information (e.g. if device was unplugged and replugged)
-- 
+
+Parameters: 
+- Paths to search for serial devices (e.g. '/dev/ttyUSB*')
+- Path to file with device identifiers (default to current directory)
+
 
 '''
 
