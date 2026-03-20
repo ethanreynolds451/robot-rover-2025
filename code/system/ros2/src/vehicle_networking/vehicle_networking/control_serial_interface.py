@@ -1,3 +1,9 @@
+# TODO finish parameter and service implementation
+# TODO add timeout and reconnection interval for serial connection
+#   - it will automatically attemt to reconnect every N seconds if the connection is lost, and will log attempts and successes
+#   - failure to read / write will trigger reconnect cycle, which it will only leave after successful reconnection
+#       TODO add service to start / stop serial communication (basically on/off switch) so that it can be deactivated when not needed to avoid unnesecary reconnect attempts when control board is not in use (mainly for development / testing purposes because vehicle can not operate without it)
+
 '''
 Manages serial communication with control board
 - Subscribes to control commands from other nodes and sends them to the control board
