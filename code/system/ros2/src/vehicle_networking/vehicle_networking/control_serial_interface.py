@@ -23,7 +23,6 @@ Services:
  Client for: 
 - /vehicle/serial_manager/get_serial_port
     - Requests the serial port to use for communication with the control board
-    - TODO implement service
 
 Parameters: 
 - serial_port (string, default: '/dev/ttyUSB0')
@@ -69,9 +68,10 @@ class ControlSerialInterface(Node):
         self.declare_parameter('serial_baudrate', 115200)                                              # Default value for serial baud rate parameter
         self.serial = None
         # Timer to periodically read from serial port and publish status updates
-        self.create_timer(0.1, self.read_port) 
-        self.create_timer(5.0, self.open_port)
-        # TODO add parameters for timer periods
+        self.declare_parameter('read_interval', 0.1)  # Interval in seconds to read from serial port
+        self.declare_parameter('port_check_interval', 5.0)  # Interval in seconds to check and open serial port
+        self.create_timer(self.get_parameter('read_interval').get_parameter_value().double_value, self.read_port) 
+        self.create_timer(self.get_parameter('port_check_interval').get_parameter_value().double_value, self.open_port)
 
     # Serial communication functions
 
