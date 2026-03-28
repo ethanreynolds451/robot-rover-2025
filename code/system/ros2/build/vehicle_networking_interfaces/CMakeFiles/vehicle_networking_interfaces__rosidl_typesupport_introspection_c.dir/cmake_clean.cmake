@@ -1,0 +1,15 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/get_serial_port__type_support.c.o"
+  "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__type_support.c.o"
+  "libvehicle_networking_interfaces__rosidl_typesupport_introspection_c.pdb"
+  "libvehicle_networking_interfaces__rosidl_typesupport_introspection_c.so"
+  "rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/get_serial_port__rosidl_typesupport_introspection_c.h"
+  "rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/get_serial_port__type_support.c"
+  "rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_introspection_c.h"
+  "rosidl_typesupport_introspection_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__type_support.c"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_introspection_c.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

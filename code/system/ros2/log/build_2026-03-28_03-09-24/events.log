@@ -1,0 +1,52 @@
+[0.000000] (-) TimerEvent: {}
+[0.000947] (-) JobUnselected: {'identifier': 'vehicle_control'}
+[0.001386] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001471] (-) JobUnselected: {'identifier': 'vehicle_networking_interfaces'}
+[0.001500] (-) JobUnselected: {'identifier': 'vehicle_sensor'}
+[0.001528] (vehicle_networking) JobQueued: {'identifier': 'vehicle_networking', 'dependencies': OrderedDict([('vehicle_networking_interfaces', '/root/install/vehicle_networking_interfaces')])}
+[0.001572] (vehicle_networking) JobStarted: {'identifier': 'vehicle_networking'}
+[0.099774] (-) TimerEvent: {}
+[0.200214] (-) TimerEvent: {}
+[0.300535] (-) TimerEvent: {}
+[0.400958] (-) TimerEvent: {}
+[0.501499] (-) TimerEvent: {}
+[0.601885] (-) TimerEvent: {}
+[0.702240] (-) TimerEvent: {}
+[0.803394] (-) TimerEvent: {}
+[0.904008] (-) TimerEvent: {}
+[1.004519] (-) TimerEvent: {}
+[1.102338] (vehicle_networking) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'develop', '--editable', '--build-directory', '/root/build/vehicle_networking/build', '--no-deps', 'install_data'], 'cwd': '/root/build/vehicle_networking', 'env': {'HOSTNAME': '29a34f11d68e', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/root/install/vehicle_networking_interfaces/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/root/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':0.0', 'LANG': 'C.UTF-8', 'AMENT_PREFIX_PATH': '/root/install/vehicle_networking_interfaces:/root/install/vehicle_networking:/opt/ros/foxy', 'PWD': '/root/build/vehicle_networking', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/build/vehicle_networking:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/root/install/vehicle_networking_interfaces'}, 'shell': False}
+[1.107125] (-) TimerEvent: {}
+[1.207885] (-) TimerEvent: {}
+[1.308239] (-) TimerEvent: {}
+[1.408601] (-) TimerEvent: {}
+[1.412917] (vehicle_networking) StdoutLine: {'line': b'running develop\n'}
+[1.508718] (-) TimerEvent: {}
+[1.574575] (vehicle_networking) StdoutLine: {'line': b'running egg_info\n'}
+[1.574987] (vehicle_networking) StdoutLine: {'line': b'creating vehicle_networking.egg-info\n'}
+[1.575195] (vehicle_networking) StdoutLine: {'line': b'writing vehicle_networking.egg-info/PKG-INFO\n'}
+[1.575418] (vehicle_networking) StdoutLine: {'line': b'writing dependency_links to vehicle_networking.egg-info/dependency_links.txt\n'}
+[1.575650] (vehicle_networking) StdoutLine: {'line': b'writing entry points to vehicle_networking.egg-info/entry_points.txt\n'}
+[1.575894] (vehicle_networking) StdoutLine: {'line': b'writing requirements to vehicle_networking.egg-info/requires.txt\n'}
+[1.576098] (vehicle_networking) StdoutLine: {'line': b'writing top-level names to vehicle_networking.egg-info/top_level.txt\n'}
+[1.578656] (vehicle_networking) StdoutLine: {'line': b"writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'\n"}
+[1.608812] (-) TimerEvent: {}
+[1.621047] (vehicle_networking) StdoutLine: {'line': b"reading manifest file 'vehicle_networking.egg-info/SOURCES.txt'\n"}
+[1.622250] (vehicle_networking) StdoutLine: {'line': b"writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'\n"}
+[1.678494] (vehicle_networking) StdoutLine: {'line': b'running build_ext\n'}
+[1.679038] (vehicle_networking) StdoutLine: {'line': b'Creating /root/install/vehicle_networking/lib/python3.8/site-packages/site.py\n'}
+[1.681706] (vehicle_networking) StdoutLine: {'line': b'Creating /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle-networking.egg-link (link to .)\n'}
+[1.682996] (vehicle_networking) StdoutLine: {'line': b'Installing control_serial_interface script to /root/install/vehicle_networking/lib/vehicle_networking\n'}
+[1.683233] (vehicle_networking) StdoutLine: {'line': b'Installing serial_manager script to /root/install/vehicle_networking/lib/vehicle_networking\n'}
+[1.683503] (vehicle_networking) StdoutLine: {'line': b'\n'}
+[1.683745] (vehicle_networking) StdoutLine: {'line': b'Installed /root/build/vehicle_networking\n'}
+[1.684010] (vehicle_networking) StdoutLine: {'line': b'running install_data\n'}
+[1.684210] (vehicle_networking) StdoutLine: {'line': b'creating /root/install/vehicle_networking/share/ament_index\n'}
+[1.684408] (vehicle_networking) StdoutLine: {'line': b'creating /root/install/vehicle_networking/share/ament_index/resource_index\n'}
+[1.684570] (vehicle_networking) StdoutLine: {'line': b'creating /root/install/vehicle_networking/share/ament_index/resource_index/packages\n'}
+[1.684734] (vehicle_networking) StdoutLine: {'line': b'copying resource/vehicle_networking -> /root/install/vehicle_networking/share/ament_index/resource_index/packages\n'}
+[1.684878] (vehicle_networking) StdoutLine: {'line': b'copying package.xml -> /root/install/vehicle_networking/share/vehicle_networking\n'}
+[1.708937] (-) TimerEvent: {}
+[1.726693] (vehicle_networking) CommandEnded: {'returncode': 0}
+[1.762437] (vehicle_networking) JobEnded: {'identifier': 'vehicle_networking', 'rc': 0}
+[1.763813] (-) EventReactorShutdown: {}

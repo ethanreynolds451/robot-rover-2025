@@ -1,0 +1,24 @@
+running develop
+running egg_info
+creating vehicle_networking.egg-info
+writing vehicle_networking.egg-info/PKG-INFO
+writing dependency_links to vehicle_networking.egg-info/dependency_links.txt
+writing entry points to vehicle_networking.egg-info/entry_points.txt
+writing requirements to vehicle_networking.egg-info/requires.txt
+writing top-level names to vehicle_networking.egg-info/top_level.txt
+writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+reading manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+running build_ext
+Creating /root/install/vehicle_networking/lib/python3.8/site-packages/site.py
+Creating /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle-networking.egg-link (link to .)
+Installing control_serial_interface script to /root/install/vehicle_networking/lib/vehicle_networking
+Installing serial_manager script to /root/install/vehicle_networking/lib/vehicle_networking
+
+Installed /root/build/vehicle_networking
+running install_data
+creating /root/install/vehicle_networking/share/ament_index
+creating /root/install/vehicle_networking/share/ament_index/resource_index
+creating /root/install/vehicle_networking/share/ament_index/resource_index/packages
+copying resource/vehicle_networking -> /root/install/vehicle_networking/share/ament_index/resource_index/packages
+copying package.xml -> /root/install/vehicle_networking/share/vehicle_networking

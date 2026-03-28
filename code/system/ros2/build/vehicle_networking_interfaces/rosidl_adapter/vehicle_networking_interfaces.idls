@@ -1,0 +1,2 @@
+/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/GetSerialPort.idl
+/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/ResetSerialPort.idl

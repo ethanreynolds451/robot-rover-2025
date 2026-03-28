@@ -1,0 +1,26 @@
+[1.102s] Invoking command in '/root/build/vehicle_networking': AMENT_PREFIX_PATH=/root/install/vehicle_networking_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/install/vehicle_networking_interfaces LD_LIBRARY_PATH=/root/install/vehicle_networking_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /root/build/vehicle_networking/build --no-deps install_data
+[1.412s] running develop
+[1.573s] running egg_info
+[1.574s] creating vehicle_networking.egg-info
+[1.574s] writing vehicle_networking.egg-info/PKG-INFO
+[1.574s] writing dependency_links to vehicle_networking.egg-info/dependency_links.txt
+[1.574s] writing entry points to vehicle_networking.egg-info/entry_points.txt
+[1.574s] writing requirements to vehicle_networking.egg-info/requires.txt
+[1.575s] writing top-level names to vehicle_networking.egg-info/top_level.txt
+[1.577s] writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+[1.620s] reading manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+[1.621s] writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+[1.677s] running build_ext
+[1.678s] Creating /root/install/vehicle_networking/lib/python3.8/site-packages/site.py
+[1.680s] Creating /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle-networking.egg-link (link to .)
+[1.682s] Installing control_serial_interface script to /root/install/vehicle_networking/lib/vehicle_networking
+[1.682s] Installing serial_manager script to /root/install/vehicle_networking/lib/vehicle_networking
+[1.682s] 
+[1.682s] Installed /root/build/vehicle_networking
+[1.683s] running install_data
+[1.683s] creating /root/install/vehicle_networking/share/ament_index
+[1.683s] creating /root/install/vehicle_networking/share/ament_index/resource_index
+[1.683s] creating /root/install/vehicle_networking/share/ament_index/resource_index/packages
+[1.683s] copying resource/vehicle_networking -> /root/install/vehicle_networking/share/ament_index/resource_index/packages
+[1.683s] copying package.xml -> /root/install/vehicle_networking/share/vehicle_networking
+[1.725s] Invoked command in '/root/build/vehicle_networking' returned '0': AMENT_PREFIX_PATH=/root/install/vehicle_networking_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/install/vehicle_networking_interfaces LD_LIBRARY_PATH=/root/install/vehicle_networking_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /root/build/vehicle_networking/build --no-deps install_data

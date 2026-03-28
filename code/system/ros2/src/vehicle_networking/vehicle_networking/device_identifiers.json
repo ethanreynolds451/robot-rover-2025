@@ -1,0 +1,16 @@
+[
+  {
+    "name": "control board",
+    "vid": 6790,
+    "pid": 29987,
+    "manufacturer": null,
+    "product": "USB Serial"
+  },
+  {
+    "name": "sensor board",
+    "vid": null,
+    "pid": null,
+    "manufacturer": null,
+    "product": null
+  }
+]
