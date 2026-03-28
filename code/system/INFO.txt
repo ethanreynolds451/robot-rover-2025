@@ -1,0 +1,4 @@
+Note: need to chown things created by the docker container 
+        to user of device before using git
+
+    
