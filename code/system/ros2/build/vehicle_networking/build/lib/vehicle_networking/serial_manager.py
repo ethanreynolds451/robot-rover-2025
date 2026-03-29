@@ -62,7 +62,7 @@ class SerialManager(Node):
         # Cache for found serial ports (device name : port)
         self.serial_ports = {}
         # Timer to periodically check for device changes
-        self.declare_parameter('check_interval', 3.0)  # Interval in seconds
+        self.declare_parameter('check_interval', 1.0)  # Interval in seconds
         self.create_timer(self.get_parameter('check_interval').get_parameter_value().double_value, self.check_devices)
 
     def reset_serial_port(self, request, response):
@@ -77,7 +77,7 @@ class SerialManager(Node):
 
     def check_devices(self):
         # Debug: check values for saved ports
-        self.get_logger().info(f'Current cached serial ports: {self.serial_ports}')
+        # self.get_logger().info(f'Current cached serial ports: {self.serial_ports}')
         # Implementation for checking device changes
     # 1) Get available USB devices and their information
         all_ports = serial.tools.list_ports.comports()
@@ -89,7 +89,9 @@ class SerialManager(Node):
             if port.vid:        # Exclude ports that don't have a VID (e.g. built-in serial ports, bluetooth, wifi, etc.)
                 ports.append(port)
         for port in ports:
-            if port not in self.serial_ports.values():  # Only log new ports that are not already cached
+            # Debuggin
+            # self.get_logger().info(f'Cached ports: {self.serial_ports}')
+            if port.device not in self.serial_ports.values():  # Only log new ports that are not already cached
                 self.get_logger().info(f'Found serial port: {port.device} (Description: {port.description}, VID: {port.vid}, PID: {port.pid}, Manufacturer: {port.manufacturer}, Product: {port.product})')
     # 2) Check for disconnected devices
         devices = list(self.serial_ports.items())  # Create a list of items to avoid dictionary size change during iteration
