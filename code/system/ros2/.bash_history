@@ -80,3 +80,34 @@ python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
 python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
 python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
 exit
+colcon build --packages-select vehicle_networking
+cd
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+python3 '/home/ethan-reynolds/github/robot-rover-2025/code/system/ros2/src/vehicle_networking/vehicle_networking/get_device_info.py'
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+python3 '/home/ethan-reynolds/github/robot-rover-2025/code/system/ros2/src/vehicle_networking/vehicle_networking/get_device_info.py'
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+exit
+ls /dev/tty*
+ls /dev/tty*
+ls /dev/tty*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+rm /dev/ttyUSB0
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+exit

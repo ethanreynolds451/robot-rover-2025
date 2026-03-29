@@ -1,0 +1,33 @@
+[INFO] [1774804892.890680597] [serial_manager]: Starting Serial Manager Node
+[INFO] [1774804895.901494925] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804895.902203368] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804895.903080379] [serial_manager]: New device detected: /dev/ttyUSB0 (USB Serial)
+[INFO] [1774804895.903759938] [serial_manager]: Checking if device /dev/ttyUSB0 matches identifier for control board (VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804895.904432462] [serial_manager]: Identified device control board at port /dev/ttyUSB0
+[INFO] [1774804898.901911176] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804898.902780934] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804901.904077507] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804901.905061286] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804904.906345166] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804904.907554068] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804907.913009484] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804907.914492044] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804910.913210335] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804910.914488280] [serial_manager]: Device control board disconnected (port /dev/ttyUSB0 not found)
+[INFO] [1774804913.918133813] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804916.911540390] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804919.921507854] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804919.923944407] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804919.927664745] [serial_manager]: New device detected: /dev/ttyUSB0 (USB Serial)
+[INFO] [1774804919.930860295] [serial_manager]: Checking if device /dev/ttyUSB0 matches identifier for control board (VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804919.934634843] [serial_manager]: Identified device control board at port /dev/ttyUSB0
+[INFO] [1774804922.925921941] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804922.928350227] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804925.918084248] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804925.919885705] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804928.929498380] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804928.931513049] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804931.918381664] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804931.920552685] [serial_manager]: Found serial port: /dev/ttyUSB0 (Description: USB Serial, VID: 6790, PID: 29987, Manufacturer: None, Product: USB Serial)
+[INFO] [1774804934.911181742] [serial_manager]: Checking for serial devices... Found 33 total ports
+[INFO] [1774804934.912188245] [serial_manager]: Fou

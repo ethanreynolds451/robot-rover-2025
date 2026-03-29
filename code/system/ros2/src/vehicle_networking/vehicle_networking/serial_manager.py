@@ -76,18 +76,22 @@ class SerialManager(Node):
         return response
 
     def check_devices(self):
+        # Debug: check values for saved ports
+        # self.get_logger().info(f'Current cached serial ports: {self.serial_ports}')
         # Implementation for checking device changes
     # 1) Get available USB devices and their information
         all_ports = serial.tools.list_ports.comports()
+        # Debug: not finding devices
+        # self.get_logger().info(f'Checking for serial devices... Found {len(all_ports)} total ports')
         # Filter out invalid ports
         ports = []
         for port in all_ports:
             if port.vid:        # Exclude ports that don't have a VID (e.g. built-in serial ports, bluetooth, wifi, etc.)
                 ports.append(port)
         for port in ports:
-            self.get_logger().info(f'Found serial port: {port.device} (Description: {port.description}, VID: {port.vid}, PID: {port.pid}, Manufacturer: {port.manufacturer}, Product: {port.product})')
+            if port not in self.serial_ports.values():  # Only log new ports that are not already cached
+                self.get_logger().info(f'Found serial port: {port.device} (Description: {port.description}, VID: {port.vid}, PID: {port.pid}, Manufacturer: {port.manufacturer}, Product: {port.product})')
     # 2) Check for disconnected devices
-        self.get_logger().info("Active devices: " + ", ".join([f"{device} ({port})" for device, port in self.serial_ports.items()]))
         devices = list(self.serial_ports.items())  # Create a list of items to avoid dictionary size change during iteration
         for device, port in devices:
             if port not in [p.device for p in ports]:
@@ -140,7 +144,7 @@ class SerialManager(Node):
         self.check_devices()  # Update the device list before checking
         if device in self.serial_ports:
             response.port = self.serial_ports[device]
-            self.get_logger().info(f'Found serial port for device {device}: {response.port}')
+            self.get_logger().info(f'Found new serial port for device {device}: {response.port}')
         else:
             response.port = ''
             self.get_logger().info(f'Serial port for device {device} not found')
