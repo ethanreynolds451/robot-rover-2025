@@ -54,3 +54,29 @@ ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file
 sudo chown -R ethan-reynolds '/home/ethan-reynolds/github/robot-rover-2025/code/system'
 sudo chown -R ethanreynolds '/home/ethan-reynolds/github/robot-rover-2025/code/system'
 exit
+rqt_console
+rqt
+colcon build --packages-select vehicle_networking
+cd
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/vehicle_networking/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/vehicle_networking/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/vehicle_networking/device_identifiers.json
+colcon build --packages-select vehicle_networking
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/vehicle_networking/device_identifiers.json
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 'src/vehicle_networking/vehicle_networking/get_device_info.py'
+exit

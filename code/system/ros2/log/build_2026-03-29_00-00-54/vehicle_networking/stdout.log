@@ -1,0 +1,27 @@
+running develop
+running egg_info
+writing ../../build/vehicle_networking/vehicle_networking.egg-info/PKG-INFO
+writing dependency_links to ../../build/vehicle_networking/vehicle_networking.egg-info/dependency_links.txt
+writing entry points to ../../build/vehicle_networking/vehicle_networking.egg-info/entry_points.txt
+writing requirements to ../../build/vehicle_networking/vehicle_networking.egg-info/requires.txt
+writing top-level names to ../../build/vehicle_networking/vehicle_networking.egg-info/top_level.txt
+reading manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+writing manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+running build
+running build_py
+copying vehicle_networking/serial_manager.py -> /root/build/vehicle_networking/build/lib/vehicle_networking
+copying vehicle_networking/get_device_info.py -> /root/build/vehicle_networking/build/lib/vehicle_networking
+running install
+running install_lib
+copying /root/build/vehicle_networking/build/lib/vehicle_networking/serial_manager.py -> /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+copying /root/build/vehicle_networking/build/lib/vehicle_networking/get_device_info.py -> /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+byte-compiling /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/serial_manager.py to serial_manager.cpython-38.pyc
+byte-compiling /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/get_device_info.py to get_device_info.cpython-38.pyc
+running install_data
+running install_egg_info
+removing '/root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/vehicle_networking/vehicle_networking.egg-info to /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info
+running install_scripts
+Installing control_serial_interface script to /root/install/vehicle_networking/lib/vehicle_networking
+Installing serial_manager script to /root/install/vehicle_networking/lib/vehicle_networking
+writing list of installed files to '/root/build/vehicle_networking/install.log'

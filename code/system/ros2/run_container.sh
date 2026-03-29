@@ -1,7 +1,7 @@
 docker run -it --rm \
     --privileged \
-    --device=/dev/ttyUSB0 \
-    --device=/dev/ttyACM0 \
+    --device=/dev/ttyUSB* \
+    --device=/dev/ttyACM* \
     -e DISPLAY=$DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
