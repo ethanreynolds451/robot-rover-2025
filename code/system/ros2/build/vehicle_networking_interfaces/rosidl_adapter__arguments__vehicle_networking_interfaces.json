@@ -2,6 +2,7 @@
   "package_name": "vehicle_networking_interfaces",
   "non_idl_tuples": [
     "/root/src/vehicle_networking_interfaces:srv/GetSerialPort.srv",
-    "/root/src/vehicle_networking_interfaces:srv/ResetSerialPort.srv"
+    "/root/src/vehicle_networking_interfaces:srv/ResetSerialPort.srv",
+    "/root/src/vehicle_networking_interfaces:srv/GetDeviceStatus.srv"
   ]
 }

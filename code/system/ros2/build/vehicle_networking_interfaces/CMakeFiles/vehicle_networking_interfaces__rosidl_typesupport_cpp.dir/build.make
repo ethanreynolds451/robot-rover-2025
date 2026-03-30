@@ -65,11 +65,15 @@ rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_s
 rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp: /opt/ros/foxy/share/rosidl_typesupport_cpp/resource/srv__type_support.cpp.em
 rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp: rosidl_adapter/vehicle_networking_interfaces/srv/GetSerialPort.idl
 rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp: rosidl_adapter/vehicle_networking_interfaces/srv/ResetSerialPort.idl
+rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp: rosidl_adapter/vehicle_networking_interfaces/srv/GetDeviceStatus.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ type support dispatch for ROS interfaces"
 	/usr/bin/python3 /opt/ros/foxy/lib/rosidl_typesupport_cpp/rosidl_typesupport_cpp --generator-arguments-file /root/build/vehicle_networking_interfaces/rosidl_typesupport_cpp__arguments.json --typesupports rosidl_typesupport_fastrtps_cpp rosidl_typesupport_introspection_cpp
 
 rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp
+
+rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp
 
 CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp.o: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/flags.make
 CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp.o: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp
@@ -97,16 +101,31 @@ CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_type
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/build/vehicle_networking_interfaces/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp -o CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.s
 
+CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/flags.make
+CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o -c /root/build/vehicle_networking_interfaces/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp
+
+CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/build/vehicle_networking_interfaces/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp > CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.i
+
+CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/build/vehicle_networking_interfaces/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp -o CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.s
+
 # Object files for target vehicle_networking_interfaces__rosidl_typesupport_cpp
 vehicle_networking_interfaces__rosidl_typesupport_cpp_OBJECTS = \
 "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp.o" \
-"CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.o"
+"CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.o" \
+"CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o"
 
 # External object files for target vehicle_networking_interfaces__rosidl_typesupport_cpp
 vehicle_networking_interfaces__rosidl_typesupport_cpp_EXTERNAL_OBJECTS =
 
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp.o
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.o
+libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/build.make
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: /opt/ros/foxy/lib/librosidl_typesupport_cpp.so
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: /opt/ros/foxy/lib/librosidl_typesupport_c.so
@@ -114,7 +133,7 @@ libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: /opt/ros/foxy/lib/l
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: /opt/ros/foxy/lib/librcpputils.so
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: /opt/ros/foxy/lib/librcutils.so
 libvehicle_networking_interfaces__rosidl_typesupport_cpp.so: CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libvehicle_networking_interfaces__rosidl_typesupport_cpp.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libvehicle_networking_interfaces__rosidl_typesupport_cpp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -128,6 +147,7 @@ CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/clean:
 
 CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/depend: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp
 CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/depend: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp
+CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/depend: rosidl_typesupport_cpp/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp
 	cd /root/build/vehicle_networking_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_networking_interfaces /root/src/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces/CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_cpp.dir/depend
 

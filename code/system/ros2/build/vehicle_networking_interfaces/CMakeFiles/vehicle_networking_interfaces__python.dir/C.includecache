@@ -30,6 +30,24 @@ rosidl_runtime_c/visibility_control.h
 
 /opt/ros/foxy/include/rosidl_runtime_c/visibility_control.h
 
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/_get_device_status_s.c
+Python.h
+-
+stdbool.h
+-
+numpy/ndarrayobject.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/numpy/ndarrayobject.h
+rosidl_runtime_c/visibility_control.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/rosidl_runtime_c/visibility_control.h
+vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+rosidl_runtime_c/string.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/rosidl_runtime_c/string.h
+rosidl_runtime_c/string_functions.h
+/root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/rosidl_runtime_c/string_functions.h
+
 /root/build/vehicle_networking_interfaces/rosidl_generator_py/vehicle_networking_interfaces/srv/_get_serial_port_s.c
 Python.h
 -
@@ -639,6 +657,28 @@ cpython/unicodeobject.h
 /usr/include/python3.8/weakrefobject.h
 
 rosidl_generator_c/vehicle_networking_interfaces/msg/rosidl_generator_c__visibility_control.h
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+stdbool.h
+-
+stdlib.h
+-
+rosidl_runtime_c/visibility_control.h
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/rosidl_runtime_c/visibility_control.h
+vehicle_networking_interfaces/msg/rosidl_generator_c__visibility_control.h
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/vehicle_networking_interfaces/msg/rosidl_generator_c__visibility_control.h
+vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+rosidl_runtime_c/string.h
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/rosidl_runtime_c/string.h
 
 rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.h
 stdbool.h

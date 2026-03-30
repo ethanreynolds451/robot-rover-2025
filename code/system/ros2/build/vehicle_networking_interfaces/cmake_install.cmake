@@ -359,6 +359,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces/srv/GetDeviceStatus.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/src/vehicle_networking_interfaces/srv/GetSerialPort.srv")
 endif()
 
@@ -380,6 +384,18 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/build/vehicle_networking_interfaces/rosidl_cmake/srv/ResetSerialPort_Response.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/src/vehicle_networking_interfaces/srv/GetDeviceStatus.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/build/vehicle_networking_interfaces/rosidl_cmake/srv/GetDeviceStatus_Request.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vehicle_networking_interfaces/srv" TYPE FILE FILES "/root/build/vehicle_networking_interfaces/rosidl_cmake/srv/GetDeviceStatus_Response.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

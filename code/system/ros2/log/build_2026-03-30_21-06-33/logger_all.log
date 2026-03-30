@@ -1,0 +1,170 @@
+[0.365s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'vehicle_networking']
+[0.365s] DEBUG:colcon:Parsed command line arguments: Namespace(ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x79e352c59ac0>>, merge_install=False, metas=['./colcon.meta'], mixin=None, mixin_files=None, mixin_verb=('build',), packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=['vehicle_networking'], packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x79e352c59ac0>, verb_name='build', verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x79e352c670d0>)
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.399s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.399s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/root'
+[0.399s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.399s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.399s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.400s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extensions ['ignore', 'ignore_ament_install']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extension 'ignore'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extension 'ignore_ament_install'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extensions ['colcon_pkg']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extension 'colcon_pkg'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extensions ['colcon_meta']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extension 'colcon_meta'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extensions ['ros']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_control) by extension 'ros'
+[0.432s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_control' with type 'ros.ament_python' and name 'vehicle_control'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['ignore', 'ignore_ament_install']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ignore'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ignore_ament_install'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['colcon_pkg']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'colcon_pkg'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['colcon_meta']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'colcon_meta'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['ros']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ros'
+[0.434s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_navigation' with type 'ros.ament_python' and name 'vehicle_navigation'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['ignore', 'ignore_ament_install']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ignore'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ignore_ament_install'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['colcon_pkg']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'colcon_pkg'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['colcon_meta']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'colcon_meta'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['ros']
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ros'
+[0.435s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_networking' with type 'ros.ament_python' and name 'vehicle_networking'
+[0.435s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extension 'ignore'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extension 'ignore_ament_install'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extensions ['colcon_pkg']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extension 'colcon_pkg'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extensions ['colcon_meta']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extension 'colcon_meta'
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extensions ['ros']
+[0.436s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking_interfaces) by extension 'ros'
+[0.437s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_networking_interfaces' with type 'ros.ament_cmake' and name 'vehicle_networking_interfaces'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extensions ['ignore', 'ignore_ament_install']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extension 'ignore'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extension 'ignore_ament_install'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extensions ['colcon_pkg']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extension 'colcon_pkg'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extensions ['colcon_meta']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extension 'colcon_meta'
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extensions ['ros']
+[0.437s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_sensor) by extension 'ros'
+[0.438s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_sensor' with type 'ros.ament_python' and name 'vehicle_sensor'
+[0.438s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.438s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.438s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.438s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.438s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.467s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'vehicle_control' in 'src/vehicle_control'
+[0.467s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'vehicle_navigation' in 'src/vehicle_navigation'
+[0.467s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'vehicle_networking_interfaces' in 'src/vehicle_networking_interfaces'
+[0.467s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'vehicle_sensor' in 'src/vehicle_sensor'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_args' from command line to 'None'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_target' from command line to 'None'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_clean_cache' from command line to 'False'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_clean_first' from command line to 'False'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_force_configure' from command line to 'False'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'ament_cmake_args' from command line to 'None'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'catkin_cmake_args' from command line to 'None'
+[0.469s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.469s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_networking' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/build/vehicle_networking', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/install/vehicle_networking', 'merge_install': False, 'path': '/root/src/vehicle_networking', 'symlink_install': False, 'test_result_base': None}
+[0.470s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.474s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.474s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/root/src/vehicle_networking' with build type 'ament_python'
+[0.474s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_networking', 'ament_prefix_path')
+[0.482s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.482s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.ps1'
+[0.483s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.dsv'
+[0.484s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.sh'
+[0.488s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.489s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.830s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/root/src/vehicle_networking'
+[0.833s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.833s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.520s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/build/vehicle_networking': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /root/build/vehicle_networking/build
+[2.016s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/build/vehicle_networking' returned '0': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /root/build/vehicle_networking/build
+[2.023s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/src/vehicle_networking': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /root/build/vehicle_networking/build install --record /root/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed
+[2.529s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/src/vehicle_networking' returned '0': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /root/build/vehicle_networking/build install --record /root/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed
+[2.537s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking' for CMake module files
+[2.539s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking' for CMake config files
+[2.540s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking/lib'
+[2.541s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking/bin'
+[2.541s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking/lib/pkgconfig/vehicle_networking.pc'
+[2.542s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking/lib/python3.8/site-packages'
+[2.542s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_networking', 'pythonpath')
+[2.546s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.ps1'
+[2.547s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.dsv'
+[2.548s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.sh'
+[2.549s] Level 1:colcon.colcon_core.environment:checking '/root/install/vehicle_networking/bin'
+[2.549s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_networking)
+[2.552s] INFO:colcon.colcon_core.shell:Creating package script '/root/install/vehicle_networking/share/vehicle_networking/package.ps1'
+[2.554s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/install/vehicle_networking/share/vehicle_networking/package.dsv'
+[2.554s] INFO:colcon.colcon_core.shell:Creating package script '/root/install/vehicle_networking/share/vehicle_networking/package.sh'
+[2.556s] INFO:colcon.colcon_core.shell:Creating package script '/root/install/vehicle_networking/share/vehicle_networking/package.bash'
+[2.557s] INFO:colcon.colcon_core.shell:Creating package script '/root/install/vehicle_networking/share/vehicle_networking/package.zsh'
+[2.557s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/install/vehicle_networking/share/colcon-core/packages/vehicle_networking)
+[2.558s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.558s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.558s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.559s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.568s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[2.568s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.568s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.568s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.571s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.Spawn.ExecFailed: /usr/bin/dbus-launch terminated abnormally without any error message
+[2.572s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.574s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/install/local_setup.ps1'
+[2.576s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/install/_local_setup_util_ps1.py'
+[2.578s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/install/setup.ps1'
+[2.581s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/install/local_setup.sh'
+[2.582s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/install/_local_setup_util_sh.py'
+[2.583s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/install/setup.sh'
+[2.586s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/install/local_setup.bash'
+[2.587s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/install/setup.bash'
+[2.589s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/install/local_setup.zsh'
+[2.591s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/install/setup.zsh'

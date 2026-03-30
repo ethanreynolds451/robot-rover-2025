@@ -1,0 +1,7 @@
+[0.000000] (-) TimerEvent: {}
+[0.000256] (-) JobUnselected: {'identifier': 'vehicle_control'}
+[0.000485] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.000737] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.000768] (-) JobUnselected: {'identifier': 'vehicle_networking_interfaces'}
+[0.000853] (-) JobUnselected: {'identifier': 'vehicle_sensor'}
+[0.001216] (-) EventReactorShutdown: {}

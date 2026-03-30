@@ -111,3 +111,60 @@ ls /dev/ttyUSB*
 ls /dev/ttyUSB*
 ls /dev/ttyUSB*
 exit
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+python3 '/root/src/vehicle_networking/vehicle_networking/get_device_info.py'
+source install/setup.bash
+cd
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+colcon build --packages-select vehicle_networking
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+cd
+colcon build --packages-select vehicle_networking
+ros2 run vehicle_networking control_serial_interface --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+ros2 run vehicle_networking control_serial_interface
+source install/setup.sh
+ros2 run vehicle_networking control_serial_interface
+ros2 run vehicle_networking control_serial_interface
+ros2 run vehicle_networking control_serial_interface
+colcon build --packages-select vehicle_networking
+source install/setup.sh
+ros2 run vehicle_networking control_serial_interface
+colcon build --packages-select vehicle_networking
+source install/setup.sh
+ros2 run vehicle_networking control_serial_interface
+colcon build --packages-select vehicle_networking
+source install/setup.sh
+ros2 run vehicle_networking control_serial_interface
+colcon build --packages-select vehicle_networking
+ros2 run vehicle_networking control_serial_interface
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+exit

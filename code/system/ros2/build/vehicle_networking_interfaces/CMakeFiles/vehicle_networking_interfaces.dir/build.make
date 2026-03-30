@@ -59,6 +59,9 @@ CMakeFiles/vehicle_networking_interfaces: rosidl_cmake/srv/GetSerialPort_Respons
 CMakeFiles/vehicle_networking_interfaces: /root/src/vehicle_networking_interfaces/srv/ResetSerialPort.srv
 CMakeFiles/vehicle_networking_interfaces: rosidl_cmake/srv/ResetSerialPort_Request.msg
 CMakeFiles/vehicle_networking_interfaces: rosidl_cmake/srv/ResetSerialPort_Response.msg
+CMakeFiles/vehicle_networking_interfaces: /root/src/vehicle_networking_interfaces/srv/GetDeviceStatus.srv
+CMakeFiles/vehicle_networking_interfaces: rosidl_cmake/srv/GetDeviceStatus_Request.msg
+CMakeFiles/vehicle_networking_interfaces: rosidl_cmake/srv/GetDeviceStatus_Response.msg
 
 
 vehicle_networking_interfaces: CMakeFiles/vehicle_networking_interfaces

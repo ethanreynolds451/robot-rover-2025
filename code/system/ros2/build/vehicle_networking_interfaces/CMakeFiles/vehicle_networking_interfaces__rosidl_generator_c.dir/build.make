@@ -72,6 +72,7 @@ rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h: /opt/ros
 rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h: /opt/ros/foxy/share/rosidl_generator_c/resource/srv__type_support.h.em
 rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h: rosidl_adapter/vehicle_networking_interfaces/srv/GetSerialPort.idl
 rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h: rosidl_adapter/vehicle_networking_interfaces/srv/ResetSerialPort.idl
+rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h: rosidl_adapter/vehicle_networking_interfaces/srv/GetDeviceStatus.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C code for ROS interfaces"
 	/usr/bin/python3 /opt/ros/foxy/share/rosidl_generator_c/cmake/../../../lib/rosidl_generator_c/rosidl_generator_c --generator-arguments-file /root/build/vehicle_networking_interfaces/rosidl_generator_c__arguments.json
 
@@ -96,11 +97,26 @@ rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__s
 rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__type_support.h: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__type_support.h
 
+rosidl_generator_c/vehicle_networking_interfaces/srv/get_device_status.h: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/get_device_status.h
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__type_support.h: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__type_support.h
+
 rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c
 
 rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c
+
+rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c: rosidl_generator_c/vehicle_networking_interfaces/srv/get_serial_port.h
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c
 
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c.o: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/flags.make
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c.o: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c
@@ -128,21 +144,36 @@ CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generato
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_networking_interfaces/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c -o CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c.s
 
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/flags.make
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o   -c /root/build/vehicle_networking_interfaces/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c
+
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_networking_interfaces/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c > CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.i
+
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_networking_interfaces/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c -o CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.s
+
 # Object files for target vehicle_networking_interfaces__rosidl_generator_c
 vehicle_networking_interfaces__rosidl_generator_c_OBJECTS = \
 "CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c.o" \
-"CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c.o"
+"CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c.o" \
+"CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o"
 
 # External object files for target vehicle_networking_interfaces__rosidl_generator_c
 vehicle_networking_interfaces__rosidl_generator_c_EXTERNAL_OBJECTS =
 
 libvehicle_networking_interfaces__rosidl_generator_c.so: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c.o
 libvehicle_networking_interfaces__rosidl_generator_c.so: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c.o
+libvehicle_networking_interfaces__rosidl_generator_c.so: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c.o
 libvehicle_networking_interfaces__rosidl_generator_c.so: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/build.make
 libvehicle_networking_interfaces__rosidl_generator_c.so: /opt/ros/foxy/lib/librosidl_runtime_c.so
 libvehicle_networking_interfaces__rosidl_generator_c.so: /opt/ros/foxy/lib/librcutils.so
 libvehicle_networking_interfaces__rosidl_generator_c.so: CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C shared library libvehicle_networking_interfaces__rosidl_generator_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/build/vehicle_networking_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C shared library libvehicle_networking_interfaces__rosidl_generator_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -162,8 +193,13 @@ CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.h
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__struct.h
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__type_support.h
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/get_device_status.h
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__type_support.h
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.c
 CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/reset_serial_port__functions.c
+CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend: rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.c
 	cd /root/build/vehicle_networking_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_networking_interfaces /root/src/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces /root/build/vehicle_networking_interfaces/CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vehicle_networking_interfaces__rosidl_generator_c.dir/depend
 

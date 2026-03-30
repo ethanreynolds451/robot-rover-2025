@@ -4,7 +4,8 @@
   "template_dir": "/opt/ros/foxy/share/rosidl_generator_cpp/cmake/../resource",
   "idl_tuples": [
     "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/GetSerialPort.idl",
-    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/ResetSerialPort.idl"
+    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/ResetSerialPort.idl",
+    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces:srv/GetDeviceStatus.idl"
   ],
   "target_dependencies": [
     "/opt/ros/foxy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp",
@@ -27,6 +28,7 @@
     "/opt/ros/foxy/share/rosidl_generator_cpp/cmake/../resource/srv__traits.hpp.em",
     "/opt/ros/foxy/share/rosidl_generator_cpp/cmake/../resource/srv__type_support.hpp.em",
     "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces/srv/GetSerialPort.idl",
-    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces/srv/ResetSerialPort.idl"
+    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces/srv/ResetSerialPort.idl",
+    "/root/build/vehicle_networking_interfaces/rosidl_adapter/vehicle_networking_interfaces/srv/GetDeviceStatus.idl"
   ]
 }

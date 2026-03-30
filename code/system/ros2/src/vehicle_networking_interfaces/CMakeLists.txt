@@ -25,6 +25,7 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetSerialPort.srv"
   "srv/ResetSerialPort.srv"
+  "srv/GetDeviceStatus.srv"
 )
 
 if(BUILD_TESTING)

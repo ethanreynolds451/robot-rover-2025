@@ -1,13 +1,4 @@
 '''
-TODO: Fix this
-cutors.py", line 118, in await_or_execute
-    return callback(*args)
-  File "/root/build/vehicle_networking/vehicle_networking/serial_manager.py", line 91, in check_devices
-    for device_name, identifiers in device_identifiers.items():
-'''
-
-
-'''
 Finds the serial port for communication with a given device
 Will search through /dev for devices matching certain criteria to find the correct port
 Saves found port in cach for future lookups

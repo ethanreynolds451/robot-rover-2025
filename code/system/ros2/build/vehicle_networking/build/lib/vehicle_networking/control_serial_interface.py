@@ -25,9 +25,9 @@ Services:
     - Requests the serial port to use for communication with the control board
 
 Parameters: 
-- serial_port (string, default: '/dev/ttyUSB0')
+- serial_port (string, default: '')
     - The serial port to use for communication with the control board
-    - Will request from serial manager service
+    - Will request from serial manager service if request_port parameter is true
 - serial_baudrate (int, default: 115200)
     - The baud rate for the serial connection
     - Set this in launch file 
@@ -44,8 +44,12 @@ import serial
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-from urllib import response
+from urllib import request, response
 
+# Services
+from std_srvs.srv import Empty
+from std_srvs.srv import SetBool
+from vehicle_networking_interfaces.srv import GetDeviceStatus, GetSerialPort
 
 class ControlSerialInterface(Node):
     def __init__(self):
@@ -55,84 +59,102 @@ class ControlSerialInterface(Node):
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_str', self.control_callback, 10)
         # Set up publisher to publish status updates from control board
         self.status_publisher = self.create_publisher(String, '/vehicle/control_status_str', 10)
+        # Debug
+        # self.get_logger().info('Topics intitialized')
         # Set up services to manage serial connection
         self.reset_service = self.create_service(Empty, '/vehicle/control_serial_interface/reset', self.reset_serial)
-        self.get_status_service = self.create_service(GetStatus, '/vehicle/control_serial_interface/get_status', self.get_status)
-        self.set_active_service = self.create_service(SetActive, '/vehicle/control_serial_interface/set_active', self.set_active)
+        self.get_status_service = self.create_service(GetDeviceStatus, '/vehicle/control_serial_interface/get_status', self.get_status)
+        self.set_active_service = self.create_service(SetBool, '/vehicle/control_serial_interface/set_active', self.set_active)
+        # Debug
+        # self.get_logger().info('Serial services intitialized')
         # Set up client to request serial port form serial manager
-        self.get_port_client= self.create_client(String, 'serial_manager') 
+        self.get_port_client= self.create_client(GetSerialPort, 'serial_manager') 
         # Serial connection parameters
         self.declare_parameter('active', True)                                                   # Whether the serial interface is active and should attempt to connect
-        self.declare_parameter('serial_port', '/dev/ttyUSB0')                                       # Default value for serial port parameter
+        self.declare_parameter('serial_port', '')                                       # Default value for serial port parameter
         self.declare_parameter('request_port', True)                                                   # Whether to request port from serial manager service or use local parameter
         self.declare_parameter('serial_baudrate', 115200)                                              # Default value for serial baud rate parameter
         self.serial = None
+        # Debug
+        # self.get_logger().info('Serial parameters intitialized')
         # Timer to periodically read from serial port and publish status updates
         self.declare_parameter('read_interval', 0.1)  # Interval in seconds to read from serial port
-        self.declare_parameter('port_check_interval', 5.0)  # Interval in seconds to check and open serial port
+        self.declare_parameter('port_check_interval', 3.0)  # Interval in seconds to check and open serial port
         self.create_timer(self.get_parameter('read_interval').get_parameter_value().double_value, self.read_port) 
-        self.create_timer(self.get_parameter('port_check_interval').get_parameter_value().double_value, self.open_port)
+        self.create_timer(self.get_parameter('port_check_interval').get_parameter_value().double_value, self.check_connection)
+        # Debug
+        # self.get_logger().info('Control Serial Interface Node initialized successfully:')
 
     # Serial communication functions
 
     def get_port(self):
         if self.get_parameter('request_port').get_parameter_value().bool_value:
             self.get_logger().info('Requesting serial port from serial manager service')
-            self.port = self.get_port_client.call_async(String())
+            request = GetSerialPort.Request()
+            request.device = "control board"  
+            self.port = self.get_port_client.call_async(request)
+            self.get_logger().info(f'Received serial port from serial manager: {self.port}')
         else:
-            port = self.get_parameter('serial_port').get_parameter_value().string_value
-        if not port:
-            self.get_logger().error('Serial port parameter is empty')
-        return port
+            self.port = self.get_parameter('serial_port').get_parameter_value().string_value
+        if not self.port:
+            self.get_logger().error('Control board not found: device not identified by serial manager')
 
 
     def open_port(self):
-        if not self.serial and self.get_parameter('active').get_parameter_value().bool_value:
-            self.get_logger().info('Attempting to open serial port for control board')
-            # Get the latest serial port and baudrate parameters
-            port = self.get_port()
-            baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
-            # Attempt to open the serial port with error handling
-            # Make sure the port is defined
-            if port:
-                try:
-                    self.serial = serial.Serial(port, baudrate, timeout=1)
-                    self.get_logger().info(f'Opened serial port {port} at baud rate {baudrate}')
-                except serial.SerialException as e:
-                    self.get_logger().error(f'Failed to open serial port {port} with error: {e}')
-                    self.serial = None
-            else:
-                self.get_logger().error('Serial port not found')
+        self.get_logger().info('Attempting to open serial port for control board')
+        # Get the latest serial port and baudrate parameters
+        port = self.get_port()
+        baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
+        # Attempt to open the serial port with error handling
+        # Make sure the port is defined
+        if port:
+            try:
+                self.serial = serial.Serial(port, baudrate, timeout=1)
+                self.get_logger().info(f'Opened serial port {port} at baud rate {baudrate}')
+                self.serial_connected = True
+            except serial.SerialException as e:
+                self.get_logger().error(f'Failed to open serial port {port} with error: {e}')
+                self.serial = None
+        else:
+            self.get_logger().error('Serial port not found')
     
     def close_port(self):
-        if self.serial and self.serial.is_open:
+        if self.serial:
             self.serial.close()
             self.get_logger().info(f'Closed serial port {self.port}')
             self.serial = None 
 
-    def read_port(self):
+    def check_connection(self):
         if self.get_parameter('active').get_parameter_value().bool_value:
+            if not self.serial or not self.serial.is_open:
+                self.get_logger().warning('Control board serial port is not open, attempting to open')
+                self.open_port()
+        else:
             if self.serial and self.serial.is_open:
-                try:
-                    if self.serial.in_waiting > 0:
-                        status_update = self.serial.readline().decode().strip()  # Read a line of data from the control board
-                        if status_update:  # Only publish if we got a non-empty update
-                            msg = String()
-                            msg.data = status_update
-                            self.status_callback(msg)  # Call the status callback to handle the update
-                except serial.SerialException as e:
-                    self.get_logger().error(f'Failed to read from serial port with error: {e}')
-                    self.close_port()  # Close the port if error encountered
-            else:
-                self.get_logger().warning('Serial port is not open, unable to read data')
+                self.get_logger().info('Control board serial interface deactivated, closing serial port')
+                self.close_port()
 
-    
-    # Searial interface functions
+    def read_port(self):
+        if self.serial and self.get_parameter('active').get_parameter_value().bool_value:
+            try:
+                if self.serial.in_waiting > 0:
+                    status_update = self.serial.readline().decode().strip()  # Read a line of data from the control board
+                    if status_update:  # Only publish if we got a non-empty update
+                        msg = String()
+                        msg.data = status_update
+                        self.status_callback(msg)  # Call the status callback to handle the update
+                        # Debug
+                        self.get_logger().info(f'Read status update from control board: {status_update}')
+            except serial.SerialException as e:
+                self.get_logger().error(f'Failed to read from serial port with error: {e}')
+                self.close_port()  # Close the port if error encountered
+        
+    # Serial interface functions
 
     def control_callback(self, msg):
         # Execute whenever a control command is recieved from annother node
         if self.get_parameter('active').get_parameter_value().bool_value:
-            if self.serial and self.serial.is_open:
+            if self.serial:
                 try:
                     self.serial.write(msg.data.encode())  # Send control command to control board
                     self.get_logger().info(f'Sent control command to control board: {msg.data}')
@@ -172,6 +194,6 @@ class ControlSerialInterface(Node):
 def main(args=None):
     rclpy.init(args=args)
     control_serial_interface = ControlSerialInterface()
-    rclpy.spin(control_serial_interface)
+    rclpy.spin(control_serial_interface) 
     control_serial_interface.destroy_node()
     rclpy.shutdown()

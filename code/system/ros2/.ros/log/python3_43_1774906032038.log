@@ -1,0 +1,80 @@
+[INFO] [1774906032.109174973] [control_serial_interface]: Starting Control Serial Interface Node
+[WARN] [1774906037.120449114] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906037.121230238] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906037.121892469] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906037.122570669] [control_serial_interface]: Serial port not found
+[WARN] [1774906042.120523486] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906042.121208780] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906042.121865604] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906042.122507652] [control_serial_interface]: Serial port not found
+[WARN] [1774906047.121358925] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906047.122219281] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906047.123117125] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906047.124059867] [control_serial_interface]: Serial port not found
+[WARN] [1774906052.120580725] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906052.121273052] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906052.121932482] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906052.122601632] [control_serial_interface]: Serial port not found
+[WARN] [1774906057.121126645] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906057.121663617] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906057.122871137] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906057.124400733] [control_serial_interface]: Serial port not found
+[WARN] [1774906062.120542731] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906062.121086449] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906062.121596420] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906062.122133647] [control_serial_interface]: Serial port not found
+[WARN] [1774906067.120424393] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906067.121061841] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906067.121774327] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906067.122386099] [control_serial_interface]: Serial port not found
+[WARN] [1774906072.120660610] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906072.121395113] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906072.122069506] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906072.122830811] [control_serial_interface]: Serial port not found
+[WARN] [1774906077.120413665] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906077.121105618] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906077.121756650] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906077.122419780] [control_serial_interface]: Serial port not found
+[WARN] [1774906082.120988134] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906082.121642205] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906082.122372771] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906082.123297726] [control_serial_interface]: Serial port not found
+[WARN] [1774906087.120445782] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906087.121085162] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906087.121792291] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906087.122515082] [control_serial_interface]: Serial port not found
+[WARN] [1774906092.120886112] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906092.122770978] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906092.123964458] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906092.125057864] [control_serial_interface]: Serial port not found
+[WARN] [1774906097.120475392] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906097.121221215] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906097.121917184] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906097.122586568] [control_serial_interface]: Serial port not found
+[WARN] [1774906102.121869747] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906102.122866510] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906102.123636949] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906102.124292145] [control_serial_interface]: Serial port not found
+[WARN] [1774906107.120515218] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906107.121214788] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906107.121907670] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906107.122659168] [control_serial_interface]: Serial port not found
+[WARN] [1774906112.120490205] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906112.121151406] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906112.121787632] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906112.122454738] [control_serial_interface]: Serial port not found
+[WARN] [1774906117.121267504] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906117.122066435] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906117.122924390] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906117.123822411] [control_serial_interface]: Serial port not found
+[WARN] [1774906122.120565860] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906122.121215618] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906122.121906350] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906122.122527797] [control_serial_interface]: Serial port not found
+[WARN] [1774906127.120404778] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906127.121267921] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906127.122047472] [control_serial_interface]: Requesting serial port from serial manager service
+[ERROR] [1774906127.123122885] [control_serial_interface]: Serial port not found
+[WARN] [1774906132.121956355] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774906132.122897614] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774906132.123819

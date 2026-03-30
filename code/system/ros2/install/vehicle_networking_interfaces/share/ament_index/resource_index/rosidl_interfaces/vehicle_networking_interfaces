@@ -1,3 +1,7 @@
+srv/GetDeviceStatus.idl
+srv/GetDeviceStatus.srv
+srv/GetDeviceStatus_Request.msg
+srv/GetDeviceStatus_Response.msg
 srv/GetSerialPort.idl
 srv/GetSerialPort.srv
 srv/GetSerialPort_Request.msg

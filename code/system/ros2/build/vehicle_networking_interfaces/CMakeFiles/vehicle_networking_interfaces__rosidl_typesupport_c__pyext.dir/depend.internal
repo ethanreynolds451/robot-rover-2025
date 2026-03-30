@@ -98,6 +98,9 @@ CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_c__pyext.dir/rosidl
  /usr/include/python3.8/warnings.h
  /usr/include/python3.8/weakrefobject.h
  rosidl_generator_c/vehicle_networking_interfaces/msg/rosidl_generator_c__visibility_control.h
+ rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__functions.h
+ rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__struct.h
+ rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_device_status__type_support.h
  rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__functions.h
  rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__struct.h
  rosidl_generator_c/vehicle_networking_interfaces/srv/detail/get_serial_port__type_support.h

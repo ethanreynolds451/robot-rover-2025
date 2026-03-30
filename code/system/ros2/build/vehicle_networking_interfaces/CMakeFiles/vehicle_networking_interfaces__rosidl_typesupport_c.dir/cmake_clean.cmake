@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp.o"
   "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp.o"
   "CMakeFiles/vehicle_networking_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp.o"
   "libvehicle_networking_interfaces__rosidl_typesupport_c.pdb"
   "libvehicle_networking_interfaces__rosidl_typesupport_c.so"
+  "rosidl_typesupport_c/vehicle_networking_interfaces/srv/get_device_status__type_support.cpp"
   "rosidl_typesupport_c/vehicle_networking_interfaces/srv/get_serial_port__type_support.cpp"
   "rosidl_typesupport_c/vehicle_networking_interfaces/srv/reset_serial_port__type_support.cpp"
 )
