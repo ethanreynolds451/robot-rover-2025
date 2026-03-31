@@ -1,0 +1,28 @@
+[1.158s] Invoking command in '/root/build/vehicle_networking': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /root/build/vehicle_networking/build
+[1.527s] running develop
+[1.729s] Invoked command in '/root/build/vehicle_networking' returned '0': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /root/build/vehicle_networking/build
+[1.733s] Invoking command in '/root/src/vehicle_networking': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /root/build/vehicle_networking/build install --record /root/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed
+[2.036s] running egg_info
+[2.036s] writing ../../build/vehicle_networking/vehicle_networking.egg-info/PKG-INFO
+[2.037s] writing dependency_links to ../../build/vehicle_networking/vehicle_networking.egg-info/dependency_links.txt
+[2.037s] writing entry points to ../../build/vehicle_networking/vehicle_networking.egg-info/entry_points.txt
+[2.038s] writing requirements to ../../build/vehicle_networking/vehicle_networking.egg-info/requires.txt
+[2.038s] writing top-level names to ../../build/vehicle_networking/vehicle_networking.egg-info/top_level.txt
+[2.099s] reading manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+[2.101s] writing manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+[2.101s] running build
+[2.101s] running build_py
+[2.102s] copying vehicle_networking/control_serial_interface.py -> /root/build/vehicle_networking/build/lib/vehicle_networking
+[2.103s] running install
+[2.104s] running install_lib
+[2.106s] copying /root/build/vehicle_networking/build/lib/vehicle_networking/control_serial_interface.py -> /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+[2.107s] byte-compiling /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/control_serial_interface.py to control_serial_interface.cpython-38.pyc
+[2.111s] running install_data
+[2.112s] running install_egg_info
+[2.115s] removing '/root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info' (and everything under it)
+[2.116s] Copying ../../build/vehicle_networking/vehicle_networking.egg-info to /root/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info
+[2.118s] running install_scripts
+[2.143s] Installing control_serial_interface script to /root/install/vehicle_networking/lib/vehicle_networking
+[2.143s] Installing serial_manager script to /root/install/vehicle_networking/lib/vehicle_networking
+[2.144s] writing list of installed files to '/root/build/vehicle_networking/install.log'
+[2.183s] Invoked command in '/root/src/vehicle_networking' returned '0': PYTHONPATH=/root/build/vehicle_networking/prefix_override:/root/install/vehicle_networking/lib/python3.8/site-packages:/root/install/vehicle_networking_interfaces/lib/python3.8/site-packages:/root/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /root/build/vehicle_networking/build install --record /root/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed

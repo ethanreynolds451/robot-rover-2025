@@ -168,3 +168,14 @@ ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file
 ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
 ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
 exit
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+cd
+source install/setup.sh
+cd
+ros2 run vehicle_networking serial_manager --ros-args -p device_identifiers_file:=/root/src/vehicle_networking/config/device_identifiers.json
+cd
+source install/setup.bash
+ros2 run vehicle_networking control_serial_interface
+colcon build --packages-select vehicle_networking
+source install/setup.bash
+ros2 run vehicle_networking control_serial_interface

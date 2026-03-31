@@ -1,3 +1,5 @@
+# TODO: fix future object return by adding timeout (will be blocking for node but this is fine because it can't do anything without the port)
+
 '''
 Manages serial communication with control board
 - Subscribes to control commands from other nodes and sends them to the control board
@@ -35,6 +37,12 @@ Parameters:
     - Use local parameter or request from serial manager service
 - active (bool, default: true)
     - Allows serial interface to be deactivated when not needed
+- read_interval (double, default: 0.1)
+    - Interval in seconds to read from serial port
+- port_check_interval (double, default: 3.0)
+    - Interval in seconds to check and open serial port if not connected
+- port_timeout (double, default: 3.0)
+    - Timeout in seconds for waiting for serial port from serial manager service
 '''
 
 # Packages for serial / hardware interface
@@ -75,6 +83,8 @@ class ControlSerialInterface(Node):
         self.declare_parameter('request_port', True)                                                   # Whether to request port from serial manager service or use local parameter
         self.declare_parameter('serial_baudrate', 115200)                                              # Default value for serial baud rate parameter
         self.serial = None
+        self.port = None
+        self.baudrate = None
         # Debug
         # self.get_logger().info('Serial parameters intitialized')
         # Timer to periodically read from serial port and publish status updates
@@ -82,38 +92,59 @@ class ControlSerialInterface(Node):
         self.declare_parameter('port_check_interval', 3.0)  # Interval in seconds to check and open serial port
         self.create_timer(self.get_parameter('read_interval').get_parameter_value().double_value, self.read_port) 
         self.create_timer(self.get_parameter('port_check_interval').get_parameter_value().double_value, self.check_connection)
+        self.declare_parameter('port_timeout', 3.0)  # Timeout in seconds for waiting for serial port from serial manager
         # Debug
         # self.get_logger().info('Control Serial Interface Node initialized successfully:')
 
     # Serial communication functions
 
     def get_port(self):
-        if self.get_parameter('request_port').get_parameter_value().bool_value:
-            self.get_logger().info('Requesting serial port from serial manager service')
-            request = GetSerialPort.Request()
-            request.device = "control board"  
-            self.port = self.get_port_client.call_async(request)
-            self.get_logger().info(f'Received serial port from serial manager: {self.port}')
-        else:
-            self.port = self.get_parameter('serial_port').get_parameter_value().string_value
         if not self.port:
-            self.get_logger().error('Control board not found: device not identified by serial manager')
+            self.get_logger().info('No serial port defined for control board, attempting to acquire port')
+            if self.get_parameter('request_port').get_parameter_value().bool_value:
+                if not self.get_port_client.wait_for_service(timeout_sec=1.0):
+                    self.get_logger().error('Serial manager service not available')
+                    return
+                self.get_logger().info('Requesting serial port from serial manager service')
+                request = GetSerialPort.Request()
+                request.device = "control board"  
+                # Request the port with a timeout
+                future = self.get_port_client.call_async(request)
+                rclpy.spin_until_future_complete(
+                    self,
+                    future,
+                    timeout_sec=self.get_parameter('port_timeout').get_parameter_value().double_value
+                )
+                if future.done():
+                    try:
+                        self.port = future.result().port
+                        self.get_logger().info(f'Received serial port: {self.port}')
+                    except Exception as e:
+                        self.get_logger().error(f'Service call failed: {e}')
+                        self.port = None
+                else:
+                    self.get_logger().error('Timeout while waiting for serial port')
+                    self.port = None
+            else:
+                self.port = self.get_parameter('serial_port').get_parameter_value().string_value
+            if not self.port:
+                self.get_logger().error('Control board not identified by serial manager')
 
 
     def open_port(self):
         self.get_logger().info('Attempting to open serial port for control board')
-        # Get the latest serial port and baudrate parameters
-        port = self.get_port()
-        baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
+        # Get the latest serial port and baudrate values
+        self.get_port()
+        self.baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
+            # May change this later to allow for changes without reseting default parameter
         # Attempt to open the serial port with error handling
         # Make sure the port is defined
-        if port:
+        if self.port:
             try:
-                self.serial = serial.Serial(port, baudrate, timeout=1)
-                self.get_logger().info(f'Opened serial port {port} at baud rate {baudrate}')
-                self.serial_connected = True
+                self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
+                self.get_logger().info(f'Opened serial port {self.port} at baud rate {self.baudrate}')
             except serial.SerialException as e:
-                self.get_logger().error(f'Failed to open serial port {port} with error: {e}')
+                self.get_logger().error(f'Failed to open serial port {self.port} with error: {e}')
                 self.serial = None
         else:
             self.get_logger().error('Serial port not found')

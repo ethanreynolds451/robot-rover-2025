@@ -1,0 +1,551 @@
+[INFO] [1774984691.529714162] [control_serial_interface]: Starting Control Serial Interface Node
+[WARN] [1774984694.544292563] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984694.547533841] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984694.554452693] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984694.558580916] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1130>
+[ERROR] [1774984694.561398035] [control_serial_interface]: Serial port not found
+[WARN] [1774984697.544682481] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984697.547416929] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984697.550299744] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984697.553199462] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1280>
+[ERROR] [1774984697.556453921] [control_serial_interface]: Serial port not found
+[WARN] [1774984700.544046718] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984700.546714514] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984700.549631308] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984700.552706321] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1250>
+[ERROR] [1774984700.556380198] [control_serial_interface]: Serial port not found
+[WARN] [1774984703.545534851] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984703.547632475] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984703.550128758] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984703.552382562] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1310>
+[ERROR] [1774984703.554755900] [control_serial_interface]: Serial port not found
+[WARN] [1774984706.542826156] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984706.543734908] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984706.544556469] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984706.545309102] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1370>
+[ERROR] [1774984706.546069167] [control_serial_interface]: Serial port not found
+[WARN] [1774984709.544197552] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984709.546697178] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984709.549508022] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984709.553004478] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a13d0>
+[ERROR] [1774984709.557136291] [control_serial_interface]: Serial port not found
+[WARN] [1774984712.544018824] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984712.546247545] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984712.548686241] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984712.551644528] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1430>
+[ERROR] [1774984712.554824366] [control_serial_interface]: Serial port not found
+[WARN] [1774984715.544570237] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984715.547965584] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984715.551363187] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984715.553691747] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1490>
+[ERROR] [1774984715.555987852] [control_serial_interface]: Serial port not found
+[WARN] [1774984718.542600202] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984718.543262768] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984718.543994100] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984718.544874938] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a14f0>
+[ERROR] [1774984718.545751564] [control_serial_interface]: Serial port not found
+[WARN] [1774984721.542691627] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984721.543630485] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984721.544788834] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984721.547711500] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1550>
+[ERROR] [1774984721.548919082] [control_serial_interface]: Serial port not found
+[WARN] [1774984724.542666057] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984724.543854794] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984724.545323899] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984724.546848464] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a15b0>
+[ERROR] [1774984724.548751592] [control_serial_interface]: Serial port not found
+[WARN] [1774984727.544504498] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984727.547409529] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984727.550244861] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984727.553654386] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1610>
+[ERROR] [1774984727.557539453] [control_serial_interface]: Serial port not found
+[WARN] [1774984730.542855085] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984730.546202014] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984730.547475609] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984730.548469898] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1670>
+[ERROR] [1774984730.554195978] [control_serial_interface]: Serial port not found
+[WARN] [1774984733.543006205] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984733.545382348] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984733.546244629] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984733.547112610] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a16d0>
+[ERROR] [1774984733.547950114] [control_serial_interface]: Serial port not found
+[WARN] [1774984736.542747590] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984736.543594747] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984736.544493294] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984736.548141868] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1730>
+[ERROR] [1774984736.549477945] [control_serial_interface]: Serial port not found
+[WARN] [1774984739.542969659] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984739.545684527] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984739.546814638] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984739.547773724] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1790>
+[ERROR] [1774984739.548635237] [control_serial_interface]: Serial port not found
+[WARN] [1774984742.543776573] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984742.544652580] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984742.600779867] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984742.601693848] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a17f0>
+[ERROR] [1774984742.602598472] [control_serial_interface]: Serial port not found
+[WARN] [1774984745.542876787] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984745.543920551] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984745.544818188] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984745.549811408] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1850>
+[ERROR] [1774984745.550951914] [control_serial_interface]: Serial port not found
+[WARN] [1774984748.543792714] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984748.544868988] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984748.547307751] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984748.549576115] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a18b0>
+[ERROR] [1774984748.550745062] [control_serial_interface]: Serial port not found
+[WARN] [1774984751.542940243] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984751.545529432] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984751.548567438] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984751.549566923] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1910>
+[ERROR] [1774984751.550541909] [control_serial_interface]: Serial port not found
+[WARN] [1774984754.542981250] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984754.543851317] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984754.545119718] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984754.546037097] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1970>
+[ERROR] [1774984754.547754795] [control_serial_interface]: Serial port not found
+[WARN] [1774984757.543870137] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984757.544761782] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984757.547587183] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984757.548806111] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a19d0>
+[ERROR] [1774984757.550362028] [control_serial_interface]: Serial port not found
+[WARN] [1774984760.542322416] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984760.542948290] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984760.543637702] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984760.544514343] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1a30>
+[ERROR] [1774984760.545293943] [control_serial_interface]: Serial port not found
+[WARN] [1774984763.543457932] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984763.545704761] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984763.547993947] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984763.550035311] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1a90>
+[ERROR] [1774984763.551823119] [control_serial_interface]: Serial port not found
+[WARN] [1774984766.545532378] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984766.548706362] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984766.554735138] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984766.557969599] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1af0>
+[ERROR] [1774984766.560665935] [control_serial_interface]: Serial port not found
+[WARN] [1774984769.543098854] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984769.544931130] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984769.546072998] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984769.547621840] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1b50>
+[ERROR] [1774984769.548952525] [control_serial_interface]: Serial port not found
+[WARN] [1774984772.544256741] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984772.546285480] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984772.548607480] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984772.553323042] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1bb0>
+[ERROR] [1774984772.556368226] [control_serial_interface]: Serial port not found
+[WARN] [1774984775.542790643] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984775.543681894] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984775.544411676] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984775.545317012] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1c10>
+[ERROR] [1774984775.546398272] [control_serial_interface]: Serial port not found
+[WARN] [1774984778.543359010] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984778.545365559] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984778.547484111] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984778.549891591] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1c70>
+[ERROR] [1774984778.551202238] [control_serial_interface]: Serial port not found
+[WARN] [1774984781.542915468] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984781.543895102] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984781.545295979] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984781.547004502] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1cd0>
+[ERROR] [1774984781.548865771] [control_serial_interface]: Serial port not found
+[WARN] [1774984784.543819336] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984784.545093087] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984784.550069063] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984784.553851380] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1d30>
+[ERROR] [1774984784.556732089] [control_serial_interface]: Serial port not found
+[WARN] [1774984787.545474903] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984787.547615880] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984787.549778951] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984787.553631119] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1d90>
+[ERROR] [1774984787.554931625] [control_serial_interface]: Serial port not found
+[WARN] [1774984790.544347183] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984790.547350036] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984790.550208919] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984790.552563579] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1190>
+[ERROR] [1774984790.555092129] [control_serial_interface]: Serial port not found
+[WARN] [1774984793.544017768] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984793.548639911] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984793.551178218] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984793.554208557] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1f10>
+[ERROR] [1774984793.557360920] [control_serial_interface]: Serial port not found
+[WARN] [1774984796.543447721] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984796.544306188] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984796.545210566] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984796.546071430] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1fa0>
+[ERROR] [1774984796.546962998] [control_serial_interface]: Serial port not found
+[WARN] [1774984799.545396427] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984799.547431897] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984799.549543746] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984799.550917794] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1ee0>
+[ERROR] [1774984799.552134588] [control_serial_interface]: Serial port not found
+[WARN] [1774984802.544028745] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984802.546273720] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984802.547309781] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984802.548262442] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1fd0>
+[ERROR] [1774984802.549002099] [control_serial_interface]: Serial port not found
+[WARN] [1774984805.548321102] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984805.549154067] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984805.550070801] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984805.552951147] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1e50>
+[ERROR] [1774984805.553672960] [control_serial_interface]: Serial port not found
+[WARN] [1774984808.543524944] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984808.545509479] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984808.547702918] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984808.549985053] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5100>
+[ERROR] [1774984808.551805636] [control_serial_interface]: Serial port not found
+[WARN] [1774984811.543579690] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984811.546542918] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984811.548610083] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984811.550477799] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5040>
+[ERROR] [1774984811.552412713] [control_serial_interface]: Serial port not found
+[WARN] [1774984814.544326274] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984814.546699370] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984814.549395172] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984814.552374830] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a51c0>
+[ERROR] [1774984814.555381308] [control_serial_interface]: Serial port not found
+[WARN] [1774984817.545059735] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984817.548897147] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984817.551767397] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984817.553663390] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5280>
+[ERROR] [1774984817.555192930] [control_serial_interface]: Serial port not found
+[WARN] [1774984820.542805878] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984820.544154337] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984820.546255272] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984820.548857402] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a52e0>
+[ERROR] [1774984820.550863949] [control_serial_interface]: Serial port not found
+[WARN] [1774984823.543924287] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984823.545599328] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984823.547384023] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984823.549289291] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5340>
+[ERROR] [1774984823.552052760] [control_serial_interface]: Serial port not found
+[WARN] [1774984826.545027966] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984826.547218911] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984826.549576944] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984826.551497033] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a53a0>
+[ERROR] [1774984826.553543217] [control_serial_interface]: Serial port not found
+[WARN] [1774984829.542422836] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984829.543023987] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984829.543634503] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984829.544229017] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5400>
+[ERROR] [1774984829.544858543] [control_serial_interface]: Serial port not found
+[WARN] [1774984832.543434341] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984832.545388814] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984832.547382095] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984832.551979980] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5460>
+[ERROR] [1774984832.553989482] [control_serial_interface]: Serial port not found
+[WARN] [1774984835.544645720] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984835.549244994] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984835.550365051] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984835.553516056] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a54c0>
+[ERROR] [1774984835.554443973] [control_serial_interface]: Serial port not found
+[WARN] [1774984838.543052324] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984838.543926763] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984838.544641263] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984838.545442764] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5520>
+[ERROR] [1774984838.546349239] [control_serial_interface]: Serial port not found
+[WARN] [1774984841.543383767] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984841.545484654] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984841.547565985] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984841.549766531] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5580>
+[ERROR] [1774984841.551678879] [control_serial_interface]: Serial port not found
+[WARN] [1774984844.545005525] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984844.547507183] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984844.550583164] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984844.553184065] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a55e0>
+[ERROR] [1774984844.555642791] [control_serial_interface]: Serial port not found
+[WARN] [1774984847.542443844] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984847.543033563] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984847.544251119] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984847.545221753] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5640>
+[ERROR] [1774984847.545954119] [control_serial_interface]: Serial port not found
+[WARN] [1774984850.542559615] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984850.543765634] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984850.545971350] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984850.547421516] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a56a0>
+[ERROR] [1774984850.548516357] [control_serial_interface]: Serial port not found
+[WARN] [1774984853.542378670] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984853.543154026] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984853.543776962] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984853.544412313] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5700>
+[ERROR] [1774984853.545039269] [control_serial_interface]: Serial port not found
+[WARN] [1774984856.543798746] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984856.546333091] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984856.549248208] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984856.550860466] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5760>
+[ERROR] [1774984856.552658030] [control_serial_interface]: Serial port not found
+[WARN] [1774984859.542501499] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984859.543230652] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984859.544063046] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984859.545018576] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a57c0>
+[ERROR] [1774984859.546439925] [control_serial_interface]: Serial port not found
+[WARN] [1774984862.543070315] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984862.544029365] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984862.545398943] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984862.547945184] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5820>
+[ERROR] [1774984862.550423282] [control_serial_interface]: Serial port not found
+[WARN] [1774984865.544011039] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984865.545637515] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984865.547346315] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984865.548630123] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5880>
+[ERROR] [1774984865.549627327] [control_serial_interface]: Serial port not found
+[WARN] [1774984868.542507222] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984868.543236398] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984868.543961318] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984868.545071844] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a58e0>
+[ERROR] [1774984868.546280589] [control_serial_interface]: Serial port not found
+[WARN] [1774984871.542573437] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984871.543337903] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984871.544102305] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984871.545034075] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5940>
+[ERROR] [1774984871.546191071] [control_serial_interface]: Serial port not found
+[WARN] [1774984874.542825780] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984874.546995781] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984874.549029358] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984874.550350964] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a59a0>
+[ERROR] [1774984874.551467806] [control_serial_interface]: Serial port not found
+[WARN] [1774984877.542482268] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984877.543112103] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984877.543743102] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984877.544466433] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5a00>
+[ERROR] [1774984877.545316507] [control_serial_interface]: Serial port not found
+[WARN] [1774984880.542520117] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984880.543348759] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984880.544867839] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984880.545882551] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5a60>
+[ERROR] [1774984880.547058955] [control_serial_interface]: Serial port not found
+[WARN] [1774984883.543740799] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984883.546877510] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984883.550729355] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984883.553887684] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5ac0>
+[ERROR] [1774984883.556184709] [control_serial_interface]: Serial port not found
+[WARN] [1774984886.544718707] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984886.547465754] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984886.549630515] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984886.552248596] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5b20>
+[ERROR] [1774984886.557105461] [control_serial_interface]: Serial port not found
+[WARN] [1774984889.543990899] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984889.546041632] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984889.548889008] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984889.551606905] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5b80>
+[ERROR] [1774984889.553876501] [control_serial_interface]: Serial port not found
+[WARN] [1774984892.542422479] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984892.543160874] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984892.543937652] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984892.544753460] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5be0>
+[ERROR] [1774984892.545609108] [control_serial_interface]: Serial port not found
+[WARN] [1774984895.543512150] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984895.545961260] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984895.546784417] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984895.548907191] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5c40>
+[ERROR] [1774984895.549791313] [control_serial_interface]: Serial port not found
+[WARN] [1774984898.548713381] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984898.559385308] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984898.561165483] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984898.564019003] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5ca0>
+[ERROR] [1774984898.564908840] [control_serial_interface]: Serial port not found
+[WARN] [1774984901.547598764] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984901.555257697] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984901.556023253] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984901.561412658] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5d00>
+[ERROR] [1774984901.562296923] [control_serial_interface]: Serial port not found
+[WARN] [1774984904.545841423] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984904.553480604] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984904.555320502] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984904.558492982] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5d60>
+[ERROR] [1774984904.559533707] [control_serial_interface]: Serial port not found
+[WARN] [1774984907.547434078] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984907.554912603] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984907.555953343] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984907.559618267] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5dc0>
+[ERROR] [1774984907.562821856] [control_serial_interface]: Serial port not found
+[WARN] [1774984910.546764267] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984910.555533274] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984910.556326884] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984910.558219147] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5e20>
+[ERROR] [1774984910.559149262] [control_serial_interface]: Serial port not found
+[WARN] [1774984913.554450247] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984913.561293213] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984913.562592157] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984913.565952025] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5e80>
+[ERROR] [1774984913.567861701] [control_serial_interface]: Serial port not found
+[WARN] [1774984916.548062588] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984916.554731859] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984916.555327654] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984916.558405271] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5ee0>
+[ERROR] [1774984916.559300986] [control_serial_interface]: Serial port not found
+[WARN] [1774984919.549417499] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984919.558039228] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984919.558940699] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984919.562537181] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5f40>
+[ERROR] [1774984919.564251518] [control_serial_interface]: Serial port not found
+[WARN] [1774984922.549622817] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984922.555902151] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984922.556775297] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984922.558867753] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a5190>
+[ERROR] [1774984922.559549660] [control_serial_interface]: Serial port not found
+[WARN] [1774984925.543250962] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984925.544779645] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984925.545591547] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984925.546612640] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a50a0>
+[ERROR] [1774984925.547328012] [control_serial_interface]: Serial port not found
+[WARN] [1774984928.544254429] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984928.550587725] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984928.553732992] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984928.556696838] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46a1070>
+[ERROR] [1774984928.559737916] [control_serial_interface]: Serial port not found
+[WARN] [1774984931.544429171] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984931.547154933] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984931.549923986] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984931.552652449] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa100>
+[ERROR] [1774984931.556023944] [control_serial_interface]: Serial port not found
+[WARN] [1774984934.542242259] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984934.543601034] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984934.544225190] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984934.545673101] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa160>
+[ERROR] [1774984934.546663784] [control_serial_interface]: Serial port not found
+[WARN] [1774984937.543595163] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984937.544901945] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984937.546518167] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984937.548303565] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa1c0>
+[ERROR] [1774984937.549445194] [control_serial_interface]: Serial port not found
+[WARN] [1774984940.544169022] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984940.546438203] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984940.550135608] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984940.551522849] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa220>
+[ERROR] [1774984940.552892361] [control_serial_interface]: Serial port not found
+[WARN] [1774984943.543184630] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984943.544637456] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984943.546474453] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984943.548172405] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa280>
+[ERROR] [1774984943.550361649] [control_serial_interface]: Serial port not found
+[WARN] [1774984946.544348373] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984946.547369530] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984946.551533648] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984946.555316713] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa2e0>
+[ERROR] [1774984946.557663673] [control_serial_interface]: Serial port not found
+[WARN] [1774984949.542532711] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984949.543393843] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984949.546409251] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984949.548538282] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa340>
+[ERROR] [1774984949.550794733] [control_serial_interface]: Serial port not found
+[WARN] [1774984952.542425919] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984952.543301516] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984952.544057990] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984952.545021042] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa3a0>
+[ERROR] [1774984952.546022084] [control_serial_interface]: Serial port not found
+[WARN] [1774984955.543550501] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984955.544865335] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984955.546388869] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984955.547745851] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa400>
+[ERROR] [1774984955.548665294] [control_serial_interface]: Serial port not found
+[WARN] [1774984958.543226525] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984958.544484498] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984958.545177076] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984958.546240306] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa460>
+[ERROR] [1774984958.547961193] [control_serial_interface]: Serial port not found
+[WARN] [1774984961.545339482] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984961.549570406] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984961.551816878] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984961.554492971] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa4c0>
+[ERROR] [1774984961.557124125] [control_serial_interface]: Serial port not found
+[WARN] [1774984964.542710007] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984964.543378648] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984964.543928830] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984964.544641443] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa520>
+[ERROR] [1774984964.545359436] [control_serial_interface]: Serial port not found
+[WARN] [1774984967.545152398] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984967.551039893] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984967.551664458] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984967.554583646] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa580>
+[ERROR] [1774984967.555345770] [control_serial_interface]: Serial port not found
+[WARN] [1774984970.543767588] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984970.546798656] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984970.547482305] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984970.548576638] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa5e0>
+[ERROR] [1774984970.549249042] [control_serial_interface]: Serial port not found
+[WARN] [1774984973.544241962] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984973.547924664] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984973.548579406] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984973.549950368] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa640>
+[ERROR] [1774984973.550629225] [control_serial_interface]: Serial port not found
+[WARN] [1774984976.543212776] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984976.547066562] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984976.547985244] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984976.549582762] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa6a0>
+[ERROR] [1774984976.550404266] [control_serial_interface]: Serial port not found
+[WARN] [1774984979.545006394] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984979.546919026] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984979.551367787] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984979.552458623] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa700>
+[ERROR] [1774984979.553417079] [control_serial_interface]: Serial port not found
+[WARN] [1774984982.543514106] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984982.549372122] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984982.550294642] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984982.552480702] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa760>
+[ERROR] [1774984982.553365876] [control_serial_interface]: Serial port not found
+[WARN] [1774984985.544668645] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984985.546912342] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984985.549777856] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984985.551387227] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa7c0>
+[ERROR] [1774984985.554088421] [control_serial_interface]: Serial port not found
+[WARN] [1774984988.546176664] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984988.548637187] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984988.551378950] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984988.553985308] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa820>
+[ERROR] [1774984988.556726871] [control_serial_interface]: Serial port not found
+[WARN] [1774984991.543530900] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984991.544361923] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984991.554477012] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984991.555646877] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa880>
+[ERROR] [1774984991.559849877] [control_serial_interface]: Serial port not found
+[WARN] [1774984994.542485509] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984994.543147999] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984994.543829664] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984994.544552627] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa8e0>
+[ERROR] [1774984994.545234010] [control_serial_interface]: Serial port not found
+[WARN] [1774984997.542984319] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774984997.544540343] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774984997.546242246] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774984997.547664153] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa940>
+[ERROR] [1774984997.548547742] [control_serial_interface]: Serial port not found
+[WARN] [1774985000.542771640] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985000.544575263] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985000.545582951] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985000.547250716] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aa9a0>
+[ERROR] [1774985000.548156239] [control_serial_interface]: Serial port not found
+[WARN] [1774985003.545770060] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985003.549769427] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985003.551718909] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985003.554608507] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aaa00>
+[ERROR] [1774985003.558154357] [control_serial_interface]: Serial port not found
+[WARN] [1774985006.543101305] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985006.549713436] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985006.551521898] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985006.556148503] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aaa60>
+[ERROR] [1774985006.557947085] [control_serial_interface]: Serial port not found
+[WARN] [1774985009.544186954] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985009.550509134] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985009.551238326] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985009.553893151] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aaac0>
+[ERROR] [1774985009.554709206] [control_serial_interface]: Serial port not found
+[WARN] [1774985012.543603773] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985012.549529095] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985012.550246456] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985012.552423630] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aab20>
+[ERROR] [1774985012.553288256] [control_serial_interface]: Serial port not found
+[WARN] [1774985015.546978013] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985015.554006722] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985015.554778512] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985015.558260801] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aab80>
+[ERROR] [1774985015.559023783] [control_serial_interface]: Serial port not found
+[WARN] [1774985018.545603654] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985018.551898263] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985018.552745586] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985018.554984063] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aabe0>
+[ERROR] [1774985018.556754112] [control_serial_interface]: Serial port not found
+[WARN] [1774985021.543860739] [control_serial_interface]: Control board serial port is not open, attempting to open
+[INFO] [1774985021.549721857] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774985021.550429225] [control_serial_interface]: Requesting serial port from serial manager service
+[INFO] [1774985021.552511456] [control_serial_interface]: Received serial port from serial manager: <rclpy.task.Future object at 0x7ba1c46aac40>
+[ERROR] [1774985021.553268538] [control_seri
