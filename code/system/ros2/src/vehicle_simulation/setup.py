@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'vehicle_control_sim = vehicle_simulation.vehicle_control_sim:main',
+            'vehicle_sensor_sim = vehicle_simulation.vehicle_sensor_sim:main',
         ],
     },
 )

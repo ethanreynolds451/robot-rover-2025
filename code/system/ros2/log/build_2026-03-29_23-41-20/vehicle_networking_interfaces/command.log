@@ -1,4 +1,0 @@
-Invoking command in '/root/build/vehicle_networking_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --build /root/build/vehicle_networking_interfaces -- -j4 -l4
-Invoked command in '/root/build/vehicle_networking_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --build /root/build/vehicle_networking_interfaces -- -j4 -l4
-Invoking command in '/root/build/vehicle_networking_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --install /root/build/vehicle_networking_interfaces
-Invoked command in '/root/build/vehicle_networking_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --install /root/build/vehicle_networking_interfaces

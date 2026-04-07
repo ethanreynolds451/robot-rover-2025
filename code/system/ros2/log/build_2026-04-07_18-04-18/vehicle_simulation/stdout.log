@@ -1,0 +1,39 @@
+running egg_info
+creating ../../build/vehicle_simulation/vehicle_simulation.egg-info
+writing ../../build/vehicle_simulation/vehicle_simulation.egg-info/PKG-INFO
+writing dependency_links to ../../build/vehicle_simulation/vehicle_simulation.egg-info/dependency_links.txt
+writing entry points to ../../build/vehicle_simulation/vehicle_simulation.egg-info/entry_points.txt
+writing requirements to ../../build/vehicle_simulation/vehicle_simulation.egg-info/requires.txt
+writing top-level names to ../../build/vehicle_simulation/vehicle_simulation.egg-info/top_level.txt
+writing manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+reading manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+writing manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /root/build/vehicle_simulation/build
+creating /root/build/vehicle_simulation/build/lib
+creating /root/build/vehicle_simulation/build/lib/vehicle_simulation
+copying vehicle_simulation/vehicle_sensor_sim.py -> /root/build/vehicle_simulation/build/lib/vehicle_simulation
+copying vehicle_simulation/vehicle_control_sim.py -> /root/build/vehicle_simulation/build/lib/vehicle_simulation
+copying vehicle_simulation/__init__.py -> /root/build/vehicle_simulation/build/lib/vehicle_simulation
+running install
+running install_lib
+creating /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+copying /root/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_sensor_sim.py -> /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+copying /root/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_control_sim.py -> /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+copying /root/build/vehicle_simulation/build/lib/vehicle_simulation/__init__.py -> /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+byte-compiling /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_sensor_sim.py to vehicle_sensor_sim.cpython-38.pyc
+byte-compiling /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_control_sim.py to vehicle_control_sim.cpython-38.pyc
+byte-compiling /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /root/install/vehicle_simulation/share/ament_index
+creating /root/install/vehicle_simulation/share/ament_index/resource_index
+creating /root/install/vehicle_simulation/share/ament_index/resource_index/packages
+copying resource/vehicle_simulation -> /root/install/vehicle_simulation/share/ament_index/resource_index/packages
+copying package.xml -> /root/install/vehicle_simulation/share/vehicle_simulation
+running install_egg_info
+Copying ../../build/vehicle_simulation/vehicle_simulation.egg-info to /root/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation-0.0.0-py3.8.egg-info
+running install_scripts
+Installing vehicle_control_sim script to /root/install/vehicle_simulation/lib/vehicle_simulation
+Installing vehicle_sensor_sim script to /root/install/vehicle_simulation/lib/vehicle_simulation
+writing list of installed files to '/root/build/vehicle_simulation/install.log'
