@@ -31,7 +31,7 @@ import serial.tools.list_ports      # To get the ports and information
 import json                         # For reading the device identifiers
 
 # ROS2 service definitions
-from vehicle_networking_interfaces.srv import GetSerialPort, ResetSerialPort
+from vehicle_interfaces.srv import GetSerialPort, ResetSerialPort
 
 # Packages for ROS2
 import rclpy

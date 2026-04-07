@@ -76,7 +76,7 @@ class ControlSerialInterface(Node):
         # Debug
         # self.get_logger().info('Serial services intitialized')
         # Set up client to request serial port form serial manager
-        self.get_port_client= self.create_client(GetSerialPort, 'serial_manager') 
+        self.get_port_client= self.create_client(GetSerialPort, '/vehicle/serial_manager/get_serial_port')
         # Serial connection parameters
         self.declare_parameter('active', True)                                                   # Whether the serial interface is active and should attempt to connect
         self.declare_parameter('serial_port', '')                                       # Default value for serial port parameter

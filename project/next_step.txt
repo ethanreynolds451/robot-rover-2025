@@ -1,0 +1,1 @@
+Establish communication between control_serial_interface and serial_manager through get_port (also test all services)

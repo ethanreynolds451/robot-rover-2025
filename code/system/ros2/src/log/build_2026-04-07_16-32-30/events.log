@@ -1,0 +1,65 @@
+[0.000000] (-) TimerEvent: {}
+[0.000336] (-) JobUnselected: {'identifier': 'vehicle_control'}
+[0.000417] (-) JobUnselected: {'identifier': 'vehicle_interfaces'}
+[0.000678] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.000723] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.000751] (-) JobUnselected: {'identifier': 'vehicle_sensor'}
+[0.000776] (vehicle_simulation) JobQueued: {'identifier': 'vehicle_simulation', 'dependencies': OrderedDict()}
+[0.001105] (vehicle_simulation) JobStarted: {'identifier': 'vehicle_simulation'}
+[0.099565] (-) TimerEvent: {}
+[0.199999] (-) TimerEvent: {}
+[0.300333] (-) TimerEvent: {}
+[0.400951] (-) TimerEvent: {}
+[0.501662] (-) TimerEvent: {}
+[0.602035] (-) TimerEvent: {}
+[0.702372] (-) TimerEvent: {}
+[0.802744] (-) TimerEvent: {}
+[0.903030] (-) TimerEvent: {}
+[0.966960] (vehicle_simulation) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/vehicle_simulation', 'build', '--build-base', '/root/src/build/vehicle_simulation/build', 'install', '--record', '/root/src/build/vehicle_simulation/install.log', '--install-scripts', '$base/lib/vehicle_simulation', '--single-version-externally-managed'], 'cwd': '/root/src/vehicle_simulation', 'env': {'HOSTNAME': '7350f18f7729', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/root', 'ROS_PYTHON_VERSION': '3', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':0.0', 'LANG': 'C.UTF-8', 'AMENT_PREFIX_PATH': '/opt/ros/foxy', 'DEBIAN_FRONTEND': 'noninteractive', 'PWD': '/root/src/build/vehicle_simulation', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/root/src/build/vehicle_simulation/prefix_override:/root/src/install/vehicle_simulation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.004540] (-) TimerEvent: {}
+[1.105190] (-) TimerEvent: {}
+[1.206247] (-) TimerEvent: {}
+[1.306624] (-) TimerEvent: {}
+[1.343527] (vehicle_simulation) StdoutLine: {'line': b'running egg_info\n'}
+[1.344670] (vehicle_simulation) StdoutLine: {'line': b'creating ../build/vehicle_simulation/vehicle_simulation.egg-info\n'}
+[1.344989] (vehicle_simulation) StdoutLine: {'line': b'writing ../build/vehicle_simulation/vehicle_simulation.egg-info/PKG-INFO\n'}
+[1.345173] (vehicle_simulation) StdoutLine: {'line': b'writing dependency_links to ../build/vehicle_simulation/vehicle_simulation.egg-info/dependency_links.txt\n'}
+[1.345425] (vehicle_simulation) StdoutLine: {'line': b'writing entry points to ../build/vehicle_simulation/vehicle_simulation.egg-info/entry_points.txt\n'}
+[1.345549] (vehicle_simulation) StdoutLine: {'line': b'writing requirements to ../build/vehicle_simulation/vehicle_simulation.egg-info/requires.txt\n'}
+[1.345710] (vehicle_simulation) StdoutLine: {'line': b'writing top-level names to ../build/vehicle_simulation/vehicle_simulation.egg-info/top_level.txt\n'}
+[1.349997] (vehicle_simulation) StdoutLine: {'line': b"writing manifest file '../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'\n"}
+[1.406929] (vehicle_simulation) StdoutLine: {'line': b"reading manifest file '../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'\n"}
+[1.407189] (-) TimerEvent: {}
+[1.407461] (vehicle_simulation) StdoutLine: {'line': b"writing manifest file '../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'\n"}
+[1.407793] (vehicle_simulation) StdoutLine: {'line': b'running build\n'}
+[1.407999] (vehicle_simulation) StdoutLine: {'line': b'running build_py\n'}
+[1.408658] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/build/vehicle_simulation/build\n'}
+[1.408958] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/build/vehicle_simulation/build/lib\n'}
+[1.409236] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/build/vehicle_simulation/build/lib/vehicle_simulation\n'}
+[1.409405] (vehicle_simulation) StdoutLine: {'line': b'copying vehicle_simulation/vehicle_sensor_sim.py -> /root/src/build/vehicle_simulation/build/lib/vehicle_simulation\n'}
+[1.409745] (vehicle_simulation) StdoutLine: {'line': b'copying vehicle_simulation/vehicle_control_sim.py -> /root/src/build/vehicle_simulation/build/lib/vehicle_simulation\n'}
+[1.410158] (vehicle_simulation) StdoutLine: {'line': b'copying vehicle_simulation/__init__.py -> /root/src/build/vehicle_simulation/build/lib/vehicle_simulation\n'}
+[1.410816] (vehicle_simulation) StdoutLine: {'line': b'running install\n'}
+[1.411825] (vehicle_simulation) StdoutLine: {'line': b'running install_lib\n'}
+[1.413038] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation\n'}
+[1.413261] (vehicle_simulation) StdoutLine: {'line': b'copying /root/src/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_sensor_sim.py -> /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation\n'}
+[1.413428] (vehicle_simulation) StdoutLine: {'line': b'copying /root/src/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_control_sim.py -> /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation\n'}
+[1.413580] (vehicle_simulation) StdoutLine: {'line': b'copying /root/src/build/vehicle_simulation/build/lib/vehicle_simulation/__init__.py -> /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation\n'}
+[1.414126] (vehicle_simulation) StdoutLine: {'line': b'byte-compiling /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_sensor_sim.py to vehicle_sensor_sim.cpython-38.pyc\n'}
+[1.416329] (vehicle_simulation) StdoutLine: {'line': b'byte-compiling /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_control_sim.py to vehicle_control_sim.cpython-38.pyc\n'}
+[1.417505] (vehicle_simulation) StdoutLine: {'line': b'byte-compiling /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/__init__.py to __init__.cpython-38.pyc\n'}
+[1.417853] (vehicle_simulation) StdoutLine: {'line': b'running install_data\n'}
+[1.418623] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/install/vehicle_simulation/share/ament_index\n'}
+[1.418989] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/install/vehicle_simulation/share/ament_index/resource_index\n'}
+[1.419169] (vehicle_simulation) StdoutLine: {'line': b'creating /root/src/install/vehicle_simulation/share/ament_index/resource_index/packages\n'}
+[1.419354] (vehicle_simulation) StdoutLine: {'line': b'copying resource/vehicle_simulation -> /root/src/install/vehicle_simulation/share/ament_index/resource_index/packages\n'}
+[1.419584] (vehicle_simulation) StdoutLine: {'line': b'copying package.xml -> /root/src/install/vehicle_simulation/share/vehicle_simulation\n'}
+[1.419730] (vehicle_simulation) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.423366] (vehicle_simulation) StdoutLine: {'line': b'Copying ../build/vehicle_simulation/vehicle_simulation.egg-info to /root/src/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation-0.0.0-py3.8.egg-info\n'}
+[1.425017] (vehicle_simulation) StdoutLine: {'line': b'running install_scripts\n'}
+[1.464073] (vehicle_simulation) StdoutLine: {'line': b'Installing vehicle_control_sim script to /root/src/install/vehicle_simulation/lib/vehicle_simulation\n'}
+[1.464588] (vehicle_simulation) StdoutLine: {'line': b"writing list of installed files to '/root/src/build/vehicle_simulation/install.log'\n"}
+[1.505294] (vehicle_simulation) CommandEnded: {'returncode': 0}
+[1.507800] (-) TimerEvent: {}
+[1.549317] (vehicle_simulation) JobEnded: {'identifier': 'vehicle_simulation', 'rc': 0}
+[1.550594] (-) EventReactorShutdown: {}

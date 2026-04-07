@@ -1,5 +1,3 @@
-# TODO: fix future object return by adding timeout (will be blocking for node but this is fine because it can't do anything without the port)
-
 '''
 Manages serial communication with control board
 - Subscribes to control commands from other nodes and sends them to the control board
@@ -57,7 +55,7 @@ from urllib import request, response
 # Services
 from std_srvs.srv import Empty
 from std_srvs.srv import SetBool
-from vehicle_networking_interfaces.srv import GetDeviceStatus, GetSerialPort
+from vehicle_interfaces.srv import GetDeviceStatus, GetSerialPort
 
 class ControlSerialInterface(Node):
     def __init__(self):
@@ -76,7 +74,7 @@ class ControlSerialInterface(Node):
         # Debug
         # self.get_logger().info('Serial services intitialized')
         # Set up client to request serial port form serial manager
-        self.get_port_client= self.create_client(GetSerialPort, 'serial_manager') 
+        self.get_port_client= self.create_client(GetSerialPort, '/vehicle/serial_manager/get_serial_port')
         # Serial connection parameters
         self.declare_parameter('active', True)                                                   # Whether the serial interface is active and should attempt to connect
         self.declare_parameter('serial_port', '')                                       # Default value for serial port parameter
@@ -110,36 +108,33 @@ class ControlSerialInterface(Node):
                 request.device = "control board"  
                 # Request the port with a timeout
                 future = self.get_port_client.call_async(request)
-                rclpy.spin_until_future_complete(
-                    self,
-                    future,
-                    timeout_sec=self.get_parameter('port_timeout').get_parameter_value().double_value
-                )
-                if future.done():
-                    try:
-                        self.port = future.result().port
-                        self.get_logger().info(f'Received serial port: {self.port}')
-                    except Exception as e:
-                        self.get_logger().error(f'Service call failed: {e}')
-                        self.port = None
-                else:
-                    self.get_logger().error('Timeout while waiting for serial port')
-                    self.port = None
+                future.add_done_callback(self.handle_port_response)
+                return
             else:
                 self.port = self.get_parameter('serial_port').get_parameter_value().string_value
-            if not self.port:
-                self.get_logger().error('Control board not identified by serial manager')
+                self.get_logger().info(f'Using serial port from parameter: {self.port}')
+                    
+    def handle_port_response(self, future):
+        try:
+            response = future.result()
+            self.port = response.port
+            if self.port:
+                self.get_logger().info(f'Received serial port: {self.port}')
+            else:
+                self.get_logger().error('Control board not identified')
+        except Exception as e:
+            self.get_logger().error(f'Service call failed: {e}')
+            self.port = None           
 
 
     def open_port(self):
-        self.get_logger().info('Attempting to open serial port for control board')
-        # Get the latest serial port and baudrate values
-        self.get_port()
-        self.baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
-            # May change this later to allow for changes without reseting default parameter
-        # Attempt to open the serial port with error handling
-        # Make sure the port is defined
-        if self.port:
+        if self.port: 
+            self.get_logger().info('Attempting to open serial port for control board')
+            # Get the latest serial port and baudrate values
+            self.baudrate = self.get_parameter('serial_baudrate').get_parameter_value().integer_value
+                # May change this later to allow for changes without reseting default parameter
+            # Attempt to open the serial port with error handling
+            # Make sure the port is defined 
             try:
                 self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
                 self.get_logger().info(f'Opened serial port {self.port} at baud rate {self.baudrate}')
@@ -147,8 +142,8 @@ class ControlSerialInterface(Node):
                 self.get_logger().error(f'Failed to open serial port {self.port} with error: {e}')
                 self.serial = None
         else:
-            self.get_logger().error('Serial port not found')
-    
+            self.get_logger().error('No port defined for control board, cannot open serial connection')
+        
     def close_port(self):
         if self.serial:
             self.serial.close()
@@ -159,6 +154,7 @@ class ControlSerialInterface(Node):
         if self.get_parameter('active').get_parameter_value().bool_value:
             if not self.serial or not self.serial.is_open:
                 self.get_logger().warning('Control board serial port is not open, attempting to open')
+                self.get_port()
                 self.open_port()
         else:
             if self.serial and self.serial.is_open:
@@ -188,7 +184,7 @@ class ControlSerialInterface(Node):
             if self.serial:
                 try:
                     self.serial.write(msg.data.encode())  # Send control command to control board
-                    self.get_logger().info(f'Sent control command to control board: {msg.data}')
+                    self.get_logger().info(f'Sent command to control board: {msg.data}')
                 except serial.SerialException as e:
                     self.get_logger().error(f'Failed to send control command with error: {e}')
                     self.close_port()  # Close the port if error encountered
@@ -198,7 +194,7 @@ class ControlSerialInterface(Node):
     def status_callback(self, msg):
         # Execute whenever a status update is recieved from the control board
         self.status_publisher.publish(msg)  # Publish status update to other nodes
-        self.get_logger().info(f'Published status update from control board: {msg.data}')
+        self.get_logger().info(f'Recieved status update from control board: {msg.data}')
 
     # Service callback functions
 
