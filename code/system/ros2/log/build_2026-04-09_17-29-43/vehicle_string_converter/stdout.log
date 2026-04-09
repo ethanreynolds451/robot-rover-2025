@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/PKG-INFO
+writing dependency_links to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/dependency_links.txt
+writing entry points to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/entry_points.txt
+writing requirements to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/requires.txt
+writing top-level names to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/top_level.txt
+reading manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'
+writing manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'
+running build
+running build_py
+copying vehicle_string_converter/vehicle_control_string_builder.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter
+running install
+running install_lib
+copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_control_string_builder.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter
+byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_control_string_builder.py to vehicle_control_string_builder.cpython-38.pyc
+running install_data
+copying config/control_codes.yaml -> /root/install/vehicle_string_converter/share/vehicle_string_converter/config
+running install_egg_info
+removing '/root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/vehicle_string_converter/vehicle_string_converter.egg-info to /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info
+running install_scripts
+Installing vehicle_control_string_builder script to /root/install/vehicle_string_converter/lib/vehicle_string_converter
+writing list of installed files to '/root/build/vehicle_string_converter/install.log'

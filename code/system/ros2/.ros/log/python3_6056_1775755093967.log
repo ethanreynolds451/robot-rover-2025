@@ -1,0 +1,25 @@
+[INFO] [1775755094.075809751] [vehicle_control_string_builder]: Starting Vehicle Control String Builder Node
+[INFO] [1775755094.086228187] [vehicle_control_string_builder]: Successfully loaded control codes
+[INFO] [1775755094.430466113] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755094.431150609] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755094.432357349] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755095.433624160] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755095.435073902] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755095.436344610] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755096.429916398] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755096.430782916] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755096.431730839] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755097.430109484] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755097.431286809] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755097.432368674] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755098.433474268] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755098.434233981] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755098.435067884] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755099.430638185] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755099.431437978] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755099.432412323] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755100.431484483] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755100.432715016] [vehicle_control_string_builder]: Converted control string: {}
+[INFO] [1775755100.434321123] [vehicle_control_string_builder]: Published control string: {}
+[INFO] [1775755101.432319641] [vehicle_control_string_builder]: Converting control message: vehicle_interfaces.msg.ControlData(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id=''), brake=True, reverse=True, steering_reverse=False, shift_up=False, power=0, steering_power=0)
+[INFO] [1775755101.435168778] [vehicle_control_string_builder]: Converted c

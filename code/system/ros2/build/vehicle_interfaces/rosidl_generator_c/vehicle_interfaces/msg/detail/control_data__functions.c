@@ -11,18 +11,28 @@
 #include "rcutils/allocator.h"
 
 
+// Include directives for member types
+// Member `header`
+#include "std_msgs/msg/detail/header__functions.h"
+
 bool
 vehicle_interfaces__msg__ControlData__init(vehicle_interfaces__msg__ControlData * msg)
 {
   if (!msg) {
     return false;
   }
+  // header
+  if (!std_msgs__msg__Header__init(&msg->header)) {
+    vehicle_interfaces__msg__ControlData__fini(msg);
+    return false;
+  }
   // brake
-  // reverse
-  // steering_reverse
+  // drive_reverse
+  // steer_reverse
   // shift_up
-  // power
-  // steering_power
+  // drive_power
+  // steer_power
+  // fan_speed
   return true;
 }
 
@@ -32,12 +42,15 @@ vehicle_interfaces__msg__ControlData__fini(vehicle_interfaces__msg__ControlData 
   if (!msg) {
     return;
   }
+  // header
+  std_msgs__msg__Header__fini(&msg->header);
   // brake
-  // reverse
-  // steering_reverse
+  // drive_reverse
+  // steer_reverse
   // shift_up
-  // power
-  // steering_power
+  // drive_power
+  // steer_power
+  // fan_speed
 }
 
 bool
@@ -46,28 +59,38 @@ vehicle_interfaces__msg__ControlData__are_equal(const vehicle_interfaces__msg__C
   if (!lhs || !rhs) {
     return false;
   }
+  // header
+  if (!std_msgs__msg__Header__are_equal(
+      &(lhs->header), &(rhs->header)))
+  {
+    return false;
+  }
   // brake
   if (lhs->brake != rhs->brake) {
     return false;
   }
-  // reverse
-  if (lhs->reverse != rhs->reverse) {
+  // drive_reverse
+  if (lhs->drive_reverse != rhs->drive_reverse) {
     return false;
   }
-  // steering_reverse
-  if (lhs->steering_reverse != rhs->steering_reverse) {
+  // steer_reverse
+  if (lhs->steer_reverse != rhs->steer_reverse) {
     return false;
   }
   // shift_up
   if (lhs->shift_up != rhs->shift_up) {
     return false;
   }
-  // power
-  if (lhs->power != rhs->power) {
+  // drive_power
+  if (lhs->drive_power != rhs->drive_power) {
     return false;
   }
-  // steering_power
-  if (lhs->steering_power != rhs->steering_power) {
+  // steer_power
+  if (lhs->steer_power != rhs->steer_power) {
+    return false;
+  }
+  // fan_speed
+  if (lhs->fan_speed != rhs->fan_speed) {
     return false;
   }
   return true;
@@ -81,18 +104,26 @@ vehicle_interfaces__msg__ControlData__copy(
   if (!input || !output) {
     return false;
   }
+  // header
+  if (!std_msgs__msg__Header__copy(
+      &(input->header), &(output->header)))
+  {
+    return false;
+  }
   // brake
   output->brake = input->brake;
-  // reverse
-  output->reverse = input->reverse;
-  // steering_reverse
-  output->steering_reverse = input->steering_reverse;
+  // drive_reverse
+  output->drive_reverse = input->drive_reverse;
+  // steer_reverse
+  output->steer_reverse = input->steer_reverse;
   // shift_up
   output->shift_up = input->shift_up;
-  // power
-  output->power = input->power;
-  // steering_power
-  output->steering_power = input->steering_power;
+  // drive_power
+  output->drive_power = input->drive_power;
+  // steer_power
+  output->steer_power = input->steer_power;
+  // fan_speed
+  output->fan_speed = input->fan_speed;
   return true;
 }
 

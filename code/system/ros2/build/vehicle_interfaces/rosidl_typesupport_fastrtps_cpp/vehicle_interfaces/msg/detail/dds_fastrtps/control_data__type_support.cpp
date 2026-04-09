@@ -16,6 +16,29 @@
 
 
 // forward declaration of message dependencies and their conversion functions
+namespace std_msgs
+{
+namespace msg
+{
+namespace typesupport_fastrtps_cpp
+{
+bool cdr_serialize(
+  const std_msgs::msg::Header &,
+  eprosima::fastcdr::Cdr &);
+bool cdr_deserialize(
+  eprosima::fastcdr::Cdr &,
+  std_msgs::msg::Header &);
+size_t get_serialized_size(
+  const std_msgs::msg::Header &,
+  size_t current_alignment);
+size_t
+max_serialized_size_Header(
+  bool & full_bounded,
+  size_t current_alignment);
+}  // namespace typesupport_fastrtps_cpp
+}  // namespace msg
+}  // namespace std_msgs
+
 
 namespace vehicle_interfaces
 {
@@ -32,18 +55,24 @@ cdr_serialize(
   const vehicle_interfaces::msg::ControlData & ros_message,
   eprosima::fastcdr::Cdr & cdr)
 {
+  // Member: header
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
+    ros_message.header,
+    cdr);
   // Member: brake
   cdr << (ros_message.brake ? true : false);
-  // Member: reverse
-  cdr << (ros_message.reverse ? true : false);
-  // Member: steering_reverse
-  cdr << (ros_message.steering_reverse ? true : false);
+  // Member: drive_reverse
+  cdr << (ros_message.drive_reverse ? true : false);
+  // Member: steer_reverse
+  cdr << (ros_message.steer_reverse ? true : false);
   // Member: shift_up
   cdr << (ros_message.shift_up ? true : false);
-  // Member: power
-  cdr << ros_message.power;
-  // Member: steering_power
-  cdr << ros_message.steering_power;
+  // Member: drive_power
+  cdr << ros_message.drive_power;
+  // Member: steer_power
+  cdr << ros_message.steer_power;
+  // Member: fan_speed
+  cdr << ros_message.fan_speed;
   return true;
 }
 
@@ -53,6 +82,10 @@ cdr_deserialize(
   eprosima::fastcdr::Cdr & cdr,
   vehicle_interfaces::msg::ControlData & ros_message)
 {
+  // Member: header
+  std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
+    cdr, ros_message.header);
+
   // Member: brake
   {
     uint8_t tmp;
@@ -60,18 +93,18 @@ cdr_deserialize(
     ros_message.brake = tmp ? true : false;
   }
 
-  // Member: reverse
+  // Member: drive_reverse
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message.reverse = tmp ? true : false;
+    ros_message.drive_reverse = tmp ? true : false;
   }
 
-  // Member: steering_reverse
+  // Member: steer_reverse
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message.steering_reverse = tmp ? true : false;
+    ros_message.steer_reverse = tmp ? true : false;
   }
 
   // Member: shift_up
@@ -81,11 +114,14 @@ cdr_deserialize(
     ros_message.shift_up = tmp ? true : false;
   }
 
-  // Member: power
-  cdr >> ros_message.power;
+  // Member: drive_power
+  cdr >> ros_message.drive_power;
 
-  // Member: steering_power
-  cdr >> ros_message.steering_power;
+  // Member: steer_power
+  cdr >> ros_message.steer_power;
+
+  // Member: fan_speed
+  cdr >> ros_message.fan_speed;
 
   return true;
 }
@@ -103,21 +139,26 @@ get_serialized_size(
   (void)padding;
   (void)wchar_size;
 
+  // Member: header
+
+  current_alignment +=
+    std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
+    ros_message.header, current_alignment);
   // Member: brake
   {
     size_t item_size = sizeof(ros_message.brake);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // Member: reverse
+  // Member: drive_reverse
   {
-    size_t item_size = sizeof(ros_message.reverse);
+    size_t item_size = sizeof(ros_message.drive_reverse);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // Member: steering_reverse
+  // Member: steer_reverse
   {
-    size_t item_size = sizeof(ros_message.steering_reverse);
+    size_t item_size = sizeof(ros_message.steer_reverse);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -127,15 +168,21 @@ get_serialized_size(
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // Member: power
+  // Member: drive_power
   {
-    size_t item_size = sizeof(ros_message.power);
+    size_t item_size = sizeof(ros_message.drive_power);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // Member: steering_power
+  // Member: steer_power
   {
-    size_t item_size = sizeof(ros_message.steering_power);
+    size_t item_size = sizeof(ros_message.steer_power);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // Member: fan_speed
+  {
+    size_t item_size = sizeof(ros_message.fan_speed);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -158,6 +205,18 @@ max_serialized_size_ControlData(
   (void)full_bounded;
 
 
+  // Member: header
+  {
+    size_t array_size = 1;
+
+
+    for (size_t index = 0; index < array_size; ++index) {
+      current_alignment +=
+        std_msgs::msg::typesupport_fastrtps_cpp::max_serialized_size_Header(
+        full_bounded, current_alignment);
+    }
+  }
+
   // Member: brake
   {
     size_t array_size = 1;
@@ -165,14 +224,14 @@ max_serialized_size_ControlData(
     current_alignment += array_size * sizeof(uint8_t);
   }
 
-  // Member: reverse
+  // Member: drive_reverse
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint8_t);
   }
 
-  // Member: steering_reverse
+  // Member: steer_reverse
   {
     size_t array_size = 1;
 
@@ -186,14 +245,21 @@ max_serialized_size_ControlData(
     current_alignment += array_size * sizeof(uint8_t);
   }
 
-  // Member: power
+  // Member: drive_power
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint8_t);
   }
 
-  // Member: steering_power
+  // Member: steer_power
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint8_t);
+  }
+
+  // Member: fan_speed
   {
     size_t array_size = 1;
 

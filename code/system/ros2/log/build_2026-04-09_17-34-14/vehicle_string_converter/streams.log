@@ -1,0 +1,24 @@
+[0.908s] Invoking command in '/root/src/vehicle_string_converter': PYTHONPATH=/root/build/vehicle_string_converter/prefix_override:/root/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_string_converter build --build-base /root/build/vehicle_string_converter/build install --record /root/build/vehicle_string_converter/install.log --install-scripts $base/lib/vehicle_string_converter --single-version-externally-managed
+[1.173s] running egg_info
+[1.174s] writing ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/PKG-INFO
+[1.174s] writing dependency_links to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/dependency_links.txt
+[1.175s] writing entry points to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/entry_points.txt
+[1.175s] writing requirements to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/requires.txt
+[1.175s] writing top-level names to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/top_level.txt
+[1.227s] reading manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'
+[1.230s] writing manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'
+[1.230s] running build
+[1.230s] running build_py
+[1.231s] copying vehicle_string_converter/vehicle_control_string_builder.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter
+[1.231s] running install
+[1.232s] running install_lib
+[1.233s] copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_control_string_builder.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter
+[1.234s] byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_control_string_builder.py to vehicle_control_string_builder.cpython-38.pyc
+[1.236s] running install_data
+[1.237s] running install_egg_info
+[1.239s] removing '/root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info' (and everything under it)
+[1.240s] Copying ../../build/vehicle_string_converter/vehicle_string_converter.egg-info to /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info
+[1.241s] running install_scripts
+[1.263s] Installing vehicle_control_string_builder script to /root/install/vehicle_string_converter/lib/vehicle_string_converter
+[1.263s] writing list of installed files to '/root/build/vehicle_string_converter/install.log'
+[1.295s] Invoked command in '/root/src/vehicle_string_converter' returned '0': PYTHONPATH=/root/build/vehicle_string_converter/prefix_override:/root/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/vehicle_string_converter build --build-base /root/build/vehicle_string_converter/build install --record /root/build/vehicle_string_converter/install.log --install-scripts $base/lib/vehicle_string_converter --single-version-externally-managed

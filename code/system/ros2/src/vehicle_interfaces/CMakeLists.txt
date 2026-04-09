@@ -22,6 +22,10 @@ find_package(rosidl_default_generators REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetSerialPort.srv"
   "srv/ResetSerialPort.srv"
@@ -38,6 +42,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TemperatureData.msg"
   "msg/ToFData.msg"
   "msg/UltrasonicData.msg"
+
+  DEPENDENCIES std_msgs sensor_msgs
 )
 
 if(BUILD_TESTING)

@@ -40,6 +40,10 @@ class Metaclass_ControlData(type):
             cls._TYPE_SUPPORT = module.type_support_msg__msg__control_data
             cls._DESTROY_ROS_MESSAGE = module.destroy_ros_message_msg__msg__control_data
 
+            from std_msgs.msg import Header
+            if Header.__class__._TYPE_SUPPORT is None:
+                Header.__class__.__import_type_support__()
+
     @classmethod
     def __prepare__(cls, name, bases, **kwargs):
         # list constant names here so that they appear in the help text of
@@ -53,28 +57,34 @@ class ControlData(metaclass=Metaclass_ControlData):
     """Message class 'ControlData'."""
 
     __slots__ = [
+        '_header',
         '_brake',
-        '_reverse',
-        '_steering_reverse',
+        '_drive_reverse',
+        '_steer_reverse',
         '_shift_up',
-        '_power',
-        '_steering_power',
+        '_drive_power',
+        '_steer_power',
+        '_fan_speed',
     ]
 
     _fields_and_field_types = {
+        'header': 'std_msgs/Header',
         'brake': 'boolean',
-        'reverse': 'boolean',
-        'steering_reverse': 'boolean',
+        'drive_reverse': 'boolean',
+        'steer_reverse': 'boolean',
         'shift_up': 'boolean',
-        'power': 'uint8',
-        'steering_power': 'uint8',
+        'drive_power': 'uint8',
+        'steer_power': 'uint8',
+        'fan_speed': 'uint8',
     }
 
     SLOT_TYPES = (
+        rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Header'),  # noqa: E501
         rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
         rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
         rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
         rosidl_parser.definition.BasicType('boolean'),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint8'),  # noqa: E501
         rosidl_parser.definition.BasicType('uint8'),  # noqa: E501
         rosidl_parser.definition.BasicType('uint8'),  # noqa: E501
     )
@@ -83,12 +93,15 @@ class ControlData(metaclass=Metaclass_ControlData):
         assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
             'Invalid arguments passed to constructor: %s' % \
             ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
+        from std_msgs.msg import Header
+        self.header = kwargs.get('header', Header())
         self.brake = kwargs.get('brake', bool())
-        self.reverse = kwargs.get('reverse', bool())
-        self.steering_reverse = kwargs.get('steering_reverse', bool())
+        self.drive_reverse = kwargs.get('drive_reverse', bool())
+        self.steer_reverse = kwargs.get('steer_reverse', bool())
         self.shift_up = kwargs.get('shift_up', bool())
-        self.power = kwargs.get('power', int())
-        self.steering_power = kwargs.get('steering_power', int())
+        self.drive_power = kwargs.get('drive_power', int())
+        self.steer_power = kwargs.get('steer_power', int())
+        self.fan_speed = kwargs.get('fan_speed', int())
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -119,17 +132,21 @@ class ControlData(metaclass=Metaclass_ControlData):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
+        if self.header != other.header:
+            return False
         if self.brake != other.brake:
             return False
-        if self.reverse != other.reverse:
+        if self.drive_reverse != other.drive_reverse:
             return False
-        if self.steering_reverse != other.steering_reverse:
+        if self.steer_reverse != other.steer_reverse:
             return False
         if self.shift_up != other.shift_up:
             return False
-        if self.power != other.power:
+        if self.drive_power != other.drive_power:
             return False
-        if self.steering_power != other.steering_power:
+        if self.steer_power != other.steer_power:
+            return False
+        if self.fan_speed != other.fan_speed:
             return False
         return True
 
@@ -137,6 +154,20 @@ class ControlData(metaclass=Metaclass_ControlData):
     def get_fields_and_field_types(cls):
         from copy import copy
         return copy(cls._fields_and_field_types)
+
+    @property
+    def header(self):
+        """Message field 'header'."""
+        return self._header
+
+    @header.setter
+    def header(self, value):
+        if __debug__:
+            from std_msgs.msg import Header
+            assert \
+                isinstance(value, Header), \
+                "The 'header' field must be a sub message of type 'Header'"
+        self._header = value
 
     @property
     def brake(self):
@@ -152,30 +183,30 @@ class ControlData(metaclass=Metaclass_ControlData):
         self._brake = value
 
     @property
-    def reverse(self):
-        """Message field 'reverse'."""
-        return self._reverse
+    def drive_reverse(self):
+        """Message field 'drive_reverse'."""
+        return self._drive_reverse
 
-    @reverse.setter
-    def reverse(self, value):
+    @drive_reverse.setter
+    def drive_reverse(self, value):
         if __debug__:
             assert \
                 isinstance(value, bool), \
-                "The 'reverse' field must be of type 'bool'"
-        self._reverse = value
+                "The 'drive_reverse' field must be of type 'bool'"
+        self._drive_reverse = value
 
     @property
-    def steering_reverse(self):
-        """Message field 'steering_reverse'."""
-        return self._steering_reverse
+    def steer_reverse(self):
+        """Message field 'steer_reverse'."""
+        return self._steer_reverse
 
-    @steering_reverse.setter
-    def steering_reverse(self, value):
+    @steer_reverse.setter
+    def steer_reverse(self, value):
         if __debug__:
             assert \
                 isinstance(value, bool), \
-                "The 'steering_reverse' field must be of type 'bool'"
-        self._steering_reverse = value
+                "The 'steer_reverse' field must be of type 'bool'"
+        self._steer_reverse = value
 
     @property
     def shift_up(self):
@@ -191,31 +222,46 @@ class ControlData(metaclass=Metaclass_ControlData):
         self._shift_up = value
 
     @property
-    def power(self):
-        """Message field 'power'."""
-        return self._power
+    def drive_power(self):
+        """Message field 'drive_power'."""
+        return self._drive_power
 
-    @power.setter
-    def power(self, value):
+    @drive_power.setter
+    def drive_power(self, value):
         if __debug__:
             assert \
                 isinstance(value, int), \
-                "The 'power' field must be of type 'int'"
+                "The 'drive_power' field must be of type 'int'"
             assert value >= 0 and value < 256, \
-                "The 'power' field must be an unsigned integer in [0, 255]"
-        self._power = value
+                "The 'drive_power' field must be an unsigned integer in [0, 255]"
+        self._drive_power = value
 
     @property
-    def steering_power(self):
-        """Message field 'steering_power'."""
-        return self._steering_power
+    def steer_power(self):
+        """Message field 'steer_power'."""
+        return self._steer_power
 
-    @steering_power.setter
-    def steering_power(self, value):
+    @steer_power.setter
+    def steer_power(self, value):
         if __debug__:
             assert \
                 isinstance(value, int), \
-                "The 'steering_power' field must be of type 'int'"
+                "The 'steer_power' field must be of type 'int'"
             assert value >= 0 and value < 256, \
-                "The 'steering_power' field must be an unsigned integer in [0, 255]"
-        self._steering_power = value
+                "The 'steer_power' field must be an unsigned integer in [0, 255]"
+        self._steer_power = value
+
+    @property
+    def fan_speed(self):
+        """Message field 'fan_speed'."""
+        return self._fan_speed
+
+    @fan_speed.setter
+    def fan_speed(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, int), \
+                "The 'fan_speed' field must be of type 'int'"
+            assert value >= 0 and value < 256, \
+                "The 'fan_speed' field must be an unsigned integer in [0, 255]"
+        self._fan_speed = value

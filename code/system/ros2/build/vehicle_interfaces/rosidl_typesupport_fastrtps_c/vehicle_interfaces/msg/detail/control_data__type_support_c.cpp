@@ -34,8 +34,22 @@ extern "C"
 {
 #endif
 
+#include "std_msgs/msg/detail/header__functions.h"  // header
 
 // forward declare type support functions
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_vehicle_interfaces
+size_t get_serialized_size_std_msgs__msg__Header(
+  const void * untyped_ros_message,
+  size_t current_alignment);
+
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_vehicle_interfaces
+size_t max_serialized_size_std_msgs__msg__Header(
+  bool & full_bounded,
+  size_t current_alignment);
+
+ROSIDL_TYPESUPPORT_FASTRTPS_C_IMPORT_vehicle_interfaces
+const rosidl_message_type_support_t *
+  ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_fastrtps_c, std_msgs, msg, Header)();
 
 
 using _ControlData__ros_msg_type = vehicle_interfaces__msg__ControlData;
@@ -49,19 +63,33 @@ static bool _ControlData__cdr_serialize(
     return false;
   }
   const _ControlData__ros_msg_type * ros_message = static_cast<const _ControlData__ros_msg_type *>(untyped_ros_message);
+  // Field name: header
+  {
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Header
+      )()->data);
+    if (!callbacks->cdr_serialize(
+        &ros_message->header, cdr))
+    {
+      return false;
+    }
+  }
+
   // Field name: brake
   {
     cdr << (ros_message->brake ? true : false);
   }
 
-  // Field name: reverse
+  // Field name: drive_reverse
   {
-    cdr << (ros_message->reverse ? true : false);
+    cdr << (ros_message->drive_reverse ? true : false);
   }
 
-  // Field name: steering_reverse
+  // Field name: steer_reverse
   {
-    cdr << (ros_message->steering_reverse ? true : false);
+    cdr << (ros_message->steer_reverse ? true : false);
   }
 
   // Field name: shift_up
@@ -69,14 +97,19 @@ static bool _ControlData__cdr_serialize(
     cdr << (ros_message->shift_up ? true : false);
   }
 
-  // Field name: power
+  // Field name: drive_power
   {
-    cdr << ros_message->power;
+    cdr << ros_message->drive_power;
   }
 
-  // Field name: steering_power
+  // Field name: steer_power
   {
-    cdr << ros_message->steering_power;
+    cdr << ros_message->steer_power;
+  }
+
+  // Field name: fan_speed
+  {
+    cdr << ros_message->fan_speed;
   }
 
   return true;
@@ -91,6 +124,20 @@ static bool _ControlData__cdr_deserialize(
     return false;
   }
   _ControlData__ros_msg_type * ros_message = static_cast<_ControlData__ros_msg_type *>(untyped_ros_message);
+  // Field name: header
+  {
+    const message_type_support_callbacks_t * callbacks =
+      static_cast<const message_type_support_callbacks_t *>(
+      ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
+        rosidl_typesupport_fastrtps_c, std_msgs, msg, Header
+      )()->data);
+    if (!callbacks->cdr_deserialize(
+        cdr, &ros_message->header))
+    {
+      return false;
+    }
+  }
+
   // Field name: brake
   {
     uint8_t tmp;
@@ -98,18 +145,18 @@ static bool _ControlData__cdr_deserialize(
     ros_message->brake = tmp ? true : false;
   }
 
-  // Field name: reverse
+  // Field name: drive_reverse
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message->reverse = tmp ? true : false;
+    ros_message->drive_reverse = tmp ? true : false;
   }
 
-  // Field name: steering_reverse
+  // Field name: steer_reverse
   {
     uint8_t tmp;
     cdr >> tmp;
-    ros_message->steering_reverse = tmp ? true : false;
+    ros_message->steer_reverse = tmp ? true : false;
   }
 
   // Field name: shift_up
@@ -119,14 +166,19 @@ static bool _ControlData__cdr_deserialize(
     ros_message->shift_up = tmp ? true : false;
   }
 
-  // Field name: power
+  // Field name: drive_power
   {
-    cdr >> ros_message->power;
+    cdr >> ros_message->drive_power;
   }
 
-  // Field name: steering_power
+  // Field name: steer_power
   {
-    cdr >> ros_message->steering_power;
+    cdr >> ros_message->steer_power;
+  }
+
+  // Field name: fan_speed
+  {
+    cdr >> ros_message->fan_speed;
   }
 
   return true;
@@ -146,21 +198,25 @@ size_t get_serialized_size_vehicle_interfaces__msg__ControlData(
   (void)padding;
   (void)wchar_size;
 
+  // field.name header
+
+  current_alignment += get_serialized_size_std_msgs__msg__Header(
+    &(ros_message->header), current_alignment);
   // field.name brake
   {
     size_t item_size = sizeof(ros_message->brake);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // field.name reverse
+  // field.name drive_reverse
   {
-    size_t item_size = sizeof(ros_message->reverse);
+    size_t item_size = sizeof(ros_message->drive_reverse);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // field.name steering_reverse
+  // field.name steer_reverse
   {
-    size_t item_size = sizeof(ros_message->steering_reverse);
+    size_t item_size = sizeof(ros_message->steer_reverse);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -170,15 +226,21 @@ size_t get_serialized_size_vehicle_interfaces__msg__ControlData(
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // field.name power
+  // field.name drive_power
   {
-    size_t item_size = sizeof(ros_message->power);
+    size_t item_size = sizeof(ros_message->drive_power);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
-  // field.name steering_power
+  // field.name steer_power
   {
-    size_t item_size = sizeof(ros_message->steering_power);
+    size_t item_size = sizeof(ros_message->steer_power);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name fan_speed
+  {
+    size_t item_size = sizeof(ros_message->fan_speed);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -206,19 +268,30 @@ size_t max_serialized_size_vehicle_interfaces__msg__ControlData(
   (void)wchar_size;
   (void)full_bounded;
 
+  // member: header
+  {
+    size_t array_size = 1;
+
+
+    for (size_t index = 0; index < array_size; ++index) {
+      current_alignment +=
+        max_serialized_size_std_msgs__msg__Header(
+        full_bounded, current_alignment);
+    }
+  }
   // member: brake
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint8_t);
   }
-  // member: reverse
+  // member: drive_reverse
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint8_t);
   }
-  // member: steering_reverse
+  // member: steer_reverse
   {
     size_t array_size = 1;
 
@@ -230,13 +303,19 @@ size_t max_serialized_size_vehicle_interfaces__msg__ControlData(
 
     current_alignment += array_size * sizeof(uint8_t);
   }
-  // member: power
+  // member: drive_power
   {
     size_t array_size = 1;
 
     current_alignment += array_size * sizeof(uint8_t);
   }
-  // member: steering_power
+  // member: steer_power
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint8_t);
+  }
+  // member: fan_speed
   {
     size_t array_size = 1;
 

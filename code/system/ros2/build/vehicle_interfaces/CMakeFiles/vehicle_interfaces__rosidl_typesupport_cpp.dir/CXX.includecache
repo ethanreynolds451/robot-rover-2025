@@ -567,6 +567,8 @@ string
 -
 vector
 -
+std_msgs/msg/detail/header__struct.hpp
+rosidl_generator_cpp/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__struct.hpp
 
 rosidl_generator_cpp/vehicle_interfaces/msg/detail/encoder_data__struct.hpp
 rosidl_runtime_cpp/bounded_vector.hpp

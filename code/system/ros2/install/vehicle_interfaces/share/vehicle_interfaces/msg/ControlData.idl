@@ -2,6 +2,7 @@
 // with input from vehicle_interfaces/msg/ControlData.msg
 // generated code does not contain a copyright notice
 
+#include "std_msgs/msg/Header.idl"
 
 module vehicle_interfaces {
   module msg {
@@ -9,17 +10,21 @@ module vehicle_interfaces {
       " Command String: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}" "\n"
       " Might want to change this?")
     struct ControlData {
+      std_msgs::msg::Header header;
+
       boolean brake;
 
-      boolean reverse;
+      boolean drive_reverse;
 
-      boolean steering_reverse;
+      boolean steer_reverse;
 
       boolean shift_up;
 
-      uint8 power;
+      uint8 drive_power;
 
-      uint8 steering_power;
+      uint8 steer_power;
+
+      uint8 fan_speed;
     };
   };
 };

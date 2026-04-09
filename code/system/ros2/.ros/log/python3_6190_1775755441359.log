@@ -1,0 +1,28 @@
+[INFO] [1775755441.431930743] [vehicle_control_string_builder]: Starting Vehicle Control String Builder Node
+[INFO] [1775755441.446338323] [vehicle_control_string_builder]: Successfully loaded control codes
+[ERROR] [1775755442.435913883] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755442.436580060] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755442.437425558] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755442.438141956] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755443.432717472] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755443.434638064] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755443.435738042] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755443.436672044] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755444.430057502] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755444.430728109] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755444.431516234] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755444.432340613] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755445.429981520] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755445.430806791] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755445.431719150] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755445.432452419] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755446.431862788] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755446.432872469] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755446.433932857] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755446.434987769] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755447.431537729] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755447.433049962] [vehicle_control_string_builder]: Error processing control message field 'speed': 'ControlData' object has no attribute 'speed'
+[ERROR] [1775755447.437040958] [vehicle_control_string_builder]: Error processing control message field 's_speed': 'ControlData' object has no attribute 's_speed'
+[INFO] [1775755447.440729118] [vehicle_control_string_builder]: Published control string: {[brTrue][rvTrue][suFalse]}
+[ERROR] [1775755448.432361606] [vehicle_control_string_builder]: Error processing control message field 's_reverse': 'ControlData' object has no attribute 's_reverse'
+[ERROR] [1775755448.433891255] [vehicle_control_string_builder]: Error processin

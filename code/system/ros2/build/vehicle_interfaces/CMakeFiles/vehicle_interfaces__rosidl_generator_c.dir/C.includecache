@@ -281,6 +281,8 @@ string.h
 -
 rcutils/allocator.h
 /root/build/vehicle_interfaces/rosidl_generator_c/vehicle_interfaces/msg/detail/rcutils/allocator.h
+std_msgs/msg/detail/header__functions.h
+/root/build/vehicle_interfaces/rosidl_generator_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__functions.h
 
 /root/build/vehicle_interfaces/rosidl_generator_c/vehicle_interfaces/msg/detail/encoder_data__functions.c
 vehicle_interfaces/msg/detail/encoder_data__functions.h
@@ -543,6 +545,8 @@ stddef.h
 -
 stdint.h
 -
+std_msgs/msg/detail/header__struct.h
+rosidl_generator_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__struct.h
 
 rosidl_generator_c/vehicle_interfaces/msg/detail/encoder_data__functions.h
 stdbool.h

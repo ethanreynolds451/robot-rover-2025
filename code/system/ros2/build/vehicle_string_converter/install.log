@@ -10,6 +10,9 @@
 /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/__pycache__/vehicle_sensor_string_builder.cpython-38.pyc
 /root/install/vehicle_string_converter/share/ament_index/resource_index/packages/vehicle_string_converter
 /root/install/vehicle_string_converter/share/vehicle_string_converter/package.xml
+/root/install/vehicle_string_converter/share/vehicle_string_converter/config/control_codes.yaml
+/root/install/vehicle_string_converter/share/vehicle_string_converter/config/sensor_codes.yaml
+/root/install/vehicle_string_converter/share/vehicle_string_converter/config/delimiters.yaml
 /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info/SOURCES.txt
 /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info/top_level.txt
 /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info/PKG-INFO

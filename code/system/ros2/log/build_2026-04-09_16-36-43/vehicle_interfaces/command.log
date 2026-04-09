@@ -1,0 +1,2 @@
+Invoking command in '/root/build/vehicle_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy /usr/bin/cmake --build /root/build/vehicle_interfaces -- -j4 -l4
+Invoked command in '/root/build/vehicle_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy /usr/bin/cmake --build /root/build/vehicle_interfaces -- -j4 -l4

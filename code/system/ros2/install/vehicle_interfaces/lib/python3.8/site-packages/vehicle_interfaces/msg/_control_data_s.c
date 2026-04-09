@@ -16,6 +16,10 @@
 #include "vehicle_interfaces/msg/detail/control_data__struct.h"
 #include "vehicle_interfaces/msg/detail/control_data__functions.h"
 
+ROSIDL_GENERATOR_C_IMPORT
+bool std_msgs__msg__header__convert_from_py(PyObject * _pymsg, void * _ros_message);
+ROSIDL_GENERATOR_C_IMPORT
+PyObject * std_msgs__msg__header__convert_to_py(void * raw_ros_message);
 
 ROSIDL_GENERATOR_C_EXPORT
 bool vehicle_interfaces__msg__control_data__convert_from_py(PyObject * _pymsg, void * _ros_message)
@@ -50,6 +54,17 @@ bool vehicle_interfaces__msg__control_data__convert_from_py(PyObject * _pymsg, v
     assert(strncmp("vehicle_interfaces.msg._control_data.ControlData", full_classname_dest, 48) == 0);
   }
   vehicle_interfaces__msg__ControlData * ros_message = _ros_message;
+  {  // header
+    PyObject * field = PyObject_GetAttrString(_pymsg, "header");
+    if (!field) {
+      return false;
+    }
+    if (!std_msgs__msg__header__convert_from_py(field, &ros_message->header)) {
+      Py_DECREF(field);
+      return false;
+    }
+    Py_DECREF(field);
+  }
   {  // brake
     PyObject * field = PyObject_GetAttrString(_pymsg, "brake");
     if (!field) {
@@ -59,22 +74,22 @@ bool vehicle_interfaces__msg__control_data__convert_from_py(PyObject * _pymsg, v
     ros_message->brake = (Py_True == field);
     Py_DECREF(field);
   }
-  {  // reverse
-    PyObject * field = PyObject_GetAttrString(_pymsg, "reverse");
+  {  // drive_reverse
+    PyObject * field = PyObject_GetAttrString(_pymsg, "drive_reverse");
     if (!field) {
       return false;
     }
     assert(PyBool_Check(field));
-    ros_message->reverse = (Py_True == field);
+    ros_message->drive_reverse = (Py_True == field);
     Py_DECREF(field);
   }
-  {  // steering_reverse
-    PyObject * field = PyObject_GetAttrString(_pymsg, "steering_reverse");
+  {  // steer_reverse
+    PyObject * field = PyObject_GetAttrString(_pymsg, "steer_reverse");
     if (!field) {
       return false;
     }
     assert(PyBool_Check(field));
-    ros_message->steering_reverse = (Py_True == field);
+    ros_message->steer_reverse = (Py_True == field);
     Py_DECREF(field);
   }
   {  // shift_up
@@ -86,22 +101,31 @@ bool vehicle_interfaces__msg__control_data__convert_from_py(PyObject * _pymsg, v
     ros_message->shift_up = (Py_True == field);
     Py_DECREF(field);
   }
-  {  // power
-    PyObject * field = PyObject_GetAttrString(_pymsg, "power");
+  {  // drive_power
+    PyObject * field = PyObject_GetAttrString(_pymsg, "drive_power");
     if (!field) {
       return false;
     }
     assert(PyLong_Check(field));
-    ros_message->power = (uint8_t)PyLong_AsUnsignedLong(field);
+    ros_message->drive_power = (uint8_t)PyLong_AsUnsignedLong(field);
     Py_DECREF(field);
   }
-  {  // steering_power
-    PyObject * field = PyObject_GetAttrString(_pymsg, "steering_power");
+  {  // steer_power
+    PyObject * field = PyObject_GetAttrString(_pymsg, "steer_power");
     if (!field) {
       return false;
     }
     assert(PyLong_Check(field));
-    ros_message->steering_power = (uint8_t)PyLong_AsUnsignedLong(field);
+    ros_message->steer_power = (uint8_t)PyLong_AsUnsignedLong(field);
+    Py_DECREF(field);
+  }
+  {  // fan_speed
+    PyObject * field = PyObject_GetAttrString(_pymsg, "fan_speed");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->fan_speed = (uint8_t)PyLong_AsUnsignedLong(field);
     Py_DECREF(field);
   }
 
@@ -126,6 +150,20 @@ PyObject * vehicle_interfaces__msg__control_data__convert_to_py(void * raw_ros_m
     }
   }
   vehicle_interfaces__msg__ControlData * ros_message = (vehicle_interfaces__msg__ControlData *)raw_ros_message;
+  {  // header
+    PyObject * field = NULL;
+    field = std_msgs__msg__header__convert_to_py(&ros_message->header);
+    if (!field) {
+      return NULL;
+    }
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "header", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
   {  // brake
     PyObject * field = NULL;
     field = PyBool_FromLong(ros_message->brake ? 1 : 0);
@@ -137,22 +175,22 @@ PyObject * vehicle_interfaces__msg__control_data__convert_to_py(void * raw_ros_m
       }
     }
   }
-  {  // reverse
+  {  // drive_reverse
     PyObject * field = NULL;
-    field = PyBool_FromLong(ros_message->reverse ? 1 : 0);
+    field = PyBool_FromLong(ros_message->drive_reverse ? 1 : 0);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "reverse", field);
+      int rc = PyObject_SetAttrString(_pymessage, "drive_reverse", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
       }
     }
   }
-  {  // steering_reverse
+  {  // steer_reverse
     PyObject * field = NULL;
-    field = PyBool_FromLong(ros_message->steering_reverse ? 1 : 0);
+    field = PyBool_FromLong(ros_message->steer_reverse ? 1 : 0);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "steering_reverse", field);
+      int rc = PyObject_SetAttrString(_pymessage, "steer_reverse", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
@@ -170,22 +208,33 @@ PyObject * vehicle_interfaces__msg__control_data__convert_to_py(void * raw_ros_m
       }
     }
   }
-  {  // power
+  {  // drive_power
     PyObject * field = NULL;
-    field = PyLong_FromUnsignedLong(ros_message->power);
+    field = PyLong_FromUnsignedLong(ros_message->drive_power);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "power", field);
+      int rc = PyObject_SetAttrString(_pymessage, "drive_power", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;
       }
     }
   }
-  {  // steering_power
+  {  // steer_power
     PyObject * field = NULL;
-    field = PyLong_FromUnsignedLong(ros_message->steering_power);
+    field = PyLong_FromUnsignedLong(ros_message->steer_power);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "steering_power", field);
+      int rc = PyObject_SetAttrString(_pymessage, "steer_power", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // fan_speed
+    PyObject * field = NULL;
+    field = PyLong_FromUnsignedLong(ros_message->fan_speed);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "fan_speed", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

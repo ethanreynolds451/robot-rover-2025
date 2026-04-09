@@ -37,7 +37,22 @@ void ControlData_fini_function(void * message_memory)
   typed_message->~ControlData();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_message_member_array[6] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_message_member_array[8] = {
+  {
+    "header",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
+    0,  // upper bound of string
+    ::rosidl_typesupport_introspection_cpp::get_message_type_support_handle<std_msgs::msg::Header>(),  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::ControlData, header),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
   {
     "brake",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_BOOLEAN,  // type
@@ -54,14 +69,14 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_m
     nullptr  // resize(index) function pointer
   },
   {
-    "reverse",  // name
+    "drive_reverse",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_BOOLEAN,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces::msg::ControlData, reverse),  // bytes offset in struct
+    offsetof(vehicle_interfaces::msg::ControlData, drive_reverse),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -69,14 +84,14 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_m
     nullptr  // resize(index) function pointer
   },
   {
-    "steering_reverse",  // name
+    "steer_reverse",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_BOOLEAN,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces::msg::ControlData, steering_reverse),  // bytes offset in struct
+    offsetof(vehicle_interfaces::msg::ControlData, steer_reverse),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -99,14 +114,14 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_m
     nullptr  // resize(index) function pointer
   },
   {
-    "power",  // name
+    "drive_power",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces::msg::ControlData, power),  // bytes offset in struct
+    offsetof(vehicle_interfaces::msg::ControlData, drive_power),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -114,14 +129,29 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_m
     nullptr  // resize(index) function pointer
   },
   {
-    "steering_power",  // name
+    "steer_power",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces::msg::ControlData, steering_power),  // bytes offset in struct
+    offsetof(vehicle_interfaces::msg::ControlData, steer_power),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "fan_speed",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT8,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::ControlData, fan_speed),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -133,7 +163,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember ControlData_m
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers ControlData_message_members = {
   "vehicle_interfaces::msg",  // message namespace
   "ControlData",  // message name
-  6,  // number of fields
+  8,  // number of fields
   sizeof(vehicle_interfaces::msg::ControlData),
   ControlData_message_member_array,  // message members
   ControlData_init_function,  // function to initialize message memory (memory has to be allocated)

@@ -959,6 +959,8 @@ stddef.h
 -
 stdint.h
 -
+std_msgs/msg/detail/header__struct.h
+rosidl_generator_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__struct.h
 
 rosidl_generator_c/vehicle_interfaces/msg/detail/encoder_data__functions.h
 stdbool.h

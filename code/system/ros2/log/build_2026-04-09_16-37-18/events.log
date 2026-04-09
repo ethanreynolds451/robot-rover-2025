@@ -1,0 +1,543 @@
+[0.000000] (-) TimerEvent: {}
+[0.000897] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001620] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.001716] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.001809] (-) JobUnselected: {'identifier': 'vehicle_string_converter'}
+[0.001913] (vehicle_interfaces) JobQueued: {'identifier': 'vehicle_interfaces', 'dependencies': OrderedDict()}
+[0.002045] (vehicle_interfaces) JobStarted: {'identifier': 'vehicle_interfaces'}
+[0.026899] (vehicle_interfaces) JobProgress: {'identifier': 'vehicle_interfaces', 'progress': 'cmake'}
+[0.027065] (vehicle_interfaces) JobProgress: {'identifier': 'vehicle_interfaces', 'progress': 'build'}
+[0.028767] (vehicle_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/build/vehicle_interfaces', '--', '-j4', '-l4'], 'cwd': '/root/build/vehicle_interfaces', 'env': OrderedDict([('HOSTNAME', '2a33c685da1f'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/root/install/vehicle_interfaces/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('OLDPWD', '/'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0.0'), ('LANG', 'C.UTF-8'), ('AMENT_PREFIX_PATH', '/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/build/vehicle_interfaces'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/root/install/vehicle_interfaces/lib/python3.8/site-packages:/root/install/vehicle_string_converter/lib/python3.8/site-packages:/root/install/vehicle_simulation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy')]), 'shell': False}
+[0.075013] (vehicle_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.098788] (-) TimerEvent: {}
+[0.117865] (vehicle_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.118311] (vehicle_interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.198882] (-) TimerEvent: {}
+[0.299202] (-) TimerEvent: {}
+[0.356409] (vehicle_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.0.1 (/opt/ros/foxy/share/rosidl_default_generators/cmake)\n'}
+[0.359850] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.365471] (vehicle_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.399326] (-) TimerEvent: {}
+[0.499980] (-) TimerEvent: {}
+[0.600400] (-) TimerEvent: {}
+[0.601053] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.647326] (vehicle_interfaces) StdoutLine: {'line': b'-- Found std_msgs: 2.0.5 (/opt/ros/foxy/share/std_msgs/cmake)\n'}
+[0.700516] (-) TimerEvent: {}
+[0.707558] (vehicle_interfaces) StdoutLine: {'line': b'-- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)\n'}
+[0.800662] (-) TimerEvent: {}
+[0.901402] (-) TimerEvent: {}
+[0.949031] (vehicle_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") \n'}
+[1.001519] (-) TimerEvent: {}
+[1.102551] (-) TimerEvent: {}
+[1.202921] (-) TimerEvent: {}
+[1.306558] (-) TimerEvent: {}
+[1.407088] (-) TimerEvent: {}
+[1.442909] (vehicle_interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.9.2 (/opt/ros/foxy/share/ament_cmake_ros/cmake)\n'}
+[1.507211] (-) TimerEvent: {}
+[1.607644] (-) TimerEvent: {}
+[1.708028] (-) TimerEvent: {}
+[1.808409] (-) TimerEvent: {}
+[1.906629] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.908512] (-) TimerEvent: {}
+[2.008864] (-) TimerEvent: {}
+[2.109242] (-) TimerEvent: {}
+[2.147838] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.182477] (vehicle_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3.5") \n'}
+[2.183331] (vehicle_interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.8.1 (/opt/ros/foxy/share/python_cmake_module/cmake)\n'}
+[2.209354] (-) TimerEvent: {}
+[2.214704] (vehicle_interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[2.214967] (vehicle_interfaces) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.8\n'}
+[2.215119] (vehicle_interfaces) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.8.so\n'}
+[2.309464] (-) TimerEvent: {}
+[2.327367] (vehicle_interfaces) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[2.351172] (vehicle_interfaces) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[2.355291] (vehicle_interfaces) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[2.357657] (vehicle_interfaces) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[2.364916] (vehicle_interfaces) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.409591] (-) TimerEvent: {}
+[2.509915] (-) TimerEvent: {}
+[2.553613] (vehicle_interfaces) StdoutLine: {'line': b'-- Generating done\n'}
+[2.559864] (vehicle_interfaces) StdoutLine: {'line': b'-- Build files have been written to: /root/build/vehicle_interfaces\n'}
+[2.610037] (-) TimerEvent: {}
+[2.627628] (vehicle_interfaces) StdoutLine: {'line': b'[  0%] Built target vehicle_interfaces__cpp\n'}
+[2.643679] (vehicle_interfaces) StdoutLine: {'line': b'[  1%] \x1b[32m\x1b[1mLinking C shared library libvehicle_interfaces__rosidl_generator_c.so\x1b[0m\n'}
+[2.706968] (vehicle_interfaces) StdoutLine: {'line': b'[  3%] \x1b[32m\x1b[1mLinking CXX shared library libvehicle_interfaces__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[2.708703] (vehicle_interfaces) StdoutLine: {'line': b'[  3%] \x1b[32m\x1b[1mLinking CXX shared library libvehicle_interfaces__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[2.710216] (-) TimerEvent: {}
+[2.711750] (vehicle_interfaces) StdoutLine: {'line': b'[  3%] \x1b[32m\x1b[1mLinking CXX shared library libvehicle_interfaces__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[2.797627] (vehicle_interfaces) StdoutLine: {'line': b'[ 14%] Built target vehicle_interfaces__rosidl_generator_c\n'}
+[2.810852] (-) TimerEvent: {}
+[2.844596] (vehicle_interfaces) StdoutLine: {'line': b'[ 25%] Built target vehicle_interfaces__rosidl_typesupport_cpp\n'}
+[2.888069] (vehicle_interfaces) StdoutLine: {'line': b'[ 26%] \x1b[32m\x1b[1mLinking C shared library libvehicle_interfaces__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[2.910986] (-) TimerEvent: {}
+[2.996565] (vehicle_interfaces) StdoutLine: {'line': b'[ 27%] \x1b[32m\x1b[1mLinking CXX shared library libvehicle_interfaces__rosidl_typesupport_c.so\x1b[0m\n'}
+[3.008936] (vehicle_interfaces) StdoutLine: {'line': b'[ 41%] Built target vehicle_interfaces__rosidl_typesupport_introspection_c\n'}
+[3.009247] (vehicle_interfaces) StdoutLine: {'line': b'[ 49%] Built target vehicle_interfaces__rosidl_typesupport_introspection_cpp\n'}
+[3.011088] (-) TimerEvent: {}
+[3.040296] (vehicle_interfaces) StdoutLine: {'line': b'[ 61%] Built target vehicle_interfaces__rosidl_typesupport_fastrtps_cpp\n'}
+[3.072184] (vehicle_interfaces) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target vehicle_interfaces__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[3.083556] (vehicle_interfaces) StdoutLine: {'line': b'[ 72%] Built target vehicle_interfaces__rosidl_typesupport_c\n'}
+[3.106502] (vehicle_interfaces) StdoutLine: {'line': b'[ 72%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/srv/detail/reset_serial_port__type_support_c.cpp.o\x1b[0m\n'}
+[3.110591] (vehicle_interfaces) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/srv/detail/get_device_status__type_support_c.cpp.o\x1b[0m\n'}
+[3.110866] (vehicle_interfaces) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/srv/detail/get_serial_port__type_support_c.cpp.o\x1b[0m\n'}
+[3.112110] (-) TimerEvent: {}
+[3.117110] (vehicle_interfaces) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/sensor_data__type_support_c.cpp.o\x1b[0m\n'}
+[3.213068] (-) TimerEvent: {}
+[3.316563] (-) TimerEvent: {}
+[3.418564] (-) TimerEvent: {}
+[3.520133] (-) TimerEvent: {}
+[3.621236] (-) TimerEvent: {}
+[3.721895] (-) TimerEvent: {}
+[3.822637] (-) TimerEvent: {}
+[3.923468] (-) TimerEvent: {}
+[4.024178] (-) TimerEvent: {}
+[4.125894] (-) TimerEvent: {}
+[4.226618] (-) TimerEvent: {}
+[4.310649] (vehicle_interfaces) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/control_data__type_support_c.cpp.o\x1b[0m\n'}
+[4.326738] (-) TimerEvent: {}
+[4.427463] (-) TimerEvent: {}
+[4.432567] (vehicle_interfaces) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/encoder_data__type_support_c.cpp.o\x1b[0m\n'}
+[4.435274] (vehicle_interfaces) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/gps_data__type_support_c.cpp.o\x1b[0m\n'}
+[4.498697] (vehicle_interfaces) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/ir_data__type_support_c.cpp.o\x1b[0m\n'}
+[4.527562] (-) TimerEvent: {}
+[4.628513] (-) TimerEvent: {}
+[4.729235] (-) TimerEvent: {}
+[4.831139] (-) TimerEvent: {}
+[4.932159] (-) TimerEvent: {}
+[5.035419] (-) TimerEvent: {}
+[5.137712] (-) TimerEvent: {}
+[5.239682] (-) TimerEvent: {}
+[5.341703] (-) TimerEvent: {}
+[5.378674] (vehicle_interfaces) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/qmc_data__type_support_c.cpp.o\x1b[0m\n'}
+[5.380269] (vehicle_interfaces) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/mpu_data__type_support_c.cpp.o\x1b[0m\n'}
+[5.441789] (-) TimerEvent: {}
+[5.542533] (-) TimerEvent: {}
+[5.549500] (vehicle_interfaces) StdoutLine: {'line': b'[ 81%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/temperature_data__type_support_c.cpp.o\x1b[0m\n'}
+[5.595311] (vehicle_interfaces) StdoutLine: {'line': b'[ 81%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/to_f_data__type_support_c.cpp.o\x1b[0m\n'}
+[5.642662] (-) TimerEvent: {}
+[5.743434] (-) TimerEvent: {}
+[5.844974] (-) TimerEvent: {}
+[5.945657] (-) TimerEvent: {}
+[6.048050] (-) TimerEvent: {}
+[6.148859] (-) TimerEvent: {}
+[6.249726] (-) TimerEvent: {}
+[6.328032] (vehicle_interfaces) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding CXX object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/ultrasonic_data__type_support_c.cpp.o\x1b[0m\n'}
+[6.349842] (-) TimerEvent: {}
+[6.450892] (-) TimerEvent: {}
+[6.551286] (-) TimerEvent: {}
+[6.651707] (-) TimerEvent: {}
+[6.752095] (-) TimerEvent: {}
+[6.852522] (-) TimerEvent: {}
+[6.889888] (vehicle_interfaces) StdoutLine: {'line': b'[ 83%] \x1b[32m\x1b[1mLinking CXX shared library libvehicle_interfaces__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[6.952621] (-) TimerEvent: {}
+[7.032625] (vehicle_interfaces) StdoutLine: {'line': b'[ 84%] Built target vehicle_interfaces__rosidl_typesupport_fastrtps_c\n'}
+[7.052738] (-) TimerEvent: {}
+[7.071826] (vehicle_interfaces) StdoutLine: {'line': b'[ 84%] Built target vehicle_interfaces\n'}
+[7.111309] (vehicle_interfaces) StdoutLine: {'line': b'[ 85%] Built target vehicle_interfaces__py\n'}
+[7.152860] (-) TimerEvent: {}
+[7.164742] (vehicle_interfaces) StdoutLine: {'line': b'[ 86%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so\x1b[0m\n'}
+[7.244494] (vehicle_interfaces) StdoutLine: {'line': b'[ 96%] Built target vehicle_interfaces__python\n'}
+[7.253563] (-) TimerEvent: {}
+[7.266753] (vehicle_interfaces) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[7.319349] (vehicle_interfaces) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.324763] (vehicle_interfaces) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.325149] (vehicle_interfaces) StdoutLine: {'line': b'[ 98%] \x1b[32mBuilding C object CMakeFiles/vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/vehicle_interfaces/_vehicle_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[7.355273] (-) TimerEvent: {}
+[7.431432] (vehicle_interfaces) StdoutLine: {'line': b'[ 99%] Built target vehicle_interfaces__rosidl_typesupport_c__pyext\n'}
+[7.439437] (vehicle_interfaces) StdoutLine: {'line': b'[100%] Built target vehicle_interfaces__rosidl_typesupport_introspection_c__pyext\n'}
+[7.455379] (-) TimerEvent: {}
+[7.555783] (-) TimerEvent: {}
+[7.629314] (vehicle_interfaces) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library rosidl_generator_py/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.655892] (-) TimerEvent: {}
+[7.742348] (vehicle_interfaces) StdoutLine: {'line': b'[100%] Built target vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext\n'}
+[7.755992] (-) TimerEvent: {}
+[7.760379] (vehicle_interfaces) CommandEnded: {'returncode': 0}
+[7.856162] (-) TimerEvent: {}
+[7.956676] (-) TimerEvent: {}
+[8.057056] (-) TimerEvent: {}
+[8.118634] (vehicle_interfaces) JobProgress: {'identifier': 'vehicle_interfaces', 'progress': 'install'}
+[8.135525] (vehicle_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--install', '/root/build/vehicle_interfaces'], 'cwd': '/root/build/vehicle_interfaces', 'env': OrderedDict([('HOSTNAME', '2a33c685da1f'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/root/install/vehicle_interfaces/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('OLDPWD', '/'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0.0'), ('LANG', 'C.UTF-8'), ('AMENT_PREFIX_PATH', '/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/build/vehicle_interfaces'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/root/install/vehicle_interfaces/lib/python3.8/site-packages:/root/install/vehicle_string_converter/lib/python3.8/site-packages:/root/install/vehicle_simulation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy')]), 'shell': False}
+[8.148779] (vehicle_interfaces) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.149169] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/ament_index/resource_index/rosidl_interfaces/vehicle_interfaces\n'}
+[8.149402] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.149722] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.149870] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/ultrasonic_data.h\n'}
+[8.150014] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/qmc_data.h\n'}
+[8.150150] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/temperature_data.h\n'}
+[8.150285] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/mpu_data.h\n'}
+[8.150418] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/sensor_data.h\n'}
+[8.150558] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/encoder_data.h\n'}
+[8.150688] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/rosidl_generator_c__visibility_control.h\n'}
+[8.150820] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/gps_data.h\n'}
+[8.150949] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/to_f_data.h\n'}
+[8.151352] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/control_data.h\n'}
+[8.151692] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/ir_data.h\n'}
+[8.151830] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.151955] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__struct.h\n'}
+[8.152088] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__functions.h\n'}
+[8.152259] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__struct.h\n'}
+[8.152407] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__functions.c\n'}
+[8.152553] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__type_support.h\n'}
+[8.152695] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__type_support.h\n'}
+[8.152825] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__functions.c\n'}
+[8.153029] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__type_support.h\n'}
+[8.153166] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__functions.c\n'}
+[8.153321] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__struct.h\n'}
+[8.153704] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__functions.h\n'}
+[8.153911] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__struct.h\n'}
+[8.154124] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__struct.h\n'}
+[8.154259] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__functions.c\n'}
+[8.154382] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__struct.h\n'}
+[8.154527] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__functions.h\n'}
+[8.154659] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__type_support.h\n'}
+[8.154832] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__type_support.h\n'}
+[8.154975] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__type_support.h\n'}
+[8.155141] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__struct.h\n'}
+[8.155272] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__struct.h\n'}
+[8.155448] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__functions.c\n'}
+[8.155824] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__functions.c\n'}
+[8.156210] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__functions.c\n'}
+[8.156449] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__functions.h\n'}
+[8.156637] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__type_support.h\n'}
+[8.156857] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__functions.h\n'}
+[8.156986] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__functions.c\n'}
+[8.157110] (-) TimerEvent: {}
+[8.157323] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__functions.h\n'}
+[8.157516] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__functions.c\n'}
+[8.158097] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__type_support.h\n'}
+[8.158263] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__functions.h\n'}
+[8.158404] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__functions.h\n'}
+[8.158572] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__type_support.h\n'}
+[8.158810] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__functions.h\n'}
+[8.158950] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__type_support.h\n'}
+[8.159103] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__functions.c\n'}
+[8.159237] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__struct.h\n'}
+[8.159369] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__functions.h\n'}
+[8.159510] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__struct.h\n'}
+[8.159644] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.159775] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/get_device_status.h\n'}
+[8.159905] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/reset_serial_port.h\n'}
+[8.160028] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/get_serial_port.h\n'}
+[8.160157] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.160285] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__functions.c\n'}
+[8.160407] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__functions.c\n'}
+[8.160791] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__type_support.h\n'}
+[8.160943] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__functions.h\n'}
+[8.161084] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__struct.h\n'}
+[8.161264] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__functions.h\n'}
+[8.161390] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__type_support.h\n'}
+[8.161530] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__functions.h\n'}
+[8.161667] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__struct.h\n'}
+[8.161846] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__functions.c\n'}
+[8.161984] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__type_support.h\n'}
+[8.162112] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__struct.h\n'}
+[8.162286] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/library_path.sh\n'}
+[8.162454] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/library_path.dsv\n'}
+[8.162820] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_generator_c.so\n'}
+[8.165154] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_generator_c.so" to ""\n'}
+[8.165509] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.165703] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.165859] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.166041] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166193] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166330] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166456] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166607] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166735] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166868] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.166996] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.167120] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.167267] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__rosidl_typesupport_fastrtps_c.h\n'}
+[8.167397] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[8.167571] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.167705] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.167839] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_fastrtps_c.h\n'}
+[8.167968] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__rosidl_typesupport_fastrtps_c.h\n'}
+[8.168092] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__rosidl_typesupport_fastrtps_c.h\n'}
+[8.168218] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_fastrtps_c.so\n'}
+[8.168345] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[8.168473] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.168966] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.169105] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[8.169241] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.169371] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.169510] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.169646] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.169770] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.169889] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.170017] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.170141] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.170596] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.170761] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.170897] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/dds_fastrtps\n'}
+[8.171025] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.171157] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.171289] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.171422] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.171595] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.171730] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.171860] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/dds_fastrtps\n'}
+[8.171988] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_fastrtps_cpp.so\n'}
+[8.172205] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[8.172336] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.172462] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.172604] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[8.172753] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.172881] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__rosidl_typesupport_introspection_c.h\n'}
+[8.173005] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__type_support.c\n'}
+[8.173129] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__rosidl_typesupport_introspection_c.h\n'}
+[8.173259] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__rosidl_typesupport_introspection_c.h\n'}
+[8.173386] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__type_support.c\n'}
+[8.173537] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__rosidl_typesupport_introspection_c.h\n'}
+[8.173664] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__type_support.c\n'}
+[8.173790] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__rosidl_typesupport_introspection_c.h\n'}
+[8.173918] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__rosidl_typesupport_introspection_c.h\n'}
+[8.174041] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__rosidl_typesupport_introspection_c.h\n'}
+[8.174163] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__type_support.c\n'}
+[8.174300] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__rosidl_typesupport_introspection_c.h\n'}
+[8.174429] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__rosidl_typesupport_introspection_c.h\n'}
+[8.174567] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__type_support.c\n'}
+[8.174711] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__type_support.c\n'}
+[8.174839] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__type_support.c\n'}
+[8.174962] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__type_support.c\n'}
+[8.175086] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__type_support.c\n'}
+[8.175212] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__rosidl_typesupport_introspection_c.h\n'}
+[8.175339] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__type_support.c\n'}
+[8.175466] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.175596] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.175722] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__type_support.c\n'}
+[8.175844] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_introspection_c.h\n'}
+[8.175968] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__type_support.c\n'}
+[8.176305] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__rosidl_typesupport_introspection_c.h\n'}
+[8.176463] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__rosidl_typesupport_introspection_c.h\n'}
+[8.176611] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__type_support.c\n'}
+[8.176743] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_introspection_c.so\n'}
+[8.176873] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_introspection_c.so" to ""\n'}
+[8.177004] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_c.so\n'}
+[8.177234] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_c.so" to ""\n'}
+[8.177386] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.177519] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.177645] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/mpu_data.hpp\n'}
+[8.177774] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/to_f_data.hpp\n'}
+[8.178201] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/ir_data.hpp\n'}
+[8.178340] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/control_data.hpp\n'}
+[8.178492] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[8.178629] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/ultrasonic_data.hpp\n'}
+[8.178758] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/encoder_data.hpp\n'}
+[8.178886] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/gps_data.hpp\n'}
+[8.179009] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/temperature_data.hpp\n'}
+[8.179135] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/qmc_data.hpp\n'}
+[8.179257] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.179390] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__builder.hpp\n'}
+[8.179528] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__type_support.hpp\n'}
+[8.179649] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__builder.hpp\n'}
+[8.179770] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__traits.hpp\n'}
+[8.179899] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__builder.hpp\n'}
+[8.180018] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__type_support.hpp\n'}
+[8.180139] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__builder.hpp\n'}
+[8.180257] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__builder.hpp\n'}
+[8.180375] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__traits.hpp\n'}
+[8.180502] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__type_support.hpp\n'}
+[8.180632] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__builder.hpp\n'}
+[8.180850] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__builder.hpp\n'}
+[8.180988] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__struct.hpp\n'}
+[8.181111] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__struct.hpp\n'}
+[8.181232] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__struct.hpp\n'}
+[8.181351] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__type_support.hpp\n'}
+[8.181477] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__type_support.hpp\n'}
+[8.181611] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__traits.hpp\n'}
+[8.181743] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__type_support.hpp\n'}
+[8.181869] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__traits.hpp\n'}
+[8.181993] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__struct.hpp\n'}
+[8.182117] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__struct.hpp\n'}
+[8.182234] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__builder.hpp\n'}
+[8.182354] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__struct.hpp\n'}
+[8.182473] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__struct.hpp\n'}
+[8.182612] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__type_support.hpp\n'}
+[8.182746] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__traits.hpp\n'}
+[8.183316] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__struct.hpp\n'}
+[8.183470] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__traits.hpp\n'}
+[8.183661] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__type_support.hpp\n'}
+[8.183796] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__traits.hpp\n'}
+[8.183929] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__traits.hpp\n'}
+[8.184059] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__struct.hpp\n'}
+[8.184188] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__traits.hpp\n'}
+[8.184311] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__struct.hpp\n'}
+[8.184645] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__type_support.hpp\n'}
+[8.184803] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__type_support.hpp\n'}
+[8.184936] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__traits.hpp\n'}
+[8.185070] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__builder.hpp\n'}
+[8.185193] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__builder.hpp\n'}
+[8.185322] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/sensor_data.hpp\n'}
+[8.185447] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.185595] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/get_serial_port.hpp\n'}
+[8.185723] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/get_device_status.hpp\n'}
+[8.185848] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/reset_serial_port.hpp\n'}
+[8.185970] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.186099] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__type_support.hpp\n'}
+[8.186218] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__traits.hpp\n'}
+[8.186340] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__traits.hpp\n'}
+[8.186461] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__struct.hpp\n'}
+[8.186602] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__traits.hpp\n'}
+[8.186732] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__builder.hpp\n'}
+[8.186858] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__struct.hpp\n'}
+[8.186985] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__builder.hpp\n'}
+[8.187111] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__builder.hpp\n'}
+[8.187240] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__type_support.hpp\n'}
+[8.187363] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__type_support.hpp\n'}
+[8.187486] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__struct.hpp\n'}
+[8.187884] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces\n'}
+[8.188019] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg\n'}
+[8.188148] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail\n'}
+[8.188280] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.188409] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.188553] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.188701] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.188829] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__type_support.cpp\n'}
+[8.189069] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.189211] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ir_data__type_support.cpp\n'}
+[8.189352] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__type_support.cpp\n'}
+[8.189492] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__type_support.cpp\n'}
+[8.189638] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/sensor_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.189765] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.189996] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.190241] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/gps_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.190367] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/to_f_data__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.190504] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/control_data__type_support.cpp\n'}
+[8.190634] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/mpu_data__type_support.cpp\n'}
+[8.190902] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/encoder_data__type_support.cpp\n'}
+[8.191038] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/qmc_data__type_support.cpp\n'}
+[8.191169] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/temperature_data__type_support.cpp\n'}
+[8.191297] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/msg/detail/ultrasonic_data__type_support.cpp\n'}
+[8.192659] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv\n'}
+[8.192872] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail\n'}
+[8.193009] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.193140] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__type_support.cpp\n'}
+[8.193266] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.193382] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_device_status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.193512] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/reset_serial_port__type_support.cpp\n'}
+[8.193623] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/include/vehicle_interfaces/srv/detail/get_serial_port__type_support.cpp\n'}
+[8.193709] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_introspection_cpp.so\n'}
+[8.193788] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[8.193873] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_cpp.so\n'}
+[8.193957] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__rosidl_typesupport_cpp.so" to ""\n'}
+[8.194040] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/pythonpath.sh\n'}
+[8.194126] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/pythonpath.dsv\n'}
+[8.200307] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/__init__.py\n'}
+[8.244333] (vehicle_interfaces) StdoutLine: {'line': b"Compiling '/root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/__init__.py'...\n"}
+[8.250076] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv\n'}
+[8.250432] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_reset_serial_port_s.c\n'}
+[8.250680] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_reset_serial_port.py\n'}
+[8.250994] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_get_serial_port_s.c\n'}
+[8.251282] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_get_device_status.py\n'}
+[8.251430] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/__init__.py\n'}
+[8.251541] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_get_device_status_s.c\n'}
+[8.251631] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/srv/_get_serial_port.py\n'}
+[8.251709] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg\n'}
+[8.251786] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_control_data.py\n'}
+[8.251868] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_ir_data_s.c\n'}
+[8.251947] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_to_f_data_s.c\n'}
+[8.252025] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_ultrasonic_data_s.c\n'}
+[8.252098] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_to_f_data.py\n'}
+[8.252173] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_encoder_data_s.c\n'}
+[8.252345] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_mpu_data_s.c\n'}
+[8.252441] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_sensor_data.py\n'}
+[8.252545] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_encoder_data.py\n'}
+[8.252625] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_gps_data.py\n'}
+[8.252699] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_ir_data.py\n'}
+[8.252771] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_temperature_data_s.c\n'}
+[8.252847] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_mpu_data.py\n'}
+[8.252921] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_gps_data_s.c\n'}
+[8.252991] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_sensor_data_s.c\n'}
+[8.253064] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_qmc_data_s.c\n'}
+[8.253140] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_control_data_s.c\n'}
+[8.253214] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/__init__.py\n'}
+[8.253337] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_qmc_data.py\n'}
+[8.253412] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_temperature_data.py\n'}
+[8.253500] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/msg/_ultrasonic_data.py\n'}
+[8.253587] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.253663] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.254112] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.255123] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.255927] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.256670] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/python3.8/site-packages/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.257251] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/lib/libvehicle_interfaces__python.so\n'}
+[8.257423] (-) TimerEvent: {}
+[8.258008] (vehicle_interfaces) StdoutLine: {'line': b'-- Set runtime path of "/root/install/vehicle_interfaces/lib/libvehicle_interfaces__python.so" to ""\n'}
+[8.258284] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetSerialPort.idl\n'}
+[8.258535] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/ResetSerialPort.idl\n'}
+[8.258737] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetDeviceStatus.idl\n'}
+[8.258978] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/SensorData.idl\n'}
+[8.259250] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/ControlData.idl\n'}
+[8.259459] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/EncoderData.idl\n'}
+[8.259671] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/GPSData.idl\n'}
+[8.259847] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/IRData.idl\n'}
+[8.260061] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/MPUData.idl\n'}
+[8.260235] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/QMCData.idl\n'}
+[8.260435] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/TemperatureData.idl\n'}
+[8.260646] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/ToFData.idl\n'}
+[8.260843] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/UltrasonicData.idl\n'}
+[8.261039] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetSerialPort.srv\n'}
+[8.261246] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetSerialPort_Request.msg\n'}
+[8.261452] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetSerialPort_Response.msg\n'}
+[8.261680] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/ResetSerialPort.srv\n'}
+[8.261849] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/ResetSerialPort_Request.msg\n'}
+[8.261980] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/ResetSerialPort_Response.msg\n'}
+[8.262113] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetDeviceStatus.srv\n'}
+[8.262243] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetDeviceStatus_Request.msg\n'}
+[8.262429] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/srv/GetDeviceStatus_Response.msg\n'}
+[8.262598] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/SensorData.msg\n'}
+[8.262805] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/ControlData.msg\n'}
+[8.262944] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/EncoderData.msg\n'}
+[8.263105] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/GPSData.msg\n'}
+[8.263310] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/IRData.msg\n'}
+[8.263534] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/MPUData.msg\n'}
+[8.263675] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/QMCData.msg\n'}
+[8.263814] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/TemperatureData.msg\n'}
+[8.264915] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/ToFData.msg\n'}
+[8.265187] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/msg/UltrasonicData.msg\n'}
+[8.265358] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/ament_index/resource_index/package_run_dependencies/vehicle_interfaces\n'}
+[8.265524] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/ament_index/resource_index/parent_prefix_path/vehicle_interfaces\n'}
+[8.265689] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/ament_prefix_path.sh\n'}
+[8.265854] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/ament_prefix_path.dsv\n'}
+[8.266113] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/path.sh\n'}
+[8.266320] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/environment/path.dsv\n'}
+[8.266468] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/local_setup.bash\n'}
+[8.266626] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/local_setup.sh\n'}
+[8.266763] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/local_setup.zsh\n'}
+[8.266966] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/local_setup.dsv\n'}
+[8.267159] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/package.dsv\n'}
+[8.267890] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/ament_index/resource_index/packages/vehicle_interfaces\n'}
+[8.268168] (vehicle_interfaces) StdoutLine: {'line': b'-- Old export file "/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_generator_cExport.cmake" will be replaced.  Removing files [/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_generator_cExport-noconfig.cmake].\n'}
+[8.268331] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_generator_cExport.cmake\n'}
+[8.268493] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_generator_cExport-noconfig.cmake\n'}
+[8.268647] (vehicle_interfaces) StdoutLine: {'line': b'-- Old export file "/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cExport.cmake" will be replaced.  Removing files [/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake].\n'}
+[8.269896] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cExport.cmake\n'}
+[8.270117] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[8.270315] (vehicle_interfaces) StdoutLine: {'line': b'-- Old export file "/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cExport.cmake" will be replaced.  Removing files [/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cExport-noconfig.cmake].\n'}
+[8.270520] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cExport.cmake\n'}
+[8.271329] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[8.271590] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_generator_cppExport.cmake\n'}
+[8.271776] (vehicle_interfaces) StdoutLine: {'line': b'-- Old export file "/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cppExport.cmake" will be replaced.  Removing files [/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake].\n'}
+[8.272030] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[8.272203] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[8.272372] (vehicle_interfaces) StdoutLine: {'line': b'-- Old export file "/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cppExport.cmake" will be replaced.  Removing files [/root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cppExport-noconfig.cmake].\n'}
+[8.272939] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cppExport.cmake\n'}
+[8.273109] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfaces__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[8.273247] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/rosidl_cmake-extras.cmake\n'}
+[8.273374] (vehicle_interfaces) StdoutLine: {'line': b'-- Installing: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[8.274539] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[8.274683] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[8.274916] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.275342] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[8.275528] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[8.277103] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfacesConfig.cmake\n'}
+[8.277265] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/cmake/vehicle_interfacesConfig-version.cmake\n'}
+[8.277416] (vehicle_interfaces) StdoutLine: {'line': b'-- Up-to-date: /root/install/vehicle_interfaces/share/vehicle_interfaces/package.xml\n'}
+[8.277590] (vehicle_interfaces) CommandEnded: {'returncode': 0}
+[8.357571] (-) TimerEvent: {}
+[8.457977] (-) TimerEvent: {}
+[8.558298] (-) TimerEvent: {}
+[8.658646] (-) TimerEvent: {}
+[8.717199] (vehicle_interfaces) JobEnded: {'identifier': 'vehicle_interfaces', 'rc': 0}
+[8.718644] (-) EventReactorShutdown: {}

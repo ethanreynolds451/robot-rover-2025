@@ -20,15 +20,15 @@ namespace msg
 namespace builder
 {
 
-class Init_ControlData_steering_power
+class Init_ControlData_fan_speed
 {
 public:
-  explicit Init_ControlData_steering_power(::vehicle_interfaces::msg::ControlData & msg)
+  explicit Init_ControlData_fan_speed(::vehicle_interfaces::msg::ControlData & msg)
   : msg_(msg)
   {}
-  ::vehicle_interfaces::msg::ControlData steering_power(::vehicle_interfaces::msg::ControlData::_steering_power_type arg)
+  ::vehicle_interfaces::msg::ControlData fan_speed(::vehicle_interfaces::msg::ControlData::_fan_speed_type arg)
   {
-    msg_.steering_power = std::move(arg);
+    msg_.fan_speed = std::move(arg);
     return std::move(msg_);
   }
 
@@ -36,16 +36,32 @@ private:
   ::vehicle_interfaces::msg::ControlData msg_;
 };
 
-class Init_ControlData_power
+class Init_ControlData_steer_power
 {
 public:
-  explicit Init_ControlData_power(::vehicle_interfaces::msg::ControlData & msg)
+  explicit Init_ControlData_steer_power(::vehicle_interfaces::msg::ControlData & msg)
   : msg_(msg)
   {}
-  Init_ControlData_steering_power power(::vehicle_interfaces::msg::ControlData::_power_type arg)
+  Init_ControlData_fan_speed steer_power(::vehicle_interfaces::msg::ControlData::_steer_power_type arg)
   {
-    msg_.power = std::move(arg);
-    return Init_ControlData_steering_power(msg_);
+    msg_.steer_power = std::move(arg);
+    return Init_ControlData_fan_speed(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::ControlData msg_;
+};
+
+class Init_ControlData_drive_power
+{
+public:
+  explicit Init_ControlData_drive_power(::vehicle_interfaces::msg::ControlData & msg)
+  : msg_(msg)
+  {}
+  Init_ControlData_steer_power drive_power(::vehicle_interfaces::msg::ControlData::_drive_power_type arg)
+  {
+    msg_.drive_power = std::move(arg);
+    return Init_ControlData_steer_power(msg_);
   }
 
 private:
@@ -58,25 +74,25 @@ public:
   explicit Init_ControlData_shift_up(::vehicle_interfaces::msg::ControlData & msg)
   : msg_(msg)
   {}
-  Init_ControlData_power shift_up(::vehicle_interfaces::msg::ControlData::_shift_up_type arg)
+  Init_ControlData_drive_power shift_up(::vehicle_interfaces::msg::ControlData::_shift_up_type arg)
   {
     msg_.shift_up = std::move(arg);
-    return Init_ControlData_power(msg_);
+    return Init_ControlData_drive_power(msg_);
   }
 
 private:
   ::vehicle_interfaces::msg::ControlData msg_;
 };
 
-class Init_ControlData_steering_reverse
+class Init_ControlData_steer_reverse
 {
 public:
-  explicit Init_ControlData_steering_reverse(::vehicle_interfaces::msg::ControlData & msg)
+  explicit Init_ControlData_steer_reverse(::vehicle_interfaces::msg::ControlData & msg)
   : msg_(msg)
   {}
-  Init_ControlData_shift_up steering_reverse(::vehicle_interfaces::msg::ControlData::_steering_reverse_type arg)
+  Init_ControlData_shift_up steer_reverse(::vehicle_interfaces::msg::ControlData::_steer_reverse_type arg)
   {
-    msg_.steering_reverse = std::move(arg);
+    msg_.steer_reverse = std::move(arg);
     return Init_ControlData_shift_up(msg_);
   }
 
@@ -84,16 +100,16 @@ private:
   ::vehicle_interfaces::msg::ControlData msg_;
 };
 
-class Init_ControlData_reverse
+class Init_ControlData_drive_reverse
 {
 public:
-  explicit Init_ControlData_reverse(::vehicle_interfaces::msg::ControlData & msg)
+  explicit Init_ControlData_drive_reverse(::vehicle_interfaces::msg::ControlData & msg)
   : msg_(msg)
   {}
-  Init_ControlData_steering_reverse reverse(::vehicle_interfaces::msg::ControlData::_reverse_type arg)
+  Init_ControlData_steer_reverse drive_reverse(::vehicle_interfaces::msg::ControlData::_drive_reverse_type arg)
   {
-    msg_.reverse = std::move(arg);
-    return Init_ControlData_steering_reverse(msg_);
+    msg_.drive_reverse = std::move(arg);
+    return Init_ControlData_steer_reverse(msg_);
   }
 
 private:
@@ -103,13 +119,29 @@ private:
 class Init_ControlData_brake
 {
 public:
-  Init_ControlData_brake()
-  : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
+  explicit Init_ControlData_brake(::vehicle_interfaces::msg::ControlData & msg)
+  : msg_(msg)
   {}
-  Init_ControlData_reverse brake(::vehicle_interfaces::msg::ControlData::_brake_type arg)
+  Init_ControlData_drive_reverse brake(::vehicle_interfaces::msg::ControlData::_brake_type arg)
   {
     msg_.brake = std::move(arg);
-    return Init_ControlData_reverse(msg_);
+    return Init_ControlData_drive_reverse(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::ControlData msg_;
+};
+
+class Init_ControlData_header
+{
+public:
+  Init_ControlData_header()
+  : msg_(::rosidl_runtime_cpp::MessageInitialization::SKIP)
+  {}
+  Init_ControlData_brake header(::vehicle_interfaces::msg::ControlData::_header_type arg)
+  {
+    msg_.header = std::move(arg);
+    return Init_ControlData_brake(msg_);
   }
 
 private:
@@ -127,7 +159,7 @@ template<>
 inline
 auto build<::vehicle_interfaces::msg::ControlData>()
 {
-  return vehicle_interfaces::msg::builder::Init_ControlData_brake();
+  return vehicle_interfaces::msg::builder::Init_ControlData_header();
 }
 
 }  // namespace vehicle_interfaces

@@ -469,6 +469,10 @@ vehicle_interfaces/msg/detail/control_data__functions.h
 /root/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/detail/vehicle_interfaces/msg/detail/control_data__functions.h
 vehicle_interfaces/msg/detail/control_data__struct.h
 /root/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/detail/vehicle_interfaces/msg/detail/control_data__struct.h
+std_msgs/msg/header.h
+/root/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/detail/std_msgs/msg/header.h
+std_msgs/msg/detail/header__rosidl_typesupport_introspection_c.h
+/root/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__rosidl_typesupport_introspection_c.h
 
 /root/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/detail/encoder_data__type_support.c
 stddef.h
@@ -857,6 +861,8 @@ stddef.h
 -
 stdint.h
 -
+std_msgs/msg/detail/header__struct.h
+rosidl_generator_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__struct.h
 
 rosidl_generator_c/vehicle_interfaces/msg/detail/encoder_data__functions.h
 stdbool.h

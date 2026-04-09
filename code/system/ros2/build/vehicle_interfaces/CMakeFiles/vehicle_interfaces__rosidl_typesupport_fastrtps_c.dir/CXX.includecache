@@ -653,6 +653,8 @@ vehicle_interfaces/msg/detail/control_data__functions.h
 /root/build/vehicle_interfaces/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/vehicle_interfaces/msg/detail/control_data__functions.h
 fastcdr/Cdr.h
 /root/build/vehicle_interfaces/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/fastcdr/Cdr.h
+std_msgs/msg/detail/header__functions.h
+/root/build/vehicle_interfaces/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__functions.h
 
 /root/build/vehicle_interfaces/rosidl_typesupport_fastrtps_c/vehicle_interfaces/msg/detail/encoder_data__type_support_c.cpp
 vehicle_interfaces/msg/detail/encoder_data__rosidl_typesupport_fastrtps_c.h
@@ -1061,6 +1063,8 @@ stddef.h
 -
 stdint.h
 -
+std_msgs/msg/detail/header__struct.h
+rosidl_generator_c/vehicle_interfaces/msg/detail/std_msgs/msg/detail/header__struct.h
 
 rosidl_generator_c/vehicle_interfaces/msg/detail/encoder_data__functions.h
 stdbool.h

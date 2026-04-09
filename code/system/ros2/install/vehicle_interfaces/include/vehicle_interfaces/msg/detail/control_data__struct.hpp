@@ -14,6 +14,10 @@
 #include <vector>
 
 
+// Include directives for member types
+// Member 'header'
+#include "std_msgs/msg/detail/header__struct.hpp"
+
 #ifndef _WIN32
 # define DEPRECATED__vehicle_interfaces__msg__ControlData __attribute__((deprecated))
 #else
@@ -33,71 +37,86 @@ struct ControlData_
   using Type = ControlData_<ContainerAllocator>;
 
   explicit ControlData_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+  : header(_init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->brake = false;
-      this->reverse = false;
-      this->steering_reverse = false;
+      this->drive_reverse = false;
+      this->steer_reverse = false;
       this->shift_up = false;
-      this->power = 0;
-      this->steering_power = 0;
+      this->drive_power = 0;
+      this->steer_power = 0;
+      this->fan_speed = 0;
     }
   }
 
   explicit ControlData_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+  : header(_alloc, _init)
   {
-    (void)_alloc;
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
       this->brake = false;
-      this->reverse = false;
-      this->steering_reverse = false;
+      this->drive_reverse = false;
+      this->steer_reverse = false;
       this->shift_up = false;
-      this->power = 0;
-      this->steering_power = 0;
+      this->drive_power = 0;
+      this->steer_power = 0;
+      this->fan_speed = 0;
     }
   }
 
   // field types and members
+  using _header_type =
+    std_msgs::msg::Header_<ContainerAllocator>;
+  _header_type header;
   using _brake_type =
     bool;
   _brake_type brake;
-  using _reverse_type =
+  using _drive_reverse_type =
     bool;
-  _reverse_type reverse;
-  using _steering_reverse_type =
+  _drive_reverse_type drive_reverse;
+  using _steer_reverse_type =
     bool;
-  _steering_reverse_type steering_reverse;
+  _steer_reverse_type steer_reverse;
   using _shift_up_type =
     bool;
   _shift_up_type shift_up;
-  using _power_type =
+  using _drive_power_type =
     uint8_t;
-  _power_type power;
-  using _steering_power_type =
+  _drive_power_type drive_power;
+  using _steer_power_type =
     uint8_t;
-  _steering_power_type steering_power;
+  _steer_power_type steer_power;
+  using _fan_speed_type =
+    uint8_t;
+  _fan_speed_type fan_speed;
 
   // setters for named parameter idiom
+  Type & set__header(
+    const std_msgs::msg::Header_<ContainerAllocator> & _arg)
+  {
+    this->header = _arg;
+    return *this;
+  }
   Type & set__brake(
     const bool & _arg)
   {
     this->brake = _arg;
     return *this;
   }
-  Type & set__reverse(
+  Type & set__drive_reverse(
     const bool & _arg)
   {
-    this->reverse = _arg;
+    this->drive_reverse = _arg;
     return *this;
   }
-  Type & set__steering_reverse(
+  Type & set__steer_reverse(
     const bool & _arg)
   {
-    this->steering_reverse = _arg;
+    this->steer_reverse = _arg;
     return *this;
   }
   Type & set__shift_up(
@@ -106,16 +125,22 @@ struct ControlData_
     this->shift_up = _arg;
     return *this;
   }
-  Type & set__power(
+  Type & set__drive_power(
     const uint8_t & _arg)
   {
-    this->power = _arg;
+    this->drive_power = _arg;
     return *this;
   }
-  Type & set__steering_power(
+  Type & set__steer_power(
     const uint8_t & _arg)
   {
-    this->steering_power = _arg;
+    this->steer_power = _arg;
+    return *this;
+  }
+  Type & set__fan_speed(
+    const uint8_t & _arg)
+  {
+    this->fan_speed = _arg;
     return *this;
   }
 
@@ -161,22 +186,28 @@ struct ControlData_
   // comparison operators
   bool operator==(const ControlData_ & other) const
   {
+    if (this->header != other.header) {
+      return false;
+    }
     if (this->brake != other.brake) {
       return false;
     }
-    if (this->reverse != other.reverse) {
+    if (this->drive_reverse != other.drive_reverse) {
       return false;
     }
-    if (this->steering_reverse != other.steering_reverse) {
+    if (this->steer_reverse != other.steer_reverse) {
       return false;
     }
     if (this->shift_up != other.shift_up) {
       return false;
     }
-    if (this->power != other.power) {
+    if (this->drive_power != other.drive_power) {
       return false;
     }
-    if (this->steering_power != other.steering_power) {
+    if (this->steer_power != other.steer_power) {
+      return false;
+    }
+    if (this->fan_speed != other.fan_speed) {
       return false;
     }
     return true;

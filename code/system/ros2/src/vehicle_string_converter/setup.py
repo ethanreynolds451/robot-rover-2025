@@ -1,4 +1,5 @@
 from setuptools import setup
+from glob import glob
 
 package_name = 'vehicle_string_converter'
 
@@ -10,6 +11,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        # Include all YAML configuration files in the config directory
+        ('share/' + package_name + '/config', glob('config/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

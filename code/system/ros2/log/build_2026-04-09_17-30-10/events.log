@@ -1,0 +1,45 @@
+[0.000000] (-) TimerEvent: {}
+[0.000983] (-) JobUnselected: {'identifier': 'vehicle_interfaces'}
+[0.001332] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001781] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.001862] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.001923] (vehicle_string_converter) JobQueued: {'identifier': 'vehicle_string_converter', 'dependencies': OrderedDict()}
+[0.001979] (vehicle_string_converter) JobStarted: {'identifier': 'vehicle_string_converter'}
+[0.099793] (-) TimerEvent: {}
+[0.200307] (-) TimerEvent: {}
+[0.300756] (-) TimerEvent: {}
+[0.401167] (-) TimerEvent: {}
+[0.502481] (-) TimerEvent: {}
+[0.602854] (-) TimerEvent: {}
+[0.703218] (-) TimerEvent: {}
+[0.803578] (-) TimerEvent: {}
+[0.875841] (vehicle_string_converter) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/vehicle_string_converter', 'build', '--build-base', '/root/build/vehicle_string_converter/build', 'install', '--record', '/root/build/vehicle_string_converter/install.log', '--install-scripts', '$base/lib/vehicle_string_converter', '--single-version-externally-managed'], 'cwd': '/root/src/vehicle_string_converter', 'env': {'HOSTNAME': '2a33c685da1f', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/root/install/vehicle_interfaces/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/root/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':0.0', 'LANG': 'C.UTF-8', 'AMENT_PREFIX_PATH': '/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy', 'DEBIAN_FRONTEND': 'noninteractive', 'PWD': '/root/build/vehicle_string_converter', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/root/build/vehicle_string_converter/prefix_override:/root/install/vehicle_string_converter/lib/python3.8/site-packages:/root/install/vehicle_interfaces/lib/python3.8/site-packages:/root/install/vehicle_string_converter/lib/python3.8/site-packages:/root/install/vehicle_simulation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/root/install/vehicle_interfaces'}, 'shell': False}
+[0.903741] (-) TimerEvent: {}
+[1.004238] (-) TimerEvent: {}
+[1.104641] (-) TimerEvent: {}
+[1.164076] (vehicle_string_converter) StdoutLine: {'line': b'running egg_info\n'}
+[1.164874] (vehicle_string_converter) StdoutLine: {'line': b'writing ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/PKG-INFO\n'}
+[1.165237] (vehicle_string_converter) StdoutLine: {'line': b'writing dependency_links to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/dependency_links.txt\n'}
+[1.165523] (vehicle_string_converter) StdoutLine: {'line': b'writing entry points to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/entry_points.txt\n'}
+[1.165722] (vehicle_string_converter) StdoutLine: {'line': b'writing requirements to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/requires.txt\n'}
+[1.165913] (vehicle_string_converter) StdoutLine: {'line': b'writing top-level names to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/top_level.txt\n'}
+[1.204738] (-) TimerEvent: {}
+[1.209555] (vehicle_string_converter) StdoutLine: {'line': b"reading manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'\n"}
+[1.210952] (vehicle_string_converter) StdoutLine: {'line': b"writing manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'\n"}
+[1.211273] (vehicle_string_converter) StdoutLine: {'line': b'running build\n'}
+[1.211636] (vehicle_string_converter) StdoutLine: {'line': b'running build_py\n'}
+[1.212000] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/vehicle_control_string_builder.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.212465] (vehicle_string_converter) StdoutLine: {'line': b'running install\n'}
+[1.214558] (vehicle_string_converter) StdoutLine: {'line': b'running install_lib\n'}
+[1.215930] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_control_string_builder.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.217233] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_control_string_builder.py to vehicle_control_string_builder.cpython-38.pyc\n'}
+[1.220756] (vehicle_string_converter) StdoutLine: {'line': b'running install_data\n'}
+[1.221758] (vehicle_string_converter) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.224668] (vehicle_string_converter) StdoutLine: {'line': b"removing '/root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[1.225300] (vehicle_string_converter) StdoutLine: {'line': b'Copying ../../build/vehicle_string_converter/vehicle_string_converter.egg-info to /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info\n'}
+[1.226550] (vehicle_string_converter) StdoutLine: {'line': b'running install_scripts\n'}
+[1.252151] (vehicle_string_converter) StdoutLine: {'line': b'Installing vehicle_control_string_builder script to /root/install/vehicle_string_converter/lib/vehicle_string_converter\n'}
+[1.252803] (vehicle_string_converter) StdoutLine: {'line': b"writing list of installed files to '/root/build/vehicle_string_converter/install.log'\n"}
+[1.284141] (vehicle_string_converter) CommandEnded: {'returncode': 0}
+[1.302268] (vehicle_string_converter) JobEnded: {'identifier': 'vehicle_string_converter', 'rc': 0}
+[1.303457] (-) EventReactorShutdown: {}

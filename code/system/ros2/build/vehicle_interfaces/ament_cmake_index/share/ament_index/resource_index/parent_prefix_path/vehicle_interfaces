@@ -1,1 +1,1 @@
-/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy
+/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy

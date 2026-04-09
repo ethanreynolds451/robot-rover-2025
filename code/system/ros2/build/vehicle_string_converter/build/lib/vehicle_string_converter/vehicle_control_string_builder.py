@@ -15,7 +15,7 @@ import rclpy
 from rclpy.node import Node
 
 # ROS2 message definitions
-from vehicle_interfaces.msg import VehicleControl
+from vehicle_interfaces.msg import ControlData
 from std_msgs.msg import String
 
 # Vehicle codes from config files
@@ -29,7 +29,7 @@ class VehicleControlStringBuilder(Node):
         super().__init__('vehicle_control_string_builder')
         self.get_logger().info('Starting Vehicle Control String Builder Node')
         # Subscriber to vehicle control messages
-        self.control_subscriber = self.create_subscription(VehicleControl, '/vehicle/control', self.control_callback, 10)
+        self.control_subscriber = self.create_subscription(ControlData, '/vehicle/control', self.control_callback, 10)
         # Publisher for string formatted control messages
         self.control_string_publisher = self.create_publisher(String, '/vehicle/control_str', 10)
 
@@ -37,8 +37,6 @@ class VehicleControlStringBuilder(Node):
         package_share = get_package_share_directory('vehicle_string_converter')
         control_config_path = os.path.join(package_share, 'config', 'control_codes.yaml')
         delimiter_config_path = os.path.join(package_share, 'config', 'delimiters.yaml')
-        self.control_codes = {}
-        self.delimiters = {}
         try:
             with open(control_config_path, 'r') as f:
                 self.control_codes = yaml.safe_load(f)
@@ -55,35 +53,53 @@ class VehicleControlStringBuilder(Node):
 
 
     def control_callback(self, msg):
-        # Convert the VehicleControl message to a string format
-        control_str = self.convert(msg)
+        # Convert the ControlData message to a string format
+        control_string = self.convert(msg)
         # Publish the string message
-        if control_str:  # Only publish if conversion was successful
+        if control_string:  # Only publish if conversion was successful
             str_msg = String()
-            str_msg.data = control_str
+            str_msg.data = control_string
             self.control_string_publisher.publish(str_msg)
-            self.get_logger().info(f"Published control string: {control_str}")
+            self.get_logger().info(f"Published control string: {control_string}")
+        else:
+            self.get_logger().error("Failed to convert control message to string format")
 
-    # Do later
+
     def convert(self, control_msg):
-        str = ""       # String to be returned
-        # Convert the VehicleControl message to a string format
+        control_string = ""       # String to be returned
+        # Convert the ControlData message to a string format
+        
         # First add the start packet delimiter
-        str = str + self.delimiters.get('start', '')
+        control_string += self.delimiters.get('packet_start', '')
+
         # Then go through the control message and add corresponding codes and values
-        for field in control_msg.__slots__:  # Iterate through each field in the message
-            value = getattr(control_msg, field)  # Get the value of the field
-            # Will always send all commands, may need to change this in future if more complex data is added to command stream
-            # For now this method makes logic simpler and provides redundancy without adding significantly more processing delay
-            code = self.control_codes.get(field, None)  # Get the corresponding code for the field
-            if code:  # Only add to string if a code exists for the field
-                str = str + code + str(value)  # Add the code and value to the string
-            else:
-                self.get_logger().warning(f"No control code found for field '{field}', skipping this field.")
+        
+        # Iterate through each valid command field
+        # Note: field names must match in both places!
+        for field, code in self.control_codes.items(): 
+            try:
+                value = getattr(control_msg, field)  # Get the value from the message using the field name
+                # Handle bool objects by converting to 1 or 0
+                if isinstance(value, bool):
+                    value = '1' if value else '0'
+                    
+                # Will always send all commands, may need to change this in future if more complex data is added to command stream
+                # For now this method makes logic simpler and provides redundancy without adding significantly more processing delay
+                code = self.control_codes.get(field, None)  # Get the corresponding code for the field
+                if code:  # Only add to string if a code exists for the field
+                    control_string += code                                      # Add the code
+                    control_string += self.delimiters.get('field_start', '')    # Add the field start delimiter
+                    control_string += str(value)                                # Add the value
+                    control_string += self.delimiters.get('field_end', '')      # Add field end delimiter
+            except Exception as e:
+                self.get_logger().error(f"Error processing control message field '{field}': {e}")
+                continue  # Skip this field and continue with the next one
+
         # Finally add the end packet delimiter
-        str = str + self.delimiters.get('end', '')
-        return str
-    
+        control_string += self.delimiters.get('packet_end', '')
+
+        return control_string
+
 
 
 def main(args=None):

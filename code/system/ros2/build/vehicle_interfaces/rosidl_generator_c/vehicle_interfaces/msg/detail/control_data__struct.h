@@ -17,15 +17,21 @@ extern "C"
 
 // Constants defined in the message
 
+// Include directives for member types
+// Member 'header'
+#include "std_msgs/msg/detail/header__struct.h"
+
 // Struct defined in msg/ControlData in the package vehicle_interfaces.
 typedef struct vehicle_interfaces__msg__ControlData
 {
+  std_msgs__msg__Header header;
   bool brake;
-  bool reverse;
-  bool steering_reverse;
+  bool drive_reverse;
+  bool steer_reverse;
   bool shift_up;
-  uint8_t power;
-  uint8_t steering_power;
+  uint8_t drive_power;
+  uint8_t steer_power;
+  uint8_t fan_speed;
 } vehicle_interfaces__msg__ControlData;
 
 // Struct for a sequence of vehicle_interfaces__msg__ControlData.
