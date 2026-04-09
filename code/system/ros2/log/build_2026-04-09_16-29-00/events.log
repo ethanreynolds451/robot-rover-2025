@@ -1,0 +1,75 @@
+[0.000000] (-) TimerEvent: {}
+[0.000800] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001222] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.001317] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.001356] (-) JobUnselected: {'identifier': 'vehicle_string_converter'}
+[0.001395] (vehicle_interfaces) JobQueued: {'identifier': 'vehicle_interfaces', 'dependencies': OrderedDict()}
+[0.001470] (vehicle_interfaces) JobStarted: {'identifier': 'vehicle_interfaces'}
+[0.032870] (vehicle_interfaces) JobProgress: {'identifier': 'vehicle_interfaces', 'progress': 'cmake'}
+[0.034607] (vehicle_interfaces) JobProgress: {'identifier': 'vehicle_interfaces', 'progress': 'build'}
+[0.035986] (vehicle_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/build/vehicle_interfaces', '--', '-j4', '-l4'], 'cwd': '/root/build/vehicle_interfaces', 'env': OrderedDict([('HOSTNAME', '2a33c685da1f'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/root'), ('OLDPWD', '/'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/install'), ('ROS_DISTRO', 'foxy'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0.0'), ('LANG', 'C.UTF-8'), ('AMENT_PREFIX_PATH', '/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/build/vehicle_interfaces'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/root/install/vehicle_string_converter/lib/python3.8/site-packages:/root/install/vehicle_simulation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy')]), 'shell': False}
+[0.099660] (-) TimerEvent: {}
+[0.109459] (vehicle_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.149293] (vehicle_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.149668] (vehicle_interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.199727] (-) TimerEvent: {}
+[0.300099] (-) TimerEvent: {}
+[0.387083] (vehicle_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.0.1 (/opt/ros/foxy/share/rosidl_default_generators/cmake)\n'}
+[0.390795] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.396083] (vehicle_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.400207] (-) TimerEvent: {}
+[0.500544] (-) TimerEvent: {}
+[0.600955] (-) TimerEvent: {}
+[0.645386] (vehicle_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.701050] (-) TimerEvent: {}
+[0.718339] (vehicle_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") \n'}
+[0.801175] (-) TimerEvent: {}
+[0.842961] (vehicle_interfaces) StderrLine: {'line': b'CMake Error at /opt/ros/foxy/share/rosidl_adapter/cmake/rosidl_adapt_interfaces.cmake:60 (message):\n'}
+[0.843366] (vehicle_interfaces) StderrLine: {'line': b'  execute_process(/usr/bin/python3 -m rosidl_adapter --package-name\n'}
+[0.843568] (vehicle_interfaces) StderrLine: {'line': b'  vehicle_interfaces --arguments-file\n'}
+[0.843700] (vehicle_interfaces) StderrLine: {'line': b'  /root/build/vehicle_interfaces/rosidl_adapter__arguments__vehicle_interfaces.json\n'}
+[0.843813] (vehicle_interfaces) StderrLine: {'line': b'  --output-dir\n'}
+[0.843922] (vehicle_interfaces) StderrLine: {'line': b'  /root/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces\n'}
+[0.844015] (vehicle_interfaces) StderrLine: {'line': b'  --output-file\n'}
+[0.844117] (vehicle_interfaces) StderrLine: {'line': b'  /root/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces.idls)\n'}
+[0.844260] (vehicle_interfaces) StderrLine: {'line': b'  returned error code 1:\n'}
+[0.844387] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.844515] (vehicle_interfaces) StderrLine: {'line': b"  Error processing 'sensor_msgs/msg/NavSatFix position' of\n"}
+[0.844645] (vehicle_interfaces) StderrLine: {'line': b"  'vehicle_interfaces/GPSData': 'sensor_msgs/msg/NavSatFix'\n"}
+[0.844774] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.844905] (vehicle_interfaces) StderrLine: {'line': b'  Traceback (most recent call last):\n'}
+[0.845026] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.845152] (vehicle_interfaces) StderrLine: {'line': b'    File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main\n'}
+[0.845360] (vehicle_interfaces) StderrLine: {'line': b'      return _run_code(code, main_globals, None,\n'}
+[0.845493] (vehicle_interfaces) StderrLine: {'line': b'    File "/usr/lib/python3.8/runpy.py", line 87, in _run_code\n'}
+[0.845623] (vehicle_interfaces) StderrLine: {'line': b'      exec(code, run_globals)\n'}
+[0.845749] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/__main__.py", line 19, in <module>\n'}
+[0.845879] (vehicle_interfaces) StderrLine: {'line': b'      sys.exit(main())\n'}
+[0.845997] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/main.py", line 53, in main\n'}
+[0.846123] (vehicle_interfaces) StderrLine: {'line': b'      abs_idl_file = convert_to_idl(\n'}
+[0.846264] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/__init__.py", line 19, in convert_to_idl\n'}
+[0.846392] (vehicle_interfaces) StderrLine: {'line': b'      return convert_msg_to_idl(\n'}
+[0.846516] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/msg/__init__.py", line 28, in convert_msg_to_idl\n'}
+[0.846650] (vehicle_interfaces) StderrLine: {'line': b'      msg = parse_message_string(package_name, input_file.stem, content)\n'}
+[0.846780] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/parser.py", line 516, in parse_message_string\n'}
+[0.846911] (vehicle_interfaces) StderrLine: {'line': b'      Type(type_string, context_package_name=pkg_name),\n'}
+[0.847033] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/parser.py", line 276, in __init__\n'}
+[0.847160] (vehicle_interfaces) StderrLine: {'line': b'      super(Type, self).__init__(\n'}
+[0.847299] (vehicle_interfaces) StderrLine: {'line': b'    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/parser.py", line 189, in __init__\n'}
+[0.847418] (vehicle_interfaces) StderrLine: {'line': b'      raise InvalidResourceName(type_string)\n'}
+[0.847541] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.847661] (vehicle_interfaces) StderrLine: {'line': b'  rosidl_adapter.parser.InvalidResourceName: sensor_msgs/msg/NavSatFix\n'}
+[0.847783] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.847907] (vehicle_interfaces) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[0.848031] (vehicle_interfaces) StderrLine: {'line': b'  /opt/ros/foxy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:130 (rosidl_adapt_interfaces)\n'}
+[0.848155] (vehicle_interfaces) StderrLine: {'line': b'  CMakeLists.txt:25 (rosidl_generate_interfaces)\n'}
+[0.848288] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.848410] (vehicle_interfaces) StderrLine: {'line': b'\n'}
+[0.848529] (vehicle_interfaces) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.848665] (vehicle_interfaces) StdoutLine: {'line': b'See also "/root/build/vehicle_interfaces/CMakeFiles/CMakeOutput.log".\n'}
+[0.854540] (vehicle_interfaces) StderrLine: {'line': b'make: *** [Makefile:1468: cmake_check_build_system] Error 1\n'}
+[0.857594] (vehicle_interfaces) CommandEnded: {'returncode': 2}
+[0.901284] (-) TimerEvent: {}
+[1.001756] (-) TimerEvent: {}
+[1.026350] (vehicle_interfaces) JobEnded: {'identifier': 'vehicle_interfaces', 'rc': 2}
+[1.037322] (-) EventReactorShutdown: {}

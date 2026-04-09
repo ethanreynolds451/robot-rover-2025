@@ -1,0 +1,69 @@
+[0.000000] (-) TimerEvent: {}
+[0.001052] (-) JobUnselected: {'identifier': 'vehicle_interfaces'}
+[0.001413] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001499] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.001540] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.001617] (vehicle_string_converter) JobQueued: {'identifier': 'vehicle_string_converter', 'dependencies': OrderedDict()}
+[0.001666] (vehicle_string_converter) JobStarted: {'identifier': 'vehicle_string_converter'}
+[0.099787] (-) TimerEvent: {}
+[0.200349] (-) TimerEvent: {}
+[0.300670] (-) TimerEvent: {}
+[0.401318] (-) TimerEvent: {}
+[0.501994] (-) TimerEvent: {}
+[0.602474] (-) TimerEvent: {}
+[0.702809] (-) TimerEvent: {}
+[0.803119] (-) TimerEvent: {}
+[0.903456] (-) TimerEvent: {}
+[1.003874] (-) TimerEvent: {}
+[1.026912] (vehicle_string_converter) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/vehicle_string_converter', 'build', '--build-base', '/root/build/vehicle_string_converter/build', 'install', '--record', '/root/build/vehicle_string_converter/install.log', '--install-scripts', '$base/lib/vehicle_string_converter', '--single-version-externally-managed'], 'cwd': '/root/src/vehicle_string_converter', 'env': {'HOSTNAME': '2a33c685da1f', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': ':0.0', 'LANG': 'C.UTF-8', 'AMENT_PREFIX_PATH': '/opt/ros/foxy', 'DEBIAN_FRONTEND': 'noninteractive', 'PWD': '/root/build/vehicle_string_converter', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/root/build/vehicle_string_converter/prefix_override:/root/install/vehicle_string_converter/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.104035] (-) TimerEvent: {}
+[1.204516] (-) TimerEvent: {}
+[1.289504] (vehicle_string_converter) StdoutLine: {'line': b'running egg_info\n'}
+[1.290309] (vehicle_string_converter) StdoutLine: {'line': b'creating ../../build/vehicle_string_converter/vehicle_string_converter.egg-info\n'}
+[1.290507] (vehicle_string_converter) StdoutLine: {'line': b'writing ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/PKG-INFO\n'}
+[1.290782] (vehicle_string_converter) StdoutLine: {'line': b'writing dependency_links to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/dependency_links.txt\n'}
+[1.290958] (vehicle_string_converter) StdoutLine: {'line': b'writing entry points to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/entry_points.txt\n'}
+[1.291160] (vehicle_string_converter) StdoutLine: {'line': b'writing requirements to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/requires.txt\n'}
+[1.291255] (vehicle_string_converter) StdoutLine: {'line': b'writing top-level names to ../../build/vehicle_string_converter/vehicle_string_converter.egg-info/top_level.txt\n'}
+[1.296779] (vehicle_string_converter) StdoutLine: {'line': b"writing manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'\n"}
+[1.304632] (-) TimerEvent: {}
+[1.347307] (vehicle_string_converter) StdoutLine: {'line': b"reading manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'\n"}
+[1.348546] (vehicle_string_converter) StdoutLine: {'line': b"writing manifest file '../../build/vehicle_string_converter/vehicle_string_converter.egg-info/SOURCES.txt'\n"}
+[1.348781] (vehicle_string_converter) StdoutLine: {'line': b'running build\n'}
+[1.348875] (vehicle_string_converter) StdoutLine: {'line': b'running build_py\n'}
+[1.349007] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/build/vehicle_string_converter/build\n'}
+[1.349221] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/build/vehicle_string_converter/build/lib\n'}
+[1.349316] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.349456] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/vehicle_control_string_parser.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.349948] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/vehicle_sensor_string_parser.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.350186] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/vehicle_control_string_builder.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.350505] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/__init__.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.350705] (vehicle_string_converter) StdoutLine: {'line': b'copying vehicle_string_converter/vehicle_sensor_string_builder.py -> /root/build/vehicle_string_converter/build/lib/vehicle_string_converter\n'}
+[1.351364] (vehicle_string_converter) StdoutLine: {'line': b'running install\n'}
+[1.352756] (vehicle_string_converter) StdoutLine: {'line': b'running install_lib\n'}
+[1.354374] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.354678] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_control_string_parser.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.354928] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_sensor_string_parser.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.355097] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_control_string_builder.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.355257] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/__init__.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.355353] (vehicle_string_converter) StdoutLine: {'line': b'copying /root/build/vehicle_string_converter/build/lib/vehicle_string_converter/vehicle_sensor_string_builder.py -> /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter\n'}
+[1.355990] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_control_string_parser.py to vehicle_control_string_parser.cpython-38.pyc\n'}
+[1.358409] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_sensor_string_parser.py to vehicle_sensor_string_parser.cpython-38.pyc\n'}
+[1.358824] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_control_string_builder.py to vehicle_control_string_builder.cpython-38.pyc\n'}
+[1.359640] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/__init__.py to __init__.cpython-38.pyc\n'}
+[1.359972] (vehicle_string_converter) StdoutLine: {'line': b'byte-compiling /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter/vehicle_sensor_string_builder.py to vehicle_sensor_string_builder.cpython-38.pyc\n'}
+[1.360279] (vehicle_string_converter) StdoutLine: {'line': b'running install_data\n'}
+[1.360969] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/install/vehicle_string_converter/share/ament_index\n'}
+[1.361312] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/install/vehicle_string_converter/share/ament_index/resource_index\n'}
+[1.361641] (vehicle_string_converter) StdoutLine: {'line': b'creating /root/install/vehicle_string_converter/share/ament_index/resource_index/packages\n'}
+[1.361846] (vehicle_string_converter) StdoutLine: {'line': b'copying resource/vehicle_string_converter -> /root/install/vehicle_string_converter/share/ament_index/resource_index/packages\n'}
+[1.362033] (vehicle_string_converter) StdoutLine: {'line': b'copying package.xml -> /root/install/vehicle_string_converter/share/vehicle_string_converter\n'}
+[1.362219] (vehicle_string_converter) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.364773] (vehicle_string_converter) StdoutLine: {'line': b'Copying ../../build/vehicle_string_converter/vehicle_string_converter.egg-info to /root/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle_string_converter-0.0.0-py3.8.egg-info\n'}
+[1.366423] (vehicle_string_converter) StdoutLine: {'line': b'running install_scripts\n'}
+[1.393454] (vehicle_string_converter) StdoutLine: {'line': b'Installing vehicle_control_string_builder script to /root/install/vehicle_string_converter/lib/vehicle_string_converter\n'}
+[1.394029] (vehicle_string_converter) StdoutLine: {'line': b"writing list of installed files to '/root/build/vehicle_string_converter/install.log'\n"}
+[1.404789] (-) TimerEvent: {}
+[1.431634] (vehicle_string_converter) CommandEnded: {'returncode': 0}
+[1.455432] (vehicle_string_converter) JobEnded: {'identifier': 'vehicle_string_converter', 'rc': 0}
+[1.456619] (-) EventReactorShutdown: {}

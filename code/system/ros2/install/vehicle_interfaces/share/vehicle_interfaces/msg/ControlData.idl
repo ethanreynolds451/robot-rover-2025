@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from vehicle_interfaces/msg/ControlData.msg
+// generated code does not contain a copyright notice
+
+
+module vehicle_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      " Command String: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}" "\n"
+      " Might want to change this?")
+    struct ControlData {
+      boolean brake;
+
+      boolean reverse;
+
+      boolean steering_reverse;
+
+      boolean shift_up;
+
+      uint8 power;
+
+      uint8 steering_power;
+    };
+  };
+};

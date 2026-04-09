@@ -1,0 +1,19 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from vehicle_interfaces/srv/ResetSerialPort.srv
+// generated code does not contain a copyright notice
+
+
+module vehicle_interfaces {
+  module srv {
+    @verbatim (language="comment", text=
+      " Request")
+    struct ResetSerialPort_Request {
+      string device;
+    };
+    @verbatim (language="comment", text=
+      " Response")
+    struct ResetSerialPort_Response {
+      boolean success;
+    };
+  };
+};

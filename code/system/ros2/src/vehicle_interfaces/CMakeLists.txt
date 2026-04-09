@@ -28,6 +28,16 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetDeviceStatus.srv"
 
   "msg/SensorData.msg"
+  "msg/ControlData.msg"
+
+  "msg/EncoderData.msg"
+  "msg/GPSData.msg"
+  "msg/IRData.msg"
+  "msg/MPUData.msg"
+  "msg/QMCData.msg"
+  "msg/TemperatureData.msg"
+  "msg/ToFData.msg"
+  "msg/UltrasonicData.msg"
 )
 
 if(BUILD_TESTING)

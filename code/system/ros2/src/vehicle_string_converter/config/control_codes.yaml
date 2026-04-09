@@ -1,0 +1,7 @@
+brake       :     "br"
+reverse     :     "rv"
+s_reverse   :     "srv"
+shift_up    :     "su"
+speed       :     "sp"
+s_speed     :     "ssp"
+speed       :     "fan"
