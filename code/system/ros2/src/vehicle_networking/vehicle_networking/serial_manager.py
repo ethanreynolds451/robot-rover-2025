@@ -20,7 +20,6 @@ Services:
 
 Parameters: 
 - Paths to search for serial devices (e.g. '/dev/ttyUSB*')
-- Path to file with device identifiers (default to current directory)
 - Timer interval to check ports (default 5 seconds)
 
 '''
@@ -28,7 +27,6 @@ Parameters:
 # Packages for serial / hardware interface
 import serial                       # For serial communication
 import serial.tools.list_ports      # To get the ports and information
-import json                         # For reading the device identifiers
 
 # ROS2 service definitions
 from vehicle_interfaces.srv import GetSerialPort, ResetSerialPort
@@ -37,10 +35,30 @@ from vehicle_interfaces.srv import GetSerialPort, ResetSerialPort
 import rclpy
 from rclpy.node import Node
 
+# Get device identifiers from config files
+import os
+from ament_index_python.packages import get_package_share_directory
+import json                         # For reading the device identifiers
+
+
 class SerialManager(Node):
     def __init__(self): 
         super().__init__('serial_manager')
         self.get_logger().info('Starting Serial Manager Node')
+
+        # First attempt to load device identifier file to ensure it is available before starting the node
+        self.device_identifiers = {}
+        package_share = get_package_share_directory('vehicle_networking')
+        device_identifiers_file = os.path.join(package_share, 'config', 'device_identifiers.json')
+        try:
+            with open(device_identifiers_file, 'r') as f:
+                self.device_identifiers = json.load(f)
+        except Exception as e:
+            self.get_logger().error(f'Error loading device identifiers file: {e}')
+            # Shut down the node if the device identifiers can't be loaded
+            rclpy.shutdown()
+            return
+
         # Set up services to manage serial port information
         self.get_port_service = self.create_service(GetSerialPort, '/vehicle/serial_manager/get_serial_port', self.get_serial_port)
             # Only returns the port, uses string for simplicity
@@ -48,8 +66,6 @@ class SerialManager(Node):
         # Parameters for serial port searching
             # self.declare_parameter('search_paths', ['/dev/ttyUSB*', '/dev/ttyACM*'])  # Paths to search for serial devices
             # Probably wont need this but keeping as parameter in case needed to modify in future
-        self.declare_parameter('device_identifiers_file', 'device_identifiers.json')  # File with device identifiers
-            # Identifier file in same directory, may move to dedicated directory for config files later 
         # Cache for found serial ports (device name : port)
         self.serial_ports = {}
         # Timer to periodically check for device changes
@@ -92,14 +108,7 @@ class SerialManager(Node):
                 # Remove the cached port for this device
                 del self.serial_ports[device]
     # 3) Check for new devices and attempt to identify them
-        # Load the file with device identifiers
-        device_identifiers = {}
-        try:
-            with open(self.get_parameter('device_identifiers_file').get_parameter_value().string_value, 'r') as f:
-                device_identifiers = json.load(f)
-        except Exception as e:
-            self.get_logger().error(f'Error loading device identifiers file: {e}')
-        if device_identifiers:
+        if self.device_identifiers:
             for port in ports:
                 if port.device not in self.serial_ports.values():
                     # Exclude invalid devices that don't have a VID (e.g. bluetooth, wifi, etc.)
@@ -123,6 +132,8 @@ class SerialManager(Node):
                             break  # Stop checking other identifiers once a match is found                    
                     if not identified: 
                         self.get_logger().info(f'Could not identify device at port {port.device} (VID: {port.vid}, PID: {port.pid}, Manufacturer: {port.manufacturer}, Product: {port.product})')
+        else:
+            self.get_logger().error('No device identifiers available, unable to identify new devices')    
 
 
     # This returns the serial port for a specific device or empty if device is not found
