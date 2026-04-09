@@ -26,6 +26,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetSerialPort.srv"
   "srv/ResetSerialPort.srv"
   "srv/GetDeviceStatus.srv"
+
+  "msg/SensorData.msg"
 )
 
 if(BUILD_TESTING)

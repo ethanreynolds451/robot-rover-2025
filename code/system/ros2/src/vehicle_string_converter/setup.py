@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'vehicle_control'
+package_name = 'vehicle_string_converter'
 
 setup(
     name=package_name,
@@ -13,8 +13,8 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ethanreynolds',
-    maintainer_email='ethanreynolds451@gmail.com',
+    maintainer='root',
+    maintainer_email='root@todo.todo',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],

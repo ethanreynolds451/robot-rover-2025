@@ -1,0 +1,14 @@
+[0.000000] (-) TimerEvent: {}
+[0.000826] (-) JobUnselected: {'identifier': 'roscpp_tutorials'}
+[0.001041] (-) JobUnselected: {'identifier': 'rospy_tutorials'}
+[0.001344] (-) JobUnselected: {'identifier': 'turtlesim'}
+[0.001422] (-) JobUnselected: {'identifier': 'vehicle_control'}
+[0.001463] (-) JobUnselected: {'identifier': 'vehicle_interfaces'}
+[0.001504] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.001553] (-) JobUnselected: {'identifier': 'vehicle_networking'}
+[0.001595] (-) JobUnselected: {'identifier': 'vehicle_sensor'}
+[0.001629] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.001665] (ros_tutorials) JobQueued: {'identifier': 'ros_tutorials', 'dependencies': OrderedDict([('roscpp_tutorials', '/root/install/roscpp_tutorials'), ('turtlesim', '/root/install/turtlesim'), ('rospy_tutorials', '/root/install/rospy_tutorials')])}
+[0.001725] (ros_tutorials) JobStarted: {'identifier': 'ros_tutorials'}
+[0.051694] (ros_tutorials) JobEnded: {'identifier': 'ros_tutorials', 'rc': 1}
+[0.062466] (-) EventReactorShutdown: {}
