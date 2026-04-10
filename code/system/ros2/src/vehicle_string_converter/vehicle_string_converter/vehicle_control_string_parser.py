@@ -25,8 +25,6 @@ from ament_index_python.packages import get_package_share_directory
 import yaml
 
 
-
-
 class VehicleControlStringParser(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_parser')
@@ -66,6 +64,7 @@ class VehicleControlStringParser(Node):
         else:
             self.get_logger().error("Failed to convert control status message to ControlData format")
 
+
     def convert(self, msg):
         # Declare output type ControlData
         control_data = ControlData()
@@ -73,13 +72,75 @@ class VehicleControlStringParser(Node):
         control_string = msg.data
 
         # First, check for valid packet delimiters
-        if not control_string.startswith(self.delimiters.get('packet_start', '')) and not control_string.endswith(self.delimiters.get('packet_end', '')):
-            self.get_logger().error(f"Invalid control status message recieved: missing start/end delimiter")
+        start_delimiter = self.delimiters.get('packet_start', '')
+        end_delimiter = self.delimiters.get('packet_end', '')
+        # Makes sure delimiters aren't empty to avoid edge case
+        if start_delimiter and end_delimiter:
+            if not control_string.startswith(self.delimiters.get('packet_start', '')) or not control_string.endswith(self.delimiters.get('packet_end', '')):
+                self.get_logger().error(f"Invalid control status message recieved: missing start/end delimiter")
+                return None
+        else:
+            self.get_logger().error("Packet delimiters not defined in config files; unable to validate incoming messages")
             return None
 
         # If valid, extract data from the string
         for control_name, code in self.control_codes.items():
             if code in control_string:
-                # do stuff
+                # Extract the data from between the data delimiters
+                try:
+                    # The index of the start data delimiter
+                    start_index = control_string.index(code) + len(code)
+                    # Starting at this index, look for the first instance of the end delimiter
+                    end_index = control_string.index(self.delimiters.get('data_end', ''), start_index)
+                    
+                    # Validate both delimiters before attempting to extract data
+                    if control_string[end_index:end_index + len(self.delimiters.get('data_end', ''))] != self.delimiters.get('data_end', '') or control_string[start_index:start_index + len(self.delimiters.get('data_start', ''))] != self.delimiters.get('data_start', ''):
+                        self.get_logger().error(f"Invalid control status message format for {control_name}: missing data delimiters")
+                        continue  # Skip this field but continue parsing others
+                    
+                    # Extract the value as a string
+                    data_start_index = start_index + len(self.delimiters.get('data_start', ''))
+                    data_end_index = end_index          # End-exclusive slicing in Python
+                    value_substring = control_string[data_start_index:data_end_index]
+                    
+                    # Convert the value to the appropriate type based on the control field
+                    try: 
+                        value = self.string_to_ros_type(value_substring, self.control_codes.get(control_name + '_type', 'string'))  # Default to string type if not specified
+                        # Set the corresponding field in the ControlData message
+                        setattr(control_data, control_name, value)
+                    except Exception as e:
+                        self.get_logger().error(f"Error converting value for {control_name}: {e}")
+                        continue  # Skip this field but continue parsing others
 
-        # Discard any invalid messages that do not match the expected formatÁDFCLÑ
+                except ValueError as e:
+                    self.get_logger().error(f"Error parsing control status message for {control_name}: {e}")
+                    continue  # Skip this field but continue parsing others
+
+        return control_data
+
+
+    # This function must be updated to handle each datatype possible in a message
+    def string_to_ros_type(self, value_str, ros_type):
+        try:
+            if ros_type == 'boolean':
+                return value_str in ['1', 'true', 'True']
+            elif ros_type.startswith('int') or ros_type.startswith('uint'):
+                return int(value_str)
+            elif ros_type.startswith('float'):
+                return float(value_str)
+            elif ros_type == 'string':
+                return value_str
+            else:
+                self.get_logger().warn(f"Unknown type '{ros_type}', treating as string")
+                return value_str
+        except Exception as e:
+            self.get_logger().error(f"Failed to convert '{value_str}' to {ros_type}: {e}")
+            return None
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = VehicleControlStringParser()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
