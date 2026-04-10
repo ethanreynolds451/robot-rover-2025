@@ -5,8 +5,10 @@ Important note: this DOES NOT ensure that packets are less than 64 bytes - they 
 Topics
  Subscribes to:
 - /vehicle/control
+    - ControlData custom msg type
  Publishes to:
 - /vehicle/control_str
+    - String
 
 '''
 
@@ -101,8 +103,6 @@ class VehicleControlStringBuilder(Node):
         control_string += self.delimiters.get('packet_end', '')
 
         return control_string
-
-
 
 def main(args=None):
     rclpy.init(args=args)

@@ -1,7 +1,11 @@
-brake           :     "br"
-drive_reverse   :     "rv"
-steer_reverse   :     "srv"
-shift_up        :     "su"
-drive_power     :     "sp"
-steer_power     :     "ssp"
-fan_speed       :     "fan"
+# Must exactly match names in ControlData msg
+# Maps from control data field to control code string
+
+# control data field  :     control code
+  brake               :     "br"
+  drive_reverse       :     "rv"
+  steer_reverse       :     "srv"
+  shift_up            :     "su"
+  drive_power         :     "sp"
+  steer_power         :     "ssp"
+  fan_speed           :     "fan"

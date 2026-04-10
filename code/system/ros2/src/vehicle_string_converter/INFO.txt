@@ -1,0 +1,4 @@
+This is a translation layer to allow the ROS system to interface with the Arduino boards
+on the robot. The nodes convert String messages, which are sent and recieved over serial, 
+to SensorData and ControlData, which are merged message types containing all control 
+and sensor information in a form that can be used by the rest of the system.

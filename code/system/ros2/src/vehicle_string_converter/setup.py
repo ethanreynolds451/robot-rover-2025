@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts': [
             'vehicle_control_string_builder = vehicle_string_converter.vehicle_control_string_builder:main',
+            'vehicle_control_string_parser = vehicle_string_converter.vehicle_control_string_parser:main',
         ],
     },
 )

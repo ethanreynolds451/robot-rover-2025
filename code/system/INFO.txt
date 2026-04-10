@@ -1,4 +1,4 @@
 Note: need to chown things created by the docker container 
         to user of device before using git
 
-    
+Don't forget to source install/setup.sh when using rqt since it needs to access the custom interfaces
