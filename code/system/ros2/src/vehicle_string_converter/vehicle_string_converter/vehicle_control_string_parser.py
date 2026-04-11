@@ -88,8 +88,8 @@ class VehicleControlStringParser(Node):
             return None
 
         # Verify the data start and end delimiter
-        data_start_delimiter = self.delimiters.get('data_start', '')
-        data_end_delimiter = self.delimiters.get('data_end', '')
+        data_start_delimiter = self.delimiters.get('field_start', '')
+        data_end_delimiter = self.delimiters.get('field_end', '')
         if not data_start_delimiter or not data_end_delimiter:
             self.get_logger().error("Data delimiters not defined in config files; unable to validate incoming messages")
             return None

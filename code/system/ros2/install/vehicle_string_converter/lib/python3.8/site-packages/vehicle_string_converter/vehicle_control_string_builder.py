@@ -5,8 +5,10 @@ Important note: this DOES NOT ensure that packets are less than 64 bytes - they 
 Topics
  Subscribes to:
 - /vehicle/control
+    - ControlData custom msg type
  Publishes to:
 - /vehicle/control_str
+    - String
 
 '''
 
@@ -28,10 +30,6 @@ class VehicleControlStringBuilder(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_builder')
         self.get_logger().info('Starting Vehicle Control String Builder Node')
-        # Subscriber to vehicle control messages
-        self.control_subscriber = self.create_subscription(ControlData, '/vehicle/control', self.control_callback, 10)
-        # Publisher for string formatted control messages
-        self.control_string_publisher = self.create_publisher(String, '/vehicle/control_str', 10)
 
         # Load control and delimiter codes once at startup
         package_share = get_package_share_directory('vehicle_string_converter')
@@ -50,6 +48,12 @@ class VehicleControlStringBuilder(Node):
             return
 
         self.get_logger().info(f"Successfully loaded control codes")
+
+        # Subscriber to vehicle control messages
+        self.control_subscriber = self.create_subscription(ControlData, '/vehicle/control', self.control_callback, 10)
+        # Publisher for string formatted control messages
+        self.control_string_publisher = self.create_publisher(String, '/vehicle/control_str', 10)
+
 
 
     def control_callback(self, msg):
@@ -82,7 +86,7 @@ class VehicleControlStringBuilder(Node):
                 # Handle bool objects by converting to 1 or 0
                 if isinstance(value, bool):
                     value = '1' if value else '0'
-                    
+
                 # Will always send all commands, may need to change this in future if more complex data is added to command stream
                 # For now this method makes logic simpler and provides redundancy without adding significantly more processing delay
                 code = self.control_codes.get(field, None)  # Get the corresponding code for the field
@@ -99,8 +103,6 @@ class VehicleControlStringBuilder(Node):
         control_string += self.delimiters.get('packet_end', '')
 
         return control_string
-
-
 
 def main(args=None):
     rclpy.init(args=args)
