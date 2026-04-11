@@ -45,8 +45,12 @@ class VehicleControlStringParser(Node):
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
             return
+            
 
         self.get_logger().info(f"Successfully loaded control codes")
+
+        # Generate reverse mapping from code to name for easy lookup during parsing (roundabout way to do a reverse dict lookup since the codes are not guaranteed to be unique)
+        self.code_to_name = {code: name for name, code in self.control_codes.items()}
 
         # Subscriber to vehicle control messages
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_status_str', self.control_callback, 10)
@@ -76,46 +80,86 @@ class VehicleControlStringParser(Node):
         end_delimiter = self.delimiters.get('packet_end', '')
         # Makes sure delimiters aren't empty to avoid edge case
         if start_delimiter and end_delimiter:
-            if not control_string.startswith(self.delimiters.get('packet_start', '')) or not control_string.endswith(self.delimiters.get('packet_end', '')):
-                self.get_logger().error(f"Invalid control status message recieved: missing start/end delimiter")
+            if not control_string.startswith(start_delimiter) or not control_string.endswith(end_delimiter):
+                self.get_logger().error(f"Invalid control status message received: missing start/end delimiter")
                 return None
         else:
             self.get_logger().error("Packet delimiters not defined in config files; unable to validate incoming messages")
             return None
 
-        # If valid, extract data from the string
-        for control_name, code in self.control_codes.items():
-            if code in control_string:
-                # Extract the data from between the data delimiters
-                try:
-                    # The index of the start data delimiter
-                    start_index = control_string.index(code) + len(code)
-                    # Starting at this index, look for the first instance of the end delimiter
-                    end_index = control_string.index(self.delimiters.get('data_end', ''), start_index)
-                    
-                    # Validate both delimiters before attempting to extract data
-                    if control_string[end_index:end_index + len(self.delimiters.get('data_end', ''))] != self.delimiters.get('data_end', '') or control_string[start_index:start_index + len(self.delimiters.get('data_start', ''))] != self.delimiters.get('data_start', ''):
-                        self.get_logger().error(f"Invalid control status message format for {control_name}: missing data delimiters")
-                        continue  # Skip this field but continue parsing others
-                    
-                    # Extract the value as a string
-                    data_start_index = start_index + len(self.delimiters.get('data_start', ''))
-                    data_end_index = end_index          # End-exclusive slicing in Python
-                    value_substring = control_string[data_start_index:data_end_index]
-                    
-                    # Convert the value to the appropriate type based on the control field
-                    try: 
-                        value = self.string_to_ros_type(value_substring, self.control_codes.get(control_name + '_type', 'string'))  # Default to string type if not specified
-                        # Set the corresponding field in the ControlData message
-                        setattr(control_data, control_name, value)
-                    except Exception as e:
-                        self.get_logger().error(f"Error converting value for {control_name}: {e}")
-                        continue  # Skip this field but continue parsing others
+        # Verify the data start and end delimiter
+        data_start_delimiter = self.delimiters.get('data_start', '')
+        data_end_delimiter = self.delimiters.get('data_end', '')
+        if not data_start_delimiter or not data_end_delimiter:
+            self.get_logger().error("Data delimiters not defined in config files; unable to validate incoming messages")
+            return None
 
-                except ValueError as e:
-                    self.get_logger().error(f"Error parsing control status message for {control_name}: {e}")
-                    continue  # Skip this field but continue parsing others
+        # After checking the packet delimiters, strip them
+        # (there existence has already been validated so they can safely be removed without additional checks)
+        control_string = control_string[len(start_delimiter):len(control_string) - len(end_delimiter)]
 
+        # Now split the string into components based on data delimiters
+        command_strings = {}
+        while control_string:
+            # The code runs up to but not including the next data start delimiter
+            split_index_start = control_string.find(data_start_delimiter)
+            if split_index_start == -1:
+                break  # No more data start delimiters, exit the loop
+            split_index_end = split_index_start + len(data_start_delimiter)
+            end_index = control_string.find(data_end_delimiter, split_index_end)
+            if end_index == -1:
+                self.get_logger().error(f"Invalid control status message format: the last data in the packet was missing its end delimiter")
+                break  # No more data end delimiters, exit the loop
+            
+            # Get the next code and data substrings and store them in the command_strings dict
+            next_code = control_string[:split_index_start]  # Get the substring before the next data start delimiter
+            next_code = next_code.strip()  # Remove any leading/trailing whitespace from the code  
+            next_data = control_string[split_index_end:end_index]  # Get the substring after the next data start delimiter
+
+            # Only store if a code is present
+            if not next_code:
+                self.get_logger().warn("Empty control code encountered, skipping")
+            else:
+                command_strings[next_code] = next_data  # Store the code and its corresponding data substring
+            
+            # Strip the processed part of the string for the next iteration
+            control_string = control_string[end_index + len(data_end_delimiter):]
+            
+
+        # Make sure there was valid data found in the command string
+        if not command_strings:
+            self.get_logger().error(f"Invalid control status message format: no valid command strings found")
+            return None
+        
+        # Convert each piece of data into appropriate datatype and assign it to the corresponding field in the ControlData message
+        fields_and_types = control_data._fields_and_field_types
+        data_parsed = False  # Flag to track if at least one piece of data was successfully parsed
+        for next_code, next_data in command_strings.items():
+            # Get the corresponding field name from the config file
+            control_name = self.code_to_name.get(next_code)
+            # Make sure it is a valid control code form config file
+            if not control_name:
+                self.get_logger().warn(f"Unrecognized control code '{next_code}' in control status message; skipping this field")
+                continue
+            # Convert the value to the appropriate datatype based on the field type and assign it to the corresponding field in the ControlData message
+            try: 
+                # Convert the value (from AI IDK if the format is right here)
+                ros_type = fields_and_types.get(control_name, 'string')
+                value = self.string_to_ros_type(next_data, ros_type)
+                # Set the corresponding field in the ControlData message
+                setattr(control_data, control_name, value)
+                data_parsed = True  # Set the flag to True if at least one piece of data was successfully parsed
+            except Exception as e:
+                self.get_logger().error(f"Error converting value for {control_name}: {e}")
+                continue  # Skip this field but continue parsing others
+            except ValueError as e:
+                self.get_logger().error(f"Error parsing control status message for {control_name}: {e}")
+                continue  # Skip this field but continue parsing others
+        
+        if not data_parsed:
+            self.get_logger().warn("No valid data found in control status message")
+            return None  # Return None if no valid data was parsed, otherwise return the ControlData message
+        
         return control_data
 
 
@@ -123,7 +167,7 @@ class VehicleControlStringParser(Node):
     def string_to_ros_type(self, value_str, ros_type):
         try:
             if ros_type == 'boolean':
-                return value_str in ['1', 'true', 'True']
+                return value_str.lower() in ['1', 'true']
             elif ros_type.startswith('int') or ros_type.startswith('uint'):
                 return int(value_str)
             elif ros_type.startswith('float'):
