@@ -1,8 +1,21 @@
-Next:
+Next (ROS):
+- Revise serial manager nodes to handle buffering
+- Build sensor data translator nodes (just parser for now)
+- Build control data manager
+- Build sensor data manager
+- After bulding translator and data manager nodes, thoroughly test this part of the system
+- Design simulation and interface system
+
+Next (C++):
+- Test the rest of the sensor modules
+- Figure out what's going on with the packetized serial module 
+   (it's a big mess and I don't feel like dealing with it so might try out the AI to see what it can do)
+- Build higher-level sensor data manager module
 
 Future: 
 - Add instant acceleration protection to control board (if brake released and motor power on, increment output speed to target)
 
 Completed: 
+- Build control data translator nodes
 - Build sensor and control msg interfaces
 - Establish communication between control_serial_interface and serial_manager through get_port
