@@ -1,13 +1,5 @@
-
 [
   {
     "Info" : "These are for other arduino boards that were used for testing but are not the ones used in the vehicle"
-  },
-  {
-    "name": "control board",
-    "vid": 6790,
-    "pid": 29987,
-    "manufacturer": null,
-    "product": "USB Serial"
   }
 ]

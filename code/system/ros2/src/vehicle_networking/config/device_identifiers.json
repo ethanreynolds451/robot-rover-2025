@@ -1,16 +1,16 @@
 [
   {
     "name": "control board",
-    "vid": "0x1a86",
-    "pid": "0x7523",
-    "manufacturer": 0,
-    "product": "QinHeng Electronics HL-340 USB-Serial adapter"
+    "vid": 6790,
+    "pid": 29987,
+    "manufacturer": null,
+    "product": "USB Serial"
   },
   {
     "name": "sensor board",
-    "vid": 2341,
-    "pid": 0042,
-    "manufacturer": 1,
-    "product": "Arduino SA Mega 2560 R3 (CDC ACM)"
+    "vid": 9025,
+    "pid": 66,
+    "manufacturer": "Arduino (www.arduino.cc)",
+    "product": null
   }
 ]
