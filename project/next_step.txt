@@ -1,3 +1,6 @@
+Next (physical):
+- Ran AI on the serial module, need to test on hardware
+
 Next (ROS):
 - Revise serial manager nodes to handle buffering
 - Build sensor data translator nodes (just parser for now)
