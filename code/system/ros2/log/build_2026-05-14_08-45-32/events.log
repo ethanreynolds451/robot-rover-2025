@@ -1,0 +1,75 @@
+[0.000000] (-) TimerEvent: {}
+[0.000287] (-) JobUnselected: {'identifier': 'vehicle_interfaces'}
+[0.000379] (-) JobUnselected: {'identifier': 'vehicle_navigation'}
+[0.000451] (-) JobUnselected: {'identifier': 'vehicle_simulation'}
+[0.000514] (-) JobUnselected: {'identifier': 'vehicle_string_converter'}
+[0.000578] (vehicle_networking) JobQueued: {'identifier': 'vehicle_networking', 'dependencies': OrderedDict()}
+[0.000642] (vehicle_networking) JobStarted: {'identifier': 'vehicle_networking'}
+[0.097001] (-) TimerEvent: {}
+[0.197885] (-) TimerEvent: {}
+[0.298443] (-) TimerEvent: {}
+[0.398821] (-) TimerEvent: {}
+[0.499217] (-) TimerEvent: {}
+[0.599793] (-) TimerEvent: {}
+[0.700425] (-) TimerEvent: {}
+[0.800815] (-) TimerEvent: {}
+[0.901201] (-) TimerEvent: {}
+[1.001618] (-) TimerEvent: {}
+[1.102067] (-) TimerEvent: {}
+[1.202441] (-) TimerEvent: {}
+[1.302938] (-) TimerEvent: {}
+[1.403354] (-) TimerEvent: {}
+[1.503945] (-) TimerEvent: {}
+[1.604397] (-) TimerEvent: {}
+[1.705033] (-) TimerEvent: {}
+[1.805595] (-) TimerEvent: {}
+[1.906266] (-) TimerEvent: {}
+[2.006916] (-) TimerEvent: {}
+[2.107815] (-) TimerEvent: {}
+[2.164500] (vehicle_networking) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/vehicle_networking', 'build', '--build-base', '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build', 'install', '--record', '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log', '--install-scripts', '$base/lib/vehicle_networking', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking', 'env': {'VNCDESKTOP': 'errobot:1 (ethanreynolds)', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ethanreynolds', 'FONTCONFIG_PATH': '/etc/fonts', 'GIO_MODULE_DIR': '/home/ethanreynolds/snap/code/common/.cache/gio-modules', 'SSH_AGENT_PID': '2475', 'GIT_ASKPASS': '/snap/code/230/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'GTK_EXE_PREFIX_VSCODE_SNAP_ORIG': '', 'GDK_BACKEND_VSCODE_SNAP_ORIG': '', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/ethanreynolds', 'CHROME_DESKTOP': 'code.desktop', 'LOCPATH_VSCODE_SNAP_ORIG': '', 'OLDPWD': '/home/ethanreynolds/vscode/robot-rover-2025', 'TERM_PROGRAM_VERSION': '1.112.0', 'DESKTOP_SESSION': 'xfce', 'GTK_PATH': '/snap/code/230/usr/lib/x86_64-linux-gnu/gtk-3.0', 'PANEL_GDK_CORE_DEVICE_EVENTS': '0', 'XDG_DATA_HOME_VSCODE_SNAP_ORIG': '', 'GTK_IM_MODULE_FILE': '/home/ethanreynolds/snap/code/common/.cache/immodules/immodules.cache', 'ROS_PYTHON_VERSION': '3', 'GSETTINGS_SCHEMA_DIR_VSCODE_SNAP_ORIG': '', 'VSCODE_GIT_ASKPASS_MAIN': '/snap/code/230/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/snap/code/230/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/ethanreynolds/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:abstract=/tmp/dbus-JUadUCEnG8,guid=046e069873536ccef6f5bda86a05bd7b', 'COLORTERM': 'truecolor', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'ethanreynolds', 'JOURNAL_STREAM': '8:45937', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_CONFIG_DIRS_VSCODE_SNAP_ORIG': '/etc/xdg', 'XDG_DATA_DIRS_VSCODE_SNAP_ORIG': '/usr/local/share:/usr/share', 'TERM': 'xterm-256color', 'FC_FONTATIONS': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/home/ethanreynolds/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/ethanreynolds/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/ethanreynolds/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/scripts/noConfigScripts', 'SESSION_MANAGER': 'local/errobot:@/tmp/.ICE-unix/2438,unix/errobot:/tmp/.ICE-unix/2438', 'GTK_EXE_PREFIX': '/snap/code/230/usr', 'INVOCATION_ID': 'cfdcd5dbd671453c8685d3012c15f705', 'XDG_MENU_PREFIX': 'xfce-', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1.0', 'LOCPATH': '/snap/code/230/usr/lib/locale', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/ethanreynolds/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-14548342cbc1a1e9.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'PYTHONSTARTUP': '/home/ethanreynolds/.config/Code/User/workspaceStorage/9e7c0926dcdc492d769db1d2d75f31a0/ms-python.python/pythonrc.py', 'GIO_MODULE_DIR_VSCODE_SNAP_ORIG': '', 'XDG_DATA_HOME': '/home/ethanreynolds/snap/code/230/.local/share', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/tmp/vscode-git-0fc17d28d9.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/tmp/ssh-XNYWqiI6UcHC/agent.2474', 'GSETTINGS_SCHEMA_DIR': '/home/ethanreynolds/snap/code/230/.local/share/glib-2.0/schemas', 'AMENT_PREFIX_PATH': '/opt/ros/foxy', 'SHELL': '/bin/bash', 'NO_AT_BRIDGE': '1', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GTK_PATH_VSCODE_SNAP_ORIG': '', 'FONTCONFIG_FILE': '/etc/fonts/fonts.conf', 'GTK_IM_MODULE_FILE_VSCODE_SNAP_ORIG': '', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking', 'XDG_CONFIG_DIRS': '/etc/xdg', 'PIDFILE': '/home/ethanreynolds/.vnc/errobot:1.pid', 'XDG_DATA_DIRS': '/home/ethanreynolds/snap/code/230/.local/share:/home/ethanreynolds/snap/code/230:/snap/code/230/usr/share:/usr/local/share:/usr/share', 'PYTHONPATH': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[2.207951] (-) TimerEvent: {}
+[2.308434] (-) TimerEvent: {}
+[2.408819] (-) TimerEvent: {}
+[2.509203] (-) TimerEvent: {}
+[2.607965] (vehicle_networking) StdoutLine: {'line': b'running egg_info\n'}
+[2.608964] (vehicle_networking) StdoutLine: {'line': b'writing ../../build/vehicle_networking/vehicle_networking.egg-info/PKG-INFO\n'}
+[2.609278] (-) TimerEvent: {}
+[2.609525] (vehicle_networking) StdoutLine: {'line': b'writing dependency_links to ../../build/vehicle_networking/vehicle_networking.egg-info/dependency_links.txt\n'}
+[2.610029] (vehicle_networking) StdoutLine: {'line': b'writing entry points to ../../build/vehicle_networking/vehicle_networking.egg-info/entry_points.txt\n'}
+[2.610402] (vehicle_networking) StdoutLine: {'line': b'writing requirements to ../../build/vehicle_networking/vehicle_networking.egg-info/requires.txt\n'}
+[2.610607] (vehicle_networking) StdoutLine: {'line': b'writing top-level names to ../../build/vehicle_networking/vehicle_networking.egg-info/top_level.txt\n'}
+[2.693640] (vehicle_networking) StdoutLine: {'line': b"reading manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'\n"}
+[2.709521] (-) TimerEvent: {}
+[2.712950] (vehicle_networking) StdoutLine: {'line': b"writing manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'\n"}
+[2.713369] (vehicle_networking) StdoutLine: {'line': b'running build\n'}
+[2.713645] (vehicle_networking) StdoutLine: {'line': b'running build_py\n'}
+[2.713894] (vehicle_networking) StdoutLine: {'line': b'copying vehicle_networking/control_serial_interface.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking\n'}
+[2.714195] (vehicle_networking) StdoutLine: {'line': b'copying vehicle_networking/serial_manager.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking\n'}
+[2.714569] (vehicle_networking) StdoutLine: {'line': b'copying vehicle_networking/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking\n'}
+[2.724189] (vehicle_networking) StdoutLine: {'line': b'copying vehicle_networking/get_device_info.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking\n'}
+[2.724673] (vehicle_networking) StdoutLine: {'line': b'running install\n'}
+[2.725975] (vehicle_networking) StdoutLine: {'line': b'running install_lib\n'}
+[2.727636] (vehicle_networking) StdoutLine: {'line': b'copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/control_serial_interface.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking\n'}
+[2.728092] (vehicle_networking) StdoutLine: {'line': b'copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/serial_manager.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking\n'}
+[2.728426] (vehicle_networking) StdoutLine: {'line': b'copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking\n'}
+[2.728725] (vehicle_networking) StdoutLine: {'line': b'copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/get_device_info.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking\n'}
+[2.729938] (vehicle_networking) StdoutLine: {'line': b'byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/control_serial_interface.py to control_serial_interface.cpython-38.pyc\n'}
+[2.734760] (vehicle_networking) StdoutLine: {'line': b'byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/serial_manager.py to serial_manager.cpython-38.pyc\n'}
+[2.736843] (vehicle_networking) StdoutLine: {'line': b'byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/__init__.py to __init__.cpython-38.pyc\n'}
+[2.737319] (vehicle_networking) StdoutLine: {'line': b'byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/get_device_info.py to get_device_info.cpython-38.pyc\n'}
+[2.737911] (vehicle_networking) StdoutLine: {'line': b'running install_data\n'}
+[2.738259] (vehicle_networking) StdoutLine: {'line': b'copying resource/vehicle_networking -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/ament_index/resource_index/packages\n'}
+[2.738559] (vehicle_networking) StdoutLine: {'line': b'copying package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking\n'}
+[2.738867] (vehicle_networking) StdoutLine: {'line': b'copying config/device_identifiers.json -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/config\n'}
+[2.739163] (vehicle_networking) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.742560] (vehicle_networking) StdoutLine: {'line': b"removing '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[2.756239] (vehicle_networking) StdoutLine: {'line': b'Copying ../../build/vehicle_networking/vehicle_networking.egg-info to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info\n'}
+[2.773833] (vehicle_networking) StdoutLine: {'line': b'running install_scripts\n'}
+[2.799206] (vehicle_networking) StdoutLine: {'line': b'Installing control_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking\n'}
+[2.799628] (vehicle_networking) StdoutLine: {'line': b'Installing serial_manager script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking\n'}
+[2.800441] (vehicle_networking) StdoutLine: {'line': b"writing list of installed files to '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log'\n"}
+[2.809684] (-) TimerEvent: {}
+[2.840027] (vehicle_networking) CommandEnded: {'returncode': 0}
+[2.909835] (-) TimerEvent: {}
+[2.979142] (vehicle_networking) JobEnded: {'identifier': 'vehicle_networking', 'rc': 0}
+[2.980543] (-) EventReactorShutdown: {}

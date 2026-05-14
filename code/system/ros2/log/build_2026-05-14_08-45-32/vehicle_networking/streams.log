@@ -1,0 +1,37 @@
+[2.165s] Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed install_data
+[2.608s] running egg_info
+[2.608s] writing ../../build/vehicle_networking/vehicle_networking.egg-info/PKG-INFO
+[2.609s] writing dependency_links to ../../build/vehicle_networking/vehicle_networking.egg-info/dependency_links.txt
+[2.610s] writing entry points to ../../build/vehicle_networking/vehicle_networking.egg-info/entry_points.txt
+[2.610s] writing requirements to ../../build/vehicle_networking/vehicle_networking.egg-info/requires.txt
+[2.610s] writing top-level names to ../../build/vehicle_networking/vehicle_networking.egg-info/top_level.txt
+[2.693s] reading manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+[2.713s] writing manifest file '../../build/vehicle_networking/vehicle_networking.egg-info/SOURCES.txt'
+[2.713s] running build
+[2.713s] running build_py
+[2.713s] copying vehicle_networking/control_serial_interface.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking
+[2.714s] copying vehicle_networking/serial_manager.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking
+[2.714s] copying vehicle_networking/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking
+[2.724s] copying vehicle_networking/get_device_info.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking
+[2.724s] running install
+[2.725s] running install_lib
+[2.727s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/control_serial_interface.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+[2.728s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/serial_manager.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+[2.728s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+[2.728s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build/lib/vehicle_networking/get_device_info.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking
+[2.729s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/control_serial_interface.py to control_serial_interface.cpython-38.pyc
+[2.734s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/serial_manager.py to serial_manager.cpython-38.pyc
+[2.736s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/__init__.py to __init__.cpython-38.pyc
+[2.737s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking/get_device_info.py to get_device_info.cpython-38.pyc
+[2.738s] running install_data
+[2.738s] copying resource/vehicle_networking -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/ament_index/resource_index/packages
+[2.738s] copying package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking
+[2.738s] copying config/device_identifiers.json -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/config
+[2.739s] running install_egg_info
+[2.742s] removing '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info' (and everything under it)
+[2.756s] Copying ../../build/vehicle_networking/vehicle_networking.egg-info to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle_networking-0.0.0-py3.8.egg-info
+[2.773s] running install_scripts
+[2.799s] Installing control_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[2.799s] Installing serial_manager script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[2.800s] writing list of installed files to '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log'
+[2.840s] Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed install_data

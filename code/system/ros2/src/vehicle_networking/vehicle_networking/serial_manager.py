@@ -116,7 +116,7 @@ class SerialManager(Node):
                     self.get_logger().info(f'New device detected: {port.device} ({port.description})')
                     # Attempt to match the new device to an identifier in the file
                     identified = False
-                    for device in device_identifiers:
+                    for device in self.device_identifiers:
                         device_name = device["name"]
                         vid = device["vid"]
                         pid = device["pid"]

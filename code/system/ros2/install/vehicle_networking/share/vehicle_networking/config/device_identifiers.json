@@ -8,9 +8,9 @@
   },
   {
     "name": "sensor board",
-    "vid": null,
-    "pid": null,
-    "manufacturer": null,
+    "vid": 9025,
+    "pid": 66,
+    "manufacturer": "Arduino (www.arduino.cc)",
     "product": null
   }
 ]
