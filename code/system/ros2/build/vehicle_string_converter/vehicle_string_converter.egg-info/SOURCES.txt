@@ -16,7 +16,7 @@ test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py
 vehicle_string_converter/__init__.py
-vehicle_string_converter/vehicle_control_string_builder.py
-vehicle_string_converter/vehicle_control_string_parser.py
-vehicle_string_converter/vehicle_sensor_string_builder.py
-vehicle_string_converter/vehicle_sensor_string_parser.py
+vehicle_string_converter/control_string_builder.py
+vehicle_string_converter/control_string_parser.py
+vehicle_string_converter/sensor_string_builder.py
+vehicle_string_converter/sensor_string_parser.py
