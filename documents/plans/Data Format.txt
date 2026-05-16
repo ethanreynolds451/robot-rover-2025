@@ -1,0 +1,29 @@
+To control board: 
+
+{br[brake_on]
+rv[direction_reversed]
+srv[steering_reversed]
+su[motors_series]
+sp[speed (0 – 100)]
+ssp[steer_speed(0 – 100 )]}
+
+
+
+From control board: 
+
+{br[brake_on]
+rv[direction_reversed]
+srv[steering_reversed]
+su[motors_series]
+sp[speed (0 – 100)]
+ssp[steer_speed(0 – 100 )]}
+
+Sensor board: 
+
+{mpu[n, accel, gyro, temp]
+qmc[n, mag, head, temp]
+gps[n, lat, long, alt, vel, head, time, sats]
+tof[n, dist, light]us[n, dist]
+tmp[n, temp]
+str[dir, pos, spd]
+ir[addr, cmd, data]}
