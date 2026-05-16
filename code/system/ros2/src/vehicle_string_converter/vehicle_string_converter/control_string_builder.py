@@ -2,6 +2,8 @@
 This node converts vehicle control mesages to string format for sending over serial
 Important note: this DOES NOT ensure that packets are less than 64 bytes - they must be broken up by the packet manager
 
+Note: this version cannot handle custom data types or special encodings
+
 Topics
  Subscribes to:
 - /vehicle/control

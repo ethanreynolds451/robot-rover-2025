@@ -2,11 +2,11 @@
 # Maps from control data field to control code string
 
 # control code  :     control data field
-  "t"           :     "arduino_timestamp"
-  "br"          :     "brake"
-  "rv"          :     "drive_reverse"
-  "srv"         :     "steer_reverse"
-  "su"          :     "shift_up"
-  "sp"          :     "drive_power"
-  "ssp"         :     "steer_power"
-  "fan"         :     "fan_speed"
+  t             :     "arduino_timestamp"
+  br            :     "brake"
+  rv            :     "drive_reverse"
+  srv           :     "steer_reverse"
+  su            :     "shift_up"
+  sp            :     "drive_power"
+  ssp           :     "steer_power"
+  fan           :     "fan_speed"

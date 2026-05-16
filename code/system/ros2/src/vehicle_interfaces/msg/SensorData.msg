@@ -14,6 +14,7 @@
 # One field for each type of sensor, the actual sensor is tracked using Frame ID for each instance
 
 std_msgs/Header                         header             # When the packet was processed by node
+
 uint32                                  arduino_timestamp  # Arduino board system time in millis        
 
 vehicle_interfaces/MPUData[]            mpu                # Internal MPU6050 IMU(s)

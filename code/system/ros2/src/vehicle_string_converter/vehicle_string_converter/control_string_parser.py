@@ -1,6 +1,9 @@
 '''
 This node parses string messages from the control board into ControlData messages for use by the rest of the system
 
+Note: this version cannot handle custom data types or special encodings
+If these are added, the code must be updated to work like the sensor parser
+
 Topics
  Subscribes to:
 - /vehicle/control_status_str
@@ -56,9 +59,9 @@ class VehicleControlStringParser(Node):
 
         self.get_logger().info(f"Successfully loaded control codes")
 
-        # Subscriber to vehicle control messages
+        # Subscriber to vehicle control update string messages
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_status_str', self.control_callback, 10)
-        # Publisher for string formatted control messages
+        # Publisher for control data formatted messages
         self.control_string_publisher = self.create_publisher(ControlFeedback, '/vehicle/control_status', 10)
 
 

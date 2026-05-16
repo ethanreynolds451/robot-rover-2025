@@ -1,0 +1,9 @@
+# Keep track of special sensor data encodings so they can be decoded properly by the parser
+# If no encoding is specified, the parser will default to the ros type of the corresponding field
+
+# Sensor parameter         :     encoding
+ ir_remote:
+  arduino_timestamp        :     "hex"
+  address                  :     "hex"
+  command                  :     "hex"
+  data                     :     "hex"
