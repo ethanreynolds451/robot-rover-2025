@@ -27,7 +27,9 @@ void loop() {
     memset(outputString, 0, sizeof(outputString));
 
     // Create variables for data
-    unsigned long timestamp = 0;
+    unsigned long arduino_timestamp = 0;
+    unsigned long sensor_timestamp = 0;
+    unsigned long offset_timestamp = 0;
     uint16_t command = 0;
     uint16_t address = 0;
     IRRawDataType data = 0;
@@ -39,33 +41,33 @@ void loop() {
     if(testIR.is_new_command()){
       isCommand = true;
       command = testIR.get_command();
-      timestamp = testIR.get_command_timestamp();
+      sensor_timestamp = testIR.get_command_timestamp();
     }
     if(testIR.is_new_address()){
       isAddress = true;
       address = testIR.get_address();
-      timestamp = testIR.get_address_timestamp();
+      sensor_timestamp = testIR.get_address_timestamp();
     }
     if(testIR.is_new_data()){
       isData = true;
       data = testIR.get_data();
-      timestamp = testIR.get_data_timestamp();
+      sensor_timestamp = testIR.get_data_timestamp();
     }
 
-    // Default timestamp to current time if it was not set by any of the data types, this should never happen but just in case
-    if(timestamp == 0){
-      timestamp = millis();
-    }
+    // Calculate timestamps
+    arduino_timestamp = millis();
+    offset_timestamp = arduino_timestamp - sensor_timestamp;
 
     // Declare and the string incrementer to 0
     int pos = 0; 
 
     // Construct the output string
     // Encode the data as hexadecimal to save space
-    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", timestamp);
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", arduino_timestamp);
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "ir[");
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "t:%x", offset_timestamp);
     if (isCommand){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, "c:%x", command);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", command);
     }
     if (isAddress){
       pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", address);
