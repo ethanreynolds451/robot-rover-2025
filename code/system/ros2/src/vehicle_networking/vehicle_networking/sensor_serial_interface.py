@@ -91,7 +91,7 @@ class SensorSerialInterface(Node):
         # Set back to string mode if attemspting to use packet mode
         if self.get_parameter('packet_mode').get_parameter_value().bool_value:
             self.get_logger().warning('Packet mode is not yet implemented, defaulting to raw string mode')
-            self.set_parameters(rclpy.Parameter('packet_mode', rclpy.Parameter.Type.BOOL, False))
+            self.set_parameters([rclpy.parameter.Parameter('packet_mode', rclpy.Parameter.Type.BOOL, False)])    
              
         # Set up subscriber to receive sensor commands from other nodes
         self.sensor_subscriber = self.create_subscription(String, '/vehicle/sensor_control_str', self.control_callback, 10)
