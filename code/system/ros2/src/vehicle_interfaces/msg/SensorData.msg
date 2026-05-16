@@ -9,7 +9,7 @@
 #                  tmp[n, temp]
 #                  str[dir, pos, spd]
 #                  ir[addr, cmd, data]}
-# Might change this for better parsing
+# Has been updated, need to change
 
 # One field for each type of sensor, the actual sensor is tracked using Frame ID for each instance
 

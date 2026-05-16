@@ -24,8 +24,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'get_device_info_tool = vehicle_networking.get_device_info_tool:main',
             'serial_manager = vehicle_networking.serial_manager:main',
             'control_serial_interface = vehicle_networking.control_serial_interface:main',
+            'sensor_serial_interface = vehicle_networking.sensor_serial_interface:main', 
         ],
     },
 )
