@@ -1,29 +1,42 @@
 To control board: 
 
-{br[brake_on]
+{t[ros_timestamp]
+br[brake_on]
 rv[direction_reversed]
 srv[steering_reversed]
 su[motors_series]
 sp[speed (0 – 100)]
 ssp[steer_speed(0 – 100 )]}
 
+// Leave timestamp empty for arduino to ignore
+{t[]br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
 
 From control board: 
 
-{br[brake_on]
+{t[arduino_timestamp]
+br[brake_on]
 rv[direction_reversed]
 srv[steering_reversed]
 su[motors_series]
 sp[speed (0 – 100)]
 ssp[steer_speed(0 – 100 )]}
 
-Sensor board: 
+{t[1234]br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
 
-{mpu[n, accel, gyro, temp]
-qmc[n, mag, head, temp]
-gps[n, lat, long, alt, vel, head, time, sats]
-tof[n, dist, light]us[n, dist]
-tmp[n, temp]
-str[dir, pos, spd]
-ir[addr, cmd, data]}
+
+To sensor board: none implemented yet
+
+
+From sensor board: 
+
+// t for each sensor is offset from packet timestamp
+// calculated on packet construction, may be off by +- a few ms
+{t[arduino_timestamp]
+mpu[n, t, accel, gyro, temp]
+qmc[n, t, mag, head, temp]
+gps[n, t, lat, long, alt, vel, head, time, sats]
+tof[n, t, dist, light]us[n, dist]
+tmp[n, t, temp]
+str[t, dir, pos, spd]
+ir[t, addr, cmd, data]}
