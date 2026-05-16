@@ -10,6 +10,10 @@ Topics
 - /vehicle/control_str
     - String
 
+Parameters: 
+- verbose (bool, default: false)
+    - Whether to log all constructed strings in the console
+    - Useful for debugging but a lot of clutter / overhead for normal operation
 '''
 
 # Packages for ROS2
@@ -30,6 +34,9 @@ class VehicleControlStringBuilder(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_builder')
         self.get_logger().info('Starting Vehicle Control String Builder Node')
+
+        # Expected execution parameters
+        self.declare_parameter('verbose', False)  # Whether to log all constructed strings in the console
 
         # Load control and delimiter codes once at startup
         package_share = get_package_share_directory('vehicle_string_converter')
@@ -64,7 +71,8 @@ class VehicleControlStringBuilder(Node):
             str_msg = String()
             str_msg.data = control_string
             self.control_string_publisher.publish(str_msg)
-            self.get_logger().info(f"Published control string: {control_string}")
+            if self.get_parameter('verbose').get_parameter_value().bool_value:
+                self.get_logger().info(f"Published control string: {control_string}")
         else:
             self.get_logger().error("Failed to convert control message to string format")
 
