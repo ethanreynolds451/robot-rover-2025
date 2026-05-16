@@ -33,10 +33,30 @@ From sensor board:
 // t for each sensor is offset from packet timestamp
 // calculated on packet construction, may be off by +- a few ms
 {t[arduino_timestamp]
-mpu[n, t, accel, gyro, temp]
+mpu[n:index, t:time_offset, a:accel_x;y;z, g:gyro_x;y;z, tp:temp]
 qmc[n, t, mag, head, temp]
 gps[n, t, lat, long, alt, vel, head, time, sats]
 tof[n, t, dist, light]us[n, dist]
 tmp[n, t, temp]
 str[t, dir, pos, spd]
+ir[t:, a:addr, c:cmd, d:data]}
+
+// Need to finish figuring out the specific data types for each sensor
+{t[1234]mpu[1,10,123:123:123,234:234:234,30]
+qmc[1,15, mag, head, temp]
+gps[n, t, lat, long, alt, vel, head, time, sats]
+tof[n, t, dist, light]us[n, dist]
+tmp[n, t, temp]
+str[t, dir, pos, spd]
 ir[t, addr, cmd, data]}
+
+
+IR-only packet wrapped wtith serial manager header:
+ABCD0101|{t[1234ABCD]ir[t:1234,a:5678,c:9ABC,d:1234ABCD]}|B
+
+Example if packet is longer:
+ABCD0201|{data[reallylongdatathatmakesthepacketmorethan|A\n
+ABCD0202|sixtyfourbytes]}|B\n
+
+
+

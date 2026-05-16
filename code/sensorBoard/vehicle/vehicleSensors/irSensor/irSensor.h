@@ -99,6 +99,12 @@ class irSensor {
     unsigned long get_data_timestamp(){
       return this->data_timestamp; 
     }
+    void clear(){
+      // This doesn't actually overwrite the data, just tells the system that there is nothing new
+      this->command_updated = false; 
+      this->address_updated = false; 
+      this->data_updated = false; 
+    }
   private: 
     uint8_t pin; 
     bool led_active; 
