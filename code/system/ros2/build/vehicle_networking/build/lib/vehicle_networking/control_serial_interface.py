@@ -4,6 +4,13 @@ Manages serial communication with control board
 - Reads status updates from the control board and publishes them to status topic
 - Does not parse data, just passes through as strings
 
+*** When run in nopacket mode ***
+
+This version subdscibes and publishes as raw strings instead of passinag through the 
+serial packet manager. Use this for tests that bypass the packet manager.
+Must be use with control board code that uses raw strings, not packets.
+Waning: sending and recieving strings greater than 64 bytes may cause issues with the arduino 
+
 Topics: 
  Subscribes to: 
 - /vehicle/control_str
@@ -11,6 +18,20 @@ Topics:
  Publishes to: 
 - /vehicle/control_status_str
     - String messages containing status updates read from the control board
+
+*** When run in packet mode ***
+
+NOT YET IMPLEMENTED
+
+Topics: 
+ Subscribes to: 
+- /vehicle/control_packets
+    - String messages containing packetized control commands to send to the control board
+ Publishes to: 
+- /vehicle/control_status_packets
+    - String messages containing packetized status updates read from the control board
+
+***
 
 Services: 
  Server for:
@@ -25,6 +46,7 @@ Services:
     - Requests the serial port to use for communication with the control board
 
 Parameters: 
+- packet_mode (bool, default: true)
 - serial_port (string, default: '')
     - The serial port to use for communication with the control board
     - Will request from serial manager service if request_port parameter is true
@@ -60,7 +82,17 @@ from vehicle_interfaces.srv import GetDeviceStatus, GetSerialPort
 class ControlSerialInterface(Node):
     def __init__(self):
         super().__init__('control_serial_interface')
-        self.get_logger().info('Starting Control Serial Interface Node')
+        self.declare_parameter('packet_mode', True)  # Whether to use packet manager or pass through raw strings
+        if self.get_parameter('packet_mode').get_parameter_value().bool_value:
+            self.get_logger().info('Starting Control Serial Interface Node in Packet Mode')
+        else:
+            self.get_logger().info('Starting Control Serial Interface Node in Raw String Mode')
+        
+        # Set back to string mode if attemspting to use packet mode
+        if self.get_parameter('packet_mode').get_parameter_value().bool_value:
+            self.get_logger().warning('Packet mode is not yet implemented, defaulting to raw string mode')
+            self.set_parameters([rclpy.parameter.Parameter('packet_mode', rclpy.Parameter.Type.BOOL, False)])    
+
         # Set up subscriber to receive control commands from other nodes
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_str', self.control_callback, 10)
         # Set up publisher to publish status updates from control board

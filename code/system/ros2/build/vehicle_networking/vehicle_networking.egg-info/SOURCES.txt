@@ -15,5 +15,6 @@ test/test_flake8.py
 test/test_pep257.py
 vehicle_networking/__init__.py
 vehicle_networking/control_serial_interface.py
-vehicle_networking/get_device_info.py
+vehicle_networking/get_device_info_tool.py
+vehicle_networking/sensor_serial_interface.py
 vehicle_networking/serial_manager.py
