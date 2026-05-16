@@ -1,5 +1,6 @@
-// This version has been modified to transmit data for IR control 
-//    corresponding to the same string format used by the system
+// This is the original for testing the irSensor class
+// The other version transmits data for IR control in compressed string format for ROS interpertation
+// Restore this version for human-readable output 
 
 //#include <IRremote.h>
 
@@ -14,12 +15,12 @@ irSensor testIR(IR_PIN, IR_LED_OFF);
 void setup() {
   Serial.begin(115200); 
   testIR.begin(); 
-  // Serial.println("Initiated IR sensor"); 
+  Serial.println("Initiated IR sensor"); 
 }
 
 void loop() {
   if(testIR.update()){
-    //Serial.println("Recieved Data:"); 
+    Serial.println("Recieved Data:"); 
     if(testIR.is_new_command()){
       Serial.print("     Command: "); 
       Serial.print(testIR.get_command()); 
