@@ -2,6 +2,7 @@
 # Might want to change this?
 
 std_msgs/Header     header                 # Contains the system time when the packet was processed
+uint32              arduino_timestamp      # Only for incoming packets
 bool                brake
 bool                drive_reverse
 bool                steer_reverse
