@@ -9,6 +9,11 @@ Topics
 - /vehicle/control_status
     - ControlData custom msg type
 
+Parameters: 
+- verbose (bool, default: false)
+    - Whether to log all parsed data in the console
+    - Useful for debugging but a lot of clutter / overhead for normal operation
+
 '''
 
 # Packages for ROS2
@@ -29,6 +34,9 @@ class VehicleControlStringParser(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_parser')
         self.get_logger().info('Starting Vehicle Control String Parser Node')
+
+        # Expected execution parameters
+        self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
 
         # Load control and delimiter codes once at startup
         package_share = get_package_share_directory('vehicle_string_converter')
@@ -64,7 +72,8 @@ class VehicleControlStringParser(Node):
         # Publish the ControlData message
         if control_data:  # Only publish if conversion was successful
             self.control_string_publisher.publish(control_data)
-            self.get_logger().info(f"Published control status update: {control_data}")
+            if self.get_parameter('verbose').get_parameter_value().bool_value:
+                self.get_logger().info(f"Published control status update: {control_data}")
         else:
             self.get_logger().error("Failed to convert control status message to ControlData format")
 
