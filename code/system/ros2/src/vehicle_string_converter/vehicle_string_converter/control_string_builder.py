@@ -53,6 +53,9 @@ class VehicleControlStringBuilder(Node):
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
             return
+        
+        # Generate reverse mapping from code to name for easy lookup during parsing (roundabout way to do a reverse dict lookup since the codes are not guaranteed to be unique)
+        self.code_to_name = {code: name for name, code in self.control_codes.items()}
 
         self.get_logger().info(f"Successfully loaded control codes")
 
@@ -88,7 +91,7 @@ class VehicleControlStringBuilder(Node):
         
         # Iterate through each valid command field
         # Note: field names must match in both places!
-        for field, code in self.control_codes.items(): 
+        for field, code in self.code_to_name.items(): 
             try:
                 value = getattr(control_msg, field)  # Get the value from the message using the field name
                 # Handle bool objects by converting to 1 or 0
@@ -97,7 +100,7 @@ class VehicleControlStringBuilder(Node):
 
                 # Will always send all commands, may need to change this in future if more complex data is added to command stream
                 # For now this method makes logic simpler and provides redundancy without adding significantly more processing delay
-                code = self.control_codes.get(field, None)  # Get the corresponding code for the field
+                code = self.code_to_name.get(field, None)  # Get the corresponding code for the field
                 if code:  # Only add to string if a code exists for the field
                     control_string += code                                      # Add the code
                     control_string += self.delimiters.get('field_start', '')    # Add the field start delimiter

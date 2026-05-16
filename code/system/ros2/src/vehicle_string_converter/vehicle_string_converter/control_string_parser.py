@@ -52,13 +52,9 @@ class VehicleControlStringParser(Node):
             self.get_logger().error(f"Error loading control files; system will be unable to interface with control board: {e}")
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
-            return
-            
+            return         
 
         self.get_logger().info(f"Successfully loaded control codes")
-
-        # Generate reverse mapping from code to name for easy lookup during parsing (roundabout way to do a reverse dict lookup since the codes are not guaranteed to be unique)
-        self.code_to_name = {code: name for name, code in self.control_codes.items()}
 
         # Subscriber to vehicle control messages
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_status_str', self.control_callback, 10)
@@ -145,7 +141,7 @@ class VehicleControlStringParser(Node):
         data_parsed = False  # Flag to track if at least one piece of data was successfully parsed
         for next_code, next_data in command_strings.items():
             # Get the corresponding field name from the config file
-            control_name = self.code_to_name.get(next_code)
+            control_name = self.control_codes.get(next_code)
             # Make sure it is a valid control code form config file
             if not control_name:
                 self.get_logger().warn(f"Unrecognized control code '{next_code}' in control status message; skipping this field")
