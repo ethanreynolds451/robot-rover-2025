@@ -32,6 +32,7 @@ typedef struct vehicle_interfaces__msg__MPUData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
+  uint32_t arduino_timestamp;
   sensor_msgs__msg__Imu imu;
   sensor_msgs__msg__Temperature temp;
 } vehicle_interfaces__msg__MPUData;

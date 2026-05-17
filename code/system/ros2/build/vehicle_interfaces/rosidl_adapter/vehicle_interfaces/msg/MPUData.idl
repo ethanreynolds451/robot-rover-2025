@@ -18,6 +18,8 @@ module vehicle_interfaces {
 
       std_msgs::msg::Bool is_valid;
 
+      uint32 arduino_timestamp;
+
       @verbatim (language="comment", text=
         " inertial measurements")
       sensor_msgs::msg::Imu imu;

@@ -14,6 +14,8 @@ module vehicle_interfaces {
 
       std_msgs::msg::Bool is_valid;
 
+      uint32 arduino_timestamp;
+
       @verbatim (language="comment", text=
         " device address")
       uint16 address;
@@ -23,7 +25,7 @@ module vehicle_interfaces {
       uint16 command;
 
       @verbatim (language="comment", text=
-        " full raw decoded packet")
+        " full raw packet")
       uint32 data;
     };
   };

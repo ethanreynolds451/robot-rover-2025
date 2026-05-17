@@ -1,0 +1,1 @@
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_c/vehicle_interfaces/srv/detail/get_serial_device_status__struct.h

@@ -9,13 +9,15 @@
 module vehicle_interfaces {
   module msg {
     @verbatim (language="comment", text=
-      " Custom for temperature readints")
+      " Custom for temperature readings")
     struct TemperatureData {
       @verbatim (language="comment", text=
         " timestamp / frame ID")
       std_msgs::msg::Header header;
 
       std_msgs::msg::Bool is_valid;
+
+      uint32 arduino_timestamp;
 
       sensor_msgs::msg::Temperature temp;
     };

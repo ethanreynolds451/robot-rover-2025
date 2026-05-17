@@ -35,6 +35,7 @@ vehicle_interfaces__msg__ToFData__init(vehicle_interfaces__msg__ToFData * msg)
     vehicle_interfaces__msg__ToFData__fini(msg);
     return false;
   }
+  // arduino_timestamp
   // range
   if (!sensor_msgs__msg__Range__init(&msg->range)) {
     vehicle_interfaces__msg__ToFData__fini(msg);
@@ -54,6 +55,7 @@ vehicle_interfaces__msg__ToFData__fini(vehicle_interfaces__msg__ToFData * msg)
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
+  // arduino_timestamp
   // range
   sensor_msgs__msg__Range__fini(&msg->range);
   // intensity
@@ -75,6 +77,10 @@ vehicle_interfaces__msg__ToFData__are_equal(const vehicle_interfaces__msg__ToFDa
   if (!std_msgs__msg__Bool__are_equal(
       &(lhs->is_valid), &(rhs->is_valid)))
   {
+    return false;
+  }
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
     return false;
   }
   // range
@@ -110,6 +116,8 @@ vehicle_interfaces__msg__ToFData__copy(
   {
     return false;
   }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // range
   if (!sensor_msgs__msg__Range__copy(
       &(input->range), &(output->range)))

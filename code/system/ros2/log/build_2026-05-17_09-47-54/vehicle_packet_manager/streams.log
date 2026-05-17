@@ -1,0 +1,20 @@
+[3.264s] Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_packet_manager build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log --install-scripts $base/lib/vehicle_packet_manager --single-version-externally-managed install_data
+[3.862s] running egg_info
+[3.864s] writing ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/PKG-INFO
+[3.866s] writing dependency_links to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/dependency_links.txt
+[3.869s] writing entry points to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/entry_points.txt
+[3.871s] writing requirements to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/requires.txt
+[3.873s] writing top-level names to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/top_level.txt
+[3.993s] reading manifest file '../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/SOURCES.txt'
+[3.996s] writing manifest file '../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/SOURCES.txt'
+[3.996s] running build
+[3.997s] running build_py
+[3.997s] running install
+[3.999s] running install_lib
+[4.002s] running install_data
+[4.003s] running install_egg_info
+[4.007s] removing '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager-0.0.0-py3.8.egg-info' (and everything under it)
+[4.021s] Copying ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager-0.0.0-py3.8.egg-info
+[4.021s] running install_scripts
+[4.059s] writing list of installed files to '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log'
+[4.119s] Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_packet_manager build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log --install-scripts $base/lib/vehicle_packet_manager --single-version-externally-managed install_data

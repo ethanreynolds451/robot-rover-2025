@@ -45,7 +45,11 @@ struct UltrasonicData_
     is_valid(_init),
     range(_init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   explicit UltrasonicData_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
@@ -53,7 +57,11 @@ struct UltrasonicData_
     is_valid(_alloc, _init),
     range(_alloc, _init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   // field types and members
@@ -63,6 +71,9 @@ struct UltrasonicData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _range_type =
     sensor_msgs::msg::Range_<ContainerAllocator>;
   _range_type range;
@@ -78,6 +89,12 @@ struct UltrasonicData_
     const std_msgs::msg::Bool_<ContainerAllocator> & _arg)
   {
     this->is_valid = _arg;
+    return *this;
+  }
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
+  {
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__range(
@@ -133,6 +150,9 @@ struct UltrasonicData_
       return false;
     }
     if (this->is_valid != other.is_valid) {
+      return false;
+    }
+    if (this->arduino_timestamp != other.arduino_timestamp) {
       return false;
     }
     if (this->range != other.range) {

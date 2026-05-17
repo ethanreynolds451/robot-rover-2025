@@ -45,7 +45,7 @@ void ToFData__rosidl_typesupport_introspection_c__ToFData_fini_function(void * m
   vehicle_interfaces__msg__ToFData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array[4] = {
+static rosidl_typesupport_introspection_c__MessageMember ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array[5] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -70,6 +70,21 @@ static rosidl_typesupport_introspection_c__MessageMember ToFData__rosidl_typesup
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces__msg__ToFData, is_valid),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__ToFData, arduino_timestamp),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -111,7 +126,7 @@ static rosidl_typesupport_introspection_c__MessageMember ToFData__rosidl_typesup
 static const rosidl_typesupport_introspection_c__MessageMembers ToFData__rosidl_typesupport_introspection_c__ToFData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "ToFData",  // message name
-  4,  // number of fields
+  5,  // number of fields
   sizeof(vehicle_interfaces__msg__ToFData),
   ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array,  // message members
   ToFData__rosidl_typesupport_introspection_c__ToFData_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -133,7 +148,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Header)();
   ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Bool)();
-  ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array[2].members_ =
+  ToFData__rosidl_typesupport_introspection_c__ToFData_message_member_array[3].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, sensor_msgs, msg, Range)();
   if (!ToFData__rosidl_typesupport_introspection_c__ToFData_message_type_support_handle.typesupport_identifier) {
     ToFData__rosidl_typesupport_introspection_c__ToFData_message_type_support_handle.typesupport_identifier =

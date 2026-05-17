@@ -69,14 +69,14 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember QMCData_messa
     nullptr  // resize(index) function pointer
   },
   {
-    "id",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_STRING,  // type
+    "arduino_timestamp",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT32,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces::msg::QMCData, id),  // bytes offset in struct
+    offsetof(vehicle_interfaces::msg::QMCData, arduino_timestamp),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer

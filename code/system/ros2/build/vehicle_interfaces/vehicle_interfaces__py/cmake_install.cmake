@@ -1,8 +1,8 @@
-# Install script for directory: /root/build/vehicle_interfaces/vehicle_interfaces__py
+# Install script for directory: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/vehicle_interfaces__py
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/root/install/vehicle_interfaces")
+  set(CMAKE_INSTALL_PREFIX "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

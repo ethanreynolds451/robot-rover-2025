@@ -28,6 +28,7 @@ typedef struct vehicle_interfaces__msg__EncoderData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
+  uint32_t arduino_timestamp;
   float position;
   float velocity;
   int8_t direction;

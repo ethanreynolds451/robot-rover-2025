@@ -133,6 +133,11 @@ static bool _MPUData__cdr_serialize(
     }
   }
 
+  // Field name: arduino_timestamp
+  {
+    cdr << ros_message->arduino_timestamp;
+  }
+
   // Field name: imu
   {
     const message_type_support_callbacks_t * callbacks =
@@ -201,6 +206,11 @@ static bool _MPUData__cdr_deserialize(
     }
   }
 
+  // Field name: arduino_timestamp
+  {
+    cdr >> ros_message->arduino_timestamp;
+  }
+
   // Field name: imu
   {
     const message_type_support_callbacks_t * callbacks =
@@ -254,6 +264,12 @@ size_t get_serialized_size_vehicle_interfaces__msg__MPUData(
 
   current_alignment += get_serialized_size_std_msgs__msg__Bool(
     &(ros_message->is_valid), current_alignment);
+  // field.name arduino_timestamp
+  {
+    size_t item_size = sizeof(ros_message->arduino_timestamp);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
   // field.name imu
 
   current_alignment += get_serialized_size_sensor_msgs__msg__Imu(
@@ -307,6 +323,13 @@ size_t max_serialized_size_vehicle_interfaces__msg__MPUData(
         max_serialized_size_std_msgs__msg__Bool(
         full_bounded, current_alignment);
     }
+  }
+  // member: arduino_timestamp
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
   // member: imu
   {

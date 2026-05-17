@@ -84,6 +84,15 @@ bool vehicle_interfaces__msg__gps_data__convert_from_py(PyObject * _pymsg, void 
     }
     Py_DECREF(field);
   }
+  {  // arduino_timestamp
+    PyObject * field = PyObject_GetAttrString(_pymsg, "arduino_timestamp");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->arduino_timestamp = PyLong_AsUnsignedLong(field);
+    Py_DECREF(field);
+  }
   {  // position
     PyObject * field = PyObject_GetAttrString(_pymsg, "position");
     if (!field) {
@@ -113,13 +122,22 @@ bool vehicle_interfaces__msg__gps_data__convert_from_py(PyObject * _pymsg, void 
     ros_message->speed_kmph = (float)PyFloat_AS_DOUBLE(field);
     Py_DECREF(field);
   }
+  {  // gps_time
+    PyObject * field = PyObject_GetAttrString(_pymsg, "gps_time");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->gps_time = PyLong_AsUnsignedLong(field);
+    Py_DECREF(field);
+  }
   {  // sats
     PyObject * field = PyObject_GetAttrString(_pymsg, "sats");
     if (!field) {
       return false;
     }
     assert(PyLong_Check(field));
-    ros_message->sats = (int8_t)PyLong_AsLong(field);
+    ros_message->sats = (uint8_t)PyLong_AsUnsignedLong(field);
     Py_DECREF(field);
   }
 
@@ -172,6 +190,17 @@ PyObject * vehicle_interfaces__msg__gps_data__convert_to_py(void * raw_ros_messa
       }
     }
   }
+  {  // arduino_timestamp
+    PyObject * field = NULL;
+    field = PyLong_FromUnsignedLong(ros_message->arduino_timestamp);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "arduino_timestamp", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
   {  // position
     PyObject * field = NULL;
     field = sensor_msgs__msg__nav_sat_fix__convert_to_py(&ros_message->position);
@@ -208,9 +237,20 @@ PyObject * vehicle_interfaces__msg__gps_data__convert_to_py(void * raw_ros_messa
       }
     }
   }
+  {  // gps_time
+    PyObject * field = NULL;
+    field = PyLong_FromUnsignedLong(ros_message->gps_time);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "gps_time", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
   {  // sats
     PyObject * field = NULL;
-    field = PyLong_FromLong(ros_message->sats);
+    field = PyLong_FromUnsignedLong(ros_message->sats);
     {
       int rc = PyObject_SetAttrString(_pymessage, "sats", field);
       Py_DECREF(field);

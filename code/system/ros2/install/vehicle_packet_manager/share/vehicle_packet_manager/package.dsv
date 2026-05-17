@@ -1,0 +1,9 @@
+source;share/vehicle_packet_manager/hook/pythonpath.ps1
+source;share/vehicle_packet_manager/hook/pythonpath.dsv
+source;share/vehicle_packet_manager/hook/pythonpath.sh
+source;share/vehicle_packet_manager/hook/ament_prefix_path.ps1
+source;share/vehicle_packet_manager/hook/ament_prefix_path.dsv
+source;share/vehicle_packet_manager/hook/ament_prefix_path.sh
+source;../../build/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath_develop.ps1
+source;../../build/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath_develop.dsv
+source;../../build/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath_develop.sh

@@ -7,9 +7,11 @@
 module vehicle_interfaces {
   module msg {
     @verbatim (language="comment", text=
-      " Command String: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}" "\n"
+      " Command String: {br[0]rv[0]srv[0]su[0]sp[0]ssp[0]fan[0]}" "\n"
       " Might want to change this?")
     struct ControlData {
+      @verbatim (language="comment", text=
+        " Contains the system time when the packet was processed")
       std_msgs::msg::Header header;
 
       boolean brake;

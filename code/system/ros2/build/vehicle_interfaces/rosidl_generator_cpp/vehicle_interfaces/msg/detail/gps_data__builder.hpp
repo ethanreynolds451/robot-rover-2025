@@ -36,16 +36,32 @@ private:
   ::vehicle_interfaces::msg::GPSData msg_;
 };
 
+class Init_GPSData_gps_time
+{
+public:
+  explicit Init_GPSData_gps_time(::vehicle_interfaces::msg::GPSData & msg)
+  : msg_(msg)
+  {}
+  Init_GPSData_sats gps_time(::vehicle_interfaces::msg::GPSData::_gps_time_type arg)
+  {
+    msg_.gps_time = std::move(arg);
+    return Init_GPSData_sats(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::GPSData msg_;
+};
+
 class Init_GPSData_speed_kmph
 {
 public:
   explicit Init_GPSData_speed_kmph(::vehicle_interfaces::msg::GPSData & msg)
   : msg_(msg)
   {}
-  Init_GPSData_sats speed_kmph(::vehicle_interfaces::msg::GPSData::_speed_kmph_type arg)
+  Init_GPSData_gps_time speed_kmph(::vehicle_interfaces::msg::GPSData::_speed_kmph_type arg)
   {
     msg_.speed_kmph = std::move(arg);
-    return Init_GPSData_sats(msg_);
+    return Init_GPSData_gps_time(msg_);
   }
 
 private:
@@ -84,16 +100,32 @@ private:
   ::vehicle_interfaces::msg::GPSData msg_;
 };
 
+class Init_GPSData_arduino_timestamp
+{
+public:
+  explicit Init_GPSData_arduino_timestamp(::vehicle_interfaces::msg::GPSData & msg)
+  : msg_(msg)
+  {}
+  Init_GPSData_position arduino_timestamp(::vehicle_interfaces::msg::GPSData::_arduino_timestamp_type arg)
+  {
+    msg_.arduino_timestamp = std::move(arg);
+    return Init_GPSData_position(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::GPSData msg_;
+};
+
 class Init_GPSData_is_valid
 {
 public:
   explicit Init_GPSData_is_valid(::vehicle_interfaces::msg::GPSData & msg)
   : msg_(msg)
   {}
-  Init_GPSData_position is_valid(::vehicle_interfaces::msg::GPSData::_is_valid_type arg)
+  Init_GPSData_arduino_timestamp is_valid(::vehicle_interfaces::msg::GPSData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_GPSData_position(msg_);
+    return Init_GPSData_arduino_timestamp(msg_);
   }
 
 private:

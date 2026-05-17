@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/src/vehicle_interfaces
+CMAKE_SOURCE_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/build/vehicle_interfaces
+CMAKE_BINARY_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
 
 # Utility rule file for vehicle_interfaces__cpp.
 
@@ -63,11 +63,11 @@ CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__struct.hpp
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__traits.hpp
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__type_support.hpp
-CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_device_status.hpp
-CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__builder.hpp
-CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__struct.hpp
-CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__traits.hpp
-CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__type_support.hpp
+CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_device_status.hpp
+CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__builder.hpp
+CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__struct.hpp
+CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__traits.hpp
+CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__type_support.hpp
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/sensor_data.hpp
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/detail/sensor_data__builder.hpp
 CMakeFiles/vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/detail/sensor_data__struct.hpp
@@ -142,7 +142,7 @@ rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/s
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/share/rosidl_generator_cpp/resource/srv__type_support.hpp.em
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/srv/GetSerialPort.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/srv/ResetSerialPort.idl
-rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/srv/GetDeviceStatus.idl
+rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/srv/GetSerialDeviceStatus.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/msg/SensorData.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/msg/ControlData.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: rosidl_adapter/vehicle_interfaces/msg/EncoderData.idl
@@ -242,8 +242,8 @@ rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/s
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/share/geometry_msgs/msg/Vector3Stamped.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/share/geometry_msgs/msg/Wrench.idl
 rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp: /opt/ros/foxy/share/geometry_msgs/msg/WrenchStamped.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
-	/usr/bin/python3 /opt/ros/foxy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /root/build/vehicle_interfaces/rosidl_generator_cpp__arguments.json
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
+	/usr/bin/python3 /opt/ros/foxy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_cpp__arguments.json
 
 rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_port__builder.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_port__builder.hpp
@@ -272,20 +272,20 @@ rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__traits.hpp
 rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__type_support.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__type_support.hpp
 
-rosidl_generator_cpp/vehicle_interfaces/srv/get_device_status.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
-	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/get_device_status.hpp
+rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_device_status.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_device_status.hpp
 
-rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__builder.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
-	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__builder.hpp
+rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__builder.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__builder.hpp
 
-rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__struct.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
-	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__struct.hpp
+rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__struct.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__struct.hpp
 
-rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__traits.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
-	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__traits.hpp
+rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__traits.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__traits.hpp
 
-rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__type_support.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
-	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__type_support.hpp
+rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__type_support.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__type_support.hpp
 
 rosidl_generator_cpp/vehicle_interfaces/msg/sensor_data.hpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_port.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/vehicle_interfaces/msg/sensor_data.hpp
@@ -448,11 +448,11 @@ vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/rese
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__struct.hpp
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__traits.hpp
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/reset_serial_port__type_support.hpp
-vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_device_status.hpp
-vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__builder.hpp
-vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__struct.hpp
-vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__traits.hpp
-vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_device_status__type_support.hpp
+vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/get_serial_device_status.hpp
+vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__builder.hpp
+vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__struct.hpp
+vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__traits.hpp
+vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/srv/detail/get_serial_device_status__type_support.hpp
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/sensor_data.hpp
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/detail/sensor_data__builder.hpp
 vehicle_interfaces__cpp: rosidl_generator_cpp/vehicle_interfaces/msg/detail/sensor_data__struct.hpp
@@ -517,6 +517,6 @@ CMakeFiles/vehicle_interfaces__cpp.dir/clean:
 .PHONY : CMakeFiles/vehicle_interfaces__cpp.dir/clean
 
 CMakeFiles/vehicle_interfaces__cpp.dir/depend:
-	cd /root/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_interfaces /root/src/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces__cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces__cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vehicle_interfaces__cpp.dir/depend
 

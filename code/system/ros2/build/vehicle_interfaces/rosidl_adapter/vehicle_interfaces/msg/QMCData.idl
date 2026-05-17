@@ -18,9 +18,7 @@ module vehicle_interfaces {
 
       std_msgs::msg::Bool is_valid;
 
-      @verbatim (language="comment", text=
-        " device name")
-      string id;
+      uint32 arduino_timestamp;
 
       @verbatim (language="comment", text=
         " 3-axis magnetometer")

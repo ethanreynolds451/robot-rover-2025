@@ -21,8 +21,6 @@
 #include "std_msgs/msg/bool.h"
 // Member `is_valid`
 #include "std_msgs/msg/detail/bool__rosidl_typesupport_introspection_c.h"
-// Member `id`
-#include "rosidl_runtime_c/string_functions.h"
 // Member `mag`
 #include "sensor_msgs/msg/magnetic_field.h"
 // Member `mag`
@@ -83,14 +81,14 @@ static rosidl_typesupport_introspection_c__MessageMember QMCData__rosidl_typesup
     NULL  // resize(index) function pointer
   },
   {
-    "id",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array
     0,  // array size
     false,  // is upper bound
-    offsetof(vehicle_interfaces__msg__QMCData, id),  // bytes offset in struct
+    offsetof(vehicle_interfaces__msg__QMCData, arduino_timestamp),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer

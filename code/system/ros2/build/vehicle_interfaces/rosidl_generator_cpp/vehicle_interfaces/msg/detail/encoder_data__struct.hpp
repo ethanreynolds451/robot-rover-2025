@@ -45,6 +45,7 @@ struct EncoderData_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
+      this->arduino_timestamp = 0ul;
       this->position = 0.0f;
       this->velocity = 0.0f;
       this->direction = 0;
@@ -58,6 +59,7 @@ struct EncoderData_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
+      this->arduino_timestamp = 0ul;
       this->position = 0.0f;
       this->velocity = 0.0f;
       this->direction = 0;
@@ -71,6 +73,9 @@ struct EncoderData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _position_type =
     float;
   _position_type position;
@@ -92,6 +97,12 @@ struct EncoderData_
     const std_msgs::msg::Bool_<ContainerAllocator> & _arg)
   {
     this->is_valid = _arg;
+    return *this;
+  }
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
+  {
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__position(
@@ -159,6 +170,9 @@ struct EncoderData_
       return false;
     }
     if (this->is_valid != other.is_valid) {
+      return false;
+    }
+    if (this->arduino_timestamp != other.arduino_timestamp) {
       return false;
     }
     if (this->position != other.position) {

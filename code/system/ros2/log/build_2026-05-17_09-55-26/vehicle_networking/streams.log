@@ -1,0 +1,24 @@
+[4.989s] Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build --no-deps symlink_data --force
+[5.605s] running develop
+[6.014s] running egg_info
+[6.016s] writing vehicle_networking.egg-info/PKG-INFO
+[6.017s] writing dependency_links to vehicle_networking.egg-info/dependency_links.txt
+[6.019s] writing entry points to vehicle_networking.egg-info/entry_points.txt
+[6.021s] writing requirements to vehicle_networking.egg-info/requires.txt
+[6.022s] writing top-level names to vehicle_networking.egg-info/top_level.txt
+[6.117s] reading manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+[6.119s] writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+[6.220s] running build_ext
+[6.257s] Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/site.py
+[6.277s] Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle-networking.egg-link (link to .)
+[6.287s] Installing control_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[6.289s] Installing get_device_info_tool script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[6.289s] Installing sensor_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[6.289s] Installing serial_manager script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+[6.290s] 
+[6.290s] Installed /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking
+[6.290s] running symlink_data
+[6.300s] symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/resource/vehicle_networking -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/ament_index/resource_index/packages
+[6.301s] symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking
+[6.301s] symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/config/device_identifiers.json -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/config
+[6.403s] Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build --no-deps symlink_data --force

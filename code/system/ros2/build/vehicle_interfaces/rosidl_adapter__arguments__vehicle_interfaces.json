@@ -1,18 +1,18 @@
 {
   "package_name": "vehicle_interfaces",
   "non_idl_tuples": [
-    "/root/src/vehicle_interfaces:srv/GetSerialPort.srv",
-    "/root/src/vehicle_interfaces:srv/ResetSerialPort.srv",
-    "/root/src/vehicle_interfaces:srv/GetDeviceStatus.srv",
-    "/root/src/vehicle_interfaces:msg/SensorData.msg",
-    "/root/src/vehicle_interfaces:msg/ControlData.msg",
-    "/root/src/vehicle_interfaces:msg/EncoderData.msg",
-    "/root/src/vehicle_interfaces:msg/GPSData.msg",
-    "/root/src/vehicle_interfaces:msg/IRData.msg",
-    "/root/src/vehicle_interfaces:msg/MPUData.msg",
-    "/root/src/vehicle_interfaces:msg/QMCData.msg",
-    "/root/src/vehicle_interfaces:msg/TemperatureData.msg",
-    "/root/src/vehicle_interfaces:msg/ToFData.msg",
-    "/root/src/vehicle_interfaces:msg/UltrasonicData.msg"
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:srv/GetSerialPort.srv",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:srv/ResetSerialPort.srv",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:srv/GetSerialDeviceStatus.srv",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/SensorData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/ControlData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/EncoderData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/GPSData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/IRData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/MPUData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/QMCData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/TemperatureData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/ToFData.msg",
+    "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces:msg/UltrasonicData.msg"
   ]
 }

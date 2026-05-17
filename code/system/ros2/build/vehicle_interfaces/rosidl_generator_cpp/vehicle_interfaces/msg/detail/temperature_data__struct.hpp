@@ -45,7 +45,11 @@ struct TemperatureData_
     is_valid(_init),
     temp(_init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   explicit TemperatureData_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
@@ -53,7 +57,11 @@ struct TemperatureData_
     is_valid(_alloc, _init),
     temp(_alloc, _init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   // field types and members
@@ -63,6 +71,9 @@ struct TemperatureData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _temp_type =
     sensor_msgs::msg::Temperature_<ContainerAllocator>;
   _temp_type temp;
@@ -78,6 +89,12 @@ struct TemperatureData_
     const std_msgs::msg::Bool_<ContainerAllocator> & _arg)
   {
     this->is_valid = _arg;
+    return *this;
+  }
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
+  {
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__temp(
@@ -133,6 +150,9 @@ struct TemperatureData_
       return false;
     }
     if (this->is_valid != other.is_valid) {
+      return false;
+    }
+    if (this->arduino_timestamp != other.arduino_timestamp) {
       return false;
     }
     if (this->temp != other.temp) {

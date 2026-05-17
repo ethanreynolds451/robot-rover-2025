@@ -27,7 +27,7 @@ module vehicle_interfaces {
         "                  tmp[n, temp]" "\n"
         "                  str[dir, pos, spd]" "\n"
         "                  ir[addr, cmd, data]}" "\n"
-        " Might change this for better parsing" "\n"
+        " Has been updated, need to change" "\n"
         " One field for each type of sensor, the actual sensor is tracked using Frame ID for each instance" "\n"
         " When the packet was processed by node")
       std_msgs::msg::Header header;

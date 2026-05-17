@@ -36,16 +36,32 @@ private:
   ::vehicle_interfaces::msg::TemperatureData msg_;
 };
 
+class Init_TemperatureData_arduino_timestamp
+{
+public:
+  explicit Init_TemperatureData_arduino_timestamp(::vehicle_interfaces::msg::TemperatureData & msg)
+  : msg_(msg)
+  {}
+  Init_TemperatureData_temp arduino_timestamp(::vehicle_interfaces::msg::TemperatureData::_arduino_timestamp_type arg)
+  {
+    msg_.arduino_timestamp = std::move(arg);
+    return Init_TemperatureData_temp(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::TemperatureData msg_;
+};
+
 class Init_TemperatureData_is_valid
 {
 public:
   explicit Init_TemperatureData_is_valid(::vehicle_interfaces::msg::TemperatureData & msg)
   : msg_(msg)
   {}
-  Init_TemperatureData_temp is_valid(::vehicle_interfaces::msg::TemperatureData::_is_valid_type arg)
+  Init_TemperatureData_arduino_timestamp is_valid(::vehicle_interfaces::msg::TemperatureData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_TemperatureData_temp(msg_);
+    return Init_TemperatureData_arduino_timestamp(msg_);
   }
 
 private:

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/src/vehicle_interfaces
+CMAKE_SOURCE_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/build/vehicle_interfaces
+CMAKE_BINARY_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
 
 # Utility rule file for uninstall.
 
@@ -67,6 +67,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /root/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_interfaces /root/src/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

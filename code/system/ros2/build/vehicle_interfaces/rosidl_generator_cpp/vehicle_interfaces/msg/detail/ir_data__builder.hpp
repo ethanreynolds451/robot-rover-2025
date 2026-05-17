@@ -68,16 +68,32 @@ private:
   ::vehicle_interfaces::msg::IRData msg_;
 };
 
+class Init_IRData_arduino_timestamp
+{
+public:
+  explicit Init_IRData_arduino_timestamp(::vehicle_interfaces::msg::IRData & msg)
+  : msg_(msg)
+  {}
+  Init_IRData_address arduino_timestamp(::vehicle_interfaces::msg::IRData::_arduino_timestamp_type arg)
+  {
+    msg_.arduino_timestamp = std::move(arg);
+    return Init_IRData_address(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::IRData msg_;
+};
+
 class Init_IRData_is_valid
 {
 public:
   explicit Init_IRData_is_valid(::vehicle_interfaces::msg::IRData & msg)
   : msg_(msg)
   {}
-  Init_IRData_address is_valid(::vehicle_interfaces::msg::IRData::_is_valid_type arg)
+  Init_IRData_arduino_timestamp is_valid(::vehicle_interfaces::msg::IRData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_IRData_address(msg_);
+    return Init_IRData_arduino_timestamp(msg_);
   }
 
 private:

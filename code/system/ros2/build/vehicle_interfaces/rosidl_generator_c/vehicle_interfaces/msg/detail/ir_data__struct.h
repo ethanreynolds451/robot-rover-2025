@@ -28,6 +28,7 @@ typedef struct vehicle_interfaces__msg__IRData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
+  uint32_t arduino_timestamp;
   uint16_t address;
   uint16_t command;
   uint32_t data;

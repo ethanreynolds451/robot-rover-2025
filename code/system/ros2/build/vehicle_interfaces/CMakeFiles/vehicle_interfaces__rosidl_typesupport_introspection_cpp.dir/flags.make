@@ -6,5 +6,5 @@ CXX_FLAGS = -fPIC   -Wall -std=gnu++14
 
 CXX_DEFINES = -DRCUTILS_ENABLE_FAULT_INJECTION -DROS_PACKAGE_NAME=\"vehicle_interfaces\" -Dvehicle_interfaces__rosidl_typesupport_introspection_cpp_EXPORTS
 
-CXX_INCLUDES = -I/root/build/vehicle_interfaces/rosidl_generator_cpp -isystem /opt/ros/foxy/include 
+CXX_INCLUDES = -I/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_cpp -isystem /opt/ros/foxy/include 
 

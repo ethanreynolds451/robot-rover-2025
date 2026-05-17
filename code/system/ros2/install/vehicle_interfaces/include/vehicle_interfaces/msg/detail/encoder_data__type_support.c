@@ -41,7 +41,7 @@ void EncoderData__rosidl_typesupport_introspection_c__EncoderData_fini_function(
   vehicle_interfaces__msg__EncoderData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember EncoderData__rosidl_typesupport_introspection_c__EncoderData_message_member_array[5] = {
+static rosidl_typesupport_introspection_c__MessageMember EncoderData__rosidl_typesupport_introspection_c__EncoderData_message_member_array[6] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -66,6 +66,21 @@ static rosidl_typesupport_introspection_c__MessageMember EncoderData__rosidl_typ
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces__msg__EncoderData, is_valid),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__EncoderData, arduino_timestamp),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -122,7 +137,7 @@ static rosidl_typesupport_introspection_c__MessageMember EncoderData__rosidl_typ
 static const rosidl_typesupport_introspection_c__MessageMembers EncoderData__rosidl_typesupport_introspection_c__EncoderData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "EncoderData",  // message name
-  5,  // number of fields
+  6,  // number of fields
   sizeof(vehicle_interfaces__msg__EncoderData),
   EncoderData__rosidl_typesupport_introspection_c__EncoderData_message_member_array,  // message members
   EncoderData__rosidl_typesupport_introspection_c__EncoderData_init_function,  // function to initialize message memory (memory has to be allocated)

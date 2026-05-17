@@ -37,7 +37,7 @@ void IRData_fini_function(void * message_memory)
   typed_message->~IRData();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember IRData_message_member_array[5] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember IRData_message_member_array[6] = {
   {
     "header",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
@@ -62,6 +62,21 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember IRData_messag
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces::msg::IRData, is_valid),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::IRData, arduino_timestamp),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -118,7 +133,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember IRData_messag
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers IRData_message_members = {
   "vehicle_interfaces::msg",  // message namespace
   "IRData",  // message name
-  5,  // number of fields
+  6,  // number of fields
   sizeof(vehicle_interfaces::msg::IRData),
   IRData_message_member_array,  // message members
   IRData_init_function,  // function to initialize message memory (memory has to be allocated)

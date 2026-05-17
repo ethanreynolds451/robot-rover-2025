@@ -1,14 +1,1 @@
-# Must exactly match names in SensorData msg
-# Maps from sensor code string to sensor data field
-# Note: multiple codes can map to the same sensor data field so indecies must be distinguished
-
-# sensor code   :     sensor data field
-  t             :     "arduino_timestamp"
-  mpu           :     "mpu"
-  qmc           :     "qmc"
-  gps           :     "gps"
-  tof           :     "tof"
-  us            :     "ultrasonic"
-  tmp           :     "temperature"
-  str           :     "encoder"
-  ir            :     "ir_remote"
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/config/sensor_codes.yaml

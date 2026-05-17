@@ -48,7 +48,11 @@ struct MPUData_
     imu(_init),
     temp(_init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   explicit MPUData_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
@@ -57,7 +61,11 @@ struct MPUData_
     imu(_alloc, _init),
     temp(_alloc, _init)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      this->arduino_timestamp = 0ul;
+    }
   }
 
   // field types and members
@@ -67,6 +75,9 @@ struct MPUData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _imu_type =
     sensor_msgs::msg::Imu_<ContainerAllocator>;
   _imu_type imu;
@@ -85,6 +96,12 @@ struct MPUData_
     const std_msgs::msg::Bool_<ContainerAllocator> & _arg)
   {
     this->is_valid = _arg;
+    return *this;
+  }
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
+  {
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__imu(
@@ -146,6 +163,9 @@ struct MPUData_
       return false;
     }
     if (this->is_valid != other.is_valid) {
+      return false;
+    }
+    if (this->arduino_timestamp != other.arduino_timestamp) {
       return false;
     }
     if (this->imu != other.imu) {

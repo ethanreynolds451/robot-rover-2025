@@ -37,11 +37,11 @@ inline const char * name<vehicle_interfaces::msg::QMCData>()
 
 template<>
 struct has_fixed_size<vehicle_interfaces::msg::QMCData>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, has_fixed_size<sensor_msgs::msg::MagneticField>::value && has_fixed_size<sensor_msgs::msg::Temperature>::value && has_fixed_size<std_msgs::msg::Bool>::value && has_fixed_size<std_msgs::msg::Header>::value> {};
 
 template<>
 struct has_bounded_size<vehicle_interfaces::msg::QMCData>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, has_bounded_size<sensor_msgs::msg::MagneticField>::value && has_bounded_size<sensor_msgs::msg::Temperature>::value && has_bounded_size<std_msgs::msg::Bool>::value && has_bounded_size<std_msgs::msg::Header>::value> {};
 
 template<>
 struct is_message<vehicle_interfaces::msg::QMCData>

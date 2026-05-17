@@ -132,8 +132,8 @@ cdr_serialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.is_valid,
     cdr);
-  // Member: id
-  cdr << ros_message.id;
+  // Member: arduino_timestamp
+  cdr << ros_message.arduino_timestamp;
   // Member: mag
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.mag,
@@ -161,8 +161,8 @@ cdr_deserialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.is_valid);
 
-  // Member: id
-  cdr >> ros_message.id;
+  // Member: arduino_timestamp
+  cdr >> ros_message.arduino_timestamp;
 
   // Member: mag
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
@@ -201,10 +201,12 @@ get_serialized_size(
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
     ros_message.is_valid, current_alignment);
-  // Member: id
-  current_alignment += padding +
-    eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-    (ros_message.id.size() + 1);
+  // Member: arduino_timestamp
+  {
+    size_t item_size = sizeof(ros_message.arduino_timestamp);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
   // Member: mag
 
   current_alignment +=
@@ -264,16 +266,12 @@ max_serialized_size_QMCData(
     }
   }
 
-  // Member: id
+  // Member: arduino_timestamp
   {
     size_t array_size = 1;
 
-    full_bounded = false;
-    for (size_t index = 0; index < array_size; ++index) {
-      current_alignment += padding +
-        eprosima::fastcdr::Cdr::alignment(current_alignment, padding) +
-        1;
-    }
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
 
   // Member: mag

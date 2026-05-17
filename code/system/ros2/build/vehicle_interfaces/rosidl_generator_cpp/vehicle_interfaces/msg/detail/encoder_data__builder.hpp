@@ -68,16 +68,32 @@ private:
   ::vehicle_interfaces::msg::EncoderData msg_;
 };
 
+class Init_EncoderData_arduino_timestamp
+{
+public:
+  explicit Init_EncoderData_arduino_timestamp(::vehicle_interfaces::msg::EncoderData & msg)
+  : msg_(msg)
+  {}
+  Init_EncoderData_position arduino_timestamp(::vehicle_interfaces::msg::EncoderData::_arduino_timestamp_type arg)
+  {
+    msg_.arduino_timestamp = std::move(arg);
+    return Init_EncoderData_position(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::EncoderData msg_;
+};
+
 class Init_EncoderData_is_valid
 {
 public:
   explicit Init_EncoderData_is_valid(::vehicle_interfaces::msg::EncoderData & msg)
   : msg_(msg)
   {}
-  Init_EncoderData_position is_valid(::vehicle_interfaces::msg::EncoderData::_is_valid_type arg)
+  Init_EncoderData_arduino_timestamp is_valid(::vehicle_interfaces::msg::EncoderData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_EncoderData_position(msg_);
+    return Init_EncoderData_arduino_timestamp(msg_);
   }
 
 private:

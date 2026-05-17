@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/src/vehicle_interfaces
+CMAKE_SOURCE_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/build/vehicle_interfaces
+CMAKE_BINARY_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
 
 # Include any dependencies generated for this target.
 include CMakeFiles/vehicle_interfaces__python.dir/depend.make
@@ -59,178 +59,178 @@ include CMakeFiles/vehicle_interfaces__python.dir/flags.make
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o: rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o: rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.s
 
-CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
-CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o: rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c
+CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
+CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o: rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c
 
-CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.i
+CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.i
 
-CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.s
+CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_gps_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ir_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_mpu_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_qmc_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.s
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o: CMakeFiles/vehicle_interfaces__python.dir/flags.make
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o: rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o   -c /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o   -c /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c > CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.i
 
 CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /root/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c -o CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.s
 
 # Object files for target vehicle_interfaces__python
 vehicle_interfaces__python_OBJECTS = \
 "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o" \
 "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o" \
-"CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o" \
+"CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o" \
 "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o" \
 "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o" \
 "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o" \
@@ -247,7 +247,7 @@ vehicle_interfaces__python_EXTERNAL_OBJECTS =
 
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o
-rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o
+rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_sensor_data_s.c.o
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_control_data_s.c.o
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_encoder_data_s.c.o
@@ -294,7 +294,7 @@ rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: /opt/ro
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: /opt/ros/foxy/lib/librcpputils.so
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: /opt/ros/foxy/lib/librcutils.so
 rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so: CMakeFiles/vehicle_interfaces__python.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking C shared library rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking C shared library rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vehicle_interfaces__python.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -307,6 +307,6 @@ CMakeFiles/vehicle_interfaces__python.dir/clean:
 .PHONY : CMakeFiles/vehicle_interfaces__python.dir/clean
 
 CMakeFiles/vehicle_interfaces__python.dir/depend:
-	cd /root/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_interfaces /root/src/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces__python.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces__python.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vehicle_interfaces__python.dir/depend
 

@@ -1,0 +1,213 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				},
+				{
+					"build" : "vehicle_interfaces__py",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/vehicle_interfaces__py",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "vehicle_interfaces",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-45ba04963a969ffcd45a.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces-9d93c9895f5b105f7df8.json",
+					"name" : "vehicle_interfaces",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__cpp-cf025e46a04e260dd129.json",
+					"name" : "vehicle_interfaces__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "vehicle_interfaces__py::@f96126096363674f9ac5",
+					"jsonFile" : "target-vehicle_interfaces__py-b5c036717ddc5f2e15d2.json",
+					"name" : "vehicle_interfaces__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__python::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__python-64cb91ea987df8e7e246.json",
+					"name" : "vehicle_interfaces__python",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_generator_c-58d0e2041958af99b2b6.json",
+					"name" : "vehicle_interfaces__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_c-794ac8c024337f908b1e.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_c__pyext-57a329279c995d32154d.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_cpp-b17287854952aaf96371.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_fastrtps_c-aa694c0c9d0d965f7215.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext-d802ff7347df274c0b8e.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_fastrtps_cpp-20c80eff93d703561247.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_introspection_c-4ee69f86a543375b5a37.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_introspection_c__pyext-c4934bd0196f76afcc4c.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces__rosidl_typesupport_introspection_cpp-0181ff5420287eabb598.json",
+					"name" : "vehicle_interfaces__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vehicle_interfaces_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vehicle_interfaces_uninstall-d85a70d582b0c9031245.json",
+					"name" : "vehicle_interfaces_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces",
+		"source" : "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

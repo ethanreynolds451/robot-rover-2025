@@ -1,1 +1,1 @@
-/root/install/vehicle_interfaces:/root/install/vehicle_string_converter:/root/install/vehicle_simulation:/opt/ros/foxy
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces:/opt/ros/foxy

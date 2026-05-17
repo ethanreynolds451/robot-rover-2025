@@ -30,6 +30,7 @@ typedef struct vehicle_interfaces__msg__ToFData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
+  uint32_t arduino_timestamp;
   sensor_msgs__msg__Range range;
   float intensity;
 } vehicle_interfaces__msg__ToFData;

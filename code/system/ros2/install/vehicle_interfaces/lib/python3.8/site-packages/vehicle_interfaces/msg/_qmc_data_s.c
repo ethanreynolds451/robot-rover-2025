@@ -16,9 +16,6 @@
 #include "vehicle_interfaces/msg/detail/qmc_data__struct.h"
 #include "vehicle_interfaces/msg/detail/qmc_data__functions.h"
 
-#include "rosidl_runtime_c/string.h"
-#include "rosidl_runtime_c/string_functions.h"
-
 ROSIDL_GENERATOR_C_IMPORT
 bool std_msgs__msg__header__convert_from_py(PyObject * _pymsg, void * _ros_message);
 ROSIDL_GENERATOR_C_IMPORT
@@ -91,19 +88,13 @@ bool vehicle_interfaces__msg__qmc_data__convert_from_py(PyObject * _pymsg, void 
     }
     Py_DECREF(field);
   }
-  {  // id
-    PyObject * field = PyObject_GetAttrString(_pymsg, "id");
+  {  // arduino_timestamp
+    PyObject * field = PyObject_GetAttrString(_pymsg, "arduino_timestamp");
     if (!field) {
       return false;
     }
-    assert(PyUnicode_Check(field));
-    PyObject * encoded_field = PyUnicode_AsUTF8String(field);
-    if (!encoded_field) {
-      Py_DECREF(field);
-      return false;
-    }
-    rosidl_runtime_c__String__assign(&ros_message->id, PyBytes_AS_STRING(encoded_field));
-    Py_DECREF(encoded_field);
+    assert(PyLong_Check(field));
+    ros_message->arduino_timestamp = PyLong_AsUnsignedLong(field);
     Py_DECREF(field);
   }
   {  // mag
@@ -187,17 +178,11 @@ PyObject * vehicle_interfaces__msg__qmc_data__convert_to_py(void * raw_ros_messa
       }
     }
   }
-  {  // id
+  {  // arduino_timestamp
     PyObject * field = NULL;
-    field = PyUnicode_DecodeUTF8(
-      ros_message->id.data,
-      strlen(ros_message->id.data),
-      "replace");
-    if (!field) {
-      return NULL;
-    }
+    field = PyLong_FromUnsignedLong(ros_message->arduino_timestamp);
     {
-      int rc = PyObject_SetAttrString(_pymessage, "id", field);
+      int rc = PyObject_SetAttrString(_pymessage, "arduino_timestamp", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

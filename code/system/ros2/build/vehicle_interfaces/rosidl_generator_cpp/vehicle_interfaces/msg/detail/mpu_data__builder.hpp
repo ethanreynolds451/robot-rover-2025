@@ -52,16 +52,32 @@ private:
   ::vehicle_interfaces::msg::MPUData msg_;
 };
 
+class Init_MPUData_arduino_timestamp
+{
+public:
+  explicit Init_MPUData_arduino_timestamp(::vehicle_interfaces::msg::MPUData & msg)
+  : msg_(msg)
+  {}
+  Init_MPUData_imu arduino_timestamp(::vehicle_interfaces::msg::MPUData::_arduino_timestamp_type arg)
+  {
+    msg_.arduino_timestamp = std::move(arg);
+    return Init_MPUData_imu(msg_);
+  }
+
+private:
+  ::vehicle_interfaces::msg::MPUData msg_;
+};
+
 class Init_MPUData_is_valid
 {
 public:
   explicit Init_MPUData_is_valid(::vehicle_interfaces::msg::MPUData & msg)
   : msg_(msg)
   {}
-  Init_MPUData_imu is_valid(::vehicle_interfaces::msg::MPUData::_is_valid_type arg)
+  Init_MPUData_arduino_timestamp is_valid(::vehicle_interfaces::msg::MPUData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_MPUData_imu(msg_);
+    return Init_MPUData_arduino_timestamp(msg_);
   }
 
 private:

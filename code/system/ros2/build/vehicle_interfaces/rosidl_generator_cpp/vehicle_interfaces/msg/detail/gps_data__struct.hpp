@@ -48,8 +48,10 @@ struct GPSData_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
+      this->arduino_timestamp = 0ul;
       this->heading = 0.0f;
       this->speed_kmph = 0.0f;
+      this->gps_time = 0ul;
       this->sats = 0;
     }
   }
@@ -62,8 +64,10 @@ struct GPSData_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
+      this->arduino_timestamp = 0ul;
       this->heading = 0.0f;
       this->speed_kmph = 0.0f;
+      this->gps_time = 0ul;
       this->sats = 0;
     }
   }
@@ -75,6 +79,9 @@ struct GPSData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _position_type =
     sensor_msgs::msg::NavSatFix_<ContainerAllocator>;
   _position_type position;
@@ -84,8 +91,11 @@ struct GPSData_
   using _speed_kmph_type =
     float;
   _speed_kmph_type speed_kmph;
+  using _gps_time_type =
+    uint32_t;
+  _gps_time_type gps_time;
   using _sats_type =
-    int8_t;
+    uint8_t;
   _sats_type sats;
 
   // setters for named parameter idiom
@@ -99,6 +109,12 @@ struct GPSData_
     const std_msgs::msg::Bool_<ContainerAllocator> & _arg)
   {
     this->is_valid = _arg;
+    return *this;
+  }
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
+  {
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__position(
@@ -119,8 +135,14 @@ struct GPSData_
     this->speed_kmph = _arg;
     return *this;
   }
+  Type & set__gps_time(
+    const uint32_t & _arg)
+  {
+    this->gps_time = _arg;
+    return *this;
+  }
   Type & set__sats(
-    const int8_t & _arg)
+    const uint8_t & _arg)
   {
     this->sats = _arg;
     return *this;
@@ -174,6 +196,9 @@ struct GPSData_
     if (this->is_valid != other.is_valid) {
       return false;
     }
+    if (this->arduino_timestamp != other.arduino_timestamp) {
+      return false;
+    }
     if (this->position != other.position) {
       return false;
     }
@@ -181,6 +206,9 @@ struct GPSData_
       return false;
     }
     if (this->speed_kmph != other.speed_kmph) {
+      return false;
+    }
+    if (this->gps_time != other.gps_time) {
       return false;
     }
     if (this->sats != other.sats) {

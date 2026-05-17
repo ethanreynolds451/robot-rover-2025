@@ -109,6 +109,8 @@ cdr_serialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.is_valid,
     cdr);
+  // Member: arduino_timestamp
+  cdr << ros_message.arduino_timestamp;
   // Member: range
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.range,
@@ -131,6 +133,9 @@ cdr_deserialize(
   // Member: is_valid
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.is_valid);
+
+  // Member: arduino_timestamp
+  cdr >> ros_message.arduino_timestamp;
 
   // Member: range
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
@@ -165,6 +170,12 @@ get_serialized_size(
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
     ros_message.is_valid, current_alignment);
+  // Member: arduino_timestamp
+  {
+    size_t item_size = sizeof(ros_message.arduino_timestamp);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
   // Member: range
 
   current_alignment +=
@@ -217,6 +228,14 @@ max_serialized_size_ToFData(
         std_msgs::msg::typesupport_fastrtps_cpp::max_serialized_size_Bool(
         full_bounded, current_alignment);
     }
+  }
+
+  // Member: arduino_timestamp
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
 
   // Member: range

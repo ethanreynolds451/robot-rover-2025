@@ -45,7 +45,7 @@ void UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_fini_fun
   vehicle_interfaces__msg__UltrasonicData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array[3] = {
+static rosidl_typesupport_introspection_c__MessageMember UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array[4] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -77,6 +77,21 @@ static rosidl_typesupport_introspection_c__MessageMember UltrasonicData__rosidl_
     NULL  // resize(index) function pointer
   },
   {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__UltrasonicData, arduino_timestamp),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
     "range",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
@@ -96,7 +111,7 @@ static rosidl_typesupport_introspection_c__MessageMember UltrasonicData__rosidl_
 static const rosidl_typesupport_introspection_c__MessageMembers UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "UltrasonicData",  // message name
-  3,  // number of fields
+  4,  // number of fields
   sizeof(vehicle_interfaces__msg__UltrasonicData),
   UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array,  // message members
   UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -118,7 +133,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Header)();
   UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Bool)();
-  UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array[2].members_ =
+  UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_member_array[3].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, sensor_msgs, msg, Range)();
   if (!UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_type_support_handle.typesupport_identifier) {
     UltrasonicData__rosidl_typesupport_introspection_c__UltrasonicData_message_type_support_handle.typesupport_identifier =

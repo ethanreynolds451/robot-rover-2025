@@ -33,6 +33,7 @@ vehicle_interfaces__msg__IRData__init(vehicle_interfaces__msg__IRData * msg)
     vehicle_interfaces__msg__IRData__fini(msg);
     return false;
   }
+  // arduino_timestamp
   // address
   // command
   // data
@@ -49,6 +50,7 @@ vehicle_interfaces__msg__IRData__fini(vehicle_interfaces__msg__IRData * msg)
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
+  // arduino_timestamp
   // address
   // command
   // data
@@ -70,6 +72,10 @@ vehicle_interfaces__msg__IRData__are_equal(const vehicle_interfaces__msg__IRData
   if (!std_msgs__msg__Bool__are_equal(
       &(lhs->is_valid), &(rhs->is_valid)))
   {
+    return false;
+  }
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
     return false;
   }
   // address
@@ -107,6 +113,8 @@ vehicle_interfaces__msg__IRData__copy(
   {
     return false;
   }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // address
   output->address = input->address;
   // command

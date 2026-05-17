@@ -43,35 +43,35 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/src/vehicle_interfaces
+CMAKE_SOURCE_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/build/vehicle_interfaces
+CMAKE_BINARY_DIR = /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
 
 # Utility rule file for vehicle_interfaces.
 
 # Include the progress variables for this target.
 include CMakeFiles/vehicle_interfaces.dir/progress.make
 
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/srv/GetSerialPort.srv
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/srv/GetSerialPort.srv
 CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetSerialPort_Request.msg
 CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetSerialPort_Response.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/srv/ResetSerialPort.srv
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/srv/ResetSerialPort.srv
 CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/ResetSerialPort_Request.msg
 CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/ResetSerialPort_Response.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/srv/GetDeviceStatus.srv
-CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetDeviceStatus_Request.msg
-CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetDeviceStatus_Response.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/SensorData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/ControlData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/EncoderData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/GPSData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/IRData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/MPUData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/QMCData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/TemperatureData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/ToFData.msg
-CMakeFiles/vehicle_interfaces: /root/src/vehicle_interfaces/msg/UltrasonicData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/srv/GetSerialDeviceStatus.srv
+CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetSerialDeviceStatus_Request.msg
+CMakeFiles/vehicle_interfaces: rosidl_cmake/srv/GetSerialDeviceStatus_Response.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/SensorData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/ControlData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/EncoderData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/GPSData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/IRData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/MPUData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/QMCData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/TemperatureData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/ToFData.msg
+CMakeFiles/vehicle_interfaces: /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/UltrasonicData.msg
 CMakeFiles/vehicle_interfaces: /opt/ros/foxy/share/std_msgs/msg/Bool.idl
 CMakeFiles/vehicle_interfaces: /opt/ros/foxy/share/std_msgs/msg/Byte.idl
 CMakeFiles/vehicle_interfaces: /opt/ros/foxy/share/std_msgs/msg/ByteMultiArray.idl
@@ -147,6 +147,6 @@ CMakeFiles/vehicle_interfaces.dir/clean:
 .PHONY : CMakeFiles/vehicle_interfaces.dir/clean
 
 CMakeFiles/vehicle_interfaces.dir/depend:
-	cd /root/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/src/vehicle_interfaces /root/src/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces /root/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/CMakeFiles/vehicle_interfaces.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vehicle_interfaces.dir/depend
 

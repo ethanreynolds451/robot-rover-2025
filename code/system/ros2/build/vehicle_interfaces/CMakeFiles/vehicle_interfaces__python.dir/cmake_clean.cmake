@@ -9,7 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_temperature_data_s.c.o"
   "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_to_f_data_s.c.o"
   "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/msg/_ultrasonic_data_s.c.o"
-  "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_device_status_s.c.o"
+  "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_device_status_s.c.o"
   "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_get_serial_port_s.c.o"
   "CMakeFiles/vehicle_interfaces__python.dir/rosidl_generator_py/vehicle_interfaces/srv/_reset_serial_port_s.c.o"
   "rosidl_generator_py/vehicle_interfaces/libvehicle_interfaces__python.pdb"

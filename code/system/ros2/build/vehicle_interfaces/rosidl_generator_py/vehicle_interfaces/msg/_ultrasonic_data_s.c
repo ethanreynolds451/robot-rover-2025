@@ -84,6 +84,15 @@ bool vehicle_interfaces__msg__ultrasonic_data__convert_from_py(PyObject * _pymsg
     }
     Py_DECREF(field);
   }
+  {  // arduino_timestamp
+    PyObject * field = PyObject_GetAttrString(_pymsg, "arduino_timestamp");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->arduino_timestamp = PyLong_AsUnsignedLong(field);
+    Py_DECREF(field);
+  }
   {  // range
     PyObject * field = PyObject_GetAttrString(_pymsg, "range");
     if (!field) {
@@ -139,6 +148,17 @@ PyObject * vehicle_interfaces__msg__ultrasonic_data__convert_to_py(void * raw_ro
     }
     {
       int rc = PyObject_SetAttrString(_pymessage, "is_valid", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // arduino_timestamp
+    PyObject * field = NULL;
+    field = PyLong_FromUnsignedLong(ros_message->arduino_timestamp);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "arduino_timestamp", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

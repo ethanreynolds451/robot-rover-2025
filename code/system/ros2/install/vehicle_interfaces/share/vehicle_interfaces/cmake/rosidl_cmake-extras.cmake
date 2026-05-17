@@ -1,4 +1,1 @@
-# generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
-
-set(vehicle_interfaces_IDL_FILES "srv/GetSerialPort.idl;srv/ResetSerialPort.idl;srv/GetDeviceStatus.idl;msg/SensorData.idl;msg/ControlData.idl;msg/EncoderData.idl;msg/GPSData.idl;msg/IRData.idl;msg/MPUData.idl;msg/QMCData.idl;msg/TemperatureData.idl;msg/ToFData.idl;msg/UltrasonicData.idl")
-set(vehicle_interfaces_INTERFACE_FILES "srv/GetSerialPort.srv;srv/GetSerialPort_Request.msg;srv/GetSerialPort_Response.msg;srv/ResetSerialPort.srv;srv/ResetSerialPort_Request.msg;srv/ResetSerialPort_Response.msg;srv/GetDeviceStatus.srv;srv/GetDeviceStatus_Request.msg;srv/GetDeviceStatus_Response.msg;msg/SensorData.msg;msg/ControlData.msg;msg/EncoderData.msg;msg/GPSData.msg;msg/IRData.msg;msg/MPUData.msg;msg/QMCData.msg;msg/TemperatureData.msg;msg/ToFData.msg;msg/UltrasonicData.msg")
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_cmake/rosidl_cmake-extras.cmake

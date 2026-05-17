@@ -30,10 +30,12 @@ typedef struct vehicle_interfaces__msg__GPSData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
+  uint32_t arduino_timestamp;
   sensor_msgs__msg__NavSatFix position;
   float heading;
   float speed_kmph;
-  int8_t sats;
+  uint32_t gps_time;
+  uint8_t sats;
 } vehicle_interfaces__msg__GPSData;
 
 // Struct for a sequence of vehicle_interfaces__msg__GPSData.

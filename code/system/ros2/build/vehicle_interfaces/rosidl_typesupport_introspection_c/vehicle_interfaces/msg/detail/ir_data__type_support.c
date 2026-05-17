@@ -41,7 +41,7 @@ void IRData__rosidl_typesupport_introspection_c__IRData_fini_function(void * mes
   vehicle_interfaces__msg__IRData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember IRData__rosidl_typesupport_introspection_c__IRData_message_member_array[5] = {
+static rosidl_typesupport_introspection_c__MessageMember IRData__rosidl_typesupport_introspection_c__IRData_message_member_array[6] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -66,6 +66,21 @@ static rosidl_typesupport_introspection_c__MessageMember IRData__rosidl_typesupp
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces__msg__IRData, is_valid),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__IRData, arduino_timestamp),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -122,7 +137,7 @@ static rosidl_typesupport_introspection_c__MessageMember IRData__rosidl_typesupp
 static const rosidl_typesupport_introspection_c__MessageMembers IRData__rosidl_typesupport_introspection_c__IRData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "IRData",  // message name
-  5,  // number of fields
+  6,  // number of fields
   sizeof(vehicle_interfaces__msg__IRData),
   IRData__rosidl_typesupport_introspection_c__IRData_message_member_array,  // message members
   IRData__rosidl_typesupport_introspection_c__IRData_init_function,  // function to initialize message memory (memory has to be allocated)

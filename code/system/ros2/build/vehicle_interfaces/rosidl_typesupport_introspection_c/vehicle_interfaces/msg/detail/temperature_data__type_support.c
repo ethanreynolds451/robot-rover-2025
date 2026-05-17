@@ -45,7 +45,7 @@ void TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_fini_f
   vehicle_interfaces__msg__TemperatureData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array[3] = {
+static rosidl_typesupport_introspection_c__MessageMember TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array[4] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -77,6 +77,21 @@ static rosidl_typesupport_introspection_c__MessageMember TemperatureData__rosidl
     NULL  // resize(index) function pointer
   },
   {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__TemperatureData, arduino_timestamp),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
     "temp",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
@@ -96,7 +111,7 @@ static rosidl_typesupport_introspection_c__MessageMember TemperatureData__rosidl
 static const rosidl_typesupport_introspection_c__MessageMembers TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "TemperatureData",  // message name
-  3,  // number of fields
+  4,  // number of fields
   sizeof(vehicle_interfaces__msg__TemperatureData),
   TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array,  // message members
   TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -118,7 +133,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Header)();
   TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Bool)();
-  TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array[2].members_ =
+  TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_member_array[3].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, sensor_msgs, msg, Temperature)();
   if (!TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_type_support_handle.typesupport_identifier) {
     TemperatureData__rosidl_typesupport_introspection_c__TemperatureData_message_type_support_handle.typesupport_identifier =

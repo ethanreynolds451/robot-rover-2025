@@ -67,28 +67,34 @@ class GPSData(metaclass=Metaclass_GPSData):
     __slots__ = [
         '_header',
         '_is_valid',
+        '_arduino_timestamp',
         '_position',
         '_heading',
         '_speed_kmph',
+        '_gps_time',
         '_sats',
     ]
 
     _fields_and_field_types = {
         'header': 'std_msgs/Header',
         'is_valid': 'std_msgs/Bool',
+        'arduino_timestamp': 'uint32',
         'position': 'sensor_msgs/NavSatFix',
         'heading': 'float',
         'speed_kmph': 'float',
-        'sats': 'int8',
+        'gps_time': 'uint32',
+        'sats': 'uint8',
     }
 
     SLOT_TYPES = (
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Header'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Bool'),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint32'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['sensor_msgs', 'msg'], 'NavSatFix'),  # noqa: E501
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
-        rosidl_parser.definition.BasicType('int8'),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint32'),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint8'),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
@@ -99,10 +105,12 @@ class GPSData(metaclass=Metaclass_GPSData):
         self.header = kwargs.get('header', Header())
         from std_msgs.msg import Bool
         self.is_valid = kwargs.get('is_valid', Bool())
+        self.arduino_timestamp = kwargs.get('arduino_timestamp', int())
         from sensor_msgs.msg import NavSatFix
         self.position = kwargs.get('position', NavSatFix())
         self.heading = kwargs.get('heading', float())
         self.speed_kmph = kwargs.get('speed_kmph', float())
+        self.gps_time = kwargs.get('gps_time', int())
         self.sats = kwargs.get('sats', int())
 
     def __repr__(self):
@@ -138,11 +146,15 @@ class GPSData(metaclass=Metaclass_GPSData):
             return False
         if self.is_valid != other.is_valid:
             return False
+        if self.arduino_timestamp != other.arduino_timestamp:
+            return False
         if self.position != other.position:
             return False
         if self.heading != other.heading:
             return False
         if self.speed_kmph != other.speed_kmph:
+            return False
+        if self.gps_time != other.gps_time:
             return False
         if self.sats != other.sats:
             return False
@@ -180,6 +192,21 @@ class GPSData(metaclass=Metaclass_GPSData):
                 isinstance(value, Bool), \
                 "The 'is_valid' field must be a sub message of type 'Bool'"
         self._is_valid = value
+
+    @property
+    def arduino_timestamp(self):
+        """Message field 'arduino_timestamp'."""
+        return self._arduino_timestamp
+
+    @arduino_timestamp.setter
+    def arduino_timestamp(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, int), \
+                "The 'arduino_timestamp' field must be of type 'int'"
+            assert value >= 0 and value < 4294967296, \
+                "The 'arduino_timestamp' field must be an unsigned integer in [0, 4294967295]"
+        self._arduino_timestamp = value
 
     @property
     def position(self):
@@ -222,6 +249,21 @@ class GPSData(metaclass=Metaclass_GPSData):
         self._speed_kmph = value
 
     @property
+    def gps_time(self):
+        """Message field 'gps_time'."""
+        return self._gps_time
+
+    @gps_time.setter
+    def gps_time(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, int), \
+                "The 'gps_time' field must be of type 'int'"
+            assert value >= 0 and value < 4294967296, \
+                "The 'gps_time' field must be an unsigned integer in [0, 4294967295]"
+        self._gps_time = value
+
+    @property
     def sats(self):
         """Message field 'sats'."""
         return self._sats
@@ -232,6 +274,6 @@ class GPSData(metaclass=Metaclass_GPSData):
             assert \
                 isinstance(value, int), \
                 "The 'sats' field must be of type 'int'"
-            assert value >= -128 and value < 128, \
-                "The 'sats' field must be an integer in [-128, 127]"
+            assert value >= 0 and value < 256, \
+                "The 'sats' field must be an unsigned integer in [0, 255]"
         self._sats = value

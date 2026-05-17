@@ -67,18 +67,21 @@ class UltrasonicData(metaclass=Metaclass_UltrasonicData):
     __slots__ = [
         '_header',
         '_is_valid',
+        '_arduino_timestamp',
         '_range',
     ]
 
     _fields_and_field_types = {
         'header': 'std_msgs/Header',
         'is_valid': 'std_msgs/Bool',
+        'arduino_timestamp': 'uint32',
         'range': 'sensor_msgs/Range',
     }
 
     SLOT_TYPES = (
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Header'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Bool'),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint32'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['sensor_msgs', 'msg'], 'Range'),  # noqa: E501
     )
 
@@ -90,6 +93,7 @@ class UltrasonicData(metaclass=Metaclass_UltrasonicData):
         self.header = kwargs.get('header', Header())
         from std_msgs.msg import Bool
         self.is_valid = kwargs.get('is_valid', Bool())
+        self.arduino_timestamp = kwargs.get('arduino_timestamp', int())
         from sensor_msgs.msg import Range
         self.range = kwargs.get('range', Range())
 
@@ -125,6 +129,8 @@ class UltrasonicData(metaclass=Metaclass_UltrasonicData):
         if self.header != other.header:
             return False
         if self.is_valid != other.is_valid:
+            return False
+        if self.arduino_timestamp != other.arduino_timestamp:
             return False
         if self.range != other.range:
             return False
@@ -162,6 +168,21 @@ class UltrasonicData(metaclass=Metaclass_UltrasonicData):
                 isinstance(value, Bool), \
                 "The 'is_valid' field must be a sub message of type 'Bool'"
         self._is_valid = value
+
+    @property
+    def arduino_timestamp(self):
+        """Message field 'arduino_timestamp'."""
+        return self._arduino_timestamp
+
+    @arduino_timestamp.setter
+    def arduino_timestamp(self, value):
+        if __debug__:
+            assert \
+                isinstance(value, int), \
+                "The 'arduino_timestamp' field must be of type 'int'"
+            assert value >= 0 and value < 4294967296, \
+                "The 'arduino_timestamp' field must be an unsigned integer in [0, 4294967295]"
+        self._arduino_timestamp = value
 
     @property  # noqa: A003
     def range(self):  # noqa: A003

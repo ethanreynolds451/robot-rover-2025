@@ -37,7 +37,7 @@ void UltrasonicData_fini_function(void * message_memory)
   typed_message->~UltrasonicData();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember UltrasonicData_message_member_array[3] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember UltrasonicData_message_member_array[4] = {
   {
     "header",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
@@ -69,6 +69,21 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember UltrasonicDat
     nullptr  // resize(index) function pointer
   },
   {
+    "arduino_timestamp",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::UltrasonicData, arduino_timestamp),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
     "range",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
     0,  // upper bound of string
@@ -88,7 +103,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember UltrasonicDat
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers UltrasonicData_message_members = {
   "vehicle_interfaces::msg",  // message namespace
   "UltrasonicData",  // message name
-  3,  // number of fields
+  4,  // number of fields
   sizeof(vehicle_interfaces::msg::UltrasonicData),
   UltrasonicData_message_member_array,  // message members
   UltrasonicData_init_function,  // function to initialize message memory (memory has to be allocated)

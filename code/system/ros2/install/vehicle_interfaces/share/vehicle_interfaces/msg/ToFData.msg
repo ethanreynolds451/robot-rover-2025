@@ -1,7 +1,1 @@
-# Custom for ToFs on robot
-
-std_msgs/Header                     header       # timestamp / frame ID
-std_msgs/Bool                       is_valid
-
-sensor_msgs/Range               range        # distance to object
-float32                             intensity    # brightness reading
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/ToFData.msg

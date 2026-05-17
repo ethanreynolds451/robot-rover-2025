@@ -1,0 +1,22 @@
+running develop
+running egg_info
+writing vehicle_networking.egg-info/PKG-INFO
+writing dependency_links to vehicle_networking.egg-info/dependency_links.txt
+writing entry points to vehicle_networking.egg-info/entry_points.txt
+writing requirements to vehicle_networking.egg-info/requires.txt
+writing top-level names to vehicle_networking.egg-info/top_level.txt
+reading manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+writing manifest file 'vehicle_networking.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/site.py
+Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages/vehicle-networking.egg-link (link to .)
+Installing control_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+Installing get_device_info_tool script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+Installing sensor_serial_interface script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+Installing serial_manager script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/vehicle_networking
+
+Installed /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking
+running symlink_data
+symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/resource/vehicle_networking -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/ament_index/resource_index/packages
+symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking
+symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/config/device_identifiers.json -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/config

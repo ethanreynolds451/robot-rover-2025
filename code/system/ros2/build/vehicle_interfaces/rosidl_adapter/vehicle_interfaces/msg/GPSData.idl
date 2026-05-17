@@ -17,6 +17,8 @@ module vehicle_interfaces {
 
       std_msgs::msg::Bool is_valid;
 
+      uint32 arduino_timestamp;
+
       @verbatim (language="comment", text=
         " positional data" "\n"
         " includes optional fix information")
@@ -31,8 +33,12 @@ module vehicle_interfaces {
       float speed_kmph;
 
       @verbatim (language="comment", text=
+        " satelite time from GPS")
+      uint32 gps_time;
+
+      @verbatim (language="comment", text=
         " number of saltelites used for signal")
-      int8 sats;
+      uint8 sats;
     };
   };
 };

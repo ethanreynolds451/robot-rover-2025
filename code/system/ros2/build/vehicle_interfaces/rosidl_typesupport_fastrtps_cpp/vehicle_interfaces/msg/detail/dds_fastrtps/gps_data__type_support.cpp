@@ -109,6 +109,8 @@ cdr_serialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.is_valid,
     cdr);
+  // Member: arduino_timestamp
+  cdr << ros_message.arduino_timestamp;
   // Member: position
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_serialize(
     ros_message.position,
@@ -117,6 +119,8 @@ cdr_serialize(
   cdr << ros_message.heading;
   // Member: speed_kmph
   cdr << ros_message.speed_kmph;
+  // Member: gps_time
+  cdr << ros_message.gps_time;
   // Member: sats
   cdr << ros_message.sats;
   return true;
@@ -136,6 +140,9 @@ cdr_deserialize(
   std_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.is_valid);
 
+  // Member: arduino_timestamp
+  cdr >> ros_message.arduino_timestamp;
+
   // Member: position
   sensor_msgs::msg::typesupport_fastrtps_cpp::cdr_deserialize(
     cdr, ros_message.position);
@@ -145,6 +152,9 @@ cdr_deserialize(
 
   // Member: speed_kmph
   cdr >> ros_message.speed_kmph;
+
+  // Member: gps_time
+  cdr >> ros_message.gps_time;
 
   // Member: sats
   cdr >> ros_message.sats;
@@ -175,6 +185,12 @@ get_serialized_size(
   current_alignment +=
     std_msgs::msg::typesupport_fastrtps_cpp::get_serialized_size(
     ros_message.is_valid, current_alignment);
+  // Member: arduino_timestamp
+  {
+    size_t item_size = sizeof(ros_message.arduino_timestamp);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
   // Member: position
 
   current_alignment +=
@@ -189,6 +205,12 @@ get_serialized_size(
   // Member: speed_kmph
   {
     size_t item_size = sizeof(ros_message.speed_kmph);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // Member: gps_time
+  {
+    size_t item_size = sizeof(ros_message.gps_time);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -241,6 +263,14 @@ max_serialized_size_GPSData(
     }
   }
 
+  // Member: arduino_timestamp
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+
   // Member: position
   {
     size_t array_size = 1;
@@ -262,6 +292,14 @@ max_serialized_size_GPSData(
   }
 
   // Member: speed_kmph
+  {
+    size_t array_size = 1;
+
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+
+  // Member: gps_time
   {
     size_t array_size = 1;
 

@@ -1,3 +1,1 @@
-# generated from ament_package/template/environment_hook/pythonpath.sh.in
-
-ament_prepend_unique_value PYTHONPATH "$AMENT_CURRENT_PREFIX/lib/python3.8/site-packages"
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/ament_cmake_environment_hooks/pythonpath.sh

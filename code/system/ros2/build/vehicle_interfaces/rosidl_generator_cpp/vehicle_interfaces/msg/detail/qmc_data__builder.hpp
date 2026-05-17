@@ -68,15 +68,15 @@ private:
   ::vehicle_interfaces::msg::QMCData msg_;
 };
 
-class Init_QMCData_id
+class Init_QMCData_arduino_timestamp
 {
 public:
-  explicit Init_QMCData_id(::vehicle_interfaces::msg::QMCData & msg)
+  explicit Init_QMCData_arduino_timestamp(::vehicle_interfaces::msg::QMCData & msg)
   : msg_(msg)
   {}
-  Init_QMCData_mag id(::vehicle_interfaces::msg::QMCData::_id_type arg)
+  Init_QMCData_mag arduino_timestamp(::vehicle_interfaces::msg::QMCData::_arduino_timestamp_type arg)
   {
-    msg_.id = std::move(arg);
+    msg_.arduino_timestamp = std::move(arg);
     return Init_QMCData_mag(msg_);
   }
 
@@ -90,10 +90,10 @@ public:
   explicit Init_QMCData_is_valid(::vehicle_interfaces::msg::QMCData & msg)
   : msg_(msg)
   {}
-  Init_QMCData_id is_valid(::vehicle_interfaces::msg::QMCData::_is_valid_type arg)
+  Init_QMCData_arduino_timestamp is_valid(::vehicle_interfaces::msg::QMCData::_is_valid_type arg)
   {
     msg_.is_valid = std::move(arg);
-    return Init_QMCData_id(msg_);
+    return Init_QMCData_arduino_timestamp(msg_);
   }
 
 private:

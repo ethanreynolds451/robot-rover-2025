@@ -33,6 +33,7 @@ vehicle_interfaces__msg__EncoderData__init(vehicle_interfaces__msg__EncoderData 
     vehicle_interfaces__msg__EncoderData__fini(msg);
     return false;
   }
+  // arduino_timestamp
   // position
   // velocity
   // direction
@@ -49,6 +50,7 @@ vehicle_interfaces__msg__EncoderData__fini(vehicle_interfaces__msg__EncoderData 
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
+  // arduino_timestamp
   // position
   // velocity
   // direction
@@ -70,6 +72,10 @@ vehicle_interfaces__msg__EncoderData__are_equal(const vehicle_interfaces__msg__E
   if (!std_msgs__msg__Bool__are_equal(
       &(lhs->is_valid), &(rhs->is_valid)))
   {
+    return false;
+  }
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
     return false;
   }
   // position
@@ -107,6 +113,8 @@ vehicle_interfaces__msg__EncoderData__copy(
   {
     return false;
   }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // position
   output->position = input->position;
   // velocity

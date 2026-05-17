@@ -18,10 +18,10 @@ msg/ToFData.idl
 msg/ToFData.msg
 msg/UltrasonicData.idl
 msg/UltrasonicData.msg
-srv/GetDeviceStatus.idl
-srv/GetDeviceStatus.srv
-srv/GetDeviceStatus_Request.msg
-srv/GetDeviceStatus_Response.msg
+srv/GetSerialDeviceStatus.idl
+srv/GetSerialDeviceStatus.srv
+srv/GetSerialDeviceStatus_Request.msg
+srv/GetSerialDeviceStatus_Response.msg
 srv/GetSerialPort.idl
 srv/GetSerialPort.srv
 srv/GetSerialPort_Request.msg

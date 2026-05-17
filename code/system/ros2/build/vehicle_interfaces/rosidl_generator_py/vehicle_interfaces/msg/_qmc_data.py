@@ -71,7 +71,7 @@ class QMCData(metaclass=Metaclass_QMCData):
     __slots__ = [
         '_header',
         '_is_valid',
-        '_id',
+        '_arduino_timestamp',
         '_mag',
         '_heading',
         '_temp',
@@ -80,7 +80,7 @@ class QMCData(metaclass=Metaclass_QMCData):
     _fields_and_field_types = {
         'header': 'std_msgs/Header',
         'is_valid': 'std_msgs/Bool',
-        'id': 'string',
+        'arduino_timestamp': 'uint32',
         'mag': 'sensor_msgs/MagneticField',
         'heading': 'float',
         'temp': 'sensor_msgs/Temperature',
@@ -89,7 +89,7 @@ class QMCData(metaclass=Metaclass_QMCData):
     SLOT_TYPES = (
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Header'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['std_msgs', 'msg'], 'Bool'),  # noqa: E501
-        rosidl_parser.definition.UnboundedString(),  # noqa: E501
+        rosidl_parser.definition.BasicType('uint32'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['sensor_msgs', 'msg'], 'MagneticField'),  # noqa: E501
         rosidl_parser.definition.BasicType('float'),  # noqa: E501
         rosidl_parser.definition.NamespacedType(['sensor_msgs', 'msg'], 'Temperature'),  # noqa: E501
@@ -103,7 +103,7 @@ class QMCData(metaclass=Metaclass_QMCData):
         self.header = kwargs.get('header', Header())
         from std_msgs.msg import Bool
         self.is_valid = kwargs.get('is_valid', Bool())
-        self.id = kwargs.get('id', str())
+        self.arduino_timestamp = kwargs.get('arduino_timestamp', int())
         from sensor_msgs.msg import MagneticField
         self.mag = kwargs.get('mag', MagneticField())
         self.heading = kwargs.get('heading', float())
@@ -143,7 +143,7 @@ class QMCData(metaclass=Metaclass_QMCData):
             return False
         if self.is_valid != other.is_valid:
             return False
-        if self.id != other.id:
+        if self.arduino_timestamp != other.arduino_timestamp:
             return False
         if self.mag != other.mag:
             return False
@@ -186,18 +186,20 @@ class QMCData(metaclass=Metaclass_QMCData):
                 "The 'is_valid' field must be a sub message of type 'Bool'"
         self._is_valid = value
 
-    @property  # noqa: A003
-    def id(self):  # noqa: A003
-        """Message field 'id'."""
-        return self._id
+    @property
+    def arduino_timestamp(self):
+        """Message field 'arduino_timestamp'."""
+        return self._arduino_timestamp
 
-    @id.setter  # noqa: A003
-    def id(self, value):  # noqa: A003
+    @arduino_timestamp.setter
+    def arduino_timestamp(self, value):
         if __debug__:
             assert \
-                isinstance(value, str), \
-                "The 'id' field must be of type 'str'"
-        self._id = value
+                isinstance(value, int), \
+                "The 'arduino_timestamp' field must be of type 'int'"
+            assert value >= 0 and value < 4294967296, \
+                "The 'arduino_timestamp' field must be an unsigned integer in [0, 4294967295]"
+        self._arduino_timestamp = value
 
     @property
     def mag(self):

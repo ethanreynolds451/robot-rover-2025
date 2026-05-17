@@ -22,8 +22,6 @@ extern "C"
 #include "std_msgs/msg/detail/header__struct.h"
 // Member 'is_valid'
 #include "std_msgs/msg/detail/bool__struct.h"
-// Member 'id'
-#include "rosidl_runtime_c/string.h"
 // Member 'mag'
 #include "sensor_msgs/msg/detail/magnetic_field__struct.h"
 // Member 'temp'
@@ -34,7 +32,7 @@ typedef struct vehicle_interfaces__msg__QMCData
 {
   std_msgs__msg__Header header;
   std_msgs__msg__Bool is_valid;
-  rosidl_runtime_c__String id;
+  uint32_t arduino_timestamp;
   sensor_msgs__msg__MagneticField mag;
   float heading;
   sensor_msgs__msg__Temperature temp;

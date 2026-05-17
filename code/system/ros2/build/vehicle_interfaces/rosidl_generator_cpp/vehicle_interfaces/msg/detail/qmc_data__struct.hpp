@@ -51,7 +51,7 @@ struct QMCData_
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->id = "";
+      this->arduino_timestamp = 0ul;
       this->heading = 0.0f;
     }
   }
@@ -59,14 +59,13 @@ struct QMCData_
   explicit QMCData_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
   : header(_alloc, _init),
     is_valid(_alloc, _init),
-    id(_alloc),
     mag(_alloc, _init),
     temp(_alloc, _init)
   {
     if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
       rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
     {
-      this->id = "";
+      this->arduino_timestamp = 0ul;
       this->heading = 0.0f;
     }
   }
@@ -78,9 +77,9 @@ struct QMCData_
   using _is_valid_type =
     std_msgs::msg::Bool_<ContainerAllocator>;
   _is_valid_type is_valid;
-  using _id_type =
-    std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other>;
-  _id_type id;
+  using _arduino_timestamp_type =
+    uint32_t;
+  _arduino_timestamp_type arduino_timestamp;
   using _mag_type =
     sensor_msgs::msg::MagneticField_<ContainerAllocator>;
   _mag_type mag;
@@ -104,10 +103,10 @@ struct QMCData_
     this->is_valid = _arg;
     return *this;
   }
-  Type & set__id(
-    const std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other> & _arg)
+  Type & set__arduino_timestamp(
+    const uint32_t & _arg)
   {
-    this->id = _arg;
+    this->arduino_timestamp = _arg;
     return *this;
   }
   Type & set__mag(
@@ -177,7 +176,7 @@ struct QMCData_
     if (this->is_valid != other.is_valid) {
       return false;
     }
-    if (this->id != other.id) {
+    if (this->arduino_timestamp != other.arduino_timestamp) {
       return false;
     }
     if (this->mag != other.mag) {

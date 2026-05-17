@@ -35,6 +35,7 @@ vehicle_interfaces__msg__GPSData__init(vehicle_interfaces__msg__GPSData * msg)
     vehicle_interfaces__msg__GPSData__fini(msg);
     return false;
   }
+  // arduino_timestamp
   // position
   if (!sensor_msgs__msg__NavSatFix__init(&msg->position)) {
     vehicle_interfaces__msg__GPSData__fini(msg);
@@ -42,6 +43,7 @@ vehicle_interfaces__msg__GPSData__init(vehicle_interfaces__msg__GPSData * msg)
   }
   // heading
   // speed_kmph
+  // gps_time
   // sats
   return true;
 }
@@ -56,10 +58,12 @@ vehicle_interfaces__msg__GPSData__fini(vehicle_interfaces__msg__GPSData * msg)
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
+  // arduino_timestamp
   // position
   sensor_msgs__msg__NavSatFix__fini(&msg->position);
   // heading
   // speed_kmph
+  // gps_time
   // sats
 }
 
@@ -81,6 +85,10 @@ vehicle_interfaces__msg__GPSData__are_equal(const vehicle_interfaces__msg__GPSDa
   {
     return false;
   }
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
+    return false;
+  }
   // position
   if (!sensor_msgs__msg__NavSatFix__are_equal(
       &(lhs->position), &(rhs->position)))
@@ -93,6 +101,10 @@ vehicle_interfaces__msg__GPSData__are_equal(const vehicle_interfaces__msg__GPSDa
   }
   // speed_kmph
   if (lhs->speed_kmph != rhs->speed_kmph) {
+    return false;
+  }
+  // gps_time
+  if (lhs->gps_time != rhs->gps_time) {
     return false;
   }
   // sats
@@ -122,6 +134,8 @@ vehicle_interfaces__msg__GPSData__copy(
   {
     return false;
   }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // position
   if (!sensor_msgs__msg__NavSatFix__copy(
       &(input->position), &(output->position)))
@@ -132,6 +146,8 @@ vehicle_interfaces__msg__GPSData__copy(
   output->heading = input->heading;
   // speed_kmph
   output->speed_kmph = input->speed_kmph;
+  // gps_time
+  output->gps_time = input->gps_time;
   // sats
   output->sats = input->sats;
   return true;

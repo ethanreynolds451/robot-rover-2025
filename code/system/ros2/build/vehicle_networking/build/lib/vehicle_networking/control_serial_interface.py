@@ -47,6 +47,9 @@ Services:
 
 Parameters: 
 - packet_mode (bool, default: true)
+- verbose (bool, default: false)
+    - Whether to log all commands and status updates in the console, or just log connection status
+    - Useful for debugging but a lot of clutter / overhead for normal operation
 - serial_port (string, default: '')
     - The serial port to use for communication with the control board
     - Will request from serial manager service if request_port parameter is true
@@ -77,11 +80,12 @@ from urllib import request, response
 # Services
 from std_srvs.srv import Empty
 from std_srvs.srv import SetBool
-from vehicle_interfaces.srv import GetDeviceStatus, GetSerialPort
+from vehicle_interfaces.srv import GetSerialDeviceStatus, GetSerialPort
 
 class ControlSerialInterface(Node):
     def __init__(self):
         super().__init__('control_serial_interface')
+        # Expected command line parameters
         self.declare_parameter('packet_mode', True)  # Whether to use packet manager or pass through raw strings
         if self.get_parameter('packet_mode').get_parameter_value().bool_value:
             self.get_logger().info('Starting Control Serial Interface Node in Packet Mode')
@@ -93,6 +97,8 @@ class ControlSerialInterface(Node):
             self.get_logger().warning('Packet mode is not yet implemented, defaulting to raw string mode')
             self.set_parameters([rclpy.parameter.Parameter('packet_mode', rclpy.Parameter.Type.BOOL, False)])    
 
+        self.declare_parameter('verbose', False)  # Default to suppress repeat of commands and status updates in logs, set to true to log all commands and updates
+
         # Set up subscriber to receive control commands from other nodes
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_str', self.control_callback, 10)
         # Set up publisher to publish status updates from control board
@@ -101,7 +107,7 @@ class ControlSerialInterface(Node):
         # self.get_logger().info('Topics intitialized')
         # Set up services to manage serial connection
         self.reset_service = self.create_service(Empty, '/vehicle/control_serial_interface/reset', self.reset_serial)
-        self.get_status_service = self.create_service(GetDeviceStatus, '/vehicle/control_serial_interface/get_status', self.get_status)
+        self.get_status_service = self.create_service(GetSerialDeviceStatus, '/vehicle/control_serial_interface/get_status', self.get_status)
         self.set_active_service = self.create_service(SetBool, '/vehicle/control_serial_interface/set_active', self.set_active)
         # Debug
         # self.get_logger().info('Serial services intitialized')
@@ -202,8 +208,8 @@ class ControlSerialInterface(Node):
                         msg = String()
                         msg.data = status_update
                         self.status_callback(msg)  # Call the status callback to handle the update
-                        # Debug
-                        self.get_logger().info(f'Read status update from control board: {status_update}')
+                        if self.get_parameter('verbose').get_parameter_value().bool_value:
+                            self.get_logger().info(f'Read status update from control board: {status_update}')
             except serial.SerialException as e:
                 self.get_logger().error(f'Failed to read from serial port with error: {e}')
                 self.close_port()  # Close the port if error encountered
@@ -216,7 +222,8 @@ class ControlSerialInterface(Node):
             if self.serial:
                 try:
                     self.serial.write(msg.data.encode())  # Send control command to control board
-                    self.get_logger().info(f'Sent command to control board: {msg.data}')
+                    if self.get_parameter('verbose').get_parameter_value().bool_value:
+                        self.get_logger().info(f'Sent command to control board: {msg.data}')
                 except serial.SerialException as e:
                     self.get_logger().error(f'Failed to send control command with error: {e}')
                     self.close_port()  # Close the port if error encountered

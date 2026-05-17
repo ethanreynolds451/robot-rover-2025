@@ -35,6 +35,7 @@ vehicle_interfaces__msg__TemperatureData__init(vehicle_interfaces__msg__Temperat
     vehicle_interfaces__msg__TemperatureData__fini(msg);
     return false;
   }
+  // arduino_timestamp
   // temp
   if (!sensor_msgs__msg__Temperature__init(&msg->temp)) {
     vehicle_interfaces__msg__TemperatureData__fini(msg);
@@ -53,6 +54,7 @@ vehicle_interfaces__msg__TemperatureData__fini(vehicle_interfaces__msg__Temperat
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
+  // arduino_timestamp
   // temp
   sensor_msgs__msg__Temperature__fini(&msg->temp);
 }
@@ -73,6 +75,10 @@ vehicle_interfaces__msg__TemperatureData__are_equal(const vehicle_interfaces__ms
   if (!std_msgs__msg__Bool__are_equal(
       &(lhs->is_valid), &(rhs->is_valid)))
   {
+    return false;
+  }
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
     return false;
   }
   // temp
@@ -104,6 +110,8 @@ vehicle_interfaces__msg__TemperatureData__copy(
   {
     return false;
   }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // temp
   if (!sensor_msgs__msg__Temperature__copy(
       &(input->temp), &(output->temp)))

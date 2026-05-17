@@ -16,8 +16,6 @@
 #include "std_msgs/msg/detail/header__functions.h"
 // Member `is_valid`
 #include "std_msgs/msg/detail/bool__functions.h"
-// Member `id`
-#include "rosidl_runtime_c/string_functions.h"
 // Member `mag`
 #include "sensor_msgs/msg/detail/magnetic_field__functions.h"
 // Member `temp`
@@ -39,11 +37,7 @@ vehicle_interfaces__msg__QMCData__init(vehicle_interfaces__msg__QMCData * msg)
     vehicle_interfaces__msg__QMCData__fini(msg);
     return false;
   }
-  // id
-  if (!rosidl_runtime_c__String__init(&msg->id)) {
-    vehicle_interfaces__msg__QMCData__fini(msg);
-    return false;
-  }
+  // arduino_timestamp
   // mag
   if (!sensor_msgs__msg__MagneticField__init(&msg->mag)) {
     vehicle_interfaces__msg__QMCData__fini(msg);
@@ -68,8 +62,7 @@ vehicle_interfaces__msg__QMCData__fini(vehicle_interfaces__msg__QMCData * msg)
   std_msgs__msg__Header__fini(&msg->header);
   // is_valid
   std_msgs__msg__Bool__fini(&msg->is_valid);
-  // id
-  rosidl_runtime_c__String__fini(&msg->id);
+  // arduino_timestamp
   // mag
   sensor_msgs__msg__MagneticField__fini(&msg->mag);
   // heading
@@ -95,10 +88,8 @@ vehicle_interfaces__msg__QMCData__are_equal(const vehicle_interfaces__msg__QMCDa
   {
     return false;
   }
-  // id
-  if (!rosidl_runtime_c__String__are_equal(
-      &(lhs->id), &(rhs->id)))
-  {
+  // arduino_timestamp
+  if (lhs->arduino_timestamp != rhs->arduino_timestamp) {
     return false;
   }
   // mag
@@ -140,12 +131,8 @@ vehicle_interfaces__msg__QMCData__copy(
   {
     return false;
   }
-  // id
-  if (!rosidl_runtime_c__String__copy(
-      &(input->id), &(output->id)))
-  {
-    return false;
-  }
+  // arduino_timestamp
+  output->arduino_timestamp = input->arduino_timestamp;
   // mag
   if (!sensor_msgs__msg__MagneticField__copy(
       &(input->mag), &(output->mag)))

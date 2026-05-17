@@ -1,6 +1,1 @@
-# Custom for temperature readints
-
-std_msgs/Header                     header          # timestamp / frame ID
-std_msgs/Bool                       is_valid
-
-sensor_msgs/Temperature         temp               
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces/msg/TemperatureData.msg

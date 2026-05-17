@@ -45,7 +45,7 @@ void GPSData__rosidl_typesupport_introspection_c__GPSData_fini_function(void * m
   vehicle_interfaces__msg__GPSData__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array[6] = {
+static rosidl_typesupport_introspection_c__MessageMember GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array[8] = {
   {
     "header",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_MESSAGE,  // type
@@ -70,6 +70,21 @@ static rosidl_typesupport_introspection_c__MessageMember GPSData__rosidl_typesup
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces__msg__GPSData, is_valid),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__GPSData, arduino_timestamp),  // bytes offset in struct
     NULL,  // default value
     NULL,  // size() function pointer
     NULL,  // get_const(index) function pointer
@@ -122,8 +137,23 @@ static rosidl_typesupport_introspection_c__MessageMember GPSData__rosidl_typesup
     NULL  // resize(index) function pointer
   },
   {
+    "gps_time",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces__msg__GPSData, gps_time),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
     "sats",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_INT8,  // type
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is array
@@ -141,7 +171,7 @@ static rosidl_typesupport_introspection_c__MessageMember GPSData__rosidl_typesup
 static const rosidl_typesupport_introspection_c__MessageMembers GPSData__rosidl_typesupport_introspection_c__GPSData_message_members = {
   "vehicle_interfaces__msg",  // message namespace
   "GPSData",  // message name
-  6,  // number of fields
+  8,  // number of fields
   sizeof(vehicle_interfaces__msg__GPSData),
   GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array,  // message members
   GPSData__rosidl_typesupport_introspection_c__GPSData_init_function,  // function to initialize message memory (memory has to be allocated)
@@ -163,7 +193,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspecti
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Header)();
   GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array[1].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, std_msgs, msg, Bool)();
-  GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array[2].members_ =
+  GPSData__rosidl_typesupport_introspection_c__GPSData_message_member_array[3].members_ =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_introspection_c, sensor_msgs, msg, NavSatFix)();
   if (!GPSData__rosidl_typesupport_introspection_c__GPSData_message_type_support_handle.typesupport_identifier) {
     GPSData__rosidl_typesupport_introspection_c__GPSData_message_type_support_handle.typesupport_identifier =

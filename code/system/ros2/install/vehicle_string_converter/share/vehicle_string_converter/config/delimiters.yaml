@@ -1,7 +1,1 @@
-packet_start        :       "{"
-packet_end          :       "}"
-field_start         :       "["
-field_end           :       "]"
-key_delimiter       :       ","
-value_delimiter     :       ":"
-list_delimiter      :       ";"
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/config/delimiters.yaml

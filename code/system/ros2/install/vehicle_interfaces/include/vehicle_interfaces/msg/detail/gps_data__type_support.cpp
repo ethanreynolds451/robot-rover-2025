@@ -37,7 +37,7 @@ void GPSData_fini_function(void * message_memory)
   typed_message->~GPSData();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember GPSData_message_member_array[6] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember GPSData_message_member_array[8] = {
   {
     "header",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_MESSAGE,  // type
@@ -62,6 +62,21 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember GPSData_messa
     0,  // array size
     false,  // is upper bound
     offsetof(vehicle_interfaces::msg::GPSData, is_valid),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "arduino_timestamp",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::GPSData, arduino_timestamp),  // bytes offset in struct
     nullptr,  // default value
     nullptr,  // size() function pointer
     nullptr,  // get_const(index) function pointer
@@ -114,8 +129,23 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember GPSData_messa
     nullptr  // resize(index) function pointer
   },
   {
+    "gps_time",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(vehicle_interfaces::msg::GPSData, gps_time),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
     "sats",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT8,  // type
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is array
@@ -133,7 +163,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember GPSData_messa
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers GPSData_message_members = {
   "vehicle_interfaces::msg",  // message namespace
   "GPSData",  // message name
-  6,  // number of fields
+  8,  // number of fields
   sizeof(vehicle_interfaces::msg::GPSData),
   GPSData_message_member_array,  // message members
   GPSData_init_function,  // function to initialize message memory (memory has to be allocated)
