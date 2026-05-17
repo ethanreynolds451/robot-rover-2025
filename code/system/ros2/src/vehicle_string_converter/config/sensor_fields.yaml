@@ -2,16 +2,14 @@
  
 # *** Determines which field in the sensor message type gets assigned which piece of data
 
- 
-
- encoder:
+encoder:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   d     :       "direction"
   p     :       "position"
   v     :       "velocity"
 
- gps:
+gps:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   p     :       "position"
@@ -20,38 +18,38 @@
   gt    :       "gps_time"
   s     :       "sats"
 
- ir_remote:
+ir_remote:
   n     :       "frame_id"
   t     :       "arduino_timestamp" 
   a     :       "address"
   c     :       "command"
   d     :       "data"
 
- mpu:
+mpu:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   i     :       "imu"
   tp    :       "temp"
 
- qmc:
+qmc:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   m     :       "mag"
   h     :       "heading"
   tp    :       "temp"
 
- temperature:
+temperature:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   tp    :       "temp"
 
- tof:
+tof:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   d     :       "range"
   l     :       "intensity"
 
- ultrasonic:
+ultrasonic:
   n     :       "frame_id"
   t     :       "arduino_timestamp"
   d     :       "range"
