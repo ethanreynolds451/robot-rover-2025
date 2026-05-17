@@ -145,21 +145,20 @@ class VehicleSensorStringParser(Node):
         return schema
 
     def build_encodings(self, type_tree, override_tree):
-
         enc = {}
 
         for field, value in type_tree.items():
-
             if field == '__type__':
-                continue  # Skip the internal type annotation
+                continue
 
             if isinstance(value, dict):
-                enc[field] = self.build_encodings(
-                    value,
-                    override_tree.get(field, {})
-                )
+                # Guard against encoding config having a string where a dict is expected
+                sub_override = override_tree.get(field, {})
+                if not isinstance(sub_override, dict):
+                    sub_override = {}
+                enc[field] = self.build_encodings(value, sub_override)
             else:
-                enc[field] = override_tree.get(field, "int")  # default HERE
+                enc[field] = override_tree.get(field, "int")
 
         return enc
     
