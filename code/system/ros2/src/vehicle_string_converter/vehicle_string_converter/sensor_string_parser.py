@@ -101,6 +101,9 @@ class VehicleSensorStringParser(Node):
             10
         )
 
+        # Debug
+        self.get_logger().info(f"ir_remote schema: {self.fields_and_types.get('ir_remote')}")
+
     def resolve_msg_class(self, type_str):
         # Handle ROS2 sequence notation for variable-length arrays e.g. "sequence<pkg/Type>"
         if type_str.startswith("sequence<"):
