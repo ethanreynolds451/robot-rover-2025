@@ -119,13 +119,22 @@ class IRRemoteController(Node):
             addresses = command_mapping.keys()
             # Check for commands that can be triggered by any address
             if 'any' in addresses:
-                if command_mapping['any']['command'] == ir_command or command_mapping['any']['data'] == ir_data:
-                    commands_to_execute.append(command_name)
+                # Using nested if statements to avoid key error for optional fields
+                if 'command' in command_mapping['any']:
+                    if command_mapping['any']['command'] == ir_command:
+                        commands_to_execute.append(command_name)
+                    elif 'data' in command_mapping['any']:
+                        if command_mapping['any']['data'] == ir_data:
+                            commands_to_execute.append(command_name)
             # Check for commands that can only be triggered by a specific address
             if ir_address in addresses:
                 # This command depends on a specific address, so check if the command and data match
-                if command_mapping[ir_address]['command'] == ir_command or command_mapping[ir_address]['data'] == ir_data:
-                    commands_to_execute.append(command_name)
+                if 'command' in command_mapping[ir_address]:
+                    if command_mapping[ir_address]['command'] == ir_command:
+                        commands_to_execute.append(command_name)
+                elif 'data' in command_mapping[ir_address]:
+                    if command_mapping[ir_address]['data'] == ir_data:
+                        commands_to_execute.append(command_name)
 
         if not commands_to_execute:
             self.get_logger().warn(f"Received unrecognized IR command: address {ir_address}, command {ir_command}, data {ir_data}")
@@ -150,9 +159,10 @@ class IRRemoteController(Node):
 
         # Execute the given list of commands by publishing the corresponding control data
         for command in commands:
-
+            if command == 'ignore':
+                continue  # This command is meant to be ignored, so skip it
             # Speed control commands
-            if command.startswith('set_speed_'):
+            elif command.startswith('set_speed_'):
                 speed_value = int(command.split('_')[-1])  # Extract the speed value from the command name
                 self.control_states['drive_power'] = speed_value  # Update the internal state
             elif command.startswith('increment_speed_'):
