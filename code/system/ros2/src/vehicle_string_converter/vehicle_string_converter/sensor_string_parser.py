@@ -102,7 +102,7 @@ class VehicleSensorStringParser(Node):
         )
 
         # Debug
-        self.get_logger().info(f"ir_remote schema: {self.fields_and_types.get('ir_remote')}")
+        # self.get_logger().info(f"ir_remote schema: {self.fields_and_types.get('ir_remote')}")
 
     def resolve_msg_class(self, type_str):
         # Handle ROS2 sequence notation for variable-length arrays e.g. "sequence<pkg/Type>"
@@ -424,7 +424,10 @@ class VehicleSensorStringParser(Node):
         # Now construct the header for the message
         setattr(sensor_data, 'header', self.construct_data_header(sensor_name, sensor_index))
         # Finally mark the sensor as valid since new data was recieved for it
-        setattr(sensor_data, 'is_valid', True)
+        # Make sure it is a ros bool type
+        bool_obj = self.resolve_msg_class('std_msgs/msg/Bool')()  # Create an instance of the Bool message
+        bool_obj.data = True  # Set the data field to True
+        setattr(sensor_data, 'is_valid', bool_obj)
         # Return the full sensor data object for this field
         return sensor_data
 
@@ -466,7 +469,7 @@ class VehicleSensorStringParser(Node):
         # Now cast the value to the appropriate ROS type 
         # Must be updated to handle all types used by custom sensor messages
         try:
-            if ros_type == 'bool':
+            if ros_type.startswith('bool'):
                 return value[0].lower() in ['1', 'true']
             elif ros_type.startswith('int') or ros_type.startswith('uint'):
                 return int(value[0])

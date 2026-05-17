@@ -80,7 +80,7 @@ from urllib import request, response
 # Services
 from std_srvs.srv import Empty
 from std_srvs.srv import SetBool
-from vehicle_interfaces.srv import GetDeviceStatus, GetSerialPort
+from vehicle_interfaces.srv import GetSerialDeviceStatus, GetSerialPort
 
 class SensorSerialInterface(Node):
     def __init__(self):
@@ -106,7 +106,7 @@ class SensorSerialInterface(Node):
         # self.get_logger().info('Topics intitialized')
         # Set up services to manage serial connection
         self.reset_service = self.create_service(Empty, '/vehicle/sensor_serial_interface/reset', self.reset_serial)
-        self.get_status_service = self.create_service(GetDeviceStatus, '/vehicle/sensor_serial_interface/get_status', self.get_status)
+        self.get_status_service = self.create_service(GetSerialDeviceStatus, '/vehicle/sensor_serial_interface/get_status', self.get_status)
         self.set_active_service = self.create_service(SetBool, '/vehicle/sensor_serial_interface/set_active', self.set_active)
         # Debug
         # self.get_logger().info('Serial services intitialized')
