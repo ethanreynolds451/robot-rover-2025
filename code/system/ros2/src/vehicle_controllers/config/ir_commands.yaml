@@ -13,7 +13,7 @@
 # Will be parsd as a list 
 ignore:
   any:
-    command: [717]
+    command: [64]
 
 # For remote AIWA RC-6AS20
 # The buttons are in order left to right, top to bottom
