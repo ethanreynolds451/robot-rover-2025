@@ -1,6 +1,9 @@
 '''
 This node parses string messages from the control board into ControlData messages for use by the rest of the system
 
+Note: this version cannot handle custom data types or special encodings
+If these are added, the code must be updated to work like the sensor parser
+
 Topics
  Subscribes to:
 - /vehicle/control_status_str
@@ -9,6 +12,11 @@ Topics
 - /vehicle/control_status
     - ControlData custom msg type
 
+Parameters: 
+- verbose (bool, default: false)
+    - Whether to log all parsed data in the console
+    - Useful for debugging but a lot of clutter / overhead for normal operation
+
 '''
 
 # Packages for ROS2
@@ -16,7 +24,7 @@ import rclpy
 from rclpy.node import Node
 
 # ROS2 message definitions
-from vehicle_interfaces.msg import ControlData
+from vehicle_interfaces.msg import ControlFeedback
 from std_msgs.msg import String
 
 # Vehicle codes from config files
@@ -29,6 +37,9 @@ class VehicleControlStringParser(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_parser')
         self.get_logger().info('Starting Vehicle Control String Parser Node')
+
+        # Expected execution parameters
+        self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
 
         # Load control and delimiter codes once at startup
         package_share = get_package_share_directory('vehicle_string_converter')
@@ -44,34 +55,31 @@ class VehicleControlStringParser(Node):
             self.get_logger().error(f"Error loading control files; system will be unable to interface with control board: {e}")
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
-            return
-            
+            return         
 
         self.get_logger().info(f"Successfully loaded control codes")
 
-        # Generate reverse mapping from code to name for easy lookup during parsing (roundabout way to do a reverse dict lookup since the codes are not guaranteed to be unique)
-        self.code_to_name = {code: name for name, code in self.control_codes.items()}
-
-        # Subscriber to vehicle control messages
+        # Subscriber to vehicle control update string messages
         self.control_subscriber = self.create_subscription(String, '/vehicle/control_status_str', self.control_callback, 10)
-        # Publisher for string formatted control messages
-        self.control_string_publisher = self.create_publisher(ControlData, '/vehicle/control_status', 10)
+        # Publisher for control data formatted messages
+        self.control_string_publisher = self.create_publisher(ControlFeedback, '/vehicle/control_status', 10)
 
 
     def control_callback(self, msg):
-        # Convert the string message to a ControlData message
+        # Convert the string message to a ControlFeedback message
         control_data = self.convert(msg)
-        # Publish the ControlData message
+        # Publish the ControlFeedback message
         if control_data:  # Only publish if conversion was successful
             self.control_string_publisher.publish(control_data)
-            self.get_logger().info(f"Published control status update: {control_data}")
+            if self.get_parameter('verbose').get_parameter_value().bool_value:
+                self.get_logger().info(f"Published control status update: {control_data}")
         else:
-            self.get_logger().error("Failed to convert control status message to ControlData format")
+            self.get_logger().error("Failed to convert control status message to ControlFeedback format")
 
 
     def convert(self, msg):
-        # Declare output type ControlData
-        control_data = ControlData()
+        # Declare output type ControlFeedback
+        control_data = ControlFeedback()
         # Get the string from the incoming message
         control_string = msg.data
 
@@ -131,22 +139,22 @@ class VehicleControlStringParser(Node):
             self.get_logger().error(f"Invalid control status message format: no valid command strings found")
             return None
         
-        # Convert each piece of data into appropriate datatype and assign it to the corresponding field in the ControlData message
+        # Convert each piece of data into appropriate datatype and assign it to the corresponding field in the ControlFeedback message
         fields_and_types = control_data._fields_and_field_types
         data_parsed = False  # Flag to track if at least one piece of data was successfully parsed
         for next_code, next_data in command_strings.items():
             # Get the corresponding field name from the config file
-            control_name = self.code_to_name.get(next_code)
+            control_name = self.control_codes.get(next_code)
             # Make sure it is a valid control code form config file
             if not control_name:
                 self.get_logger().warn(f"Unrecognized control code '{next_code}' in control status message; skipping this field")
                 continue
-            # Convert the value to the appropriate datatype based on the field type and assign it to the corresponding field in the ControlData message
+            # Convert the value to the appropriate datatype based on the field type and assign it to the corresponding field in the ControlFeedback message
             try: 
                 # Convert the value (from AI IDK if the format is right here)
                 ros_type = fields_and_types.get(control_name, 'string')
                 value = self.string_to_ros_type(next_data, ros_type)
-                # Set the corresponding field in the ControlData message
+                # Set the corresponding field in the ControlFeedback message
                 setattr(control_data, control_name, value)
                 data_parsed = True  # Set the flag to True if at least one piece of data was successfully parsed
             except Exception as e:
@@ -158,7 +166,7 @@ class VehicleControlStringParser(Node):
         
         if not data_parsed:
             self.get_logger().warn("No valid data found in control status message")
-            return None  # Return None if no valid data was parsed, otherwise return the ControlData message
+            return None  # Return None if no valid data was parsed, otherwise return the ControlFeedback message
         
         return control_data
 

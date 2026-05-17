@@ -3,7 +3,7 @@
 # Note: multiple codes can map to the same sensor data field so indecies must be distinguished
 
 # sensor code   :     sensor data field
-  tm            :     "arduino_timestamp"
+  t             :     "arduino_timestamp"
   mpu           :     "mpu"
   qmc           :     "qmc"
   gps           :     "gps"

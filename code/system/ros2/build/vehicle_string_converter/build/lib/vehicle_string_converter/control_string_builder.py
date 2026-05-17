@@ -2,6 +2,8 @@
 This node converts vehicle control mesages to string format for sending over serial
 Important note: this DOES NOT ensure that packets are less than 64 bytes - they must be broken up by the packet manager
 
+Note: this version cannot handle custom data types or special encodings
+
 Topics
  Subscribes to:
 - /vehicle/control
@@ -10,6 +12,10 @@ Topics
 - /vehicle/control_str
     - String
 
+Parameters: 
+- verbose (bool, default: false)
+    - Whether to log all constructed strings in the console
+    - Useful for debugging but a lot of clutter / overhead for normal operation
 '''
 
 # Packages for ROS2
@@ -31,6 +37,9 @@ class VehicleControlStringBuilder(Node):
         super().__init__('vehicle_control_string_builder')
         self.get_logger().info('Starting Vehicle Control String Builder Node')
 
+        # Expected execution parameters
+        self.declare_parameter('verbose', False)  # Whether to log all constructed strings in the console
+
         # Load control and delimiter codes once at startup
         package_share = get_package_share_directory('vehicle_string_converter')
         control_config_path = os.path.join(package_share, 'config', 'control_codes.yaml')
@@ -46,6 +55,9 @@ class VehicleControlStringBuilder(Node):
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
             return
+        
+        # Generate reverse mapping from code to name for easy lookup during parsing (roundabout way to do a reverse dict lookup since the codes are not guaranteed to be unique)
+        self.code_to_name = {code: name for name, code in self.control_codes.items()}
 
         self.get_logger().info(f"Successfully loaded control codes")
 
@@ -64,7 +76,8 @@ class VehicleControlStringBuilder(Node):
             str_msg = String()
             str_msg.data = control_string
             self.control_string_publisher.publish(str_msg)
-            self.get_logger().info(f"Published control string: {control_string}")
+            if self.get_parameter('verbose').get_parameter_value().bool_value:
+                self.get_logger().info(f"Published control string: {control_string}")
         else:
             self.get_logger().error("Failed to convert control message to string format")
 
@@ -80,7 +93,7 @@ class VehicleControlStringBuilder(Node):
         
         # Iterate through each valid command field
         # Note: field names must match in both places!
-        for field, code in self.control_codes.items(): 
+        for field, code in self.code_to_name.items(): 
             try:
                 value = getattr(control_msg, field)  # Get the value from the message using the field name
                 # Handle bool objects by converting to 1 or 0
@@ -89,7 +102,7 @@ class VehicleControlStringBuilder(Node):
 
                 # Will always send all commands, may need to change this in future if more complex data is added to command stream
                 # For now this method makes logic simpler and provides redundancy without adding significantly more processing delay
-                code = self.control_codes.get(field, None)  # Get the corresponding code for the field
+                code = self.code_to_name.get(field, None)  # Get the corresponding code for the field
                 if code:  # Only add to string if a code exists for the field
                     control_string += code                                      # Add the code
                     control_string += self.delimiters.get('field_start', '')    # Add the field start delimiter

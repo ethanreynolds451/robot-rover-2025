@@ -11,6 +11,9 @@ setup.py
 config/control_codes.yaml
 config/delimiters.yaml
 config/sensor_codes.yaml
+config/sensor_encoding.yaml
+config/sensor_fields.yaml
+config/sensor_names.yaml
 resource/vehicle_string_converter
 test/test_copyright.py
 test/test_flake8.py
