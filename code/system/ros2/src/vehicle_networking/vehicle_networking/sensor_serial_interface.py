@@ -216,23 +216,24 @@ class SensorSerialInterface(Node):
     # Serial interface functions
 
     def control_callback(self, msg):
-        # Execute whenever a control command is recieved from annother node
+        # Execute whenever a sensor board control message is recieved from annother node
         if self.get_parameter('active').get_parameter_value().bool_value:
             if self.serial:
                 try:
-                    self.serial.write(msg.data.encode())  # Send control command to control board
+                    self.serial.write(msg.data.encode())  # Send control command to sensor board
                     if self.get_parameter('verbose').get_parameter_value().bool_value:
-                        self.get_logger().info(f'Sent command to control board: {msg.data}')
+                        self.get_logger().info(f'Sent command to sensor board: {msg.data}')
                 except serial.SerialException as e:
-                    self.get_logger().error(f'Failed to send control command with error: {e}')
+                    self.get_logger().error(f'Failed to send sensor board control command with error: {e}')
                     self.close_port()  # Close the port if error encountered
             else: 
-                self.get_logger().warning('Received control command but control board is not connected')
+                self.get_logger().warning('Received control command but sensor board is not connected')
     
     def sensor_data_callback(self, msg):
         # Execute whenever sensor data is recieved from the sensor board
         self.sensor_publisher.publish(msg)  # Publish sensor data to other nodes
-        self.get_logger().info(f'Recieved sensor data from sensor board: {msg.data}')
+        if self.get_parameter('verbose').get_parameter_value().bool_value:
+            self.get_logger().info(f'Recieved sensor data from sensor board: {msg.data}')
 
     # Service callback functions
 
