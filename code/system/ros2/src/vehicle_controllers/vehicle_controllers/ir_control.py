@@ -167,8 +167,6 @@ class IRRemoteController(Node):
         return True
         
     def execute_commands(self, commands):
-        self.previous_control_states = self.control_states.copy()  # Store the current states before executing new commands
-
         # Execute the given list of commands by publishing the corresponding control data
         for command in commands:
             if command == 'ignore':
@@ -234,6 +232,8 @@ class IRRemoteController(Node):
                 self.control_states['drive_power'] = 0
                 # Store the previous speed
                 self.previous_control_states['drive_power'] = self.control_states.get('drive_power', self.control_defaults['drive_power'])  # Store the current speed before coasting
+
+            self.previous_control_states = self.control_states.copy()  # Store the current states before executing new commands
 
         self.send_control()
 
