@@ -115,25 +115,29 @@ class IRRemoteController(Node):
 
         commands_to_execute = []
         for command_name, command_mapping in self.ir_commands.items():
+            # Command name is the name of the command
+            # Command mapping is a dict that maps addresses to command and data values
+
             # First check if the address matches or if command does not depend on address
             addresses = command_mapping.keys()
             # Check for commands that can be triggered by any address
             if 'any' in addresses:
                 # Using nested if statements to avoid key error for optional fields
+                # Use in to handle lists for multi mappìng
                 if 'command' in command_mapping['any']:
-                    if command_mapping['any']['command'] == ir_command:
+                    if ir_command in command_mapping['any']['command']:
                         commands_to_execute.append(command_name)
-                    elif 'data' in command_mapping['any']:
-                        if command_mapping['any']['data'] == ir_data:
-                            commands_to_execute.append(command_name)
+                elif 'data' in command_mapping['any']:
+                    if ir_data in command_mapping['any']['data']:
+                        commands_to_execute.append(command_name)
             # Check for commands that can only be triggered by a specific address
             if ir_address in addresses:
                 # This command depends on a specific address, so check if the command and data match
                 if 'command' in command_mapping[ir_address]:
-                    if command_mapping[ir_address]['command'] == ir_command:
+                    if ir_command in command_mapping[ir_address]['command']:
                         commands_to_execute.append(command_name)
                 elif 'data' in command_mapping[ir_address]:
-                    if command_mapping[ir_address]['data'] == ir_data:
+                    if ir_data in command_mapping[ir_address]['data']:
                         commands_to_execute.append(command_name)
 
         if not commands_to_execute:
@@ -160,6 +164,8 @@ class IRRemoteController(Node):
         # Execute the given list of commands by publishing the corresponding control data
         for command in commands:
             if command == 'ignore':
+                if self.get_parameter('verbose').get_parameter_value().bool_value:
+                    self.get_logger().info(f"Ignoring command: {command}")
                 continue  # This command is meant to be ignored, so skip it
             # Speed control commands
             elif command.startswith('set_speed_'):
