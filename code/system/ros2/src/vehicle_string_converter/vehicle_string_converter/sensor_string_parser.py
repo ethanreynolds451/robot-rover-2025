@@ -212,7 +212,8 @@ class VehicleSensorStringParser(Node):
         # Get the string from the incoming message
         sensor_string = msg.data
 
-        packet_timestamp = None  # Initialize packet timestamp variable
+        # Initialize packet timestamp variable
+        packet_timestamp = None 
 
         # First, check for valid packet delimiters
         start_delimiter = self.delimiters.get('packet_start', '')

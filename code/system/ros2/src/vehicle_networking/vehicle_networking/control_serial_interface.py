@@ -233,7 +233,8 @@ class ControlSerialInterface(Node):
     def status_callback(self, msg):
         # Execute whenever a status update is recieved from the control board
         self.status_publisher.publish(msg)  # Publish status update to other nodes
-        self.get_logger().info(f'Recieved status update from control board: {msg.data}')
+        if self.get_parameter('verbose').get_parameter_value().bool_value:
+            self.get_logger().info(f'Recieved status update from control board: {msg.data}')
 
     # Service callback functions
 
