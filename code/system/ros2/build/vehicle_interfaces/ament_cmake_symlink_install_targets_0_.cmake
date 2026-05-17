@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/libvehicle_interfaces__rosidl_typesupport_fastrtps_c.so" "TARGETS" "vehicle_interfaces__rosidl_typesupport_fastrtps_c" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

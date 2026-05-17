@@ -1,16 +1,1 @@
-[
-  {
-    "name": "control board",
-    "vid": 6790,
-    "pid": 29987,
-    "manufacturer": null,
-    "product": "USB Serial"
-  },
-  {
-    "name": "sensor board",
-    "vid": 9025,
-    "pid": 66,
-    "manufacturer": "Arduino (www.arduino.cc)",
-    "product": null
-  }
-]
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/config/device_identifiers.json

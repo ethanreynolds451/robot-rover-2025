@@ -1,12 +1,1 @@
-// generated from rosidl_generator_cpp/resource/idl.hpp.em
-// generated code does not contain a copyright notice
-
-#ifndef VEHICLE_INTERFACES__MSG__IR_DATA_HPP_
-#define VEHICLE_INTERFACES__MSG__IR_DATA_HPP_
-
-#include "vehicle_interfaces/msg/detail/ir_data__struct.hpp"
-#include "vehicle_interfaces/msg/detail/ir_data__builder.hpp"
-#include "vehicle_interfaces/msg/detail/ir_data__traits.hpp"
-#include "vehicle_interfaces/msg/detail/ir_data__type_support.hpp"
-
-#endif  // VEHICLE_INTERFACES__MSG__IR_DATA_HPP_
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_cpp/vehicle_interfaces/msg/ir_data.hpp

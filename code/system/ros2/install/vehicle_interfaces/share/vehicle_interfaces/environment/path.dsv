@@ -1,1 +1,1 @@
-prepend-non-duplicate-if-exists;PATH;bin
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/ament_cmake_environment_hooks/path.dsv

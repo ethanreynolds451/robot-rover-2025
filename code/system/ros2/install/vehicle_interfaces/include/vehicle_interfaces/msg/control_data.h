@@ -1,12 +1,1 @@
-// generated from rosidl_generator_c/resource/idl.h.em
-// with input from vehicle_interfaces:msg/ControlData.idl
-// generated code does not contain a copyright notice
-
-#ifndef VEHICLE_INTERFACES__MSG__CONTROL_DATA_H_
-#define VEHICLE_INTERFACES__MSG__CONTROL_DATA_H_
-
-#include "vehicle_interfaces/msg/detail/control_data__struct.h"
-#include "vehicle_interfaces/msg/detail/control_data__functions.h"
-#include "vehicle_interfaces/msg/detail/control_data__type_support.h"
-
-#endif  // VEHICLE_INTERFACES__MSG__CONTROL_DATA_H_
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_c/vehicle_interfaces/msg/control_data.h

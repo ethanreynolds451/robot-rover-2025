@@ -1,0 +1,17 @@
+running develop
+running egg_info
+writing vehicle_navigation.egg-info/PKG-INFO
+writing dependency_links to vehicle_navigation.egg-info/dependency_links.txt
+writing entry points to vehicle_navigation.egg-info/entry_points.txt
+writing requirements to vehicle_navigation.egg-info/requires.txt
+writing top-level names to vehicle_navigation.egg-info/top_level.txt
+reading manifest file 'vehicle_navigation.egg-info/SOURCES.txt'
+writing manifest file 'vehicle_navigation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/python3.8/site-packages/site.py
+Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/python3.8/site-packages/vehicle-navigation.egg-link (link to .)
+
+Installed /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation
+running symlink_data
+symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/resource/vehicle_navigation -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/ament_index/resource_index/packages
+symbolically linking /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation

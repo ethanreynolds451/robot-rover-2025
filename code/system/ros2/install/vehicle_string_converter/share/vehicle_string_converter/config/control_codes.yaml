@@ -1,13 +1,1 @@
-# Must exactly match names in ControlData msg
-# Maps from control data field to control code string
-
-# control code  :     control data field
-
-t               :     "arduino_timestamp"
-br              :     "brake"
-rv              :     "drive_reverse"
-srv             :     "steer_reverse"
-su              :     "shift_up"
-sp              :     "drive_power"
-ssp             :     "steer_power"
-fan             :     "fan_speed"
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/config/control_codes.yaml

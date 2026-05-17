@@ -1,2 +1,1 @@
-# Request
-string device
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_cmake/srv/GetSerialDeviceStatus_Request.msg

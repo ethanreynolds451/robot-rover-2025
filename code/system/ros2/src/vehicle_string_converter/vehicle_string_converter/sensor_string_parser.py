@@ -268,14 +268,18 @@ class VehicleSensorStringParser(Node):
             # Convert the value to the appropriate datatype based on the field type and assign it to the corresponding field in the ControlFeedback message
             try: 
                 # Convert and assign to the corresponding SensorData field
-                value = self.construct_sensor_data_field(sensor_name, next_data, packet_timestamp) 
-                field_obj = getattr(sensor_data, sensor_name)
+                value_obj = self.construct_sensor_data_field(sensor_name, next_data, packet_timestamp) 
+                # Get the field for this sensor from the SensorData message
+                sensor_data_field = getattr(sensor_data, sensor_name)
                 if sensor_name in self.array_fields:
-                    field_obj.append(value)
+                    # Appnd the individual sensor reading to its correspoding array of sensors of the same type
+                    sensor_data_field.append(value_obj)
                 else:
-                    setattr(sensor_data, sensor_name, value)
+                    # Directly set the field to the value object if not array type
+                    sensor_data_field = value_obj
+                    # Special case to store arduino timestamp for use in calculating from offsets
                     if sensor_name == "arduino_timestamp":
-                        packet_timestamp = value  # Store the packet timestamp for use in parsing other fields that require it 
+                        packet_timestamp = value_obj  # Store the packet timestamp for use in parsing other fields that require it 
                         # The packet timestamp MUST come before any fields with timestamp offsets  
                 data_parsed = True  # Set the flag to True if at least one piece of data was successfully parsed
             except ValueError as e:
