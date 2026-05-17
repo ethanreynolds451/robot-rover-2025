@@ -33,13 +33,14 @@ From sensor board:
 // t for each sensor is offset from packet timestamp
 // calculated on packet construction, may be off by +- a few ms
 {t[arduino_timestamp]
-mpu[n:index, t:time_offset, a:accel_x;y;z, g:gyro_x;y;z, tp:temp]
-qmc[n, t, mag, head, temp]
-gps[n, t, lat, long, alt, vel, head, time, sats]
-tof[n, t, dist, light]us[n, dist]
-tmp[n, t, temp]
-str[t, dir, pos, spd]
-ir[t:, a:addr, c:cmd, d:data]}
+mpu[n, t, i:accel_x;y;z;gyro_x;y;z, tp:temp]
+qmc[n, t, m:mag, h:head, tp:temp]
+gps[n, t, p:fix_lat;long;alt, v:vel, h:head, gt:time, s:sats]
+tof[n, t, d:dist, l:light]
+us[n, t, d:dist]
+tmp[n, t, tp:temp]
+str[t, d:dir, p:pos, v:spd]
+ir[n, t, a:addr, c:cmd, d:data]}
 
 // Need to finish figuring out the specific data types for each sensor
 {t[1234]mpu[1,10,123:123:123,234:234:234,30]
