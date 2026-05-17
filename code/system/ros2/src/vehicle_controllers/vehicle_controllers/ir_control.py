@@ -253,7 +253,7 @@ class IRRemoteController(Node):
             self.control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
             self.control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
             if self.get_parameter('verbose').get_parameter_value().bool_value:
-                self.get_logger().info(f"Published control command: {control_msg}")
+                self.get_logger().info(f"Updated control message: {self.control_msg}")
         except Exception as e:
             self.get_logger().error(f"Error constructing control message: {e}")
 
