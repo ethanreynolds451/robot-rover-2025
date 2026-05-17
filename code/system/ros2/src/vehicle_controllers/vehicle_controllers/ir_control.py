@@ -59,6 +59,13 @@ class IRRemoteController(Node):
                 self.ir_commands = yaml.safe_load(f)
             with open(control_defaults_path, 'r') as f:
                 self.control_defaults = yaml.safe_load(f)
+                # Convert any command and data values into lists 
+                for command_name, command_mapping in self.ir_commands.items():
+                    for address, params in command_mapping.items():
+                        if 'command' in params and not isinstance(params['command'], list):
+                            params['command'] = [params['command']]
+                        if 'data' in params and not isinstance(params['data'], list):
+                            params['data'] = [params['data']]
         except Exception as e:
             self.get_logger().error(f"Error loading IR config file: {e}")
             raise
