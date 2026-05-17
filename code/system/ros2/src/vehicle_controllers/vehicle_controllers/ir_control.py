@@ -99,8 +99,9 @@ class IRRemoteController(Node):
 
     def sensor_callback(self, msg):
         # When a new sensor message is recieved, process it
+        # msg is a SensorData message
         # Extract the IR data field since that's all that matters here
-        ir_field = msg.get('ir_remote')
+        ir_field = msg.ir_remote[0]  # Assuming only one IR remote data field, adjust if multiple fields are possible
         # First check if it contains valid IR remote data
         if not self.is_valid_ir_data(ir_field):
             self.get_logger().debug(f"Received sensor packet without valid IR data: {msg.data}")
