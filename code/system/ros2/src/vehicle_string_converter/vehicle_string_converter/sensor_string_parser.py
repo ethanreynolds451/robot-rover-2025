@@ -134,7 +134,10 @@ class VehicleSensorStringParser(Node):
         schema = {}
 
         for field, ros_type in msg_class._fields_and_field_types.items():
-            if ros_type.startswith("sequence<"):
+            # Track whether the field is a sequence before stripping the wrapper,
+            # so get_array_fields can correctly identify sequence<CustomMsg> fields
+            is_sequence = ros_type.startswith("sequence<")
+            if is_sequence:
                 base_type = ros_type[len("sequence<"):-1]
             else:
                 base_type = ros_type.split("[")[0]
@@ -144,6 +147,7 @@ class VehicleSensorStringParser(Node):
                     sub_class = self.resolve_msg_class(base_type)
                     expanded = self.expand_schema(sub_class).copy()  # copy to avoid mutating the cache
                     expanded['__type__'] = base_type
+                    expanded['__is_sequence__'] = is_sequence  # Preserve sequence nature through expansion
                     schema[field] = expanded
 
                 except Exception as e:
@@ -159,7 +163,7 @@ class VehicleSensorStringParser(Node):
         enc = {}
 
         for field, value in type_tree.items():
-            if field == '__type__':
+            if field in ('__type__', '__is_sequence__'):  # Skip both internal annotations
                 continue
 
             if isinstance(value, dict):
@@ -178,10 +182,13 @@ class VehicleSensorStringParser(Node):
         array_fields = set()
 
         for field, ros_type in type_tree.items():
-            if field == '__type__':
+            if field in ('__type__', '__is_sequence__'):  # Skip both internal annotations
                 continue
-            # Handle both C-style "[]" notation and ROS2 "sequence<>" notation
+            # Handle both C-style "[]" notation and ROS2 "sequence<>" notation for primitive types
             if isinstance(ros_type, str) and (ros_type.endswith("[]") or ros_type.startswith("sequence<")):
+                array_fields.add(field)
+            # Handle sequence<CustomMsg> fields, which are expanded to dicts but must still be treated as arrays
+            elif isinstance(ros_type, dict) and ros_type.get('__is_sequence__'):
                 array_fields.add(field)
 
         return array_fields
