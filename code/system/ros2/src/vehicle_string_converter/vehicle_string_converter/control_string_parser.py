@@ -163,7 +163,10 @@ class VehicleControlStringParser(Node):
             except ValueError as e:
                 self.get_logger().error(f"Error parsing control status message for {control_name}: {e}")
                 continue  # Skip this field but continue parsing others
-        
+
+        # Timestamp the packet header
+        control_data.header.stamp = self.get_clock().now().to_msg()
+
         if not data_parsed:
             self.get_logger().warn("No valid data found in control status message")
             return None  # Return None if no valid data was parsed, otherwise return the ControlFeedback message
