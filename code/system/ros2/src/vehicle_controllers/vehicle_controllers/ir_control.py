@@ -102,7 +102,8 @@ class IRRemoteController(Node):
         self.hold_speed = False
 
         # Create timer to reset if commands are not held
-        self.create_timer(0.5, self.timeout_callback)
+        self.create_timer(1, self.reset_speed)
+        self.create_timer(0.1, self.reset_steer)  # Timer to reset steering and speed if commands are not held
 
         # Create publisher on 100ms loop to maintain constant communication with control board
         self.create_timer(0.1, self.send_control_callback)
@@ -257,11 +258,12 @@ class IRRemoteController(Node):
         except Exception as e:
             self.get_logger().error(f"Error constructing control message: {e}")
 
-    def timeout_callback(self):
-        self.control_states['steer_power'] = 0
+    def reset_speed(self):
         if not self.hold_speed:
             self.control_states['drive_power'] = 0      
-        # Nothing else needs to be reset              
+
+    def reset_steer(self):
+        self.control_states['steer_power'] = 0
 
     def send_control_callback(self):
         # This callback is used to maintain constant communication with the control board
