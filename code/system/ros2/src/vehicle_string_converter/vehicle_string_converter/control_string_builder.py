@@ -94,6 +94,11 @@ class VehicleControlStringBuilder(Node):
         # Iterate through each valid command field
         # Note: field names must match in both places!
         for field, code in self.code_to_name.items(): 
+            # Check that it is in the corresponding message type
+            if not hasattr(control_msg, field):
+                # Some fields are shared but only relevant to one message type
+                # (really only arduino_timestamp)
+                continue  # Skip this field if it doesn't exist in the message
             try:
                 value = getattr(control_msg, field)  # Get the value from the message using the field name
                 # Handle bool objects by converting to 1 or 0
