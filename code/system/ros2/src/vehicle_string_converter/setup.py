@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'control_string_builder = vehicle_string_converter.vehicle_control_string_builder:main',
             'control_string_parser = vehicle_string_converter.vehicle_control_string_parser:main',
+            'sensor_string_parser = vehicle_string_converter.vehicle_sensor_string_parser:main',
         ],
     },
 )
