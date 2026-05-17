@@ -96,12 +96,16 @@ class IRRemoteController(Node):
 
         # Create internal variables to store states to construct control commands
         # Allows preserving, incrementing, and decrementing
+        self.control_msg = ControlData()  # Initialize an empty control message to store the current states
         self.control_states = {}
         self.previous_control_states = {}
         self.hold_speed = False
 
         # Create timer to reset if commands are not held
         self.create_timer(0.5, self.timeout_callback)
+
+        # Create publisher on 100ms loop to maintain constant communication with control board
+        self.create_timer(0.1, self.send_control_callback)
 
 
     def sensor_callback(self, msg):
@@ -241,19 +245,17 @@ class IRRemoteController(Node):
         # Construct a ControlData message from the current control states and publish it
         # Make sure to convert to proper ROS2 types
         try:
-            control_msg = ControlData()
-            control_msg.brake = self.control_states.get('brake', self.control_defaults['brake'])
-            control_msg.drive_reverse = self.control_states.get('drive_reverse', self.control_defaults['drive_reverse'])
-            control_msg.steer_reverse = self.control_states.get('steer_reverse', self.control_defaults['steer_reverse'])
-            control_msg.shift_up = self.control_states.get('shift_up', self.control_defaults['shift_up'])
-            control_msg.drive_power = self.control_states.get('drive_power', self.control_defaults['drive_power'])
-            control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
-            control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
-            self.control_string_publisher.publish(control_msg)  # Publish the control command to the rest of the system
+            self.control_msg.brake = self.control_states.get('brake', self.control_defaults['brake'])
+            self.control_msg.drive_reverse = self.control_states.get('drive_reverse', self.control_defaults['drive_reverse'])
+            self.control_msg.steer_reverse = self.control_states.get('steer_reverse', self.control_defaults['steer_reverse'])
+            self.control_msg.shift_up = self.control_states.get('shift_up', self.control_defaults['shift_up'])
+            self.control_msg.drive_power = self.control_states.get('drive_power', self.control_defaults['drive_power'])
+            self.control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
+            self.control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
             if self.get_parameter('verbose').get_parameter_value().bool_value:
                 self.get_logger().info(f"Published control command: {control_msg}")
         except Exception as e:
-            self.get_logger().error(f"Error constructing or publishing control message: {e}")
+            self.get_logger().error(f"Error constructing control message: {e}")
 
     def timeout_callback(self):
         self.control_states['steer_power'] = 0
@@ -261,6 +263,13 @@ class IRRemoteController(Node):
             self.control_states['drive_power'] = 0      
         # Nothing else needs to be reset              
 
+    def send_control_callback(self):
+        # This callback is used to maintain constant communication with the control board
+        # It will resend the last command at a regular interval, even if no new commands are recieved
+        try:
+            self.control_string_publisher.publish(self.control_msg)  # Publish the control command to the rest of the system
+        except Exception as e:
+            self.get_logger().error(f"Error publishing control message: {e}")
 
 def main(args=None):
     rclpy.init(args=args)
