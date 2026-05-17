@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'ir_control = vehicle_controllers.ir_control:main',
         ],
     },
 )
