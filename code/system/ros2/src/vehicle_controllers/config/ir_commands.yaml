@@ -115,14 +115,14 @@ toggle_hold_speed:
 
 # reset:
 # Replace broken button
-toggle__shift:
+toggle_shift:
   any:
     data: 900
 
-increment_speed_up-10:
+increment_speed_down-10:
   any:
     data: 709
 
-increment_speed_down-10:
+increment_speed_up-10:
   any:
     data: 713
