@@ -569,10 +569,10 @@ def main(args=None):
     rclpy.init(args=args)
     try:
         node = VehicleSensorStringParser()
-    except Exception:
+    except Exception as e:
+        print(f"Failed to initialize node: {e}")  # print since logger may not be available
         rclpy.shutdown()
         return  
-        # Exit cleanly without spinning if there is an error durring initialization
     try:
         rclpy.spin(node)
     finally:
