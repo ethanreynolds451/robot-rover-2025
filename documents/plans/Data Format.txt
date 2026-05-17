@@ -34,7 +34,7 @@ From sensor board:
 // calculated on packet construction, may be off by +- a few ms
 {t[arduino_timestamp]
 mpu[n, t, i:accel_x;y;z;gyro_x;y;z, tp:temp]
-qmc[n, t, m:mag, h:head, tp:temp]
+qmc[n, t, m:mag_x;y;z, h:head, tp:temp]
 gps[n, t, p:fix_lat;long;alt, v:vel, h:head, gt:time, s:sats]
 tof[n, t, d:dist, l:light]
 us[n, t, d:dist]

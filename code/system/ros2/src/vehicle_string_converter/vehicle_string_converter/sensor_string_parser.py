@@ -64,8 +64,7 @@ class VehicleSensorStringParser(Node):
             self.get_logger().error(
                 f"Error loading sensor files; system will be unable to interface with sensor board: {e}"
             )
-            rclpy.shutdown()
-            return
+            raise  # Re-raise so main() knows initialization failed
 
         self.get_logger().info("Successfully loaded sensor codes")
 
@@ -76,7 +75,7 @@ class VehicleSensorStringParser(Node):
         self.fields_and_types = self.expand_schema(SensorData)
 
         # Store the higher level data field names for access during parsing
-        self.sensor_data_fields = list(self.fields_and_types.keys())
+        self.sensor_data_fields = [f for f in self.fields_and_types.keys() if f != '__type__']
 
         # Build encoding mapping that matches the data types structure
         self.fields_and_encodings = self.build_encodings(
@@ -112,7 +111,6 @@ class VehicleSensorStringParser(Node):
         return getattr(module, msg)
 
     def expand_schema(self, msg_class):
-
         msg_name = msg_class.__name__
 
         if msg_name in self._schema_cache:
@@ -121,23 +119,21 @@ class VehicleSensorStringParser(Node):
         schema = {}
 
         for field, ros_type in msg_class._fields_and_field_types.items():
-
             base_type = ros_type.replace("[]", "")
 
-            if "/" in base_type:  # nested message
+            if "/" in base_type:
                 try:
                     sub_class = self.resolve_msg_class(base_type)
-
-                    schema[field] = self.expand_schema(sub_class)
+                    expanded = self.expand_schema(sub_class)
+                    # Preserve the original type string for later use
+                    expanded['__type__'] = base_type
+                    schema[field] = expanded
 
                 except Exception as e:
-                    self.get_logger().warn(
-                        f"Failed to resolve nested type '{base_type}': {e}"
-                    )
+                    self.get_logger().warn(f"Failed to resolve nested type '{base_type}': {e}")
                     schema[field] = ros_type
-
             else:
-                schema[field] = ros_type  # primitive
+                schema[field] = ros_type
 
         self._schema_cache[msg_name] = schema
         return schema
@@ -147,6 +143,9 @@ class VehicleSensorStringParser(Node):
         enc = {}
 
         for field, value in type_tree.items():
+
+            if field == '__type__':
+                continue  # Skip the internal type annotation
 
             if isinstance(value, dict):
                 enc[field] = self.build_encodings(
@@ -159,27 +158,14 @@ class VehicleSensorStringParser(Node):
         return enc
     
 
-    def get_array_fields(self, msg_class):
-        array_fields = {}
+    def get_array_fields(self, type_tree):
+        array_fields = set()
 
-        for field, ros_type in msg_class._fields_and_field_types.items():
-
-            base_type = ros_type.replace("[]", "")
-
-            if "/" in base_type:
-                # nested message
-                sub_class = self.resolve_msg_class(base_type)
-                sub_arrays = self.build_array_field_set(sub_class)
-
-                for k in sub_arrays:
-                    array_fields[f"{field}.{k}"] = True
-
-            else:
-                if ros_type.endswith("[]"):
-                    array_fields[field] = True
+        for field, ros_type in type_tree.items():
+            if isinstance(ros_type, str) and ros_type.endswith("[]"):
+                array_fields.add(field)
 
         return array_fields
-
 
 
     def sensor_callback(self, msg):
@@ -281,11 +267,11 @@ class VehicleSensorStringParser(Node):
                         packet_timestamp = value  # Store the packet timestamp for use in parsing other fields that require it 
                         # The packet timestamp MUST come before any fields with timestamp offsets  
                 data_parsed = True  # Set the flag to True if at least one piece of data was successfully parsed
-            except Exception as e:
-                self.get_logger().error(f"Error converting value for {sensor_name}: {e}")
-                continue  # Skip this field but continue parsing others
             except ValueError as e:
                 self.get_logger().error(f"Error parsing sensor data message for {sensor_name}: {e}")
+                continue  # Skip this field but continue parsing others
+            except Exception as e:
+                self.get_logger().error(f"Error converting value for {sensor_name}: {e}")
                 continue  # Skip this field but continue parsing others
         
         if not data_parsed:
@@ -316,19 +302,19 @@ class VehicleSensorStringParser(Node):
             # Parse the internal fields into a dict
             while data_str:
                 # The code runs up to but not including the next data start delimiter
-                split_index_start = sensor_string.find(value_delimiter)
+                split_index_start = data_str.find(value_delimiter)
                 if split_index_start == -1:
                     break  # No more data start delimiters, exit the loop
                 split_index_end = split_index_start + len(value_delimiter)
-                end_index = sensor_string.find(key_delimiter, split_index_end)
+                end_index = data_str.find(key_delimiter, split_index_end)
                 # There might not be a comma after the last field, so if there isn't just take the rest of the string
                 if end_index == -1:
-                    end_index = len(sensor_string) 
+                    end_index = len(data_str)  # Set end index to the end of the string minus the length of the delimiter to avoid edge case where delimiter is missing at the end of the string
                 
                 # Get the next code and data substrings and store them in the command_strings dict
-                next_code = sensor_string[:split_index_start]  # Get the substring before the next data start delimiter
+                next_code = data_str[:split_index_start]  # Get the substring before the next data start delimiter
                 next_code = next_code.strip()  # Remove any leading/trailing whitespace from the code  
-                next_data = sensor_string[split_index_end:end_index]  # Get the substring after the next data start delimiter
+                next_data = data_str[split_index_end:end_index]  # Get the substring after the next data start delimiter
 
                 # Only store if a code is present
                 if not next_code:
@@ -345,7 +331,10 @@ class VehicleSensorStringParser(Node):
                         data_strings[next_code] = next_data_list  # Store the code and its corresponding data substring
                 
                 # Strip the processed part of the string for the next iteration
-                sensor_string = sensor_string[end_index + len(key_delimiter):]
+                if end_index != -1:
+                    data_str = data_str[end_index + len(key_delimiter):]
+                else:
+                    break  # No more key delimiters, exit the loop
                 
             # Once the data has been parsed, construct the nested message object
             return self.construct_sensor_object(sensor_name, data_strings, packet_timestamp)
@@ -357,7 +346,18 @@ class VehicleSensorStringParser(Node):
         # Handles recursive parsing of nested message types for sensor data fields
 
         # First, create an instance of the nested message type
-        type = self.resolve_msg_class(self.fields_and_types[sensor_name])
+        # Primative data types should be automatically hatndled outside this function but just in case        
+        if not isinstance(self.fields_and_types.get(sensor_name), dict):
+            self.get_logger().error(f"Invalid schema for sensor '{sensor_name}': expected a nested message type but got a primitive type")
+            return None
+        
+        type_str = self.fields_and_types[sensor_name].get('__type__')
+        
+        if not type_str:
+            self.get_logger().error(f"No type string found for sensor '{sensor_name}'")
+            return None
+        
+        type = self.resolve_msg_class(type_str)
         sensor_data = type()
         sensor_index = None
         # Then parse the data from the nested message and assign it to appropriate fields
@@ -369,7 +369,10 @@ class VehicleSensorStringParser(Node):
                 continue
             if field_name == "frame_id":
                 # Special case to handle frame ID assignment
-                sensor_index = field_value  # Store the frame ID for use in header construction laters
+                sensor_index = field_value[0]  # Store the frame ID for use in header construction laters
+                continue  # Don't try to assign this field to the message since it is only used for header construction later
+            elif field_name == '__type__':
+                continue  # Skip internal type annotation
             elif field_name not in self.fields_and_types.get(sensor_name, {}):
                 self.get_logger().warn(f"Field '{field_name}' for sensor '{sensor_name}' not found in message schema; skipping this field")
                 continue
@@ -377,21 +380,30 @@ class VehicleSensorStringParser(Node):
             try:
                 value = self.string_to_ros_type(sensor_name, field_value, field_name, packet_timestamp)
                 setattr(sensor_data, field_name, value)
-            except Exception as e:
-                self.get_logger().error(f"Error converting value for {sensor_name}.{field_name}: {e}")
-                continue  # Skip this field but continue parsing others
             except ValueError as e:
                 self.get_logger().error(f"Error parsing sensor data message for {sensor_name}.{field_name}: {e}")
                 continue  # Skip this field but continue parsing others
-        
+            except Exception as e:
+                self.get_logger().error(f"Error converting value for {sensor_name}.{field_name}: {e}")
+                continue  # Skip this field but continue parsing others
+
+
+        # Note: this assumes that every custom sensor message has a header field and is_valid flag
+
         # Now construct the header for the message
         setattr(sensor_data, 'header', self.construct_data_header(sensor_name, sensor_index))
+        # Finally mark the sensor as valid since new data was recieved for it
+        setattr(sensor_data, 'is_valid', True)
         # Return the full sensor data object for this field
         return sensor_data
 
 
     # This function must be updated to handle each datatype possible in a message
     def string_to_ros_type(self, sensor_name, value, sensor_field = None, packet_timestamp = None):
+
+        # Convert the value to a list if not already
+        if not isinstance(value, list):
+            value = [value]
 
         # Get the target ros type for this field from the schema mapping
         if sensor_field:
@@ -421,25 +433,59 @@ class VehicleSensorStringParser(Node):
             value = self.convert_encoding(value, encoding, ros_type, packet_timestamp)
 
         # Now cast the value to the appropriate ROS type 
+        # Must be updated to handle all types used by custom sensor messages
         try:
-            if ros_type == 'boolean':
-                return value.lower() in ['1', 'true']
+            if ros_type == 'bool':
+                return value[0].lower() in ['1', 'true']
             elif ros_type.startswith('int') or ros_type.startswith('uint'):
-                return int(value)
+                return int(value[0])
             elif ros_type.startswith('float'):
-                return float(value)
+                return float(value[0])
             elif ros_type == 'string':
-                return value
+                return value[0]
+            elif "/" in ros_type:
+                # Handle custom message types
+                obj = self.resolve_msg_class(ros_type)()  # Create an instance of the custom message
+                if ros_type == 'sensor_msgs/NavSatFix':
+                    # Handle NavSatFix type conversion
+                    obj.latitude = float(value[0])  # Assuming the latitude is the first value in the list
+                    obj.longitude = float(value[1])  # Assuming the longitude is the second value in
+                    obj.altitude = float(value[2])  # Assuming the altitude is the third value in the list
+                elif ros_type == 'sensor_msgs/Imu':
+                    # Handle Imu type conversion
+                    obj.linear_acceleration.x = float(value[0])  # Assuming the linear acceleration x is the first value in the list
+                    obj.linear_acceleration.y = float(value[1])  # Assuming the linear acceleration y is
+                    obj.linear_acceleration.z = float(value[2])  # Assuming the linear acceleration z is the third value in the list
+                    obj.angular_velocity.x = float(value[3])  # Assuming the angular velocity x is the fourth value in the list
+                    obj.angular_velocity.y = float(value[4])  # Assuming the angular velocity y is the fifth value in the list
+                    obj.angular_velocity.z = float(value[5])  # Assuming the angular velocity z is the sixth value in the list
+                elif ros_type == 'sensor_msgs/Temperature':
+                    # Handle Temperature type conversion
+                    obj.temperature = float(value[0])  # Assuming the temperature is the only value in the list
+                elif ros_type == 'sensor_msgs/MagneticField':
+                    # Handle MagneticField type conversion
+                    obj.magnetic_field.x = float(value[0])  # Assuming the magnetic field x is the first value in the list
+                    obj.magnetic_field.y = float(value[1])  # Assuming the magnetic field y
+                    obj.magnetic_field.z = float(value[2])  # Assuming the magnetic field z is the third value in the list
+                elif ros_type == 'sensor_msgs/Range':
+                    obj.range = float(value[0])  # Assuming the range is the only value in the list
+                    # Handle Range type conversion
+                    pass
+                else:
+                    self.get_logger().warn(f"Unknown type '{ros_type}', treating as string")
+                    return value[0]
+                return obj
             else:
                 self.get_logger().warn(f"Unknown type '{ros_type}', treating as string")
-                return value
+                return value[0]
+            
         except Exception as e:
             self.get_logger().error(f"Failed to convert '{value}' to {ros_type}: {e}")
             return None
         
     def convert_encoding(self, values, encoding, ros_type, packet_timestamp=None):
         # This function handles the conversion of special encodings to their decoded string values based on the specified encoding type and target ROS type
-        
+        new_values = []
         # Increment through the list 
         for value in values:
             try:
@@ -448,37 +494,45 @@ class VehicleSensorStringParser(Node):
                     raw_value = int(value, 16)
                     if encoding.startswith("hex_float"):
                         multiplier = int(''.join(filter(str.isdigit, encoding)))  # extracts the number from the encoding, e.g. 2 from "hex_float_2"
-                        value = raw_value / multiplier  # Convert to float by dividing by the multiplier
+                        new_values.append(raw_value / multiplier)  # Convert to float by dividing by the multiplier
                     elif encoding == "hex":
                         if ros_type.startswith('uint'):
-                            value = raw_value
+                            new_values.append(raw_value)
                         elif ros_type.startswith('int'):
                             bits = int(''.join(filter(str.isdigit, ros_type)))  # extracts 16, 32, etc.
                             sign_bit = 1 << (bits - 1)
                             mask = (1 << bits) - 1
                             raw_value = raw_value & mask  # ensure width
-                            value = raw_value - (1 << bits) if (raw_value & sign_bit) else raw_value
+                            new_values.append(raw_value - (1 << bits) if (raw_value & sign_bit) else raw_value)
                         else:
                             self.get_logger().warn(f"Hex encoding specified for non-integer ROS type '{ros_type}'; treating as string")
-                            value = value  # Keep as string if target type isn't int/uint
+                            new_values.append(value)  # Keep as string if target type isn't int/uint
                     elif encoding == "hex_timestamp_offset":
                         # The sensor will always have been read before the packet was constucted
                         # If this is negative, it indicates an error
-                        value = packet_timestamp - raw_value 
+                        if packet_timestamp is not None:
+                            new_values.append(packet_timestamp - raw_value)
+                        else:
+                            self.get_logger().warn(f"Packet timestamp not available for field with 'hex_timestamp_offset' encoding; treating value as regular hex")
+                            new_values.append(raw_value)  # Keep as raw hex value if timestamp isn't available
                     else:
                         self.get_logger().warn(f"Unknown hex encoding variant '{encoding}'; treating as string")
-                        value = value  # Keep as string if unknown hex encoding
+                        new_values.append(value)  # Keep as string if unknown hex encoding
 
-                if encoding == "unsigned_direction":
+                elif encoding == "unsigned_direction":
                     # -1 is reverse, 0 is stopped, 1 is forward
                     # Converted to unsiged int for transmission by adding 1
-                    value = int(value) - 1
+                    new_values.append(int(value) - 1)
+
+                else:
+                    self.get_logger().warn(f"Unknown encoding '{encoding}'; treating as string")
+                    new_values.append(value)  # Keep as string if unknown encoding
 
             except Exception as e:
                 self.get_logger().error(f"Failed to convert '{value}' with encoding '{encoding}': {e}")
-                value = None  # Set to None if conversion fails
+                new_values.append(value)  # Keep the original value if conversion fails
 
-        return values
+        return new_values
 
 
     def construct_data_header(self, sensor_name, sensor_index=None):
@@ -502,7 +556,14 @@ class VehicleSensorStringParser(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = VehicleSensorStringParser()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        node = VehicleSensorStringParser()
+    except Exception:
+        rclpy.shutdown()
+        return  
+        # Exit cleanly without spinning if there is an error durring initialization
+    try:
+        rclpy.spin(node)
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
