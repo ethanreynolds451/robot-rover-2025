@@ -301,6 +301,8 @@ class VehicleSensorStringParser(Node):
             self.get_logger().warn("No valid data found in sensor data message")
             return None  # Return None if no valid data was parsed, otherwise return the ControlFeedback message
         
+        self.get_logger().info(f"Successfully parsed sensor data message: {sensor_data}")
+
         return sensor_data
 
 
