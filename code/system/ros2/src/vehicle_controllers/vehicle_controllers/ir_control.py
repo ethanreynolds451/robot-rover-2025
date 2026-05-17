@@ -238,17 +238,21 @@ class IRRemoteController(Node):
 
     def send_control(self):
         # Construct a ControlData message from the current control states and publish it
-        control_msg = ControlData()
-        control_msg.brake = self.control_states.get('brake', self.control_defaults['brake'])
-        control_msg.drive_reverse = self.control_states.get('drive_reverse', self.control_defaults['drive_reverse'])
-        control_msg.steer_reverse = self.control_states.get('steer_reverse', self.control_defaults['steer_reverse'])
-        control_msg.shift_up = self.control_states.get('shift_up', self.control_defaults['shift_up'])
-        control_msg.drive_power = self.control_states.get('drive_power', self.control_defaults['drive_power'])
-        control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
-        control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
-        self.sensor_string_publisher.publish(control_msg)  # Publish the control command to the rest of the system
-        if self.get_parameter('verbose').get_parameter_value().bool_value:
-            self.get_logger().info(f"Published control command: {control_msg}")
+        # Make sure to convert to proper ROS2 types
+        try:
+            control_msg = ControlData()
+            control_msg.brake = self.control_states.get('brake', self.control_defaults['brake'])
+            control_msg.drive_reverse = self.control_states.get('drive_reverse', self.control_defaults['drive_reverse'])
+            control_msg.steer_reverse = self.control_states.get('steer_reverse', self.control_defaults['steer_reverse'])
+            control_msg.shift_up = self.control_states.get('shift_up', self.control_defaults['shift_up'])
+            control_msg.drive_power = self.control_states.get('drive_power', self.control_defaults['drive_power'])
+            control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
+            control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
+            self.sensor_string_publisher.publish(control_msg)  # Publish the control command to the rest of the system
+            if self.get_parameter('verbose').get_parameter_value().bool_value:
+                self.get_logger().info(f"Published control command: {control_msg}")
+        except Exception as e:
+            self.get_logger().error(f"Error constructing or publishing control message: {e}")
 
     def timeout_callback(self):
         self.control_states['steer_power'] = 0
