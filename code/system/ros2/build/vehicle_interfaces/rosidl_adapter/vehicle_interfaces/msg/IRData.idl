@@ -1,0 +1,32 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from vehicle_interfaces/msg/IRData.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Bool.idl"
+#include "std_msgs/msg/Header.idl"
+
+module vehicle_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      " Custom for remote control IR sensor")
+    struct IRData {
+      std_msgs::msg::Header header;
+
+      std_msgs::msg::Bool is_valid;
+
+      uint32 arduino_timestamp;
+
+      @verbatim (language="comment", text=
+        " device address")
+      uint16 address;
+
+      @verbatim (language="comment", text=
+        " command/button code")
+      uint16 command;
+
+      @verbatim (language="comment", text=
+        " full raw packet")
+      uint32 data;
+    };
+  };
+};

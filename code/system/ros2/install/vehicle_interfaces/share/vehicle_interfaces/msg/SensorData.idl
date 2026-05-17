@@ -1,0 +1,72 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from vehicle_interfaces/msg/SensorData.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+#include "vehicle_interfaces/msg/EncoderData.idl"
+#include "vehicle_interfaces/msg/GPSData.idl"
+#include "vehicle_interfaces/msg/IRData.idl"
+#include "vehicle_interfaces/msg/MPUData.idl"
+#include "vehicle_interfaces/msg/QMCData.idl"
+#include "vehicle_interfaces/msg/TemperatureData.idl"
+#include "vehicle_interfaces/msg/ToFData.idl"
+#include "vehicle_interfaces/msg/UltrasonicData.idl"
+
+module vehicle_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      " This is a combined message for raw data from all the sensors" "\n"
+      " It is used by the translator node to convert serial string to sensor information")
+    struct SensorData {
+      @verbatim (language="comment", text=
+        " Sensor String:  {mpu[n, accel, gyro, temp]" "\n"
+        "                  qmc[n, mag, head, temp]" "\n"
+        "                  gps[n, lat, long, alt, vel, head, time, sats]" "\n"
+        "                  tof[n, dist, light]" "\n"
+        "                  us[n, dist]" "\n"
+        "                  tmp[n, temp]" "\n"
+        "                  str[dir, pos, spd]" "\n"
+        "                  ir[addr, cmd, data]}" "\n"
+        " Has been updated, need to change" "\n"
+        " One field for each type of sensor, the actual sensor is tracked using Frame ID for each instance" "\n"
+        " When the packet was processed by node")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        " Arduino board system time in millis")
+      uint32 arduino_timestamp;
+
+      @verbatim (language="comment", text=
+        " Internal MPU6050 IMU(s)")
+      sequence<vehicle_interfaces::msg::MPUData> mpu;
+
+      @verbatim (language="comment", text=
+        " Internal QMC5583P magnetometer(s)")
+      sequence<vehicle_interfaces::msg::QMCData> qmc;
+
+      @verbatim (language="comment", text=
+        " One GPS unit used")
+      sequence<vehicle_interfaces::msg::GPSData> gps;
+
+      @verbatim (language="comment", text=
+        " Distance and light intensity")
+      sequence<vehicle_interfaces::msg::ToFData> tof;
+
+      @verbatim (language="comment", text=
+        " Raw distance readings")
+      sequence<vehicle_interfaces::msg::UltrasonicData> ultrasonic;
+
+      @verbatim (language="comment", text=
+        " Calculated temperatre from thermistor / voltage divider")
+      sequence<vehicle_interfaces::msg::TemperatureData> temperature;
+
+      @verbatim (language="comment", text=
+        " Raw data from Arduino encoder library")
+      sequence<vehicle_interfaces::msg::EncoderData> encoder;
+
+      @verbatim (language="comment", text=
+        " From remote control IR sensor")
+      sequence<vehicle_interfaces::msg::IRData> ir_remote;
+    };
+  };
+};
