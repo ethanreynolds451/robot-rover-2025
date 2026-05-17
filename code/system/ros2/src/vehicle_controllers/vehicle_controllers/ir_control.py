@@ -103,7 +103,7 @@ class IRRemoteController(Node):
 
         # Create timer to reset if commands are not held
         self.create_timer(1, self.reset_speed)
-        self.create_timer(0.1, self.reset_steer)  # Timer to reset steering and speed if commands are not held
+        self.create_timer(0.5, self.reset_steer)  # Timer to reset steering and speed if commands are not held
 
         # Create publisher on 100ms loop to maintain constant communication with control board
         self.create_timer(0.1, self.send_control_callback)
