@@ -123,17 +123,15 @@ class VehicleSensorStringParser(Node):
         schema = {}
 
         for field, ros_type in msg_class._fields_and_field_types.items():
-            # Normalize array notations to get the base type
             if ros_type.startswith("sequence<"):
-                base_type = ros_type[len("sequence<"):-1]  # Strip "sequence<" and ">"
+                base_type = ros_type[len("sequence<"):-1]
             else:
-                base_type = ros_type.split("[")[0]  # Handles both "[]" and "[N]" fixed-size arrays
+                base_type = ros_type.split("[")[0]
 
             if "/" in base_type:
                 try:
                     sub_class = self.resolve_msg_class(base_type)
-                    expanded = self.expand_schema(sub_class)
-                    # Preserve the original type string for later use
+                    expanded = self.expand_schema(sub_class).copy()  # copy to avoid mutating the cache
                     expanded['__type__'] = base_type
                     schema[field] = expanded
 
