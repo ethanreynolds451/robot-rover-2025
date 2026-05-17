@@ -167,6 +167,7 @@ class IRRemoteController(Node):
         return True
         
     def execute_commands(self, commands):
+        self.previous_control_states = self.control_states.copy()  # Store the current states before executing new commands
 
         # Execute the given list of commands by publishing the corresponding control data
         for command in commands:
@@ -255,7 +256,6 @@ class IRRemoteController(Node):
             self.get_logger().error(f"Error constructing or publishing control message: {e}")
 
     def timeout_callback(self):
-        self.previous_control_states = self.control_states.copy()  # Store the current states before resetting
         self.control_states['steer_power'] = 0
         if not self.hold_speed:
             self.control_states['drive_power'] = 0      
