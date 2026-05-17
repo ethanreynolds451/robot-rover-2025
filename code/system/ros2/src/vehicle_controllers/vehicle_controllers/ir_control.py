@@ -248,7 +248,7 @@ class IRRemoteController(Node):
             control_msg.drive_power = self.control_states.get('drive_power', self.control_defaults['drive_power'])
             control_msg.steer_power = self.control_states.get('steer_power', self.control_defaults['steer_power'])
             control_msg.fan_speed = self.control_states.get('fan_speed', self.control_defaults['fan_speed'])
-            self.sensor_string_publisher.publish(control_msg)  # Publish the control command to the rest of the system
+            self.control_string_publisher.publish(control_msg)  # Publish the control command to the rest of the system
             if self.get_parameter('verbose').get_parameter_value().bool_value:
                 self.get_logger().info(f"Published control command: {control_msg}")
         except Exception as e:
