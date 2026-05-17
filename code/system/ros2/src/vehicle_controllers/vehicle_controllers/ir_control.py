@@ -114,7 +114,7 @@ class IRRemoteController(Node):
         ir_data = ir_field.data
 
         commands_to_execute = []
-        for command_name, command_mapping in self.ir_commands.items_():
+        for command_name, command_mapping in self.ir_commands.items():
             # First check if the address matches or if command does not depend on address
             addresses = command_mapping.keys()
             # Check for commands that can be triggered by any address
