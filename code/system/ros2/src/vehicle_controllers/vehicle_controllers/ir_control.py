@@ -51,7 +51,7 @@ class IRRemoteController(Node):
         self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
 
         # Load codes, delimiters, internalh fields, and special encoding parameters once at startup
-        package_share = get_package_share_directory('vehicle_string_converter')
+        package_share = get_package_share_directory('vehicle_controllers')
         ir_config_path = os.path.join(package_share, 'config', 'ir_commands.yaml')
         control_defaults_path = os.path.join(package_share, 'config', 'control_defaults.yaml')
 
