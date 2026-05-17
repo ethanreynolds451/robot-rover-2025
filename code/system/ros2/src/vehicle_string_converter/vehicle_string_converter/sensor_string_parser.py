@@ -112,7 +112,15 @@ class VehicleSensorStringParser(Node):
         # Handle fixed-size array notation e.g. "pkg/Type[4]" or "pkg/Type[]"
         type_str = type_str.split("[")[0]
 
-        pkg, msg = type_str.split("/")
+        # Handle both ROS2 Humble+ format (pkg/msg/Type) and older format (pkg/Type)
+        parts = type_str.split("/")
+        if len(parts) == 3:
+            pkg, _, msg = parts  # Discard the middle "msg" component
+        elif len(parts) == 2:
+            pkg, msg = parts
+        else:
+            raise ValueError(f"Unexpected type string format: '{type_str}'")
+
         module = importlib.import_module(f"{pkg}.msg")
 
         return getattr(module, msg)
