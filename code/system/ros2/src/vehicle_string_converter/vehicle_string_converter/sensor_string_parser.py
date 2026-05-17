@@ -277,14 +277,14 @@ class VehicleSensorStringParser(Node):
             try: 
                 # Convert and assign to the corresponding SensorData field
                 value_obj = self.construct_sensor_data_field(sensor_name, next_data, packet_timestamp) 
-                # Get the field for this sensor from the SensorData message
-                sensor_data_field = getattr(sensor_data, sensor_name)
                 if sensor_name in self.array_fields:
                     # Appnd the individual sensor reading to its correspoding array of sensors of the same type
-                    sensor_data_field.append(value_obj)
+                    field_obj = getattr(sensor_data, sensor_name)
+                    field_obj.append(value_obj)
+                    setattr(sensor_data, sensor_name, field_obj)
                 else:
                     # Directly set the field to the value object if not array type
-                    sensor_data_field = value_obj
+                    setattr(sensor_data, sensor_name, value_obj)
                     # Special case to store arduino timestamp for use in calculating from offsets
                     if sensor_name == "arduino_timestamp":
                         packet_timestamp = value_obj  # Store the packet timestamp for use in parsing other fields that require it 
@@ -297,6 +297,9 @@ class VehicleSensorStringParser(Node):
                 self.get_logger().error(f"Error converting value for {sensor_name}: {e}")
                 continue  # Skip this field but continue parsing others
         
+        # Finally timestamp the message in its header
+        sensor_data.header.stamp = self.get_clock().now().to_msg()
+
         if not data_parsed:
             self.get_logger().warn("No valid data found in sensor data message")
             return None  # Return None if no valid data was parsed, otherwise return the ControlFeedback message
