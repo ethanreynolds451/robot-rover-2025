@@ -1,0 +1,19 @@
+[0.983s] Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/build --no-deps symlink_data
+[1.364s] running develop
+[1.586s] running egg_info
+[1.586s] writing vehicle_string_converter.egg-info/PKG-INFO
+[1.587s] writing dependency_links to vehicle_string_converter.egg-info/dependency_links.txt
+[1.587s] writing entry points to vehicle_string_converter.egg-info/entry_points.txt
+[1.587s] writing requirements to vehicle_string_converter.egg-info/requires.txt
+[1.587s] writing top-level names to vehicle_string_converter.egg-info/top_level.txt
+[1.636s] reading manifest file 'vehicle_string_converter.egg-info/SOURCES.txt'
+[1.638s] writing manifest file 'vehicle_string_converter.egg-info/SOURCES.txt'
+[1.692s] running build_ext
+[1.692s] Creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages/vehicle-string-converter.egg-link (link to .)
+[1.694s] Installing control_string_builder script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/vehicle_string_converter
+[1.694s] Installing control_string_parser script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/vehicle_string_converter
+[1.694s] Installing sensor_string_parser script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/vehicle_string_converter
+[1.695s] 
+[1.695s] Installed /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter
+[1.695s] running symlink_data
+[1.740s] Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/build --no-deps symlink_data
