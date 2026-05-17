@@ -1,6 +1,0 @@
-# Request
-string device
----
-# Response
-string port
-bool connected

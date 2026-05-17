@@ -2,13 +2,14 @@
 # Maps from sensor code string to sensor data field
 # Note: multiple codes can map to the same sensor data field so indecies must be distinguished
 
-# sensor code   :     sensor data field
-  t             :     "arduino_timestamp"
-  mpu           :     "mpu"
-  qmc           :     "qmc"
-  gps           :     "gps"
-  tof           :     "tof"
-  us            :     "ultrasonic"
-  tmp           :     "temperature"
-  str           :     "encoder"
-  ir            :     "ir_remote"
+# sensor code :     sensor data field
+
+t             :     "arduino_timestamp"
+mpu           :     "mpu"
+qmc           :     "qmc"
+gps           :     "gps"
+tof           :     "tof"
+us            :     "ultrasonic"
+tmp           :     "temperature"
+str           :     "encoder"
+ir            :     "ir_remote"

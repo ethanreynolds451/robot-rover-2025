@@ -29,7 +29,7 @@ find_package(sensor_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetSerialPort.srv"
   "srv/ResetSerialPort.srv"
-  "srv/GetDeviceStatus.srv"
+  "srv/GetSerialDeviceStatus.srv"
 
   "msg/SensorData.msg"
   "msg/ControlData.msg"

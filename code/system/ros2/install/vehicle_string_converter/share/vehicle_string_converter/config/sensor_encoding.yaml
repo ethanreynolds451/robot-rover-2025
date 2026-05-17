@@ -9,15 +9,15 @@
 
 # Sensor parameter         :     encoding
 
- arduno_timestamp          :     "hex"
+arduino_timestamp         :     "hex"
 
- encoder:
+encoder:
   arduino_timestamp        :     "hex_timestamp_offset"
   direction                :     "unsigned_direction" 
   position                 :     "hex"
   velocity                 :     "hex"
 
- gps:
+gps:
   arduino_timestamp        :     "hex_timestamp_offset"
   position                 :     "hex_float_6"
   heading                  :     "hex_float_2"
@@ -25,32 +25,32 @@
   gps_time                 :     "hex"
   sats                     :     "hex"
 
- ir_remote:
+ir_remote:
   arduino_timestamp        :     "hex_timestamp_offset"
   address                  :     "hex"
   command                  :     "hex"
   data                     :     "hex"
 
- mpu:
+mpu:
   arduino_timestamp        :     "hex_timestamp_offset"
   imu                      :     "hex_float_2" 
   temp                     :     "hex_float_2"
 
- qmc:
+qmc:
   arduino_timestamp        :     "hex_timestamp_offset"
   mag                      :     "hex" 
   heading                  :     "hex"
   temp                     :     "hex_float_2"
 
- temperature:
+temperature:
   arduino_timestamp        :     "hex_timestamp_offset"
   temp                     :     "hex_float_2"
 
- tof:
+tof:
   arduino_timestamp        :     "hex_timestamp_offset"
   range                    :     "hex"
   intensity                :     "hex"
 
- ultrasonic:
+ultrasonic:
   arduino_timestamp        :     "hex_timestamp_offset"
   range                    :     "hex"
