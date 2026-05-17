@@ -6,7 +6,7 @@ Note: this version cannot handle custom data types or special encodings
 
 Topics
  Subscribes to:
-- /vehicle/control
+- /vehicle/control_data
     - ControlData custom msg type
  Publishes to:
 - /vehicle/control_str
@@ -62,7 +62,7 @@ class VehicleControlStringBuilder(Node):
         self.get_logger().info(f"Successfully loaded control codes")
 
         # Subscriber to vehicle control messages
-        self.control_subscriber = self.create_subscription(ControlData, '/vehicle/control', self.control_callback, 10)
+        self.control_subscriber = self.create_subscription(ControlData, '/vehicle/control_data', self.control_callback, 10)
         # Publisher for string formatted control messages
         self.control_string_publisher = self.create_publisher(String, '/vehicle/control_str', 10)
 
