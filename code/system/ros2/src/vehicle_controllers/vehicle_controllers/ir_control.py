@@ -70,6 +70,8 @@ class IRRemoteController(Node):
             )
             raise  # Re-raise so main() knows initialization failed
 
+        self.get_logger().info("Successfully loaded IR command configurations and control defaults")
+
         # Create subscriber to raw sensor data
         self.sensor_subscriber = self.create_subscription(
             SensorData,
@@ -79,7 +81,7 @@ class IRRemoteController(Node):
         )
 
         # Create publisher to control data
-        self.sensor_string_publisher = self.create_publisher(
+        self.control_string_publisher = self.create_publisher(
             ControlData,
             '/vehicle/control_data',
             10
