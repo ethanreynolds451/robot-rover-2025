@@ -34,8 +34,7 @@ import rclpy
 from rclpy.node import Node
 
 # ROS2 message definitions
-from vehicle_interfaces.msg import ControlData, IRData
-from std_msgs.msg import String
+from vehicle_interfaces.msg import ControlData, SensorData
 
 # Vehicle codes from config files
 import os
@@ -73,7 +72,7 @@ class IRRemoteController(Node):
 
         # Create subscriber to raw sensor data
         self.sensor_subscriber = self.create_subscription(
-            String,
+            SensorData,
             '/vehicle/sensor_data',
             self.sensor_callback,
             10
