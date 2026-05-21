@@ -6,3 +6,6 @@
 	Test failed, resetting Arduino continually in MPU setup
 	Might be a hardware issue, need to do I2C bus test
 }
+2026-05-20 {
+	Re-writing for better integration, no blocking functions
+}

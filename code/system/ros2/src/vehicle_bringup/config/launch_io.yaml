@@ -1,0 +1,7 @@
+# This file defines valid status indicators from launched nodes
+
+init_started      :     "initialization started"
+init_successful   :     "initialization successful"
+init_failed       :     "initialization failed"
+
+# May add more status indicators for runtime events

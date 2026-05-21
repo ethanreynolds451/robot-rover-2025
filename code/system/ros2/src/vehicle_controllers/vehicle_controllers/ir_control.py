@@ -44,7 +44,7 @@ import yaml
 class IRRemoteController(Node):
     def __init__(self):
         super().__init__('ir_control')
-        self.get_logger().info('Starting IR Remote Controller Node')
+        self.get_logger().info('ir_control : initialization started')
 
         # Expected execution parameters
         self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
@@ -68,6 +68,7 @@ class IRRemoteController(Node):
                             params['data'] = [params['data']]
         except Exception as e:
             self.get_logger().error(f"Error loading IR config file: {e}")
+            self.get_logger().info('ir_control : initialization failed')
             raise
 
         except Exception as e:
@@ -108,6 +109,8 @@ class IRRemoteController(Node):
         # Create publisher on 100ms loop to maintain constant communication with control board
         self.create_timer(0.1, self.send_control_callback)
 
+        self.get_logger().info('ir_control : initialization successful')
+        
 
     def sensor_callback(self, msg):
         # When a new sensor message is recieved, process it

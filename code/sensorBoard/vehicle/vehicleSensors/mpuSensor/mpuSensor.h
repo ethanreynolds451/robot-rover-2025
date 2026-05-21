@@ -1,11 +1,12 @@
+// Depends on Adafruit_MPU6050 2.2.6 and its dependencies
+// Must be include in a seperate file
+
 #ifndef MPUSENSOR_h
 #define MPUSENSOR_h
 
 #define MPUPARAM_ACCELRANGE_DEFAULT MPU6050_RANGE_2_G      // estimate for low speed vehcile, increase if needed
 #define MPUPARAM_GYRORANGE_DEFAULT MPU6050_RANGE_250_DEG   // estimate for low speed vehcile, increase if needed
 #define MPUPARAM_BANDWIDTH_DEFAULT MPU6050_BAND_44_HZ      // based on 25 ms relay timeout
-
-// Depends on Adafruit_MPU6050 2.2.6 and its dependencies
 
 class mpuSensor {
   public:

@@ -2,8 +2,8 @@
 
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, RegisterEventHandler, EmitEvent, LogInfo
-from launch.event_handlers import OnProcessExit, OnProcessStart
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, EmitEvent, LogInfo, TimerAction
+from launch.event_handlers import OnProcessExit, OnProcessStart, OnProcessIO
 from launch.events import Shutdown
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -20,7 +20,6 @@ def failure_cleanup_hook(event, context):
     # Play fatal error sound effect
     play_sound_effect('fatal_error.mp3')
     # Ensure everything gets shut down correctly by stopping all running nodes and saving logs
-    
     # ADD STUFF HERE
     Shutdown()
 
@@ -47,13 +46,6 @@ def generate_launch_description():
         default_value='',
         description='Enable packet mode for the listed serial interfaces, expects comma separated list of interfaces'
     )
-    headless_mode_arg = DeclareLaunchArgument(
-        'headless_mode_enabled',
-        default_value='false',
-        description='Enable headless mode for the nodes - no console output'
-    )
-
-    message_output = 'log' if LaunchConfiguration('headless_mode_enabled') == 'true' else 'screen'
 
     # Perform a sequential startup to ensure run dependencies are met
 
@@ -62,7 +54,8 @@ def generate_launch_description():
         package='vehicle_networking',
         executable='serial_manager',
         name='serial_manager',
-        output=message_output,
+        output='both',     # Log to both console and log files
+        emulate_tty=True,  # Ensure the node can run in headless mode without issues
         arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
     )
 
@@ -76,20 +69,78 @@ def generate_launch_description():
         )
     )
 
-    serial_manager_on_start = RegisterEventHandler(
-        OnProcessStart(
+    serial_manager_on_success = RegisterEventHandler(
+        OnProcessIO(
             target_action=serial_manager_node,
-            on_start=[
-                LogInfo(msg='Serial Manager node has started successfully.')
+            on_stdout=lambda event: [delay_for_serial_hardware] if b"initialization successful" in event.text else None
+        )
+    )
+
+    delay_for_serial_hardware = TimerAction(
+        period=3.0, # Wait 3 seconds for the serial manager to initialize hardware
+        # This gives it time to identify connected devices so that they are ready when serial interfaces start up
+        actions=[sensor_serial_interface_node, control_serial_interface_node]
+    )
+
+    sensor_serial_interface_node = Node(
+        package='vehicle_networking',
+        executable='sensor_serial_interface',
+        name='sensor_serial_interface',
+        output='both',
+        arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
+        parameters=[{
+            'verbose': LaunchConfiguration('node_verbosity_enabled'),
+            'packet_mode': LaunchConfiguration('packet_mode')
+        }]
+    )
+
+    sensor_serial_interface_error_handler = RegisterEventHandler(
+        OnProcessExit(
+            target_action=sensor_serial_interface_node,
+            on_exit=[
+                LogInfo(msg='Sensor Serial Interface node has failed to start, shutting down launch.'),
+                EmitEvent(event=Shutdown())
             ]
         )
     )
+
+    control_serial_interface_node = Node(
+        package='vehicle_networking',
+        executable='control_serial_interface',
+        name='control_serial_interface',
+        output='both',
+        arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
+        parameters=[{
+            'verbose': LaunchConfiguration('node_verbosity_enabled'),
+            'packet_mode': LaunchConfiguration('packet_mode')
+        }]
+    )
+
+    control_serial_interface_error_handler = RegisterEventHandler(
+        OnProcessExit(
+            target_action=control_serial_interface_node,
+            on_exit=[
+                LogInfo(msg='Control Serial Interface node has failed to start, shutting down launch.'),
+                EmitEvent(event=Shutdown())
+            ]
+        )
+    )
+
+    sensor_serial_interface_on_success = RegisterEventHandler(
+        OnProcessIO(
+            target_action=sensor_serial_interface_node,
+            
+
+
+
+
+
 
     ir_control_node = Node(
         package='vehicle_controllers',
         executable='ir_control',
         name='ir_control',
-        output=message_output,
+        output='both',
         arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
         parameters=[{
             'verbose': LaunchConfiguration('node_verbosity_enabled')
@@ -150,56 +201,11 @@ def generate_launch_description():
         )
     )
 
-    sensor_serial_interface_node = Node(
-        package='vehicle_networking',
-        executable='sensor_serial_interface',
-        name='sensor_serial_interface',
-        output=message_output,
-        arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
-        parameters=[{
-            'verbose': LaunchConfiguration('node_verbosity_enabled'),
-            'packet_mode': LaunchConfiguration('packet_mode')
-        }]
-    )
-
-    sensor_serial_interface_error_handler = RegisterEventHandler(
-        OnProcessExit(
-            target_action=sensor_serial_interface_node,
-            on_exit=[
-                LogInfo(msg='Sensor Serial Interface node has failed to start, shutting down launch.'),
-                EmitEvent(event=Shutdown())
-            ]
-        )
-    )
-
-    control_serial_interface_node = Node(
-        package='vehicle_networking',
-        executable='control_serial_interface',
-        name='control_serial_interface',
-        output=message_output,
-        arguments = ['--ros-args', '--log-level', LaunchConfiguration('logger_level')],
-        parameters=[{
-            'verbose': LaunchConfiguration('node_verbosity_enabled'),
-            'packet_mode': LaunchConfiguration('packet_mode')
-        }]
-    )
-
-    control_serial_interface_error_handler = RegisterEventHandler(
-        OnProcessExit(
-            target_action=control_serial_interface_node,
-            on_exit=[
-                LogInfo(msg='Control Serial Interface node has failed to start, shutting down launch.'),
-                EmitEvent(event=Shutdown())
-            ]
-        )
-    )
-
 
     return LaunchDescription([
         logger_level_arg,
         node_verbosity_arg,
         packet_mode_arg,
-        headless_mode_arg,
         ir_control_node,
         ir_control_error_handler,
         sensor_string_parser_node,

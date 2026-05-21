@@ -44,7 +44,7 @@ import json                         # For reading the device identifiers
 class SerialManager(Node):
     def __init__(self): 
         super().__init__('serial_manager')
-        self.get_logger().info('Starting Serial Manager Node')
+        self.get_logger().info('serial_manager : initialization started')
 
         # First attempt to load device identifier file to ensure it is available before starting the node
         self.device_identifiers = {}
@@ -56,6 +56,7 @@ class SerialManager(Node):
                 self.get_logger().info(f'Successfully loaded device identifiers')
         except Exception as e:
             self.get_logger().error(f'Error loading device identifiers file: {e}')
+            self.get_logger().info('serial_manager : initialization failed')
             # Shut down the node if the device identifiers can't be loaded
             rclpy.shutdown()
             return
@@ -72,6 +73,9 @@ class SerialManager(Node):
         # Timer to periodically check for device changes
         self.declare_parameter('check_interval', 1.0)  # Interval in seconds
         self.create_timer(self.get_parameter('check_interval').get_parameter_value().double_value, self.check_devices)
+        
+        # Initialization conformation message for launch processes
+        self.get_logger().info('serial_manager : initialization successful')
 
     def reset_serial_port(self, request, response):
         # Clear the cached serial port for a specific device

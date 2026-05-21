@@ -85,6 +85,7 @@ from vehicle_interfaces.srv import GetSerialDeviceStatus, GetSerialPort
 class SensorSerialInterface(Node):
     def __init__(self):
         super().__init__('sensor_serial_interface')
+        self.get_logger().info('sensor_serial_interface : initialization started')
         self.declare_parameter('packet_mode', True)  # Whether to use packet manager or pass through raw strings
         if self.get_parameter('packet_mode').get_parameter_value().bool_value:
             self.get_logger().info('Starting Sensor Serial Interface Node in Packet Mode')
@@ -129,7 +130,7 @@ class SensorSerialInterface(Node):
         self.create_timer(self.get_parameter('port_check_interval').get_parameter_value().double_value, self.check_connection)
         self.declare_parameter('port_timeout', 3.0)  # Timeout in seconds for waiting for serial port from serial manager
         # Debug
-        # self.get_logger().info('Control Serial Interface Node initialized successfully:')
+        self.get_logger().info('sensor_serial_interface : initialization successful')
 
     # Serial communication functions
 

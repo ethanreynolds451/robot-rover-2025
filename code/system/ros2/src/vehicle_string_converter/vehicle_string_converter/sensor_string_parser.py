@@ -34,7 +34,7 @@ import yaml
 class VehicleSensorStringParser(Node):
     def __init__(self):
         super().__init__('vehicle_sensor_string_parser')
-        self.get_logger().info('Starting Vehicle Sensor String Parser Node')
+        self.get_logger().info('sensor_string_parser : initialization started')
 
         # Expected execution parameters
         self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
@@ -64,6 +64,7 @@ class VehicleSensorStringParser(Node):
             self.get_logger().error(
                 f"Error loading sensor files; system will be unable to interface with sensor board: {e}"
             )
+            self.get_logger().info('sensor_string_parser : initialization failed')
             raise  # Re-raise so main() knows initialization failed
 
         self.get_logger().info("Successfully loaded sensor codes")
@@ -101,8 +102,7 @@ class VehicleSensorStringParser(Node):
             10
         )
 
-        # Debug
-        # self.get_logger().info(f"ir_remote schema: {self.fields_and_types.get('ir_remote')}")
+        self.get_logger().info('sensor_string_parser : initialization successful')
 
     def resolve_msg_class(self, type_str):
         # Handle ROS2 sequence notation for variable-length arrays e.g. "sequence<pkg/Type>"

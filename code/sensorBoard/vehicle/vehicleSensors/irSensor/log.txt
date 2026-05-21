@@ -13,3 +13,8 @@
 	Compiled successfully
 	Tested and functional on Megab with Sony 3.3V IR sensor on pin 4 and generic remote controllers
 }
+2026-05-17 {
+	Updated test script for compatibility with data format used by ROS system
+	Now includes Arduino timestamp and offset
+	Fully functional for IR control, no bugs found
+}

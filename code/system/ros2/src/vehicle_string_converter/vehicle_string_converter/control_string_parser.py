@@ -36,7 +36,7 @@ import yaml
 class VehicleControlStringParser(Node):
     def __init__(self):
         super().__init__('vehicle_control_string_parser')
-        self.get_logger().info('Starting Vehicle Control String Parser Node')
+        self.get_logger().info('control_string_parser : initialization started')
 
         # Expected execution parameters
         self.declare_parameter('verbose', False)  # Whether to log all parsed data in the console
@@ -53,6 +53,7 @@ class VehicleControlStringParser(Node):
         except Exception as e:
             # The control system can't run without the codes, but sensors can still run
             self.get_logger().error(f"Error loading control files; system will be unable to interface with control board: {e}")
+            self.get_logger().info('control_string_parser : initialization failed')
             # Exit the node if configs can't be loaded
             rclpy.shutdown()
             return         
@@ -64,6 +65,7 @@ class VehicleControlStringParser(Node):
         # Publisher for control data formatted messages
         self.control_string_publisher = self.create_publisher(ControlFeedback, '/vehicle/control_status', 10)
 
+        self.get_logger().info('control_string_parser : initialization successful')
 
     def control_callback(self, msg):
         # Convert the string message to a ControlFeedback message
