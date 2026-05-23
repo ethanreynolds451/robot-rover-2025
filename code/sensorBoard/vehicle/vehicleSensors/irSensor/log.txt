@@ -18,3 +18,7 @@
 	Now includes Arduino timestamp and offset
 	Fully functional for IR control, no bugs found
 }
+2026-05-23 {
+	Added modular include
+	Namespaced
+}

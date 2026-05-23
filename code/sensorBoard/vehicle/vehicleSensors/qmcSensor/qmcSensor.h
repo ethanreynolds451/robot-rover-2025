@@ -2,14 +2,16 @@
 // Must be included in a seperate file
 // Depends on timer.h for connection checking
 
+// Though the QMC has a temperature sensor, this library has no method to interface with it
 #ifndef QMCSENSOR_H
 #define QMCSENSOR_H
 
+#include "QMC5883LCompass-1.2.3/src/QMC5883LCompass.h"
+#include "QMC5883LCompass-1.2.3/src/QMC5883LCompass.cpp"
+
 class qmcSensor {
   public:
-    qmcSensor(uint8_t address = 0x0D, uint16_t check_connection_interval = 1000) : address(address), check_interval(check_connection_interval) {
-        check_connection_timer = Timer(check_interval);
-    }
+    qmcSensor(uint8_t address = 0x0D, uint16_t check_connection_interval = 1000) : address(address), check_interval(check_connection_interval), check_connection_timer(check_interval) {}
     // Use a timer to check the connection at a lower frequency than sensor polling
     void set_check_connection_interval(uint16_t interval){
         this->check_interval = interval;
@@ -48,7 +50,9 @@ class qmcSensor {
             this->mag[1] = qmc.getY();
             this->mag[2] = qmc.getZ();
             // This is really just to mirror the archetecture of the other sensors
+            this->direction_timestamp = millis();
             this->direction_updated = true;
+            this->mag_timestamp = millis();
             this->mag_updated = true;
             return true;    // Successfully read the data
         }
@@ -70,6 +74,9 @@ class qmcSensor {
     float get_direction(){
         this->direction_updated = false;
         return this->direction;
+    }
+    unsigned long get_direction_timestamp(){
+        return this->direction_timestamp;
     }
     bool is_new_mag(){
         return this->mag_updated;
@@ -93,6 +100,14 @@ class qmcSensor {
     float get_mag_z(){
         this->mag_updated = false;
         return this->mag[2];
+    }
+    unsigned long get_mag_timestamp(){
+        return this->mag_timestamp;
+    }
+    // Set read flags to fals without overwriting
+    void clear(){
+        this->direction_updated = false;
+        this->mag_updated = false;
     }
     // Calibration functions
     void set_calibration_offsets(int x, int y, int z){
@@ -120,6 +135,7 @@ class qmcSensor {
 
   private:
     QMC5883LCompass qmc;
+    uint8_t address = 0x0D;
     Timer check_connection_timer;    // Timer to periodically check connection, default 0 for always check
     uint16_t check_interval = 1000;    // Interval for connection checking in milliseconds
     bool connected = false;
@@ -127,9 +143,10 @@ class qmcSensor {
     float calibration_scales[3] = {1.0, 1.0, 1.0};
     float direction = 0;
     bool direction_updated = false;
+    unsigned long direction_timestamp = 0;
     float mag[3] = {0, 0, 0};
     bool mag_updated = false;
-    uint8_t address = 0x0D;
+    unsigned long mag_timestamp = 0;
 };
 
 #endif

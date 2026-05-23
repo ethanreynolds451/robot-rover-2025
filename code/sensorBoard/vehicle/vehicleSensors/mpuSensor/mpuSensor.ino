@@ -1,49 +1,69 @@
-#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_I2CRegister.h>
+#include <Adafruit_BusIO_Register.h>
+#include <Adafruit_SPIDevice.h>
+#include <Adafruit_I2CDevice.h>
+#include <Adafruit_GenericDevice.h>
+
+#include <Wire.h>
+#include "timer.h"
 
 #include "mpuSensor.h"
 
-mpuSensor testMPU;        // At default address
+using mpuSensor = mpu_sensor::mpu_object;
+
+mpuSensor testMPU(0x68, 1000);
+
+// Data string
+char outputString[128];
+// THIS WILL BLOCK THE ARDUINO, should incororate package management
+
+unsigned long hex_float_2(float value){
+    // Convert the float to a 16-bit integer with 2 decimal places of precision
+    return (unsigned long)(value * 100);
+}
 
 void setup(){
     Serial.begin(115200); 
-    Serial.println("Initializing MPU");
-    if(testMPU.begin(3)) {
-        Serial.println("MPU6050 initialized successfully");
-    } else {
-        Serial.println("Failed to initialize MPU6050 after 3 attempts");
-    }
+    testMPU.begin();
 }
 
-
 void loop(){  
-    testMPU.update();
-    if(testMPU.is_new_accel()){
-        sensors_event_t accel = testMPU.get_accel();
-        Serial.print("Accel: ");
-        Serial.print(accel.acceleration.x);
-        Serial.print(", ");
-        Serial.print(accel.acceleration.y);
-        Serial.print(", ");
-        Serial.println(accel.acceleration.z);
-        Serial.print("At time: ");
-        Serial.println(testMPU.get_accel_timestamp());
-    }
-    if(testMPU.is_new_gyro()){
-        sensors_event_t gyro = testMPU.get_gyro();
-        Serial.print("Gyro: ");
-        Serial.print(gyro.gyro.x);
-        Serial.print(", ");
-        Serial.print(gyro.gyro.y);
-        Serial.print(", ");
-        Serial.println(gyro.gyro.z);
-        Serial.print("At time: ");
-        Serial.println(testMPU.get_gyro_timestamp());
-    }
-    if(testMPU.is_new_temp()){
-        sensors_event_t temp = testMPU.get_temp();
-        Serial.print("Temp: ");
-        Serial.print(temp.temperature);
-        Serial.print("C at time: ");
-        Serial.println(testMPU.get_temp_timestamp());
+    if (testMPU.update()){
+
+        int pos = 0; 
+        memset(outputString, 0, sizeof(outputString));
+
+        // Get the timestamp and offset
+        unsigned long arduino_timestamp = millis();
+        unsigned long sensor_timestamp = testMPU.get_timestamp();
+        unsigned long offset_timestamp = arduino_timestamp - sensor_timestamp;
+
+        // Add timestamps to the output string
+        pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", arduino_timestamp);
+        pos += snprintf(outputString + pos, sizeof(outputString) - pos, "mpu[t:%x", offset_timestamp);
+
+        if (testMPU.is_new_accel()){
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", hex_float_2(testMPU.get_accel().x));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", hex_float_2(testMPU.get_accel().y));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", hex_float_2(testMPU.get_accel().z));
+        }
+
+        if (testMPU.is_new_gyro()){
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",g:%x", hex_float_2(testMPU.get_gyro().x));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", hex_float_2(testMPU.get_gyro().y));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", hex_float_2(testMPU.get_gyro().z));
+        }
+
+        if (testMPU.is_new_temp()){
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",t:%x", hex_float_2(testMPU.get_temp()));
+        }
+
+        // Close the output string and send it over serial
+        pos += snprintf(outputString + pos, sizeof(outputString) - pos, "]}");
+        Serial.println(outputString);
+
+        // Clear the data
+        testMPU.clear(); 
     }
 }

@@ -1,24 +1,43 @@
-// For use with IRremote 4.4.1
-
-// Library must be included in seperate file
-
 #ifndef IRSENSOR_h
 #define IRSENSOR_h
 
+#include "IRremote-4.4.1/src/IRremote.h"
+
+namespace ir_sensor {
+
 enum {
-  IR_LED_OFF,
-  IR_LED_ON
+  LED_OFF,
+  LED_ON
 };
 
-class irSensor {
+class ir_object {
   public: 
-    irSensor(uint8_t pin, bool led = 0) : pin(pin), led_active(led) {}   // Save the pin for future reference
+    ir_object(uint8_t pin, bool led = 0) : pin(pin), led_active(led) {}   // Save the pin for future reference
+    // Start the IR receiver
     void begin(){
       if(led_active){
         IrReceiver.begin(pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
       } else {
         IrReceiver.begin(pin); 
       }
+    }
+    uint8_t get_pin(){
+      return this->pin; 
+    }
+    void set_pin(uint8_t new_pin){
+      this->pin = new_pin; 
+      // Restart the IR receiver with the new pin
+      IrReceiver.stop();
+      this->begin(); 
+    }
+    uint8_t get_led_active(){
+      return this->led_active; 
+    }
+    void set_led_active(bool new_led_active){
+      this->led_active = new_led_active;
+      // Restart the IR receiver with the new LED setting
+      IrReceiver.stop();
+      this->begin();
     }
     // Return if there is new data from the IR sensor
     bool decode(){
@@ -66,9 +85,6 @@ class irSensor {
       return false;     // No data to read
     }
     // Getter functions
-    uint8_t get_pin(){
-      return this->pin; 
-    }
     bool is_new_command(){
       return this->command_updated; 
     }
@@ -99,11 +115,25 @@ class irSensor {
     unsigned long get_data_timestamp(){
       return this->data_timestamp; 
     }
+    unsigned long data_age(){
+      unsigned long newest_data = max(this->command_timestamp, max(this->address_timestamp, this->data_timestamp));
+      return millis() - newest_data; 
+    }
     void clear(){
       // This doesn't actually overwrite the data, just tells the system that there is nothing new
       this->command_updated = false; 
       this->address_updated = false; 
       this->data_updated = false; 
+    }
+    void reset(){
+      IrReceiver.stop();
+      this->command = 0; 
+      this->command_timestamp = 0;
+      this->address = 0; 
+      this->address_timestamp = 0;
+      this->data = 0; 
+      this->data_timestamp = 0;
+      this->clear(); 
     }
   private: 
     uint8_t pin; 
@@ -118,5 +148,7 @@ class irSensor {
     bool data_updated = 0; 
     unsigned long data_timestamp = 0;
 };
+  
+}
 
 #endif

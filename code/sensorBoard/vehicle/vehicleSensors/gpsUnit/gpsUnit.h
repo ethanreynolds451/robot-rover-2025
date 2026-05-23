@@ -1,13 +1,33 @@
-// For use with TinyGPSPlus 1.0.7
-// Must include in a seperate file
+/* 
+DEPENDENCIES:
+ - <SoftwareSerial.h>
+TYPES:
+ - gps_coordinates: struct containing latitude and longitude as floats
+UNITS: 
+ - lat / long : degrees, 6 decimal place precision
+ - altitude : meters, 2 decimal place precision
+ - speed : km/h, 2 decimal place precision
+ - course : degrees, 2 decimal place precision
+ - GPS time : HHMMSSCC (UTC time in hours, minutes, seconds, and centiseconds)
+*/
 
 #ifndef GPSUNIT_H
 #define GPSUNIT_H
 
-class gpsUnit {
+#include "TinyGPS/TinyGPS++.h"
+#include "TinyGPS/TinyGPS++.cpp"
+
+namespace gps_unit {
+
+struct gps_coordinates {
+    float latitude;
+    float longitude;
+};
+
+class gps_object {
   public:
     // Setup and initialization
-    gpsUnit(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) : baudrate(baudrate){
+    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) : baudrate(baudrate){
         pins[0] = tx_pin;
         pins[1] = rx_pin;
         // To use hardware serial, set tx_pin to 0 and rx_pin to the desired hardware serial port number
@@ -39,10 +59,10 @@ class gpsUnit {
             gps_serial = gps_software_serial;
         }
     }
-    ~gpsUnit() {
+    ~gps_object() {
         delete gps_software_serial;
     }
-    bool begin(uint8_t timeout = 0){
+    bool begin(uint16_t timeout = 0){
         if (gps_hardware_serial != nullptr){
             gps_hardware_serial->begin(this->baudrate); 
         } else {
@@ -72,17 +92,14 @@ class gpsUnit {
         bool data_read = false; 
         // Use the validity functions of the library
         if (gps.location.isValid()) {
-            this->latitude = gps.location.lat();
-            this->longitude = gps.location.lng();
-            this->latitude_updated = true;
-            this->longitude_updated = true;
+            this->coordinates.latitude = gps.location.lat();
+            this->coordinates.longitude = gps.location.lng();
             this->coordinates_updated = true;
             data_read = true;
         }
         if (gps.altitude.isValid()) {
             this->altitude = gps.altitude.meters();
             this->altitude_updated = true;
-            this->coordinates_updated = true;
             data_read = true;
         }
         if (gps.course.isValid()){
@@ -95,10 +112,18 @@ class gpsUnit {
             this->speed_updated = true;
             data_read = true;
         }
+        if (gps.time.isValid()){
+            this->gps_time = gps.time.value();
+            this->gps_time_updated = true;
+            data_read = true;
+        }
         if (gps.satellites.isValid()){
             this->fix = gps.satellites.value();
             this->fix_updated = true;
             data_read = true;
+        }
+        if (data_read) {
+            this->timestamp = millis();
         }
         return data_read;       
     }
@@ -115,42 +140,25 @@ class gpsUnit {
         return false;     // No new data was ready
     }
     // Data getters
+    unsigned long get_timestamp(){
+        return this->timestamp;
+    }
+    unsigned long data_age(){
+        return millis() - this->timestamp;
+    }
     bool is_new_coordinates(){
         return this->coordinates_updated;
     }
-    bool is_new_latitude(){
-        return this->latitude_updated;
-    }
-    float get_latitude(){
+    gps_coordinates get_coordinates(){
         this->coordinates_updated = false;
-        this->latitude_updated = false;
-        return this->latitude;
-    }
-    bool is_new_longitude(){
-        return this->longitude_updated;
-    }
-    float get_longitude(){
-        this->coordinates_updated = false;
-        this->longitude_updated = false;
-        return this->longitude;
+        return this->coordinates;
     }
     bool is_new_altitude(){
         return this->altitude_updated;
     }
     float get_altitude(){
-        this->coordinates_updated = false;
         this->altitude_updated = false;
         return this->altitude;
-    }
-    // Get all three at once using references
-    void get_coordinates(float &latitude, float &longitude, float &altitude){
-        this->coordinates_updated = false;
-        this->latitude_updated = false;
-        this->longitude_updated = false;
-        this->altitude_updated = false;
-        latitude = this->latitude;
-        longitude = this->longitude;
-        altitude = this->altitude;
     }
     bool is_new_speed(){
         return this->speed_updated;
@@ -165,6 +173,14 @@ class gpsUnit {
     float get_course(){
         this->course_updated = false;
         return this->course;
+    }
+    bool is_new_time(){
+        // This is in GPS encoded time, NOT milliseconds
+        return this->gps_time_updated;
+    }
+    unsigned long get_time(){
+        this->gps_time_updated = false;
+        return this->gps_time;
     }
     bool is_new_fix(){
         return this->fix_updated;
@@ -181,8 +197,6 @@ class gpsUnit {
         } else {
             gps_serial = gps_software_serial;
         }
-        
-        
     }
     uint32_t get_baudrate(){
         return this->baudrate;
@@ -224,6 +238,29 @@ class gpsUnit {
         tx_pin = this->pins[0];
         rx_pin = this->pins[1];
     }
+    void clear(){
+        this->coordinates_updated = false;
+        this->altitude_updated = false;
+        this->speed_updated = false;
+        this->course_updated = false;
+        this->gps_time_updated = false;
+        this->fix_updated = false;
+    }
+    void reset(uint16_t timeout = 0){
+        if (gps_hardware_serial != nullptr){
+            gps_hardware_serial->end(); 
+        } else {
+            gps_software_serial->end();
+        }
+        this->timestamp = 0;
+        this->coordinates = {0.0, 0.0};
+        this->altitude = 0.0;
+        this->speed = 0.0;
+        this->course = 0.0;
+        this->gps_time = 0;
+        this->fix = 0;
+        clear();
+    }
   private:
     // Initialization parameters
     uint8_t pins[2];
@@ -236,19 +273,21 @@ class gpsUnit {
     // Internal trackers
     bool waiting_for_data = false; 
     // Data
-    float latitude = 0.0;                        // Latitude
-    bool latitude_updated = false;                 // Flag to indicate if latitude has been updated since last read
-    float longitude = 0.0;                       // Longitude
-    bool longitude_updated = false;                // Flag to indicate if longitude has been updated since last read
-    float altitude = 0.0;                        // Altitude
-    bool altitude_updated = false;                 // Flag to indicate if altitude has been updated since last read
+    unsigned long timestamp = 0;              // Timestamp in milliseconds of when the data was read from the GPS unit, used for timestamping the data and calculating offsets
+    gps_coordinates coordinates{0.0, 0.0};
     bool coordinates_updated = false;               // Flag to indicate if either latitude or longitude has been updated since last read, so that they can be read together without worrying about one being updated without the other being updated
+    float altitude = 0.0;                           // Altitude in meters
+    bool altitude_updated = false;                 // Flag to indicate if altitude has been updated since last read
     float speed = 0.0;                           // Speed in km/h
     bool speed_updated = false;                    // Flag to indicate if speed has been updated since last read
     float course = 0.0;                          // Course in degrees
     bool course_updated = false;                   // Flag to indicate if course has been updated since last read
+    unsigned long gps_time = 0;                          // GPS time in milliseconds since midnight (UTC)
+    bool gps_time_updated = false;                    // Flag to indicate if GPS time has been updated
     uint8_t fix = 0;                           // Number of satellites in fix
     bool fix_updated = false;                    // Flag to indicate if fix has been updated since last read
 };
+
+}
 
 #endif

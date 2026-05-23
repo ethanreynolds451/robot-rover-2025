@@ -1,15 +1,13 @@
 // This version has been modified to transmit data for IR control 
 //    corresponding to the same string format used by the system
 
-//#include <IRremote.h>
-
-#include "IRremote-4.4.1/src/IRremote.h"
-
 #include "irSensor.h"
 
 uint8_t IR_PIN = 4; 
 
-irSensor testIR(IR_PIN, IR_LED_OFF); 
+using irSensor = ir_sensor::ir_object;
+
+irSensor testIR(IR_PIN, ir_sensor::LED_OFF); 
 
 // Buffer to hold the output string
 char outputString[64];
@@ -17,7 +15,6 @@ char outputString[64];
 void setup() {
   Serial.begin(115200); 
   testIR.begin(); 
-  // Serial.println("Initiated IR sensor"); 
 }
 
 void loop() {
@@ -65,6 +62,7 @@ void loop() {
     // Encode the data as hexadecimal to save space
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", arduino_timestamp);
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "ir[");
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "n:0,");        // There is only one
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "t:%x", offset_timestamp);
     if (isCommand){
       pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", command);
@@ -77,6 +75,10 @@ void loop() {
     }
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "]}");
 
+    // Send the packet over serial with newline character to indicate end of packet
+    // This does not go through the serial manager's packetization system since this is a simple test
+    // It is guarenteed to always be less than 64 bytes
+    Serial.println(outputString);
     // Send the packet over serial with newline character to indicate end of packet
     // This does not go through the serial manager's packetization system since this is a simple test
     // It is guarenteed to always be less than 64 bytes

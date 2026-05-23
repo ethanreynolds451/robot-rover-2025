@@ -9,5 +9,5 @@ sensor_msgs/NavSatFix               position     # positional data
 float32                             heading      # heading in degrees
 float32                             speed_kmph   # velocity calculated by unit
 uint32                              gps_time     # satelite time from GPS
-uint8                                sats         # number of saltelites used for signal
+uint8                               sats         # number of saltelites used for signal
 

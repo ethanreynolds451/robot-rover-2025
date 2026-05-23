@@ -1,0 +1,50 @@
+- Each module will contain all the code required to interface with a certain sensor
+- Each module will contain and include all specialized dependencies and libraries
+- All general libraries (eg. Timer, Wire) will be declared as dependencies and included by the main code
+- Each module will contain an .ino file that retrieves all data from the sensor in the format expected by the ROS parsing node
+- Additional tests will be included in an "examples" directory
+
+- Each object will track the most recent value of its own data
+- The sensor object will not buffer old values; they must be read immediately and buffered externally
+- Each object will record a timestamp for when each piece of data was read
+- If the sensor exposes a reading timestamp, that will be used
+- Otherwise the timestamp will be tracked in Arduino millis immediately before the call to retrieve the data; this should be clearly documented 
+- All timestamps will use unsigned long data type and be in milliseconds by default
+- If a sensor requires microseconds, this will be stored as a seperate "timestamp_micros" variable
+- All timestamp comparisons must be unsigned subtraction
+- Each object will track when there is a new value ready that has not yet been retrieved
+- Sensor read timing will be managed externally using timers in the main control loop
+- Modules will return raw data only. All processing will be done by the ROS system on the main computer 
+- Any calibration parameters will be configured by the Arduino at initialization
+
+- Each object will expose a "begin" function that performs all required initialization
+- Each object will expose an "update" function that reads the sensor and returns true when successful
+- Each object will expose "is_new_" getter functions to indicate which data is ready
+- Each object will expose "get_" getter functions to retrieve data
+- Each object will expose a "clear" function that marks all data as not new
+- Each object will expose a "reset" function that will clear data and end communication
+- Each object will expose a "data_age" function that returns the time since the last sensor reading
+- Each object that requires calibration will expose setters and getters for these values
+
+- When a data value is retrieved, it will be marked as not new
+- Related values read at the same time should be explicitly grouped and must be retrieved together
+- A struct should be used to retrieve the entire sample at once
+- All important parameters (pins, baudrates, etc.) passed into the class will be retrievable through getter functions
+- All parameters that can be modified at runtime will have "set_" functions that perform all required reinitialization
+- Each module will manage reading and writing data to its associated sensor
+- Any shared bus-type hardware interfaces (Wire, SPI) will be managed externally
+- Classes that use these interfaces should be passed objects but should not modify bus parameters such as clock
+- Sensors should include functions and variables for tracking status and errors if relevant to the specific sensor
+
+- Modules should avoid dynamic allocation unless strictly required
+- If required, dynamic allocation should only be used for fixed-size object reassignment at initialization or parameter adjustment
+- No module will use Arduino String objects; only fixed char buffers will be used for strings 
+- No module will use the Arduino wait() function or include behaviour that could block the main control loop
+- All waiting or delay must be done asynchronously (for example using a Timer object)
+
+- Modules must adhere to the same package guidelines used for the rest of the project  
+- Each module should be namespaced and all special data types must be included under that namespace
+- The namespace and its members will use underscore separation. If one word, an underscore will be appended to the end. 
+- Any non-generic data types (for example sensor value structs) must be clearly documented
+
+- Any exceptions to these guidelines will be documented in a "violations.txt" file for each module

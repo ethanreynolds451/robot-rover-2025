@@ -15,11 +15,11 @@ encoder:
   arduino_timestamp        :     "hex_timestamp_offset"
   direction                :     "unsigned_direction" 
   position                 :     "hex"
-  velocity                 :     "hex"
 
 gps:
   arduino_timestamp        :     "hex_timestamp_offset"
   position                 :     "hex_float_6"
+  altitude                 :     "hex_float_2"
   heading                  :     "hex_float_2"
   speed_kmph               :     "hex_float_2"
   gps_time                 :     "hex"
@@ -33,7 +33,8 @@ ir_remote:
 
 mpu:
   arduino_timestamp        :     "hex_timestamp_offset"
-  imu                      :     "hex_float_2" 
+  accel                    :     "hex_float_2" 
+  gyrp                     :     "hex_float_2" 
   temp                     :     "hex_float_2"
 
 qmc:
