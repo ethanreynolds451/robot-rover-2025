@@ -11,109 +11,23 @@ UNITS:
  - GPS time : HHMMSSCC (UTC time in hours, minutes, seconds, and centiseconds)
 */
 
-#ifndef GPSUNIT_H
-#define GPSUNIT_H
+#ifndef GPS_UNIT_h
+#define GPS_UNIT_h
 
 #include "TinyGPS/TinyGPS++.h"
 #include "TinyGPS/TinyGPS++.cpp"
 
+#include "gpsUnit_types.h"
+
 namespace gps_unit {
-
-// *** State and error enums *** //
-
-enum class STATE : uint8_t {
-  UNINITIALIZED = 0,        // never probed yet
-  DISCONNECTED  = 1,        // probe failed / not present
-  IDENTIFIED    = 2,        // present + ID verified
-  CONFIGURED    = 3,        // init/config applied
-  READY         = 4,        // producing valid readings
-  FAULT         = 255,        // persistent/latched failure
-};
-
-enum class ERROR : uint8_t {
-    NO_ERROR    = 0,        // No error, sensor is functioning properly
-    NOT_FOUND   = 1,        // The sensor was not found durring initialization
-    NOT_VALID   = 2,        // The sensor is not returing valid data
-    BUS_FAULT   = 3,        // There is a problem with the communication bus (software serial or hardware serial)
-    UNKNOWN     = 255       // An unknown error has ocurred
-};
-
-// *** Config and parameter structs *** //
-
-struct PINS {
-    uint8_t tx = 0;     
-    uint8_t rx = 1;
-};
-
-struct CONFIG {
-    PINS pins;
-    unsigned long baudrate = 9600;
-};
-
-// *** Data structs *** //
-
-struct COORDINATES {
-    bool is_new = false;
-    float lat;
-    float long;
-    unsigned long timestamp;
-};
-
-struct ALTITUDE {
-    bool is_new = false;
-    float value;
-    unsigned long timestamp;
-};
-
-struct POSITION {
-    COORDINATES coordinates;
-    ALTITUDE altitude;
-};
-
-struct SPEED {
-    bool is_new = false;
-    float value;
-    unsigned long timestamp;
-}; 
-
-struct COURSE {
-    bool is_new = false;
-    float value;
-    unsigned long timestamp;
-};
-
-struct VELOCITY {
-    SPEED speed;
-    COURSE course;
-};
-
-struct TIME {
-    bool is_new = false;
-    unsigned long value;  
-    unsigned long timestamp;
-};
-
-struct FIX {
-    bool is_new = false;
-    uint8_t value;  
-    unsigned long timestamp;
-};
-
-struct DATA {
-    unsigned long timestamp;        // Packet timestamp
-    POSITION position;              // Data describing position
-    VELOCITY velocity;              // Data describing velocity
-    TIME time;                      // GPS time
-    FIX fix;                        // GPS fix quality
-};
 
 class gps_object {
   public:
     // Setup and initialization
-    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) 
-    : baudrate(baudrate){
-        pins[0] = tx_pin;
-        pins[1] = rx_pin;
+    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) : {
+        this->config.pins.tx = tx_pin;
+        this->config.pins.rx = rx_pin;
+        this->config.baudrate = baudrate;
         // To use hardware serial, set tx_pin to 0 and rx_pin to the desired hardware serial port number
         if (tx_pin == 0){
             if (rx_pin == 0){
@@ -127,15 +41,15 @@ class gps_object {
             } else {
                 // Invalid hardware serial port, default to software serial using default pins
                 gps_hardware_serial = nullptr;
-                this->pins[0] = 11;
-                this->pins[1] = 10;
+                this->config.pins.tx = 11;
+                this->config.pins.rx = 10;
                 delete gps_software_serial;
-                gps_software_serial = new SoftwareSerial(this->pins[1], this->pins[0]);
+                gps_software_serial = new SoftwareSerial(rx_pin, tx_pin);
             }
         } else {
             // Use software serial with the specified pins
             delete gps_software_serial;
-            gps_software_serial = new SoftwareSerial(this->pins[1], this->pins[0]);
+            gps_software_serial = new SoftwareSerial(rx_pin, tx_pin);
         }
         if (gps_hardware_serial != nullptr){
             gps_serial = gps_hardware_serial;
@@ -146,11 +60,13 @@ class gps_object {
     ~gps_object() {
         delete gps_software_serial;
     }
-    bool begin(uint16_t timeout = 0){
+
+    // *** State Management *** //
+    void begin(uint16_t timeout = 0){
         if (gps_hardware_serial != nullptr){
-            gps_hardware_serial->begin(this->baudrate); 
+            gps_hardware_serial->begin(this->config.baudrate); 
         } else {
-            gps_software_serial->begin(this->baudrate);
+            gps_software_serial->begin(this->config.baudrate);
         }
         if (timeout > 0){
             // Attempt to read data from the GPS until the timeout to see if it is connected
@@ -168,9 +84,21 @@ class gps_object {
             return true;   // No timeout to check if connected, just start the GPS
         }
     }
-    int available(){
-        return gps_serial->available();
+    void stop(){
+        if (gps_hardware_serial != nullptr){
+            gps_hardware_serial->end();
+        } else {
+            gps_software_serial->end();
+        }
     }
+    void reset(){
+
+    }
+    void update(){
+
+    }
+
+
     // Data interface functions
     bool read(){
         bool data_read = false; 

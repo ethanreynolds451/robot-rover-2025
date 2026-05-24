@@ -68,6 +68,9 @@ class sample_object {
         void stop() {
 
         }
+        void start(){
+            
+        }
         void reset(){
         
         }

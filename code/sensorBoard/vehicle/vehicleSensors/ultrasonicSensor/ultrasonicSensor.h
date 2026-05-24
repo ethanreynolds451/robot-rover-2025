@@ -90,6 +90,12 @@ class ultrasonic_object {
             if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
             this->state = STATE::CONFIGURED;                    // READY / WAITING -> CONFIGURED
         }
+        void start(){
+            if (this->state == STATE::FAULT) reset();           // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+            if (this->state == STATE::CONFIGURED) check_validity();  // CONFIGURED -> READY   
+        }
         void reset(){
             stop();        
             clear();
