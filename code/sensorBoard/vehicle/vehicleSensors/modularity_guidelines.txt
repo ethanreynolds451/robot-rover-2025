@@ -18,13 +18,16 @@
 - Any calibration parameters will be configured by the Arduino at initialization
 
 - Each object will expose a "begin" function that performs all required initialization
+- Each object will expose an "is_connected" function that will report connection status
+- Each object will expose an "is_ready" function that will report if the sensor is in a valid state to collect data
+- Each object will expose a "get_error" function that will report errors. No error will always be 0
 - Each object will expose an "update" function that reads the sensor and returns true when successful
 - Each object will expose "is_new_" getter functions to indicate which data is ready
-- Each object will expose "get_" getter functions to retrieve data
+- Each object will expose "get_" getter functions to retrieve data and timestamps
 - Each object will expose a "clear" function that marks all data as not new
 - Each object will expose a "reset" function that will clear data and end communication
 - Each object will expose a "data_age" function that returns the time since the last sensor reading
-- Each object that requires calibration will expose setters and getters for these values
+- Each object that requires calibration will expose "set_" and "get_" for these values
 
 - When a data value is retrieved, it will be marked as not new
 - Related values read at the same time should be explicitly grouped and must be retrieved together
@@ -35,6 +38,7 @@
 - Any shared bus-type hardware interfaces (Wire, SPI) will be managed externally
 - Classes that use these interfaces should be passed objects but should not modify bus parameters such as clock
 - Sensors should include functions and variables for tracking status and errors if relevant to the specific sensor
+- Sensors will not attempt to reconnect automatically
 
 - Modules should avoid dynamic allocation unless strictly required
 - If required, dynamic allocation should only be used for fixed-size object reassignment at initialization or parameter adjustment

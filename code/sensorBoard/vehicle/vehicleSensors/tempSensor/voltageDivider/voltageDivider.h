@@ -34,7 +34,7 @@ class linearDivider {
         uint8_t pin;
         float m;
         float b;
-        float get_value(){
+        float get_value() const {
             float value = analogRead(pin);
             value = m*value + b;
             return value; 
@@ -68,7 +68,7 @@ class logDivider {
         uint8_t pin;
         float a;
         float b;
-        float get_value(){
+        float get_value() const {
             float value = analogRead(pin);
             value = a*log(value) - b;
             return value; 

@@ -1,16 +1,23 @@
+#include <Wire.h>
+#include "timer.h"
+
 #include "qmcSensor.h"
 
 byte ADDRESS = 0x0D;
 
-qmcSensor testQMC(ADDRESS); 
+using qmcSensor = qmc_sensor::qmc_object;
+using magStruct = qmc_sensor::vector_3;
+
+qmcSensor testQMC(ADDRESS, 1000); 
 
 // Buffer to hold the output string
 char outputString[64];
 
 void setup(){
     Serial.begin(115200); 
+    Wire.begin();   // Initialize I2C communication
     testQMC.begin(); 
-    delay(100);    // Give it a moment to initialize
+    delay(500);    // Give it a moment to initialize
 }
 
 void loop(){
@@ -22,9 +29,7 @@ void loop(){
         unsigned long arduino_timestamp = 0;
         unsigned long sensor_timestamp = 0;
         float direction = 0.0;
-        float mag_x = 0.0;
-        float mag_y = 0.0;
-        float mag_z = 0.0;
+        magStruct mag{0.0, 0.0, 0.0};
         bool isDirection = false;
         bool isMag = false;
 
@@ -35,7 +40,7 @@ void loop(){
             isDirection = true;
         }
         if (testQMC.is_new_mag()){
-            testQMC.get_mag(mag_x, mag_y, mag_z);
+            mag = testQMC.get_mag();
             sensor_timestamp = testQMC.get_mag_timestamp();
             isMag = true;
         }
@@ -57,9 +62,9 @@ void loop(){
             pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", direction);
         }
         if (isMag){
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",m:%x", mag_x);
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", mag_y);
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", mag_z);
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",m:%x", mag.x);
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", mag.y);
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", mag.z);
         }
         // Send the packet over serial with newline character to indicate end of packet
         Serial.println(outputString);

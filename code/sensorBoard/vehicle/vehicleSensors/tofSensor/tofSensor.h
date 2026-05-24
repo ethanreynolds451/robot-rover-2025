@@ -1,73 +1,152 @@
-bool start_lof(){                                     // Still work in progress
-if(pcf_active){
-    bool return_val = true;
-    for(int i = 0; i < number_of_lof; i++){   // Initialize all pointers to nullptr
-    lof[i] = nullptr;
-    }
-    // Set the I2C addresses of the lof sensors
-    for(int i = 0; i < number_of_lof; i++){
-    PCF.write(Pin::x_shut[i], LOW);      // Deactivate all lof sensors
-    }
-    delay(50);                                                       Serial.println("Checkpoint 1");
-    for(int i = 0; i < number_of_lof; i++){
-    bool addr_found = false;
-    bool initiated = false;
-    bool addr_set = false;
-    lof[i] = new VL53L0X();                   // Create sensor object  // Activate the one to set address
-    PCF.write(Pin::x_shut[i], LOW);                                                         Serial.println("Checkpoint 1.1");
-    delay(50);
-    for (uint8_t tried = 0; tried < sensor_retry; tried++){
-        if (!addr_found) {
-        if (!Address::detect(0x29)) {
-            error::lof[i] = 1;   // address not found error
-                return_val = false;
-        } else {
-            addr_found = true;
-        }                                           Serial.println("Checkpoint 1.1.5");
-        } else if (!initiated) {
-        if (!lof[i]->init()) {
-            return_val = false;
-            error::lof[i] = 2;   // failed to initialize error
-        } else {
-            initiated = true;
+/*
+DEPENDENCIES:
+ - Wire
+ - Timer
+UNITS:
+ - Distance: millimeters
+ - Light intensity: device units (not converted to lux, must be processed by onboard computer)
+*/
+
+#ifndef TOF_SENSOR_H
+#define TOF_SENSOR_H
+
+#include "VL53L0X-1.3.1/VL53L0X.h"
+#include "VL53L0X-1.3.1/VL53L0X.cpp"
+
+namespace tof_sensor {
+
+// To avoid issues, no ToF sensor should use the default address
+uint8_t DEFAULT_ADDRESS = 0x29;
+uint8_t LIGHT_REGISTER = 0x96;    
+
+class tof_object {
+    public:
+        tof_object(uint8_t address = DEFAULT_ADDRESS, uint8_t pin = 2, uint16_t check_connection_interval = 1000) 
+        : address(address), pin(pin), check_interval(check_connection_interval) 
+        Timer check_connection_timer(check_interval) {
+            pinMode(pin, OUTPUT);
+            digitalWrite(pin, LOW);   // Start with the sensor off to avoid bus conflicts during initialization
         }
-        } else if(!addr_set){
-        delay(10);
-        lof[i]->setAddress(Address::lof[i]);
-        delay(10);
-        if (!Address::detect(Address::lof[i])) {        // Verify that sensor is active with address
-            error::lof[i] = 4;   // unable to communicate error
-            return_val = false; // skip to the next sensor
-        } else {
-            addr_set = true;
+        void activate(){
+            digitalWrite(pin, HIGH);
+            this->active = true;
         }
-        } else {
-        PCF.write(Pin::x_shut[i], LOW);   // Deactivate after verifyinig
-        error::lof[i] = 0;
-        break;    // Move on to the next sensor
+        void deactivate(){
+            digitalWrite(pin, LOW);
+            this->active = false;
+            // Pulling XSHUT low resets the address
+            this->address_set = false;   
         }
-    }
-    }
-    delay(10);                                                    Serial.println("Checkpoint 2");
-    for(int i = 0; i < number_of_lof; i++){
-    if(lof[i] != nullptr && error::lof[i] == 0){
-        lof[i]->startContinuous();
-    }
-    }
-} else {
-    return false; 
+        bool is_active(){
+            return this->active;
+        }
+        // *** Connection management functions ***
+        void set_default_address(uint8_t address){
+            this->default_address = address;
+        }
+        uint8_t get_default_address(){
+            return this->default_address;
+        }
+        // An address is passed into this one because it has to be changed
+        bool check_connection(uint8_t address){
+            // Wire.begin() must be called in the main sketch
+            // Basically a ping to see if it's there
+            Wire.beginTransmission(address);
+            // An error code of 0 means the device acknowledged the ping
+            return (Wire.endTransmission() == 0);
+        }
+        // This is a lot more complex than the other sensors because the address has to be configured on the sensor 
+        bool begin(){
+            // First make sure there is no other device using the default address
+            if (check_connection(this->default_address)){
+                return false;   // Address conflict, cannot initialize
+            }
+            // Next make sure there is no other sensor using the target address
+            if (check_connection(this->address)){
+                return false;   // Address conflict, cannot initialize
+            }
+            // Then activate the sensor 
+            activate();
+            delay(10);   // Wait for the sensor to power up
+            if (!check_connection(this->default_address)){
+                deactivate();
+                return false;   // Sensor did not respond at default address, cannot initialize
+            }
+            // Then set the new address and initialize the sensor
+            tof.setAddress(this->address);
+            if (!tof.init()){
+                deactivate();
+                return false;   // Failed to initialize sensor
+            }
+            // Finally verify that the sensor is active with the new address
+            if (!check_connection(this->address)){
+                deactivate();
+                return false;   // Sensor did not respond at new address, initialization failed
+            }
+            this->address_set = true;
+            // Start continuous sensor readings
+            tof.startContinuous();
+            return true;    // Successfully initialized
+        }
+        bool set_address(uint8_t new_address){
+            this->address = new_address;
+            return begin();   // Re-run the initialization process to set the new address
+        }
+        uint8_t get_address(){
+            return this->address;
+        }
+        bool is_address_set(){
+            return this->address_set;
+        }
+
+        // *** Read and Control Loop Functions
+        bool read(){
+            this->distance = tof.readRangeContinuousMillimeters();
+            this->light_intensity = tof.readReg16Bit(LIGHT_REGISTER);
+            this->data_updated = true;
+            this->data_timestamp = millis();
+            return true;
+        }
+        bool update(){
+            if (check_connection_timer.passed()){
+                if (!address_set){
+                    // If the address is not set, try to initialize the sensor
+                    if (!begin()){
+                        deactivate();  // Failed to initialize, make sure the sensor is deactivated
+                        return false;
+                    }
+                }
+                else if (!check_connection(this->address)){
+                    deactivate();  // Sensor is no longer responding, deactivate it
+                    this->address_set = false;   // Address is reset when sensor is deactivated, so mark it as unset
+                    return false;
+                }
+                check_connection_timer.reset();
+            }
+            if ((this->active) && (this->address_set)){
+                // Only perform the check and reinitialization at specified interval to avoid blocking the control loop
+                return read();
+            }
+            return false;
+        }
+
+    private:
+        // Sensor parameters
+        VL53L0X tof;
+        uint8_t address = DEFAULT_ADDRESS;
+        uint8_t pin = 0; 
+        bool active = false; 
+        bool address_set = false; 
+        Timer check_connection_timer;
+        uint16_t check_interval = 1000;    // Interval for connection checking in milliseconds
+        // Data
+        uint16_t distance = 0;
+        uint16_t light_intensity = 0;
+        bool data_updated = false; 
+        unsigned long data_timestamp = 0;
+
+};
+
 }
-}   // add address verification, retry to set address if didn't work, exit after n times
 
 
-void read_lof (uint8_t index) {
-    if (index == 0){
-        for (int i = 0; i < number_of_lof; i++) {
-        value::lof[i] = lof[i]->readRangeContinuousMillimeters();
-        }
-    } else if (index <= number_of_lof) {
-        value::lof[index - 1] = lof[index - 1]->readRangeContinuousMillimeters();
-    }
-}
-
-VL53L0X* lof[number_of_lof];        // Pointer to array of sensor, MUST USE POINTER NOT DOT NOTATION

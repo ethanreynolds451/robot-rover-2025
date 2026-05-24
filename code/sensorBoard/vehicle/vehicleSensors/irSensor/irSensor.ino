@@ -10,7 +10,7 @@ using irSensor = ir_sensor::ir_object;
 irSensor testIR(IR_PIN, ir_sensor::LED_OFF); 
 
 // Buffer to hold the output string
-char outputString[64];
+char outputString[60];
 
 void setup() {
   Serial.begin(115200); 
@@ -75,10 +75,6 @@ void loop() {
     }
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "]}");
 
-    // Send the packet over serial with newline character to indicate end of packet
-    // This does not go through the serial manager's packetization system since this is a simple test
-    // It is guarenteed to always be less than 64 bytes
-    Serial.println(outputString);
     // Send the packet over serial with newline character to indicate end of packet
     // This does not go through the serial manager's packetization system since this is a simple test
     // It is guarenteed to always be less than 64 bytes

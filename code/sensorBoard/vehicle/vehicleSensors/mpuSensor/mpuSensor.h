@@ -28,7 +28,6 @@ struct vector_3 {
     float z;
 };
 
-
 class mpu_object {
   public:
     mpu_object(uint8_t address = 0x68, uint16_t check_connection_interval = 1000) 
@@ -36,12 +35,22 @@ class mpu_object {
     check_connection_timer(check_interval) {}
 
     // *** Connection management functions ***
+    void set_check_connection_interval(uint16_t interval){
+        this->check_interval = interval;
+        check_connection_timer = Timer(check_interval);
+    }
+    uint16_t get_check_connection_interval(){
+        return this->check_interval;
+    }
     bool check_connection(){
         // Wire.begin() must be called in the main sketch
         // Basically a ping to see if it's there
         Wire.beginTransmission(this->address);
         // An error code of 0 means the device acknowledged the ping
         return (Wire.endTransmission() == 0); 
+    }
+    bool is_connected(){        
+        return this->connected;
     }
     bool begin(){
         // Verify that there is something at the address
@@ -135,6 +144,7 @@ class mpu_object {
         if (connected){
             return read();
         }
+        return false;
     }
 
     // *** Getters for data, timestamps, and readiness ***
