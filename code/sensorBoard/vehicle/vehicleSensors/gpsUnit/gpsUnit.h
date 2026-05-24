@@ -19,15 +19,99 @@ UNITS:
 
 namespace gps_unit {
 
-struct gps_coordinates {
-    float latitude;
-    float longitude;
+// *** State and error enums *** //
+
+enum class STATE : uint8_t {
+  UNINITIALIZED = 0,        // never probed yet
+  DISCONNECTED  = 1,        // probe failed / not present
+  IDENTIFIED    = 2,        // present + ID verified
+  CONFIGURED    = 3,        // init/config applied
+  READY         = 4,        // producing valid readings
+  FAULT         = 255,        // persistent/latched failure
+};
+
+enum class ERROR : uint8_t {
+    NO_ERROR    = 0,        // No error, sensor is functioning properly
+    NOT_FOUND   = 1,        // The sensor was not found durring initialization
+    NOT_VALID   = 2,        // The sensor is not returing valid data
+    BUS_FAULT   = 3,        // There is a problem with the communication bus (software serial or hardware serial)
+    UNKNOWN     = 255       // An unknown error has ocurred
+};
+
+// *** Config and parameter structs *** //
+
+struct PINS {
+    uint8_t tx = 0;     
+    uint8_t rx = 1;
+};
+
+struct CONFIG {
+    PINS pins;
+    unsigned long baudrate = 9600;
+};
+
+// *** Data structs *** //
+
+struct COORDINATES {
+    bool is_new = false;
+    float lat;
+    float long;
+    unsigned long timestamp;
+};
+
+struct ALTITUDE {
+    bool is_new = false;
+    float value;
+    unsigned long timestamp;
+};
+
+struct POSITION {
+    COORDINATES coordinates;
+    ALTITUDE altitude;
+};
+
+struct SPEED {
+    bool is_new = false;
+    float value;
+    unsigned long timestamp;
+}; 
+
+struct COURSE {
+    bool is_new = false;
+    float value;
+    unsigned long timestamp;
+};
+
+struct VELOCITY {
+    SPEED speed;
+    COURSE course;
+};
+
+struct TIME {
+    bool is_new = false;
+    unsigned long value;  
+    unsigned long timestamp;
+};
+
+struct FIX {
+    bool is_new = false;
+    uint8_t value;  
+    unsigned long timestamp;
+};
+
+struct DATA {
+    unsigned long timestamp;        // Packet timestamp
+    POSITION position;              // Data describing position
+    VELOCITY velocity;              // Data describing velocity
+    TIME time;                      // GPS time
+    FIX fix;                        // GPS fix quality
 };
 
 class gps_object {
   public:
     // Setup and initialization
-    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) : baudrate(baudrate){
+    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) 
+    : baudrate(baudrate){
         pins[0] = tx_pin;
         pins[1] = rx_pin;
         // To use hardware serial, set tx_pin to 0 and rx_pin to the desired hardware serial port number
@@ -262,15 +346,13 @@ class gps_object {
         clear();
     }
   private:
-    // Initialization parameters
-    uint8_t pins[2];
-    unsigned long baudrate = 9600;
-    // Internal objects
+    // Device
     TinyGPSPlus gps;
+    CONFIG config;
     SoftwareSerial* gps_software_serial;                // Software serial object that may or may not be used  
     HardwareSerial* gps_hardware_serial = nullptr;      // This is a pointer to a hardware serial object. Can be dynamically switched for however many hardware ports are available              
     Stream* gps_serial;                                 // This is a pointer to the currently used serial object, whether it be hardware or software serial, that the rest of the code will use to interact with the GPS regardless of the underlying serial type 
-    // Internal trackers
+    // Internal trackers (what is this for?)
     bool waiting_for_data = false; 
     // Data
     unsigned long timestamp = 0;              // Timestamp in milliseconds of when the data was read from the GPS unit, used for timestamping the data and calculating offsets
