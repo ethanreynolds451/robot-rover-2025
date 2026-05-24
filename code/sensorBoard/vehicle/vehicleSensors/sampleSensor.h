@@ -62,6 +62,10 @@ class sample_object {
             : sensor(params) {}
 
         // *** State Management *** //
+        void initialize() {
+            // Only use if hardware requires delay after startup before proceeding
+            // For example, calling Serial.begin then waiting for data to arrive in the buffer
+        }
         void begin(){
             
         }
@@ -69,7 +73,7 @@ class sample_object {
 
         }
         void start(){
-            
+
         }
         void reset(){
         
@@ -78,20 +82,20 @@ class sample_object {
            
         }
 
-        // *** Calibration *** //
-        void set_calibration(int8_t temp, unsigned int timeout_distance) {
-            
-        }
-        void calibrate() {
-            
-        }
-
         // *** Diagnostics *** //
         void check_connection() { 
 
         }
         void check_validity() {
 
+        }
+
+        // *** Calibration *** //
+        void set_calibration(int8_t temp, unsigned int timeout_distance) {
+            
+        }
+        void calibrate() {
+            
         }
 
         // *** Data Management *** //

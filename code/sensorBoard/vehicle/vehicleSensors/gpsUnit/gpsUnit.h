@@ -62,40 +62,66 @@ class gps_object {
     }
 
     // *** State Management *** //
-    void begin(uint16_t timeout = 0){
-        if (gps_hardware_serial != nullptr){
-            gps_hardware_serial->begin(this->config.baudrate); 
-        } else {
-            gps_software_serial->begin(this->config.baudrate);
-        }
-        if (timeout > 0){
-            // Attempt to read data from the GPS until the timeout to see if it is connected
-            unsigned long start = millis();
-            while (millis() - start < timeout) {
-                while (gps_serial->available()) {
-                    gps.encode(gps_serial->read());
-                }
-                if (gps.charsProcessed() > 10) {
-                    return true;
-                }
-                return false;
-            }  
-        } else {
-            return true;   // No timeout to check if connected, just start the GPS
-        }
+    void initialize() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+        if (this->state != STATE::UNINITIALIZED) reset();   // STATE -> reset() + UNINITIALIZED
+        start();                                            // UNINITIALIZED -> DISCONNECTED
+    }
+    void begin(){
+        update(); 
+        check_connection();         // DISCONNECTED -> IDENTIFIED
+        calibrate();                // IDENTIFIED -> CONFIGURED
+        check_validity();           // CONFIGURED -> READY
     }
     void stop(){
+        if (this->state == STATE::FAULT) return;     // FAULT -> FAULT + return
         if (gps_hardware_serial != nullptr){
             gps_hardware_serial->end();
         } else {
             gps_software_serial->end();
         }
+        this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
+    }
+    void start(){
+        if (this->state == STATE::FAULT) return;     // FAULT -> FAULT + return
+        if (gps_hardware_serial != nullptr){
+            gps_hardware_serial->begin(this->config.baudrate); 
+        } else {
+            gps_software_serial->begin(this->config.baudrate);
+        }
+        this->state = STATE::DISCONNECTED;            // STATE -> DISCONNECTED
     }
     void reset(){
 
     }
     void update(){
+        if (gps_serial->available()) {
+            while (gps_serial->available()) {
+                gps.encode(gps_serial->read());
+            }
+            this->last_data_time = millis();
+        }
+    }
 
+    // *** Diagnostics *** //
+    void check_connection() { 
+        // See how long it has been since the last data was recieved
+        unsigned long now = millis();
+        return (now - this->last_data_time) < this->config.timeout;
+
+    }
+    void check_validity() {
+
+    }
+
+    // *** Calibration *** //
+    void set_calibration(int8_t temp, unsigned int timeout_distance) {
+        
+    }
+    void calibrate() {
+        if (this->state == STATE::IDENTIFIED) {
+            this->state = STATE::CONFIGURED;
+        }
     }
 
 
@@ -143,9 +169,7 @@ class gps_object {
     bool update(){
         bool data_ready = false;
         // This uses the GPS unit's return flag to determine if new data is ready
-        while (gps_serial->available()) {
-            data_ready = ((gps.encode(gps_serial->read())) || data_ready);
-        }
+        
         if(data_ready){
             return this->read();
         }
@@ -280,7 +304,8 @@ class gps_object {
     SoftwareSerial* gps_software_serial;                // Software serial object that may or may not be used  
     HardwareSerial* gps_hardware_serial = nullptr;      // This is a pointer to a hardware serial object. Can be dynamically switched for however many hardware ports are available              
     Stream* gps_serial;                                 // This is a pointer to the currently used serial object, whether it be hardware or software serial, that the rest of the code will use to interact with the GPS regardless of the underlying serial type 
-    // Internal trackers (what is this for?)
+    // Internal trackers
+    unsigned long last_data_time = 0;              // Timestamp of when data was last recieved from the GPS unit, used for connection checking  
     bool waiting_for_data = false; 
     // Data
     unsigned long timestamp = 0;              // Timestamp in milliseconds of when the data was read from the GPS unit, used for timestamping the data and calculating offsets

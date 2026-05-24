@@ -33,7 +33,7 @@ struct PINS {
 struct CONFIG {
     PINS pins;
     unsigned long baudrate = 9600;
-};
+    unsigned long timeout = 5000;       // Disconnected if nothing recieved after 
 
 // *** Data structs *** //
 

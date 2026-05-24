@@ -91,7 +91,7 @@ class ultrasonic_object {
             this->state = STATE::CONFIGURED;                    // READY / WAITING -> CONFIGURED
         }
         void start(){
-            if (this->state == STATE::FAULT) reset();           // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
             if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
             if (this->state == STATE::CONFIGURED) check_validity();  // CONFIGURED -> READY   
@@ -103,34 +103,15 @@ class ultrasonic_object {
             this->error = ERROR::NO_ERROR;                       // ERROR -> NO_ERROR
         }
         void update() {
-            if (this->state == STATE::FAULT) reset();            // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
             if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
             sensor.Update();
         }
 
-        // *** Calibration *** //
-        void set_calibration(int8_t temp, unsigned int timeout_distance) {
-            this->calibration.temp = temp;
-            this->calibration.timeout_distance = timeout_distance;
-            calibrate();
-        }
-        void calibrate() {
-            if (this->state == STATE::FAULT) reset();           // FAULT -> reset() + UNINITIALIZED
-            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-            if (this->state != STATE::IDENTIFIED){               
-                sensor.Stop();                                    
-                this->state = STATE::IDENTIFIED;                // STATE > DISCONNECTED -> stop() + IDENTIFIED
-            }
-            sensor.SetTemperatureCorrection(calibration.temp);
-            sensor.SetTimeOutDistance(calibration.timeout_distance);
-            this->state = STATE::CONFIGURED;                    // IDENTIFIED -> CONFIGURED
-        }
-
         // *** Diagnostics *** //
         void check_connection() { 
-            if (this->state == STATE::FAULT) reset();           // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED){          
                 this->state = STATE::DISCONNECTED;              // UNINITIALIZED -> DISCONNECTED
             } else {
@@ -163,16 +144,35 @@ class ultrasonic_object {
             // There is no way to check this without a known reference
             // Just directly promote from CONFIGURED to READY
             // This must be called after configuring and before reading
-            if (this->state == STATE::FAULT) reset();          // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::FAULT) return;           // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED) return;   // UNINITIALIZED -> UNINITIALIZED + return
             if (this->state == STATE::DISCONNECTED) return;    // DISCONNECTED -> DISCONNECTED + return
             if (this->state != STATE::CONFIGURED) stop();      // STATE -> stop() + CONFIGURED
             this->state = STATE::READY;                        // CONFIGURED -> READY
         }
 
+        // *** Calibration *** //
+        void set_calibration(int8_t temp, unsigned int timeout_distance) {
+            this->calibration.temp = temp;
+            this->calibration.timeout_distance = timeout_distance;
+            calibrate();
+        }
+        void calibrate() {
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+            if (this->state != STATE::IDENTIFIED){               
+                sensor.Stop();                                    
+                this->state = STATE::IDENTIFIED;                // STATE > DISCONNECTED -> stop() + IDENTIFIED
+            }
+            sensor.SetTemperatureCorrection(calibration.temp);
+            sensor.SetTimeOutDistance(calibration.timeout_distance);
+            this->state = STATE::CONFIGURED;                    // IDENTIFIED -> CONFIGURED
+        }
+
         // *** Data Management *** //
         void read(){
-            if (this->state == STATE::FAULT) reset();          // FAULT -> reset() + UNINITIALIZED
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state != STATE::WAITING) return;         // STATE != WAITING -> STATE + return
             this->data.timestamp = millis();
             this->data.distance.timestamp = this->data.timestamp;
