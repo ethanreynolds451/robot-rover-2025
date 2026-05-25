@@ -7,93 +7,115 @@ UNITS:
 #define MOTORENCODER_h
 
 #include "Encoder/Encoder.h"
-// Don't include the cpp, creates multiple definition errors here
+
+#include "motorEncoder_t.h"
 
 namespace motor_encoder {
 
-struct encoder_pins {
-    uint8_t pinA;
-    uint8_t pinB;
-};
-
 class encoder_object {
 public:
-    // Instantiate encoder object in constructur
-    encoder_object(uint8_t pinA, uint8_t pinB)
-        : pins({pinA, pinB}),
-          encoder(pinA, pinB) {}  
-    // Does not support clean dynamic pin assignment at runtime
+    encoder_object(uint8_t pinA, uint8_t pinB) : sensor(pinA, pinB) {
+          this->config.pins.a = pinA;
+          this->config.pins.b = pinB;
+        }
 
-    // Retrieve the set pins
-    encoder_pins get_pins() {
-        return this->pins; 
+    // *** State Management *** //
+    void begin(){
+      if (this->state == STATE::FAULT) return;
+      if (this->state != STATE::UNINITIALIZED) {
+        stop();                     // STATE -> UNINITIALIZED
+      }
+      start();                      // UNINITIALIZED -> DISCONNECTED
+      check_connection();           // UNINITIALIZED -> IDENTIFIED
+      set_zero();                   // IDENTIFIED -> CONFIGURED
+      check_validity();             // CONFIGURED -> READY     
+    }
+    void stop() {
+      if (this->state == STATE::FAULT) return;
+      state = STATE::UNINITIALIZED;
+    }
+    void start(){
+      if (this->state == STATE::FAULT) return;
+      if (this->state != STATE::UNINITIALIZED) {
+        stop();                    // STATE -> UNINITIALIZED
+      }
+      // This version does not have a begin method
+      // sensor.begin(this->config.pins.a, this->config.pins.b);
+      this->state = STATE::DISCONNECTED;    // UNINITIALIZED -> DISCONNECTED
+    } 
+    void reset(){
+      stop();
+      data = DATA{};
+      state = STATE::UNINITIALIZED;
+    }
+    void update() {
+      return; 
     }
 
-    // Set a specific zero posiiton
-    void set_zero(long position) {
-      encoder.write(position); 
-      this->zero_timestamp = millis();
+    // *** Diagnostics *** //
+    void check_connection() { 
+      // There is no way to check the connection to the encoder, so this will always return true
+      if (this->state == STATE::UNINITIALIZED) {
+        this->state = STATE::IDENTIFIED;
+      }
     }
-    // Returns when the zero was set
-    unsigned long get_set_timestamp() {
-      return this->zero_timestamp;
-    }
-    // Initialize the encoder and set the current position to zero
-    void begin() {
-      // Initilaizing the encoder with pins automatically calls its begin
-      set_zero(this->position);
+    void check_validity() {
+      // There is no way to check the validity of the encoder readings, so this will always
+      if (this->state == STATE::CONFIGURED) {
+        this->state = STATE::READY;
+      }
     }
 
-    // Read the current position (no internal validity checks)
-    bool read_position() {
-      this->position_timestamp = millis();
-      this->position = encoder.read();
-      this->position_updated = true;
+    // *** Configuration *** //
+    void set_zero() {
+      if (this->state == STATE::FAULT) return;
+      if (this->state == STATE::UNINITIALIZED) return;
+      if (this->state == STATE::DISCONNECTED) return;
+      this->data.zero.timestamp = millis();
+      sensor.write(0);
+      this->data.position.value = 0;
+      this->data.position.is_new = true;
+      if (this->state == STATE::IDENTIFIED) {
+        this->state = STATE::CONFIGURED;
+      }
+    }
+    void set_position(long position) {
+      if (this->state == STATE::FAULT) return;
+      sensor.write(position); 
+      this->data.position.value = position;
+      this->data.position.is_new = true;
+    }
+
+    // *** Data Management *** //
+    bool read() {
+      this->data.position.timestamp = millis();
+      this->data.position.value = sensor.read();
+      this->data.position.is_new = true;
       return true; 
     }
-
-    // There is no way to do a hardware check so it will always return true
-    bool update() {
-      return read_position();
-    }
-
-    bool is_new_position() {
-      return this->position_updated; 
-    }
-
-    // Return the current encoder position, save as previous
-    long get_position() {
-      this->position_updated = false;
-      return this->position; 
-    }
-    unsigned long get_position_timestamp() {
-      return this->position_timestamp;
-    }
-
-    // Set the position to a specific value relative zero, does not update timestamp or updated flag
-    void set_position(long position) { 
-      this->position = position;
-    }
-
     void clear() {
-      this->position_updated = false;
+      this->data.position.is_new = false;
+    }
+    void poll() {
+      if (this->state != STATE::READY) return;
+      read();
     }
 
-    void reset() {
-      zero_timestamp = 0;
-      position = 0;
-      position_timestamp = 0;
-      position_updated = false;
-      // No communication to end
+    // *** Data Retrieval *** //
+    const CONFIG& get_config() const { return this->config; }
+    const PINS& get_pins() const { return this->config.pins; }
+    const STATE& get_state() const { return this->state; }
+    const DATA& peek() const { return this->data; }
+    const POSITION& get_position() {
+      this->data.position.is_new = false;
+      return this->data.position;
     }
-
+        
 private:
-    Encoder encoder;  // Encoder class object
-    encoder_pins pins{};  // Store the encoder pin numbers
-    unsigned long zero_timestamp = 0;
-    long position = 0; 
-    unsigned long position_timestamp = 0;
-    bool position_updated = false; 
+    Encoder sensor;
+    STATE state = STATE::UNINITIALIZED; 
+    CONFIG config{};
+    DATA data{};
 };
 
 }

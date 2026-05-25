@@ -1,7 +1,6 @@
 /*
 DEPENDENCIES:
  - Wire
- - Timer
 UNITS:
  - Direction: degrees
  - Magnetic field: device units (not converted to microteslas, must be processed by onboard computer)  
@@ -16,17 +15,55 @@ UNITS:
 
 namespace qmc_sensor {
 
-struct vector_3 {
-    float x;
-    float y;
-    float z;
-};
-
 class qmc_object {
   public:
-    qmc_object(uint8_t address = 0x0D, uint16_t check_connection_interval = 1000) 
-    : address(address), check_interval(check_connection_interval), 
-      check_connection_timer(check_interval) {}
+    qmc_object(uint8_t address = 0x0D) {
+        this->address = address;
+    }
+
+    // *** State Management *** //
+    void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
+        if (this->state != STATE::FAULT) return; 
+        if (this->state != STATE::UNINITIALIZED) {
+            stop(); 
+        }
+        if (start_wire == WIRE::START_WIRE){
+            Wire.begin();
+        }
+        sensor.init();
+        this->state = STATE::DISCONNECTED;
+    }
+    void begin(){
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state != STATE::DISCONNECTED){
+            stop();                                         // STATE -> DISCONNECTED
+        }
+        check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
+        calibrate();                                        // IDENTIFIED -> CONFIGURED   
+        check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+    }
+    void stop() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED, return
+        sensor.setMode(0x00);
+        if (this->state == STATE::READY){                   
+            this->state = STATE::PAUSED;                    // READY -> PAUSED
+        }                                                   // STATE -> STATE
+    }
+    void start(){
+        
+    }
+    void reset(){
+    
+    }
+    void update() {
+    
+    }
+
+
+
 
     // *** Connection management functions ***
     void set_check_connection_interval(uint16_t interval){
@@ -148,24 +185,12 @@ class qmc_object {
         this->mag_updated = false;
     }
     
-
   private:
-    // QMC parameters
     QMC5883LCompass qmc;
-    uint8_t address = 0x0D;
-    Timer check_connection_timer;
-    uint16_t check_interval = 1000;
-    bool connected = false;
-    // Calibration parameters
-    int calibration_offsets[3] = {0, 0, 0}; 
-    float calibration_scales[3] = {1.0, 1.0, 1.0};
-    // Data
-    float direction = 0;
-    bool direction_updated = false;
-    unsigned long direction_timestamp = 0;
-    vector_3 mag{0, 0, 0};
-    bool mag_updated = false;
-    unsigned long mag_timestamp = 0;
+    CONFIG config{};
+    STATUS status = STATUS::UNINITIALIZED;
+    ERROR error = ERROR::NO_ERROR;
+    DATA data{};
 };
 
 }

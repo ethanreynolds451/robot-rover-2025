@@ -16,248 +16,218 @@ UNITS
 #include "Adafruit_MPU6050/Adafruit_MPU6050.h"
 #include "Adafruit_MPU6050/Adafruit_MPU6050.cpp"
 
-#define MPUPARAM_ACCELRANGE_DEFAULT MPU6050_RANGE_2_G      // estimate for low speed vehcile, increase if needed
-#define MPUPARAM_GYRORANGE_DEFAULT MPU6050_RANGE_250_DEG   // estimate for low speed vehcile, increase if needed
-#define MPUPARAM_BANDWIDTH_DEFAULT MPU6050_BAND_44_HZ      // based on 25 ms relay timeout
+#include "mpuSensor_t.h"
 
 namespace mpu_sensor {
 
-struct vector_3 {
-    float x;
-    float y;
-    float z;
-};
-
 class mpu_object {
   public:
-    mpu_object(uint8_t address = 0x68, uint16_t check_connection_interval = 1000) 
-    : address(address), check_interval(check_connection_interval), 
-    check_connection_timer(check_interval) {}
+    mpu_object(uint8_t address = 0x68) {
+        this->config.address = address;
+    }
 
-    // *** Connection management functions ***
-    void set_check_connection_interval(uint16_t interval){
-        this->check_interval = interval;
-        check_connection_timer = Timer(check_interval);
+    // *** State Management *** //
+    void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
+        if (this->state != STATE::FAULT) return; 
+        if (this->state != STATE::UNINITIALIZED) {
+            stop(); 
+        }
+        if (start_wire == WIRE::START_WIRE){
+            Wire.begin();
+        }
+        this->state = STATE::DISCONNECTED;
     }
-    uint16_t get_check_connection_interval(){
-        return this->check_interval;
+    void begin(){ // ADD PAUSE SPUPPORT
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state != STATE::DISCONNECTED){
+            stop();                                         // STATE -> DISCONNECTED
+        }
+        check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
+        calibrate();                                        // IDENTIFIED -> CONFIGURED   
+        start(); 
+        check_validity();                                   // CONFIGURED -> CONFIGURED/READY
     }
-    bool check_connection(){
-        // Wire.begin() must be called in the main sketch
-        // Basically a ping to see if it's there
-        Wire.beginTransmission(this->address);
-        // An error code of 0 means the device acknowledged the ping
-        return (Wire.endTransmission() == 0); 
+    void stop() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED, return
+        this->state = STATE::IDENTIFIED;                    // STATE -> IDENTIFIED
     }
-    bool is_connected(){        
-        return this->connected;
+    void start(){
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) {
+            this->state = STATE::DISCONNECTED;              // UNINITIALIZED -> DISCONNECTED
+        }
     }
-    bool begin(){
-        // Verify that there is something at the address
-        if (check_connection()){
-            if (mpu.begin(address)) {
-                load_parameters();
-                this->connected = true;
-                return true;
+    void reset(){
+        stop(); 
+        data = DATA{};
+        state = STATE::UNINITIALIZED;                       // STATE -> UNINITIALIZED
+        error = ERROR::NO_ERROR;                            // ERROR -> NO_ERROR    
+    }
+    void update() {
+        return; 
+    }
+
+    // *** Diagnostics *** //
+    void check_connection() { 
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        Wire.beginTransmission(this->config.address);
+        if (Wire.endTransmission() == 0) {
+            if (this->state == STATE::DISCONNECTED) {   
+                this->state = STATE::IDENTIFIED;            // DISCONNECTED -> IDENTIFIED
+                if (this->error == ERROR::NOT_FOUND) {
+                    this->error = ERROR::NO_ERROR;          // NOT_FOUND -> NO_ERROR
+                }
+            }
+        } else {
+            this->state = STATE::DISCONNECTED;              // STATE -> DISCONNECTED
+            this->error = ERROR::NOT_FOUND;                // ERROR -> NOT_FOUND
+        }
+    }
+    void check_validity() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED, return
+        if (this->state == STATE::IDENTIFIED) return;       // IDENTIFIED -> IDENTIFIED, return
+        sensors_event_t a, g, t;     // Data type from MPU library
+        sensor.getEvent(&a, &g, &t);
+        if ((isnan(a.acceleration.x) || isnan(a.acceleration.y) || isnan(a.acceleration.z) ||
+            isnan(g.gyro.x) || isnan(g.gyro.y) || isnan(g.gyro.z) ||
+            isnan(t.temperature)) || 
+            (abs(a.acceleration.x) > config.invalid_data_thresholds.accel_max || abs(a.acceleration.y) > config.invalid_data_thresholds.accel_max || abs(a.acceleration.z) > config.invalid_data_thresholds.accel_max) ||
+            (abs(g.gyro.x) > config.invalid_data_thresholds.gyro_max || abs(g.gyro.y) > config.invalid_data_thresholds.gyro_max || abs(g.gyro.z) > config.invalid_data_thresholds.gyro_max) || 
+            (t.temperature < config.invalid_data_thresholds.temp_min || t.temperature > config.invalid_data_thresholds.temp_max)) {
+            this->state = STATE::CONFIGURED;                // STATE -> CONFIGURED
+            this->error = ERROR::NOT_VALID;                 // ERROR -> NOT_VALID
+        } else {
+            if (this->state == STATE::CONFIGURED) {
+                this->state = STATE::READY;                 // CONFIGURED -> READY
+                if (this->error == ERROR::NOT_VALID) {
+                    this->error = ERROR::NO_ERROR;          // NOT_VALID -> NO_ERROR
+                }
             }
         }
-        return false;
-    }
-    // Restart connection at a new address
-    bool set_address(uint8_t new_address){
-        this->address = new_address;
-        return begin();
     }
 
-    // *** Parameter management functions ***
-    void set_accel_range(mpu6050_accel_range_t range){
-        this->accel_range = range; 
+    // *** Configuration *** //
+    void set_calibration(CALIBRATION calibration){
+        this->config.calibration = calibration;
     }
-    mpu6050_accel_range_t get_accel_range(){
-        return this->accel_range;
+    void calibrate(){
+        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
+        if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED -> DISCONNECTED, return
+        sensor.setAccelerometerRange(config.calibration.accel_range);         
+        sensor.setGyroRange(config.calibration.gyro_range);                 
+        sensor.setFilterBandwidth(config.calibration.bandwidth);    
+        if (this->state == STATE::IDENTIFIED){
+            this->state = STATE::CONFIGURED;                               // IDENTIFIED -> CONFIGURED
+        }
     }
-    void set_gyro_range(mpu6050_gyro_range_t range){
-        this->gyro_range = range;
+    void set_address(uint8_t new_address){
+        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+        this->config.address = new_address;
+        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return
+        this->state = STATE::DISCONNECTED;                                 // STATE -> DISCONNECTED
     }
-    mpu6050_gyro_range_t get_gyro_range(){
-        return this->gyro_range;
+    void set_invalid_data_thresholds(INVALID_DATA thresholds){
+        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+        this->config.invalid_data_thresholds = thresholds;
+        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED ->
+        this->state = STATE::IDENTIFIED;                                   // STATE -> CONFIGURED
     }
-    void set_bandwidth(mpu6050_bandwidth_t bandwidth){
-        this->bandwidth = bandwidth;
-    }    
-    mpu6050_bandwidth_t get_bandwidth(){
-        return this->bandwidth;
-    }
-    // Send new parameters to the mpu
-    void load_parameters(){
-        mpu.setAccelerometerRange(accel_range);         
-        mpu.setGyroRange(gyro_range);                 
-        mpu.setFilterBandwidth(bandwidth);             
-    }
-    // Set parameters to default values
-    void reset_default_parameters(){
-        accel_range = MPUPARAM_ACCELRANGE_DEFAULT;
-        gyro_range = MPUPARAM_GYRORANGE_DEFAULT;
-        bandwidth = MPUPARAM_BANDWIDTH_DEFAULT;
-    }
-    
-    // *** Reading and control loop functions ***
-    bool read(){
+
+
+    // *** Data Management *** //
+    void read(){
         bool is_data = false;
-        sensors_event_t a, g, t;     // Data type from MPU library
-        mpu.getEvent(&a, &g, &t);
+        sensors_event_t a, g, t;        // Data type from MPU library
+        sensor.getEvent(&a, &g, &t); 
         // Only update each parameter if there are valid readings
         if (!isnan(a.acceleration.x) && !isnan(a.acceleration.y) && !isnan(a.acceleration.z)) {
-            mpu_data.acceleration.x = a.acceleration.x;
-            mpu_data.acceleration.y = a.acceleration.y;
-            mpu_data.acceleration.z = a.acceleration.z;
-            accel_updated = true;
-            accel_timestamp = millis();
+            data.accel.value.x = a.acceleration.x;
+            data.accel.value.y = a.acceleration.y;
+            data.accel.value.z = a.acceleration.z;
+            data.accel.is_new = true;
+            data.accel.timestamp = millis();
             is_data = true;
         } 
         if (!isnan(g.gyro.x) && !isnan(g.gyro.y) && !isnan(g.gyro.z)) {
-            mpu_data.gyro.x = g.gyro.x;
-            mpu_data.gyro.y = g.gyro.y;
-            mpu_data.gyro.z = g.gyro.z;
-            gyro_updated = true;
-            gyro_timestamp = millis();
+            data.gyro.value.x = g.gyro.x;
+            data.gyro.value.y = g.gyro.y;
+            data.gyro.value.z = g.gyro.z;
+            data.gyro.is_new = true;
+            data.gyro.timestamp = millis();
             is_data = true;
         }
         if(!isnan(t.temperature)) {
-            mpu_data.temperature = t.temperature;
-            temp_updated = true;
-            temp_timestamp = millis(); 
+            data.temp.value = t.temperature;
+            data.temp.is_new = true;
+            data.temp.timestamp = millis();
             is_data = true;
         }
-        return is_data;
-    }
-    bool update(){
-        // Check the connection at specified interval
-        if (check_connection_timer.passed()){
-            this->connected = check_connection();
-            if (!connected) {
-                this->connected = begin(); // Try to reconnect if connection is lost
-            }
-            check_connection_timer.reset();
+        if (is_data) {
+            data.timestamp = millis();
         }
-        // If connected, read the data
-        if (connected){
-            return read();
-        }
-        return false;
+    }
+    void clear() {
+        data.accel.is_new = false;
+        data.gyro.is_new = false;
+        data.temp.is_new = false;
+    }
+    void poll() {
+        if (this->state != STATE::READY) return;          // READY -> READY, return
+        read();
     }
 
-    // *** Getters for data, timestamps, and readiness ***
-    bool is_new_accel(){
-        return accel_updated;
+    // *** Data Retrieval *** //
+    const CONFIG& get_config() const { return this->config; }
+    const uint8_t& get_address() const { return this->config.address; }
+    const INVALID_DATA& get_invalid_data_thresholds() const { return this->config.invalid_data_thresholds; }
+    const CALIBRATION& get_calibration() const { return this->config.calibration; }
+    const STATE& get_state() const { return this->state; }
+    const ERROR& get_error() const { return this->error; }
+    const DATA& peek() const { return this->data; }
+    const ACCEL& get_acceleration() { 
+        this->data.accel.is_new = false;
+        return this->data.accel; 
     }
-    vector_3 get_accel(){
-        vector_3 accel_data;
-        accel_data.x = mpu_data.acceleration.x;
-        accel_data.y = mpu_data.acceleration.y;
-        accel_data.z = mpu_data.acceleration.z;
-        accel_updated = false;    
-        return accel_data;
+    const GYRO& get_gyro() { 
+        this->data.gyro.is_new = false;
+        return this->data.gyro; 
     }
-    unsigned long get_accel_timestamp(){
-        return accel_timestamp;
+    const TEMP& get_temperature() {
+        this->data.temp.is_new = false;
+        return this->data.temp; 
     }
-    
-    bool is_new_gyro(){
-        return gyro_updated;
-    }
-    vector_3 get_gyro(){
-        vector_3 gyro_data;
-        gyro_data.x = mpu_data.gyro.x;
-        gyro_data.y = mpu_data.gyro.y;
-        gyro_data.z = mpu_data.gyro.z;
-        gyro_updated = false;
-        return gyro_data;
-    }
-    unsigned long get_gyro_timestamp(){
-        return gyro_timestamp;
-    }
-
-    bool is_new_temp(){
-        return temp_updated;
-    }
-    float get_temp(){
-        float temp_data = mpu_data.temperature;
-        temp_updated = false;
-        return temp_data;
-    }
-    unsigned long get_temp_timestamp(){
-        return temp_timestamp;
-    }
-
-    // Returns if any one of the categories has been updated
-    bool data_updated(){
-        return (accel_updated || gyro_updated || temp_updated);
-    }
-    unsigned long get_timestamp(){
-        // Use most recent timestamp
-        return max(accel_timestamp, max(gyro_timestamp, temp_timestamp));
-    }
+    // Only if access as sensors_event_t is needed, otherwise use above getters for optimal memory management
+    // Will be removed by compiler if not used
     sensors_event_t get_data(){
-        // Use most recent timestamp
-        sensors_event_t data;
-        data.acceleration.x = mpu_data.acceleration.x;
-        data.acceleration.y = mpu_data.acceleration.y;
-        data.acceleration.z = mpu_data.acceleration.z;
-        data.gyro.x = mpu_data.gyro.x;
-        data.gyro.y = mpu_data.gyro.y;
-        data.gyro.z = mpu_data.gyro.z;
-        data.temperature = mpu_data.temperature;
-        data.timestamp = get_timestamp();
-        accel_updated = false;
-        gyro_updated = false;
-        temp_updated = false;
-        return data;
-    }
-    unsigned long data_age(){
-        return millis() - get_timestamp();
-    }
-
-    // *** Maintenance functions ***
-    void clear(){
-        accel_updated = false;
-        gyro_updated = false;
-        temp_updated = false;
-    }
-    void reset(){
-        accel_timestamp = 0;
-        gyro_timestamp = 0;
-        temp_timestamp = 0;
-        mpu_data.timestamp = 0;
-        mpu_data.acceleration.x = 0;
-        mpu_data.acceleration.y = 0;
-        mpu_data.acceleration.z = 0;
-        mpu_data.gyro.x = 0;
-        mpu_data.gyro.y = 0;
-        mpu_data.gyro.z = 0;
-        mpu_data.temperature = 0;
-        clear();
-        connected = false;
-    }
+        sensors_event_t sensor_data;
+        sensor_data.acceleration.x = data.accel.value.x;
+        sensor_data.acceleration.y = data.accel.value.y;
+        sensor_data.acceleration.z = data.accel.value.z;
+        sensor_data.gyro.x = data.gyro.value.x;
+        sensor_data.gyro.y = data.gyro.value.y;
+        sensor_data.gyro.z = data.gyro.value.z;
+        sensor_data.temperature = data.temp.value;
+        sensor_data.timestamp = data.timestamp;
+        data.accel.is_new = false;
+        data.gyro.is_new = false;
+        data.temp.is_new = false;
+        return sensor_data;
+    }    
 
   private: 
-    // MPU params
-    Adafruit_MPU6050 mpu;
-    uint8_t address = 0x68;
-    Timer check_connection_timer;
-    uint16_t check_interval = 0;
-    bool connected = false; 
-    mpu6050_accel_range_t accel_range = MPUPARAM_ACCELRANGE_DEFAULT; 
-    mpu6050_gyro_range_t gyro_range = MPUPARAM_GYRORANGE_DEFAULT;
-    mpu6050_bandwidth_t bandwidth = MPUPARAM_BANDWIDTH_DEFAULT;
-    // Data
-    sensors_event_t mpu_data;
-    bool accel_updated = false;
-    unsigned long accel_timestamp = 0;
-    bool gyro_updated = false;
-    unsigned long gyro_timestamp = 0;
-    bool temp_updated = false;
-    unsigned long temp_timestamp = 0;
+    Adafruit_MPU6050 sensor;
+    STATE state = STATE::UNINITIALIZED; 
+    ERROR error= ERROR::NO_ERROR; 
+    CONFIG config{}; 
+    DATA data{}; 
 };   
     
 }
