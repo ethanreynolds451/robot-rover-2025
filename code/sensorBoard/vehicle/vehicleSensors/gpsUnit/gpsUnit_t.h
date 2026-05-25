@@ -12,7 +12,7 @@ enum class STATE : uint8_t {
   IDENTIFIED    = 2,        // present + ID verified
   CONFIGURED    = 3,        // init/config applied
   READY         = 4,        // producing valid readings
-  FAULT         = 255,        // persistent/latched failure
+  FAULT         = 255,      // persistent/latched failure, requires reset
 };
 
 enum class ERROR : uint8_t {
@@ -28,26 +28,28 @@ enum class ERROR : uint8_t {
 struct PINS {
     uint8_t tx = 0;     
     uint8_t rx = 1;
+    bool using_software_serial = false;    
 };
 
 struct CONFIG {
     PINS pins;
     unsigned long baudrate = 9600;
-    unsigned long timeout = 5000;       // Disconnected if nothing recieved after 
+    unsigned long timeout = 5000;         // Disconnected if nothing recieved after 
+};
 
 // *** Data structs *** //
 
 struct COORDINATES {
     bool is_new = false;
-    float lat;
-    float long;
-    unsigned long timestamp;
+    float latitude = 0.0;
+    float longitude = 0.0;
+    unsigned long timestamp = 0;
 };
 
 struct ALTITUDE {
     bool is_new = false;
-    float value;
-    unsigned long timestamp;
+    float value = 0.0;
+    unsigned long timestamp = 0;
 };
 
 struct POSITION {
@@ -57,14 +59,14 @@ struct POSITION {
 
 struct SPEED {
     bool is_new = false;
-    float value;
-    unsigned long timestamp;
+    float value = 0.0;
+    unsigned long timestamp = 0;
 }; 
 
 struct COURSE {
     bool is_new = false;
-    float value;
-    unsigned long timestamp;
+    float value = 0.0;
+    unsigned long timestamp = 0;
 };
 
 struct VELOCITY {
@@ -74,18 +76,18 @@ struct VELOCITY {
 
 struct TIME {
     bool is_new = false;
-    unsigned long value;  
-    unsigned long timestamp;
+    unsigned long value = 0;  
+    unsigned long timestamp = 0;
 };
 
 struct FIX {
     bool is_new = false;
-    uint8_t value;  
-    unsigned long timestamp;
+    uint8_t value = 0;  
+    unsigned long timestamp = 0;
 };
 
 struct DATA {
-    unsigned long timestamp;        // Packet timestamp
+    unsigned long timestamp = 0;    // Packet timestamp
     POSITION position;              // Data describing position
     VELOCITY velocity;              // Data describing velocity
     TIME time;                      // GPS time

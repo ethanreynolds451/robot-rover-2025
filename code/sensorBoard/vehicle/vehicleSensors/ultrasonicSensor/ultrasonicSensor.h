@@ -66,8 +66,8 @@ class ultrasonic_object {
         ultrasonic_object(uint8_t trig, uint8_t echo, int8_t temp = 25, unsigned int timeout_distance = 2000)
             : sensor(trig, echo, &ultrasonic_object::PingTrampoline, &ultrasonic_object::TimeoutTrampoline)
             {
-            calibration.temp = temp;
-            calibration.timeout_distance = timeout_distance;
+            config.calibration.temp = temp;
+            config.calibration.timeout_distance = timeout_distance;
             register_instance();
             this->state = STATE::UNINITIALIZED;
             this->error = ERROR::NO_ERROR;
@@ -79,6 +79,10 @@ class ultrasonic_object {
 
         // *** State Management *** //
         void begin(){
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            if (this->state != STATE::UNINITIALIZED) {
+                stop();
+            };
             check_connection();     // STATE -> UNINITIALIZED -> IDENTIFIED / DISCONNECTED
             calibrate();            // IDENTIFIED -> CONFIGURED
             check_validity();       // CONFIGURED -> READY
@@ -151,11 +155,10 @@ class ultrasonic_object {
             this->state = STATE::READY;                        // CONFIGURED -> READY
         }
 
-        // *** Calibration *** //
+        // *** Configuration *** //
         void set_calibration(int8_t temp, unsigned int timeout_distance) {
-            this->calibration.temp = temp;
-            this->calibration.timeout_distance = timeout_distance;
-            calibrate();
+            this->config.calibration.temp = temp;
+            this->config.calibration.timeout_distance = timeout_distance;
         }
         void calibrate() {
             if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
@@ -165,9 +168,14 @@ class ultrasonic_object {
                 sensor.Stop();                                    
                 this->state = STATE::IDENTIFIED;                // STATE > DISCONNECTED -> stop() + IDENTIFIED
             }
-            sensor.SetTemperatureCorrection(calibration.temp);
-            sensor.SetTimeOutDistance(calibration.timeout_distance);
+            sensor.SetTemperatureCorrection(this->config.calibration.temp);
+            sensor.SetTimeOutDistance(this->config.calibration.timeout_distance);
             this->state = STATE::CONFIGURED;                    // IDENTIFIED -> CONFIGURED
+        }
+        void set_pins() {
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + returnif (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            stop();
+            this->state = STATE::DISCONNECTED;                  // STATE -> DISCONNECTED
         }
 
         // *** Data Management *** //
@@ -191,27 +199,18 @@ class ultrasonic_object {
         }
 
         // *** Data Retrieval *** //
-        CONFIG get_config() const {
-            CONFIG config;
+        const CONFIG& get_config() {
             config.pins = get_pins();
-            config.calibration = this->calibration;
             return config;
         }
-        PINS get_pins() const {
-            PINS pins;
-            pins.trig = sensor.TriggerPin;
-            pins.echo = sensor.EchoPin;
-            return pins;
+        const PINS& get_pins() {
+            config.pins.trig = sensor.TriggerPin;
+            config.pins.echo = sensor.EchoPin;
+            return config.pins;
         }
-        CALIBRATION get_calibration() const {
-            return this->calibration;
-        }
-        STATE get_state() const {
-            return this->state;
-        }
-        ERROR get_error() const {
-            return this->error;
-        }
+        const CALIBRATION& get_calibration() const { return this->config.calibration; }
+        const STATE& get_state() const { return this->state; }
+        const ERROR& get_error() const { return this->error; }
         const DATA& peek() const { return this->data; }
         const DISTANCE& get_distance() {
             this->data.distance.is_new = false;
@@ -220,10 +219,10 @@ class ultrasonic_object {
 
     private:
         AsyncSonar sensor;
-        CALIBRATION calibration{}; // default values, can be set in constructor or with set_calibration()
+        CONFIG config{};
         ERROR error;
         STATE state;
-        DATA data;
+        DATA data{};
 
         // *** Callback Management *** //
 

@@ -3,35 +3,71 @@
 
 #include "IRremote-4.4.1/src/IRremote.h"
 
-namespace ir_sensor {
+#include "irSensor_t.h"
 
-enum {
-  LED_OFF,
-  LED_ON
-};
+namespace ir_sensor {
 
 class ir_object {
   public: 
-    ir_object(uint8_t pin, bool led = 0) : pin(pin), led_active(led) {}   // Save the pin for future reference
-    // Start the IR receiver
+    ir_object(uint8_t pin, bool led = 0) {
+      this->config.pin = pin;
+      this->config.led_active = led;
+      this->state = STATE::UNINITIALIZED;
+    }  
+
+    // *** State Management *** //
     void begin(){
+      if (this->state == STATE::FAULT) return;
+      if (this->state != STATE::UNINITIALIZED) {
+        stop();
+      };
       if(led_active){
         IrReceiver.begin(pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
       } else {
         IrReceiver.begin(pin); 
       }
+      this->state = STATE::UNVERIFIED;                    // UNINITIALIZED -> UNVERIFIED
     }
-    uint8_t get_pin(){
-      return this->pin; 
+    void stop() {
+      IrReceiver.stop();
+      if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+      if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+      if (this->state == STATE::UNVERIFIED) {
+        this->state = STATE::UNINITIALIZED;                // UNVERIFIED -> UNINITIALIZED
+        return
+      };
+      if (this->state == STATE::PAUSED) return;            // PAUSED -> PAUSED + return
+      if (this->state == STATE::VERIFIED) {
+        this->state = STATE::PAUSED;                      // VERIFIED -> PAUSED
+      };                      
     }
+    void start(){
+      if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+      IrReceiver.start();
+      if (this->state == STATE::UNINITIALIZED) {
+        this->state = STATE::UNVERIFIED;                 // UNINITIALIZED -> UNVERIFIED
+        return
+      };    
+      if (this->state == STATE::UNVERIFIED) return;      // UNVERIFIED -> UNVERIFIED + return
+      if (this->state == STATE::PAUSED) {
+        this->state = STATE::VERIFIED;                   // PAUSED -> VERIFIED
+      };
+    }
+    void reset(){
+      stop();
+      this->state = STATE::UNINITIALIZED;
+      this->data = DATA();
+    }
+    void update() {
+        return; 
+    }
+
+    // *** Diagnostics *** //
     void set_pin(uint8_t new_pin){
       this->pin = new_pin; 
       // Restart the IR receiver with the new pin
       IrReceiver.stop();
       this->begin(); 
-    }
-    uint8_t get_led_active(){
-      return this->led_active; 
     }
     void set_led_active(bool new_led_active){
       this->led_active = new_led_active;
@@ -39,6 +75,11 @@ class ir_object {
       IrReceiver.stop();
       this->begin();
     }
+
+
+
+
+
     // Return if there is new data from the IR sensor
     bool decode(){
         if(IrReceiver.decode()){
@@ -136,17 +177,9 @@ class ir_object {
       this->clear(); 
     }
   private: 
-    uint8_t pin; 
-    bool led_active; 
-    uint16_t command = 0; 
-    bool command_updated = 0; 
-    unsigned long command_timestamp = 0;
-    uint16_t address = 0; 
-    bool address_updated = 0; 
-    unsigned long address_timestamp = 0;
-    IRRawDataType data = 0;    // Defined in IRremote library based on archetecture
-    bool data_updated = 0; 
-    unsigned long data_timestamp = 0;
+    CONFIG config{};
+    STATE state;
+    DATA data{};
 };
   
 }

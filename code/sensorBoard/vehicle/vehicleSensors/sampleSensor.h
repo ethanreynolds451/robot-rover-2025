@@ -90,7 +90,7 @@ class sample_object {
 
         }
 
-        // *** Calibration *** //
+        // *** Configuration *** //
         void set_calibration(int8_t temp, unsigned int timeout_distance) {
             
         }
@@ -110,24 +110,12 @@ class sample_object {
         }
 
         // *** Data Retrieval *** //
-        CONFIG get_config() const {
-            return this->config;
-        }
-        PINS get_pins() const {
-            return this->config.pins;
-        }
-        CALIBRATION get_calibration() const {
-            return this->config.calibration;
-        }
-        STATE get_state() const {
-            return this->state;
-        }
-        ERROR get_error() const {
-            return this->error;
-        }
-        const DATA& peek() const { 
-            return this->data; 
-        }
+        const CONFIG& get_config() const { return this->config; }
+        const PINS& get_pins() const { return this->config.pins; }
+        const CALIBRATION& get_calibration() const { return this->config.calibration; }
+        const STATE& get_state() const { return this->state; }
+        const ERROR& get_error() const { return this->error; }
+        const DATA& peek() const { return this->data; }
         const MEASUREMENT& get_measurement() {
             this->data.measurement.is_new = false;
             return this->data.measurement;
