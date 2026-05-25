@@ -9,7 +9,7 @@ namespace ir_sensor {
 
 class ir_object {
   public: 
-    ir_object(uint8_t pin, bool led = 0) {
+    ir_object(uint8_t pin, LED led = LED::LED_OFF) {
       this->config.pin = pin;
       this->config.led_active = led;
       this->state = STATE::UNINITIALIZED;
@@ -21,10 +21,10 @@ class ir_object {
       if (this->state != STATE::UNINITIALIZED) {
         stop();
       };
-      if(led_active){
-        IrReceiver.begin(pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
+      if(this->config.led_active == LED::LED_ON){
+        IrReceiver.begin(this->config.pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
       } else {
-        IrReceiver.begin(pin); 
+        IrReceiver.begin(this->config.pin); 
       }
       this->state = STATE::UNVERIFIED;                    // UNINITIALIZED -> UNVERIFIED
     }
@@ -34,7 +34,7 @@ class ir_object {
       if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
       if (this->state == STATE::UNVERIFIED) {
         this->state = STATE::UNINITIALIZED;                // UNVERIFIED -> UNINITIALIZED
-        return
+        return;
       };
       if (this->state == STATE::PAUSED) return;            // PAUSED -> PAUSED + return
       if (this->state == STATE::VERIFIED) {
@@ -46,7 +46,7 @@ class ir_object {
       IrReceiver.start();
       if (this->state == STATE::UNINITIALIZED) {
         this->state = STATE::UNVERIFIED;                 // UNINITIALIZED -> UNVERIFIED
-        return
+        return;
       };    
       if (this->state == STATE::UNVERIFIED) return;      // UNVERIFIED -> UNVERIFIED + return
       if (this->state == STATE::PAUSED) {
@@ -59,123 +59,100 @@ class ir_object {
       this->data = DATA();
     }
     void update() {
-        return; 
+      return; 
     }
 
     // *** Diagnostics *** //
+    void check_connection() { 
+      if (this->state == STATE::UNVERIFIED) {
+        if (this->data.timestamp != 0){
+          this->state = STATE::VERIFIED;           // UNVERIFIED -> VERIFIED
+        }             
+      };
+    }
+    void check_validity() {
+        return; 
+    }
+
+    // *** Configuration *** //
     void set_pin(uint8_t new_pin){
-      this->pin = new_pin; 
-      // Restart the IR receiver with the new pin
-      IrReceiver.stop();
-      this->begin(); 
+      this->config.pin = new_pin; 
     }
-    void set_led_active(bool new_led_active){
-      this->led_active = new_led_active;
-      // Restart the IR receiver with the new LED setting
-      IrReceiver.stop();
-      this->begin();
+    void set_led_active(LED new_led_active){
+      this->config.led_active = new_led_active;
     }
-
-
-
-
-
-    // Return if there is new data from the IR sensor
-    bool decode(){
-        if(IrReceiver.decode()){
-            // Filtrar señales que no sean de protocolos conocidos
-            if(IrReceiver.decodedIRData.protocol == UNKNOWN){
-                IrReceiver.resume();  // Ignorar la señal y preparar para la siguiente
-                return false;
-            }
-            return true;  // Señal válida
-        }
-        return false;  // No hay datos
-    }
-    // Read the data from the IR sensor
-    // Validity checks are placeholder, can perform more complex based on later needs; zero is not valid for controller being used
+    
+    // *** Data Management *** //
     void read(){
-      // Read incoming command
+      bool read_data = false; 
       uint8_t new_command = IrReceiver.decodedIRData.command;
       if(new_command != 0){
-        this->command_timestamp = millis();
-        this->command = new_command; 
-        this->command_updated = 1; 
+        this->data.command.timestamp = millis();
+        this->data.command.value = new_command; 
+        this->data.command.is_new = true; 
+        read_data = true;
       }
       // Read incoming address
       uint16_t new_address = IrReceiver.decodedIRData.address;
       if (new_address != 0){
-        this->address_timestamp = millis();
-        this->address = new_address; 
-        this->address_updated = 1;
+        this->data.address.timestamp = millis();
+        this->data.address.value = new_address; 
+        this->data.address.is_new = true;
+        read_data = true;
       }
       // Read incoming data 
       IRRawDataType new_data = IrReceiver.decodedIRData.decodedRawData;
       if(new_data != 0){      
-        this->data_timestamp = millis();
-        this->data = new_data; 
-        this->data_updated = 1;
+        this->data.data.timestamp = millis();
+        this->data.data.value = new_data; 
+        this->data.data.is_new = true;
+        read_data = true;
       }
       IrReceiver.resume();
-    }
-    bool update(){
-      if (this->decode()){
-        this->read();
-        return true;    // Successfully read the data
+      if (read_data){
+        this->data.timestamp = millis();
       }
-      return false;     // No data to read
     }
-    // Getter functions
-    bool is_new_command(){
-      return this->command_updated; 
+    void clear() {
+      this->data.command.is_new = false; 
+      this->data.address.is_new = false; 
+      this->data.data.is_new = false; 
     }
-    uint16_t get_command(){
-      this->command_updated = false; 
-      return this->command; 
+    void poll() {
+      if (this->state == STATE::FAULT) return;
+      if (this->state == STATE::UNINITIALIZED) return;
+      if (this->state == STATE::PAUSED) return;
+      if(IrReceiver.decode()){
+        if(IrReceiver.decodedIRData.protocol == UNKNOWN){
+            IrReceiver.resume();
+            return;
+        }
+        read();
+        if (this->state == STATE::UNVERIFIED) {
+          if (this->data.timestamp != 0) {
+            this->state = STATE::VERIFIED;           // UNVERIFIED -> VERIFIED
+          }
+        }
+      }
     }
-    unsigned long get_command_timestamp(){
-      return this->command_timestamp; 
+
+    // *** Data Retrieval *** //
+    const CONFIG& get_config() const { return this->config; }
+    const STATE& get_state() const { return this->state; }
+    const DATA& peek() const { return this->data; }
+    const COMMAND& get_command() {
+      this->data.command.is_new = false; 
+      return this->data.command; 
     }
-    bool is_new_address(){
-      return this->address_updated; 
+    const ADDRESS& get_address() {
+      this->data.address.is_new = false;
+      return this->data.address;
     }
-    uint16_t get_address(){
-      this->address_updated = false; 
-      return this->address; 
+    const RAW_DATA& get_data() {
+      this->data.data.is_new = false;
+      return this->data.data;
     }
-    unsigned long get_address_timestamp(){
-      return this->address_timestamp;
-    }
-    bool is_new_data(){
-      return this->data_updated; 
-    }
-    IRRawDataType get_data(){
-      this->data_updated = false; 
-      return this->data; 
-    }
-    unsigned long get_data_timestamp(){
-      return this->data_timestamp; 
-    }
-    unsigned long data_age(){
-      unsigned long newest_data = max(this->command_timestamp, max(this->address_timestamp, this->data_timestamp));
-      return millis() - newest_data; 
-    }
-    void clear(){
-      // This doesn't actually overwrite the data, just tells the system that there is nothing new
-      this->command_updated = false; 
-      this->address_updated = false; 
-      this->data_updated = false; 
-    }
-    void reset(){
-      IrReceiver.stop();
-      this->command = 0; 
-      this->command_timestamp = 0;
-      this->address = 0; 
-      this->address_timestamp = 0;
-      this->data = 0; 
-      this->data_timestamp = 0;
-      this->clear(); 
-    }
+  
   private: 
     CONFIG config{};
     STATE state;
