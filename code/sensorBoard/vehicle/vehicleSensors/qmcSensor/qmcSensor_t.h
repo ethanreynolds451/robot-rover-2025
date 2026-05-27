@@ -1,3 +1,6 @@
+#ifndef QMC_SENSOR_T_H
+#define QMC_SENSOR_T_H
+
 namespace qmc_sensor {
 
 enum class STATE : uint8_t {
@@ -33,16 +36,24 @@ struct CALIBRATION {
     VECTOR_3 scales = {1.0, 1.0, 1.0};
 };
 
+struct INVALID_DATA {
+    float mag_min = -32767;
+    float mag_max = 32767;
+    int direction_min = 0;
+    int direction_max = 360;
+};
+
 struct CONFIG {
     uint8_t address = 0x0D;   
     CALIBRATION calibration;
+    INVALID_DATA invalid_data_thresholds;
 };
 
 struct MAG {
     bool is_new = false;
     VECTOR_3 value{0, 0, 0};
     unsigned long timestamp = 0;
-}
+};
 
 struct DIRECTION {
     bool is_new = false;
@@ -57,3 +68,5 @@ struct DATA {
 };
 
 }
+
+#endif

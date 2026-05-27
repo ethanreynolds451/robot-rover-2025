@@ -1,3 +1,6 @@
+#ifndef IR_SENSOR_T_H
+#define IR_SENSOR_T_H
+
 namespace ir_sensor {
 
 enum class LED : uint8_t {
@@ -44,3 +47,5 @@ struct DATA {
 };
 
 }
+
+#endif

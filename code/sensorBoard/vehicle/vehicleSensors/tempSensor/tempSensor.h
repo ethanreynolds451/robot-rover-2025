@@ -3,101 +3,122 @@ UNITS:
  - Temperature: Celsius (slope and intercept must be calibrated accordingly)
 */
 
-#ifndef IRSENSOR_H
-#define IRSENSOR_H
+#ifndef TEMP_SENSOR_H
+#define TEMP_SENSOR_H
 
 #include "voltageDivider/voltageDivider.h"
 
-char outputString[60]; // Buffer for formatted output string
+#include "tempSensor_t.h"
 
 namespace temp_sensor {
 
 class temp_object {
     public:
-        temp_object(uint8_t pin, float slope, float intercept) 
-        : divider(pin, slope, intercept) {}
-
-        bool begin(){
-            // Nothing to do, divider constructor sets the pinMode
-            return true;
+        temp_object(uint8_t pin, float slope = 1.0, float intercept = 0.0) 
+        : sensor(pin, slope, intercept) {
+            this->config.pin = pin;
+            this->config.calibration.slope = slope;
+            this->config.calibration.intercept = intercept;
         }
 
-        // *** Divider parameter setters and getters ***
+        // *** Startup Functions *** //
+        void initialize() {
+            if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
+            this->state = STATE::IDENTIFIED;    // STATE -> IDENTIFIED
+        }   // transición de estado verificada
+        void begin(){
+            configure();                             // IDENTIFIED -> CONFIGURED
+            check_validity();                        // CONFIGURED -> CONFIGURED/READY
+        }
+
+        // *** State and Lifecycle Management *** //
+        void check_connection() { }
+        void configure() {
+            if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+            if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
+            sensor.set(this->config.pin, this->config.calibration.slope, this->config.calibration.intercept);
+            this->state = STATE::CONFIGURED;                                   // IDENTIFIED -> CONFIGURED
+        }   // state transition verified
+        void check_validity() {
+            if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+            if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
+            float temp = sensor.read();
+            if ((temp < this->config.invalid_data_thresholds.min) || 
+                (temp > (this->config.invalid_data_thresholds.use_external ? this->config.invalid_data_thresholds.max_external : this->config.invalid_data_thresholds.max_internal))) {
+                // Sensor is returning invalid data:
+                this->state = STATE::CONFIGURED;                // STATE -> CONFIGURED
+                this->error = ERROR::NOT_VALID;                 // ERROR -> NOT_VALID
+            } else {
+                // Sensor is returning valid data:
+                if (this->state == STATE::CONFIGURED) {
+                    this->state = STATE::READY;                 // CONFIGURED -> READY
+                }                                               // STATE -> STATE
+                if (this->error == ERROR::NOT_VALID) {
+                    this->error = ERROR::NO_ERROR;              // NOT_VALID -> NO_ERROR
+                }
+            } 
+        }   // transición de estado verificada
+        void start() { }
+        void stop() { }
+        void reset(){
+            this->data = DATA{};
+            this->state = STATE::UNINITIALIZED;                 // STATE -> UNINITIALIZED
+            this->error = ERROR::NO_ERROR;                      // ERROR -> NO_ERROR
+        }   // state transition verificada
+        void update() { }
+
+        // *** Configuración ***
         void set_pin(uint8_t pin){
-            this->pin = pin;
-            divider.set_pin(pin);
+            this->config.pin = pin;
         }
-        uint8_t get_pin(){
-            return this->pin;
+        void set_slope(float slope){
+            this->config.calibration.slope = slope;
         }
-        void set_slope(float m){
-            this->slope = m;
-            divider.set_slope(m);
+        void set_intercept(float intercept){
+            this->config.calibration.intercept = intercept;
         }
-        float get_slope(){
-            return this->slope;
+        void set_calibration(CALIBRATION calibration){
+            this->config.calibration = calibration;
         }
-        void set_offset(float b){
-            this->intercept = b;
-            divider.set_offset(b);
-        }
-        float get_offset(){
-            return this->intercept;
-        }
-        void set(uint8_t pin, float m, float b){
-            this->pin = pin;
-            this->slope = m;
-            this->intercept = b;
-            divider.set(pin, m, b);
+        void set_invalid_data_thresholds(INVALID_DATA thresholds){
+            this->config.invalid_data_thresholds = thresholds;
         }
         
-        // *** Control loop functions ***
-        bool read(){   
-            this->temp_timestamp = millis();
-            this->temperature = divider.read(); 
-            this->temp_updated = true;
-            return true;
-        } 
-        bool update(){
-            return read();
+        // *** Data Management *** //
+        void read() { 
+            this->data.timestamp = millis();
+            this->data.measurement.value = sensor.read();
+            this->data.measurement.is_new = true;
+        }
+        void clear() {
+            this->data.measurement.is_new = false;
+        }
+        void poll() {
+            if (this->state != STATE::READY) return;            // STATE -> STATE, return
+            read();
         }
 
-        // *** Data access functions ***
-        bool is_new_temp(){
-            return this->temp_updated; 
-        }
-        float get_temp(){
-            this->temp_updated = false;
-            return this->temperature;
-        }
-        unsigned long get_temp_timestamp(){
-            return this->temp_timestamp;
-        }
-        unsigned long get_temp_age(){
-            return millis() - this->temp_timestamp;
-        }
-
-        // *** Maintience functions ***
-        void clear(){
-            this->temp_updated = false; 
-        }
-        void reset(){
-            this->temperature = 0; 
-            this->temp_timestamp = 0;
-            this->clear(); 
+        // *** Data Retrieval *** //
+        const CONFIG& get_config() const { return this->config; }
+        const uint8_t& get_pin() const { return this->config.pin; }
+        const float& get_slope() const { return this->config.calibration.slope; }
+        const float& get_intercept() const { return this->config.calibration.intercept; }
+        const CALIBRATION& get_calibration() const { return this->config.calibration; }
+        const INVALID_DATA& get_invalid_data_thresholds() const { return this->config.invalid_data_thresholds; }
+        const STATE& get_state() const { return this->state; }
+        const ERROR& get_error() const { return this->error; }
+        const DATA& peek() const { return this->data; }
+        const TEMP& get_measurement() {
+            this->data.measurement.is_new = false;
+            return this->data.measurement;
         }
 
     private:
-        // Sensor parameters 
-        uint8_t pin = 0;
-        linearDivider divider;
-        // Volate divider doesn't expose slope and intercept, so need to track them here
-        float slope = 0;
-        float intercept = 0;
-        // Data
-        float temperature = 0;
-        bool temp_updated = false;
-        unsigned long temp_timestamp = 0;
+        linearDivider sensor;
+        STATE state = STATE::UNINITIALIZED;
+        ERROR error = ERROR::NO_ERROR;
+        CONFIG config{};
+        DATA data{};
 };
     
 }

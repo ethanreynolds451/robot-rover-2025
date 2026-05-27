@@ -1,3 +1,6 @@
+#ifndef MOTOR_ENCODER_T_H
+#define MOTOR_ENCODER_T_H
+
 namespace motor_encoder {
 
 enum class STATE : uint8_t {
@@ -35,3 +38,5 @@ struct DATA {
 };
 
 }
+
+#endif

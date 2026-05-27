@@ -26,67 +26,52 @@ class mpu_object {
         this->config.address = address;
     }
 
-    // *** State Management *** //
+    // *** Startup Functions *** //
     void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
-        if (this->state != STATE::FAULT) return; 
-        if (this->state != STATE::UNINITIALIZED) {
-            stop(); 
+        if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
+        if (this->state != STATE::UNINITIALIZED) {         
+            this->state = STATE::UNINITIALIZED;            // STATE -> UNINITIALIZED
         }
         if (start_wire == WIRE::START_WIRE){
             Wire.begin();
         }
-        this->state = STATE::DISCONNECTED;
-    }
-    void begin(){ // ADD PAUSE SPUPPORT
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
-        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
-        if (this->state != STATE::DISCONNECTED){
-            stop();                                         // STATE -> DISCONNECTED
-        }
+        this->state = STATE::DISCONNECTED;                  // UNINITIALIZED -> DISCONNECTED
+    }   // state transition verified
+    void begin(){
+        if (this->state != STATE::DISCONNECTED) return;     // STATE -> STATE, return
         check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
-        calibrate();                                        // IDENTIFIED -> CONFIGURED   
-        start(); 
+        configure();                                        // IDENTIFIED -> CONFIGURED   
         check_validity();                                   // CONFIGURED -> CONFIGURED/READY
-    }
-    void stop() {
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
-        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
-        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED, return
-        this->state = STATE::IDENTIFIED;                    // STATE -> IDENTIFIED
-    }
-    void start(){
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
-        if (this->state == STATE::UNINITIALIZED) {
-            this->state = STATE::DISCONNECTED;              // UNINITIALIZED -> DISCONNECTED
-        }
-    }
-    void reset(){
-        stop(); 
-        data = DATA{};
-        state = STATE::UNINITIALIZED;                       // STATE -> UNINITIALIZED
-        error = ERROR::NO_ERROR;                            // ERROR -> NO_ERROR    
-    }
-    void update() {
-        return; 
-    }
+    }   // state transition verified
 
-    // *** Diagnostics *** //
+    // *** State and Lifecycle Management *** //
     void check_connection() { 
         if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
         if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
         Wire.beginTransmission(this->config.address);
         if (Wire.endTransmission() == 0) {
+            // Sensor is connected:                         
             if (this->state == STATE::DISCONNECTED) {   
                 this->state = STATE::IDENTIFIED;            // DISCONNECTED -> IDENTIFIED
                 if (this->error == ERROR::NOT_FOUND) {
                     this->error = ERROR::NO_ERROR;          // NOT_FOUND -> NO_ERROR
                 }
-            }
+            }                                               // STATE -> STATE
         } else {
+            // Sensor is not connected:
             this->state = STATE::DISCONNECTED;              // STATE -> DISCONNECTED
-            this->error = ERROR::NOT_FOUND;                // ERROR -> NOT_FOUND
+            this->error = ERROR::NOT_FOUND;                 // ERROR -> NOT_FOUND
         }
-    }
+    }   // state transition verified
+    void configure(){
+        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
+        if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED -> DISCONNECTED, return
+        sensor.setAccelerometerRange(config.calibration.accel_range);         
+        sensor.setGyroRange(config.calibration.gyro_range);                 
+        sensor.setFilterBandwidth(config.calibration.bandwidth);    
+        this->state = STATE::CONFIGURED;                                   // IDENTIFIED -> CONFIGURED
+    }   // state transition verified
     void check_validity() {
         if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
         if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
@@ -100,32 +85,43 @@ class mpu_object {
             (abs(a.acceleration.x) > config.invalid_data_thresholds.accel_max || abs(a.acceleration.y) > config.invalid_data_thresholds.accel_max || abs(a.acceleration.z) > config.invalid_data_thresholds.accel_max) ||
             (abs(g.gyro.x) > config.invalid_data_thresholds.gyro_max || abs(g.gyro.y) > config.invalid_data_thresholds.gyro_max || abs(g.gyro.z) > config.invalid_data_thresholds.gyro_max) || 
             (t.temperature < config.invalid_data_thresholds.temp_min || t.temperature > config.invalid_data_thresholds.temp_max)) {
+            // Sensor is returning invalid data:
             this->state = STATE::CONFIGURED;                // STATE -> CONFIGURED
             this->error = ERROR::NOT_VALID;                 // ERROR -> NOT_VALID
         } else {
+            // Sensor is not returning valid data:
             if (this->state == STATE::CONFIGURED) {
                 this->state = STATE::READY;                 // CONFIGURED -> READY
-                if (this->error == ERROR::NOT_VALID) {
-                    this->error = ERROR::NO_ERROR;          // NOT_VALID -> NO_ERROR
-                }
+            }                                               // STATE -> STATE
+            if (this->error == ERROR::NOT_VALID) {
+                this->error = ERROR::NO_ERROR;              // NOT_VALID -> NO_ERROR
             }
         }
+    }   // state transition verified
+    void start(){
+        if (this->state != STATE::PAUSED) return;           // STATE -> STATE, return
+        sensor.enableSleep(false);
+        this->state = STATE::READY;                         // PAUSED -> READY
+    }   // state transition verified
+    void stop() {
+        if (this->state != STATE::READY) return;            // STATE -> STATE, return
+        sensor.enableSleep(true);
+        this->state = STATE::PAUSED;                        // READY -> PAUSED
+    }   // state transition verified
+    void reset(){
+        data = DATA{};
+        state = STATE::UNINITIALIZED;                       // STATE -> UNINITIALIZED
+        error = ERROR::NO_ERROR;                            // ERROR -> NO_ERROR    
     }
-
+    void update() {
+        // No hay nada para actualizar
+        return; 
+    }
+    
+    
     // *** Configuration *** //
     void set_calibration(CALIBRATION calibration){
         this->config.calibration = calibration;
-    }
-    void calibrate(){
-        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
-        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
-        if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED -> DISCONNECTED, return
-        sensor.setAccelerometerRange(config.calibration.accel_range);         
-        sensor.setGyroRange(config.calibration.gyro_range);                 
-        sensor.setFilterBandwidth(config.calibration.bandwidth);    
-        if (this->state == STATE::IDENTIFIED){
-            this->state = STATE::CONFIGURED;                               // IDENTIFIED -> CONFIGURED
-        }
     }
     void set_address(uint8_t new_address){
         if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
@@ -140,7 +136,6 @@ class mpu_object {
         if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED ->
         this->state = STATE::IDENTIFIED;                                   // STATE -> CONFIGURED
     }
-
 
     // *** Data Management *** //
     void read(){

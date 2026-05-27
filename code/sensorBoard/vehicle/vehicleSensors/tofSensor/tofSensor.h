@@ -15,9 +15,7 @@ UNITS:
 
 namespace tof_sensor {
 
-// To avoid issues, no ToF sensor should use the default address
-uint8_t DEFAULT_ADDRESS = 0x29;
-uint8_t LIGHT_REGISTER = 0x96;    
+
 
 class tof_object {
     public:
@@ -150,3 +148,14 @@ class tof_object {
 }
 
 
+/* 
+Funciónes para usar: 
+setAddress()
+bool init()
+void startContinuous(uint32_t period_ms = 0);
+void stopContinuous();
+uint16_t readRangeContinuousMillimeters();
+signal = readReg16Bit(0x20);
+light = readReg16Bit(0x22);
+      SOFT_RESET_GO2_SOFT_RESET_N                 = 0xBF,
+*/

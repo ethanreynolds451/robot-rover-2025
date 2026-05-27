@@ -1,13 +1,13 @@
-#ifndef MPU_SENSOR_T_H
-#define MPU_SENSOR_T_H
+#ifndef TOF_SENSOR_T_H
+#define TOF_SENSOR_T_H
 
-#define MPUPARAM_ACCELRANGE_DEFAULT MPU6050_RANGE_2_G      // estimate for low speed vehcile, increase if needed
-#define MPUPARAM_GYRORANGE_DEFAULT MPU6050_RANGE_250_DEG   // estimate for low speed vehcile, increase if needed
-#define MPUPARAM_BANDWIDTH_DEFAULT MPU6050_BAND_44_HZ      // based on 25 ms relay timeout
+namespace tof_sensor {
 
-#include "Adafruit_MPU6050/Adafruit_MPU6050.h"
-
-namespace mpu_sensor {
+// No queremos exponer estas constantes
+static constexpr uint8_t DEFAULT_ADDRESS = 0x29;
+static constexpr uint8_t BACKGROUND_RATE_REGISTER = 0x22;   
+static constexpr uint8_t SIGNAL_RATE_REGISTER = 0x20;   
+static constexpr uint8_t SIGNAL_QUALITY_REGISTER = 0x14;
 
 enum class STATE : uint8_t {
   UNINITIALIZED = 0,        // never probed yet
@@ -31,56 +31,48 @@ enum class WIRE : bool {
     NO_START_WIRE = false
 };
 
-struct CALIBRATION {
-    mpu6050_accel_range_t accel_range = MPUPARAM_ACCELRANGE_DEFAULT; 
-    mpu6050_gyro_range_t gyro_range = MPUPARAM_GYRORANGE_DEFAULT;
-    mpu6050_bandwidth_t bandwidth = MPUPARAM_BANDWIDTH_DEFAULT;      
-};
-
 struct INVALID_DATA {
-    float accel_max = 160;
-    float gyro_max = 2000;
-    int temp_min = -40;
-    int temp_max = 85;
+    uint16_t distance_min = 0;  
+    uint16_t distance_max = 8190; 
+    uint16_t light_min = 0;       
+    uint16_t light_max = 50000;   
 };
 
 struct CONFIG {
-    uint8_t address = 0x68;
-    CALIBRATION calibration;
-    INVALID_DATA invalid_data_thresholds;
+    uint8_t address = DEFAULT_ADDRESS;   
+    float o
 };
 
-struct VECTOR_3 {
-    float x = 0.0;
-    float y = 0.0;
-    float z = 0.0;
-};
-
-struct ACCEL {
+struct DISTANCE {
     bool is_new = false;
+    uint16_t value = 0;
     unsigned long timestamp = 0;
-    VECTOR_3 value;
 };
 
-struct GYRO {
+struct BACKGROUND_RATE {
     bool is_new = false;
+    uint16_t value = 0;
     unsigned long timestamp = 0;
-    VECTOR_3 value;
 };
 
-struct TEMP {
+struct SIGNAL_RATE {
     bool is_new = false;
+    uint16_t value = 0;
     unsigned long timestamp = 0;
-    float value = 0.0;
+};
+
+struct SIGNAL_QUALITY {
+    bool is_new = false;
+    uint8_t value = 0;
+    unsigned long timestamp = 0;
 };
 
 struct DATA {
-    ACCEL accel;
-    GYRO gyro;
-    TEMP temp;
     unsigned long timestamp = 0;
+    DISTANCE distance;
+    BACKGROUND_RATE background_rate;
+    SIGNAL_RATE signal_rate;
+    SIGNAL_QUALITY signal_quality;
 };
-
-}
 
 #endif
