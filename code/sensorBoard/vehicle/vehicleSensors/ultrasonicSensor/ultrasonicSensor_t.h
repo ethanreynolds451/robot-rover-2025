@@ -9,7 +9,8 @@ enum class STATE : uint8_t {
   IDENTIFIED    = 2,        // present + ID verified
   CONFIGURED    = 3,        // init/config applied
   READY         = 4,        // producing valid readings
-  WAITING       = 5,        // waiting for reading (ping sent, waiting for response)
+  PAUSED        = 5,        // temporarily stopped (e.g. to save power)
+  WAITING       = 6,        // waiting for reading (ping sent, waiting for response)
   FAULT         = 255       // persistent/latched failure
 };
 
