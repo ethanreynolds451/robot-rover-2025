@@ -28,6 +28,17 @@ class gps_object {
         this->config.pins.tx = tx_pin;
         this->config.pins.rx = rx_pin;
         this->config.baudrate = baudrate;
+    }
+    ~gps_object() {
+        delete gps_software_serial;
+    }
+
+    // *** State Management *** //
+    void initialize() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+        if (this->state != STATE::UNINITIALIZED) reset();   // STATE -> reset() + UNINITIALIZED
+        
+        // Serial setup
         // To use hardware serial, set tx_pin to 0 and rx_pin to the desired hardware serial port number
         if (tx_pin == 0){
             if (rx_pin == 0){
@@ -64,17 +75,13 @@ class gps_object {
             gps_serial = gps_software_serial;
             this->config.pins.using_software_serial = true;
         }
-    }
-    ~gps_object() {
-        delete gps_software_serial;
-    }
+        this->state = STATE::DISCONNECTED;            // UNINITIALIZED -> DISCONNECTED
+    }   // state transition verified
 
-    // *** State Management *** //
-    void initialize() {
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-        if (this->state != STATE::UNINITIALIZED) reset();   // STATE -> reset() + UNINITIALIZED
-        start();                                            // UNINITIALIZED -> DISCONNECTED
-    }
+
+
+
+
     void begin(){
         if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
         if (this->state != STATE::DISCONNECTED) {
@@ -86,6 +93,10 @@ class gps_object {
         calibrate();                // IDENTIFIED -> CONFIGURED
         check_validity();           // CONFIGURED -> READY
     }
+
+
+
+
     void stop(){
         if (this->state == STATE::FAULT) return;     // FAULT -> FAULT + return
         if (gps_hardware_serial != nullptr){

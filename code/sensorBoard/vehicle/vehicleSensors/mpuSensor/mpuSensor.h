@@ -29,8 +29,8 @@ class mpu_object {
     // *** Startup Functions *** //
     void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
         if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
-        if (this->state != STATE::UNINITIALIZED) {         
-            this->state = STATE::UNINITIALIZED;            // STATE -> UNINITIALIZED
+        if (this->state != STATE::UNINITIALIZED) {      
+            reset();                                       // STATE -> reset() + UNINITIALIZED            
         }
         if (start_wire == WIRE::START_WIRE){
             Wire.begin();

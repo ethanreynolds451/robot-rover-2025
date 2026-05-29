@@ -38,10 +38,7 @@ class ultrasonic_object {
         // *** Startup Functions *** //
         void initialize() {
             if (sensor != nullptr) {
-                // Destroy any previous instance before creating a new one
-                sensor->Stop();
-                unregister_instance();
-                delete sensor; 
+                reset();
             }
             sensor = new AsyncSonar(config.pins.trig, config.pins.echo, &ultrasonic_object::PingTrampoline, &ultrasonic_object::TimeoutTrampoline);
             register_instance();
@@ -119,6 +116,10 @@ class ultrasonic_object {
             this->state = STATE::PAUSED;                        // READY -> PAUSED
         }   // transition de estado verificada
         void reset(){
+            // Destroy any previous instance to prepare for reinitialization
+            sensor->Stop();
+            unregister_instance();
+            delete sensor; 
             data = DATA{};
             this->state = STATE::UNINITIALIZED;                  // STATE -> UNINITIALIZED
             this->error = ERROR::NO_ERROR;                       // ERROR -> NO_ERROR
