@@ -34,16 +34,20 @@ enum class WIRE : bool {
 struct INVALID_DATA {
     uint16_t distance_min = 0;  
     uint16_t distance_max = 8190; 
-    uint16_t light_min = 0;       
-    uint16_t light_max = 50000;   
+    uint16_t background_rate_min = 0;       
+    uint16_t background_rate_max = 50000;  
+    uint16_t signal_rate_min = 0;
+    uint16_t signal_rate_max = 50000;  
 };
 
 struct CONFIG {
     uint8_t address = DEFAULT_ADDRESS;   
-    float o
+    uint8_t pin = 2;
+    WIRE start_wire = WIRE::NO_START_WIRE;
+    INVALID_DATA invalid_data_thresholds;
 };
 
-struct DISTANCE {
+struct RANGE {
     bool is_new = false;
     uint16_t value = 0;
     unsigned long timestamp = 0;
@@ -69,10 +73,12 @@ struct SIGNAL_QUALITY {
 
 struct DATA {
     unsigned long timestamp = 0;
-    DISTANCE distance;
+    RANGE range;
     BACKGROUND_RATE background_rate;
     SIGNAL_RATE signal_rate;
     SIGNAL_QUALITY signal_quality;
 };
+
+}
 
 #endif

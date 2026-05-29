@@ -13,139 +13,212 @@ UNITS:
 #include "VL53L0X-1.3.1/VL53L0X.h"
 #include "VL53L0X-1.3.1/VL53L0X.cpp"
 
+#include "tofSensor_t.h"
+
 namespace tof_sensor {
 
-
-
 class tof_object {
-    public:
-        tof_object(uint8_t address = DEFAULT_ADDRESS, uint8_t pin = 2, uint16_t check_connection_interval = 1000) 
-        : address(address), pin(pin), check_interval(check_connection_interval) 
-        Timer check_connection_timer(check_interval) {
-            pinMode(pin, OUTPUT);
-            digitalWrite(pin, LOW);   // Start with the sensor off to avoid bus conflicts during initialization
+  public:
+    tof_object(uint8_t address = DEFAULT_ADDRESS, uint8_t pin = 2, WIRE start_wire = WIRE::NO_START_WIRE) {
+        this->config.address = address;
+        this->config.pin = pin;
+        this->config.start_wire = start_wire;
+        digitalWrite(config.pin, LOW);   // Ensure the sensor is deactivated on startup
+    }
+
+    // *** Startup Functions *** //
+    void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
+        if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
+        if (this->state != STATE::UNINITIALIZED) {         
+            this->state = STATE::UNINITIALIZED;            // STATE -> UNINITIALIZED
         }
-        void activate(){
-            digitalWrite(pin, HIGH);
-            this->active = true;
+        if (start_wire == WIRE::START_WIRE){
+            Wire.begin();
         }
-        void deactivate(){
-            digitalWrite(pin, LOW);
-            this->active = false;
-            // Pulling XSHUT low resets the address
-            this->address_set = false;   
-        }
-        bool is_active(){
-            return this->active;
-        }
-        // *** Connection management functions ***
-        void set_default_address(uint8_t address){
-            this->default_address = address;
-        }
-        uint8_t get_default_address(){
-            return this->default_address;
-        }
-        // An address is passed into this one because it has to be changed
-        bool check_connection(uint8_t address){
-            // Wire.begin() must be called in the main sketch
-            // Basically a ping to see if it's there
-            Wire.beginTransmission(address);
-            // An error code of 0 means the device acknowledged the ping
-            return (Wire.endTransmission() == 0);
-        }
-        // This is a lot more complex than the other sensors because the address has to be configured on the sensor 
-        bool begin(){
-            // First make sure there is no other device using the default address
-            if (check_connection(this->default_address)){
-                return false;   // Address conflict, cannot initialize
-            }
-            // Next make sure there is no other sensor using the target address
-            if (check_connection(this->address)){
-                return false;   // Address conflict, cannot initialize
-            }
-            // Then activate the sensor 
-            activate();
+        // A short blocking function to set the address
+        if (this->config.address != DEFAULT_ADDRESS){
+            digitalWrite(config.pin, HIGH); 
             delay(10);   // Wait for the sensor to power up
-            if (!check_connection(this->default_address)){
-                deactivate();
-                return false;   // Sensor did not respond at default address, cannot initialize
-            }
-            // Then set the new address and initialize the sensor
-            tof.setAddress(this->address);
-            if (!tof.init()){
-                deactivate();
-                return false;   // Failed to initialize sensor
-            }
-            // Finally verify that the sensor is active with the new address
-            if (!check_connection(this->address)){
-                deactivate();
-                return false;   // Sensor did not respond at new address, initialization failed
-            }
-            this->address_set = true;
-            // Start continuous sensor readings
-            tof.startContinuous();
-            return true;    // Successfully initialized
-        }
-        bool set_address(uint8_t new_address){
-            this->address = new_address;
-            return begin();   // Re-run the initialization process to set the new address
-        }
-        uint8_t get_address(){
-            return this->address;
-        }
-        bool is_address_set(){
-            return this->address_set;
-        }
-
-        // *** Read and Control Loop Functions
-        bool read(){
-            this->distance = tof.readRangeContinuousMillimeters();
-            this->light_intensity = tof.readReg16Bit(LIGHT_REGISTER);
-            this->data_updated = true;
-            this->data_timestamp = millis();
-            return true;
-        }
-        bool update(){
-            if (check_connection_timer.passed()){
-                if (!address_set){
-                    // If the address is not set, try to initialize the sensor
-                    if (!begin()){
-                        deactivate();  // Failed to initialize, make sure the sensor is deactivated
-                        return false;
-                    }
+            if (sensor.init()){
+                sensor.setAddress(this->config.address);
+                this->state = STATE::DISCONNECTED;                  // UNINITIALIZED -> DISCONNECTED
+                if (this->error == ERROR::NOT_FOUND) {
+                    this->error = ERROR::NO_ERROR;                  // NOT_FOUND -> NO_ERROR
                 }
-                else if (!check_connection(this->address)){
-                    deactivate();  // Sensor is no longer responding, deactivate it
-                    this->address_set = false;   // Address is reset when sensor is deactivated, so mark it as unset
-                    return false;
-                }
-                check_connection_timer.reset();
+            } else {
+                digitalWrite(config.pin, LOW);                      // UNINITIALIZED -> UNINITIALIZED
+                this->error = ERROR::NOT_FOUND;                     // ERROR -> NOT_FOUND
+                delay(10);   
+                // Wait for the sensor to power down, percaution for if sensors are being initialized in series
             }
-            if ((this->active) && (this->address_set)){
-                // Only perform the check and reinitialization at specified interval to avoid blocking the control loop
-                return read();
-            }
-            return false;
         }
+    }   // state transition verified
+    void begin(){
+        if (this->state != STATE::DISCONNECTED) return;     // STATE -> STATE, return
+        check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
+        configure();                                        // IDENTIFIED -> CONFIGURED   
+        check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+    }   // state transition verified
 
+    // *** State and Lifecycle Management *** //
+    void check_connection() { 
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        Wire.beginTransmission(this->config.address);
+        if (Wire.endTransmission() == 0) {
+            // Sensor is connected:                         
+            if (this->state == STATE::DISCONNECTED) {   
+                this->state = STATE::IDENTIFIED;            // DISCONNECTED -> IDENTIFIED
+                if (this->error == ERROR::NOT_FOUND) {
+                    this->error = ERROR::NO_ERROR;          // NOT_FOUND -> NO_ERROR
+                }
+            }                                               // STATE -> STATE
+        } else {
+            // Sensor is not connected:
+            this->state = STATE::DISCONNECTED;              // STATE -> DISCONNECTED
+            this->error = ERROR::NOT_FOUND;                 // ERROR -> NOT_FOUND
+        }
+    }   // state transition verified
+    void configure(){
+        if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
+        if (this->state == STATE::DISCONNECTED) return;                    // DISCONNECTED -> DISCONNECTED, return
+        sensor.startContinuous();                
+        this->state = STATE::CONFIGURED;                                   // IDENTIFIED -> CONFIGURED
+    }   // transición de estado verificada
+    void check_validity() {
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT, return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED, return
+        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED, return
+        if (this->state == STATE::IDENTIFIED) return;       // IDENTIFIED -> IDENTIFIED, return
+        DATA tmp_data{};
+        // Leer datos a tmp_data para verificar su validez sin modificar los datos actuales de la clase
+        tmp_data.range.value = sensor.readRangeContinuousMillimeters();
+        tmp_data.signal_rate.value = sensor.readReg16Bit(SIGNAL_RATE_REGISTER);
+        tmp_data.background_rate.value = sensor.readReg16Bit(BACKGROUND_RATE_REGISTER);
+        tmp_data.signal_quality.value = sensor.readReg(SIGNAL_QUALITY_REGISTER);
+        if ((tmp_data.range.value < this->config.invalid_data_thresholds.distance_min) || (tmp_data.range.value > this->config.invalid_data_thresholds.distance_max) ||
+            (tmp_data.background_rate.value < this->config.invalid_data_thresholds.background_rate_min) || (tmp_data.background_rate.value > this->config.invalid_data_thresholds.background_rate_max) ||
+            (tmp_data.signal_rate.value < this->config.invalid_data_thresholds.signal_rate_min) || (tmp_data.signal_rate.value > this->config.invalid_data_thresholds.signal_rate_max)) {
+            // Sensor is returning invalid data:
+            this->state = STATE::CONFIGURED;                // STATE -> CONFIGURED
+            this->error = ERROR::NOT_VALID;                 // ERROR -> NOT_VALID
+        } else {
+            // Sensor is not returning valid data:
+            if (this->state == STATE::CONFIGURED) {
+                this->state = STATE::READY;                 // CONFIGURED -> READY
+            }                                               // STATE -> STATE
+            if (this->error == ERROR::NOT_VALID) {
+                this->error = ERROR::NO_ERROR;              // NOT_VALID -> NO_ERROR
+            }
+        }
+    }   // transición de estado verificada
+    void start(){
+        if (this->state != STATE::PAUSED) return;           // STATE -> STATE, return
+        sensor.startContinuous();                           // Poner en modo continuo como en la inicialización
+        this->state = STATE::READY;                         // PAUSED -> READY
+    }   // state transition verified
+    void stop() {
+        if (this->state != STATE::READY) return;            // STATE -> STATE, return
+        sensor.stopContinuous();                            // Poner en reposo para ahorrar energía
+        this->state = STATE::PAUSED;                        // READY -> PAUSED
+    }   // transition de estado verificada
+    void reset(){
+        digitalWrite(config.pin, LOW);                      // Deactivating sensor resets the address
+        this->data = DATA{};
+        this->state = STATE::UNINITIALIZED;                 // STATE -> UNINITIALIZED
+        this->error = ERROR::NO_ERROR;                      // ERROR -> NO_ERROR
+    }   // state transition verificada
+    void update() {
+        return; 
+    }
+
+    // *** Configuración *** ///
+    void set_address(uint8_t address){
+        this->config.address = address;
+    }
+    void set_pin(uint8_t pin){
+        this->config.pin = pin;
+    }
+    void set_invalid_data_thresholds(INVALID_DATA thresholds){
+        this->config.invalid_data_thresholds = thresholds;
+    }
+    void set_start_wire(WIRE start_wire){
+        this->config.start_wire = start_wire;
+    }
+
+    // *** Data Management *** //
+    void read(){
+        // No pre-processing or validation as of now, just reading the raw data
+
+        this->data.range.timestamp = millis();
+        this->data.range.value = sensor.readRangeContinuousMillimeters();
+        this->data.range.is_new = true;
+
+        this->data.signal_rate.timestamp = millis();
+        this->data.signal_rate.value = sensor.readReg16Bit(SIGNAL_RATE_REGISTER);
+        this->data.signal_rate.is_new = true;
+
+        this->data.background_rate.timestamp = millis();
+        this->data.background_rate.value = sensor.readReg16Bit(BACKGROUND_RATE_REGISTER);
+        this->data.background_rate.is_new = true;
+        
+        this->data.signal_quality.timestamp = millis();
+        this->data.signal_quality.value = sensor.readReg(SIGNAL_QUALITY_REGISTER);
+        this->data.signal_quality.is_new = true;
+
+        this->data.timestamp = millis();
+    }
+    void clear(){
+        data.range.is_new = false;
+        data.signal_rate.is_new = false;
+        data.background_rate.is_new = false;
+        data.signal_quality.is_new = false;
+    }
+    void poll() {
+        if (this->state != STATE::READY) return;          // READY -> READY,
+        read();
+    }
+
+    // *** Data Retrieval *** //
+    const CONFIG& get_config() const { return this->config; }
+    const uint8_t& get_address() const { return this->config.address; }
+    const uint8_t& get_pin() const { return this->config.pin; }
+    const INVALID_DATA& get_invalid_data_thresholds() const { return this->config.invalid_data_thresholds; }
+    const WIRE& get_start_wire() const { return this->config.start_wire; }
+    const STATE& get_state() const { return this->state; }
+    const ERROR& get_error() const { return this->error; }
+    const DATA& peek() const { return this->data; }
+    const RANGE& get_range() {
+        this->data.range.is_new = false;
+        return this->data.range;
+    }
+    const SIGNAL_RATE& get_signal_rate() {
+        this->data.signal_rate.is_new = false;
+        return this->data.signal_rate;
+    }
+    const BACKGROUND_RATE& get_background_rate() {
+        this->data.background_rate.is_new = false;
+        return this->data.background_rate;
+    }
+    const SIGNAL_QUALITY& get_signal_quality() {
+        this->data.signal_quality.is_new = false;
+        return this->data.signal_quality;
+    }
+   
     private:
         // Sensor parameters
-        VL53L0X tof;
-        uint8_t address = DEFAULT_ADDRESS;
-        uint8_t pin = 0; 
-        bool active = false; 
-        bool address_set = false; 
-        Timer check_connection_timer;
-        uint16_t check_interval = 1000;    // Interval for connection checking in milliseconds
-        // Data
-        uint16_t distance = 0;
-        uint16_t light_intensity = 0;
-        bool data_updated = false; 
-        unsigned long data_timestamp = 0;
+        VL53L0X sensor;
+        CONFIG config{};
+        STATE state = STATE::UNINITIALIZED;
+        ERROR error = ERROR::NO_ERROR;
+        DATA data{};
 
 };
 
 }
+
+#endif
 
 
 /* 

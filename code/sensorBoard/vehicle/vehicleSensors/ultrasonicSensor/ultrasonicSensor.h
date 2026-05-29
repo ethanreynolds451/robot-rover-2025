@@ -18,102 +18,32 @@ UNITS:
 
 namespace ultrasonic_sensor {
 
-enum class STATE : uint8_t {
-  UNINITIALIZED = 0,        // never probed yet
-  DISCONNECTED  = 1,        // probe failed / not present
-  IDENTIFIED    = 2,        // present + ID verified
-  CONFIGURED    = 3,        // init/config applied
-  READY         = 4,        // producing valid readings
-  WAITING       = 5,        // waiting for reading (ping sent, waiting for response)
-  FAULT         = 255       // persistent/latched failure
-};
-
-enum class ERROR : uint8_t {
-    NO_ERROR    = 0,        // No error, sensor is functioning properly
-    NOT_FOUND   = 1,        // The sensor was not found durring initialization
-    NOT_VALID   = 2,        // The sensor is not returing valid data
-    UNKNOWN     = 255       // An unknown error has ocurred
-};
-
-struct PINS {
-    uint8_t trig = A0;      // Match the defaults in AsyncSonar
-    uint8_t echo = A0;
-};
-
-struct CALIBRATION {
-    int8_t temp = 25;                           // Celsius, signed int8_t
-    unsigned int timeout_distance = 2000;       // mm, unsigned int
-};
-
-struct CONFIG {
-    PINS pins;
-    CALIBRATION calibration;
-};
-
-struct DISTANCE {
-    bool is_new = false;
-    float value = 0.0;
-    unsigned long timestamp = 0;
-};
-
-struct DATA {
-    unsigned long timestamp = 0;
-    DISTANCE distance;
-};
-
 class ultrasonic_object {
     public:
         ultrasonic_object(uint8_t trig, uint8_t echo, int8_t temp = 25, unsigned int timeout_distance = 2000)
-            : sensor(trig, echo, &ultrasonic_object::PingTrampoline, &ultrasonic_object::TimeoutTrampoline)
             {
             config.calibration.temp = temp;
             config.calibration.timeout_distance = timeout_distance;
             register_instance();
-            this->state = STATE::UNINITIALIZED;
-            this->error = ERROR::NO_ERROR;
         }
         ~ultrasonic_object() {
-            stop();
+            sensor.Stop();
             unregister_instance();
         }
 
-        // *** State Management *** //
+        // *** Startup Functions *** //
+        void initialize() {
+            sensor(trig, echo, &ultrasonic_object::PingTrampoline, &ultrasonic_object::TimeoutTrampoline);
+            this->state = STATE::DISCONNECTED;                  // UNINITIALIZED -> DISCONNECTED
+        }   // state transition verified   
         void begin(){
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            if (this->state != STATE::UNINITIALIZED) {
-                stop();
-            };
-            check_connection();     // STATE -> UNINITIALIZED -> IDENTIFIED / DISCONNECTED
-            calibrate();            // IDENTIFIED -> CONFIGURED
-            check_validity();       // CONFIGURED -> READY
-        }
-        void stop() {
-            sensor.Stop();
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-            this->state = STATE::CONFIGURED;                    // READY / WAITING -> CONFIGURED
-        }
-        void start(){
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-            if (this->state == STATE::CONFIGURED) check_validity();  // CONFIGURED -> READY   
-        }
-        void reset(){
-            stop();        
-            clear();
-            this->state = STATE::UNINITIALIZED;                  // STATE -> UNINITIALIZED
-            this->error = ERROR::NO_ERROR;                       // ERROR -> NO_ERROR
-        }
-        void update() {
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-            sensor.Update();
-        }
+            if (this->state != STATE::DISCONNECTED) return;     // STATE -> STATE, return
+            check_connection();                                 // DISCONNECTED -> IDENTIFIED / DISCONNECTED
+            calibrate();                                        // IDENTIFIED -> CONFIGURED
+            check_validity();                                   // CONFIGURED -> READY / CONFIGURED
+        }   // state transition verified
 
-        // *** Diagnostics *** //
+        // *** State and Lifecycle Management *** //
         void check_connection() { 
             if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED){          
@@ -144,23 +74,7 @@ class ultrasonic_object {
             this->state = STATE::DISCONNECTED;              // STATE -> DISCONNECTED
             this->error = ERROR::NOT_FOUND;                 // ERROR -> NOT_FOUND
         }
-        void check_validity() {
-            // There is no way to check this without a known reference
-            // Just directly promote from CONFIGURED to READY
-            // This must be called after configuring and before reading
-            if (this->state == STATE::FAULT) return;           // FAULT -> FAULT + return
-            if (this->state == STATE::UNINITIALIZED) return;   // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;    // DISCONNECTED -> DISCONNECTED + return
-            if (this->state != STATE::CONFIGURED) stop();      // STATE -> stop() + CONFIGURED
-            this->state = STATE::READY;                        // CONFIGURED -> READY
-        }
-
-        // *** Configuration *** //
-        void set_calibration(int8_t temp, unsigned int timeout_distance) {
-            this->config.calibration.temp = temp;
-            this->config.calibration.timeout_distance = timeout_distance;
-        }
-        void calibrate() {
+        void configure() {
             if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
             if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
             if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
@@ -172,10 +86,47 @@ class ultrasonic_object {
             sensor.SetTimeOutDistance(this->config.calibration.timeout_distance);
             this->state = STATE::CONFIGURED;                    // IDENTIFIED -> CONFIGURED
         }
-        void set_pins() {
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + returnif (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            stop();
-            this->state = STATE::DISCONNECTED;                  // STATE -> DISCONNECTED
+        void check_validity() {
+            // There is no way to check this without a known reference
+            // Just directly promote from CONFIGURED to READY
+            // This must be called after configuring and before reading
+            if (this->state == STATE::FAULT) return;           // FAULT -> FAULT + return
+            if (this->state == STATE::UNINITIALIZED) return;   // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;    // DISCONNECTED -> DISCONNECTED + return
+            if (this->state != STATE::CONFIGURED) stop();      // STATE -> stop() + CONFIGURED
+            this->state = STATE::READY;                        // CONFIGURED -> READY
+        }   
+        void start(){
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+            if (this->state == STATE::CONFIGURED) check_validity();  // CONFIGURED -> READY   
+        }
+        void stop() {
+            sensor.Stop();
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+            this->state = STATE::CONFIGURED;                    // READY / WAITING -> CONFIGURED
+        }
+        void reset(){
+            data = DATA{};
+            this->state = STATE::UNINITIALIZED;                  // STATE -> UNINITIALIZED
+            this->error = ERROR::NO_ERROR;                       // ERROR -> NO_ERROR
+        }
+        void update() {
+            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+            sensor.Update();
+        }
+ 
+        // *** Configuration *** //
+        void set_calibration(CALIBRATION calibration){ {
+            this->config.calibration = calibration;
+        }
+        void set_pins(PINS pins) {
+            this->config.pins = pins;
         }
 
         // *** Data Management *** //
@@ -189,7 +140,7 @@ class ultrasonic_object {
             this->state = STATE::READY;                        // WAITING -> READY
         }
         void clear() {
-            this->data = DATA();
+            this->data.distance.is_new = false;
         }
         void poll() {
             if (this->state == STATE::READY) {
@@ -220,8 +171,8 @@ class ultrasonic_object {
     private:
         AsyncSonar sensor;
         CONFIG config{};
-        ERROR error;
-        STATE state;
+        STATE state = STATE::UNINITIALIZED;
+        ERROR error = ERROR::NO_ERROR;
         DATA data{};
 
         // *** Callback Management *** //

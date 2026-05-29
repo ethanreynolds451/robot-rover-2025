@@ -1,3 +1,9 @@
-void setup{}
+#include "tofSensor.h"
 
-void loop{}
+void setup(){
+
+}
+
+void loop(){
+
+}

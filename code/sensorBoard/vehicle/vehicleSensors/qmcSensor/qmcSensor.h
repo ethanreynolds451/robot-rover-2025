@@ -137,7 +137,7 @@ class qmc_object {
     // *** Data Management *** //
     void read(){
         sensor.read();
-        // Direción
+        // Direction
         this->data.direction.timestamp = millis();
         this->data.direction.value = sensor.getAzimuth();
         this->data.direction.is_new = true;
