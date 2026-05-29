@@ -12,10 +12,12 @@ class ir_object {
     ir_object(uint8_t pin, LED led = LED::LED_OFF) {
       this->config.pin = pin;
       this->config.led_active = led;
-      this->state = STATE::UNINITIALIZED;
     }  
 
-    // *** State Management *** //
+    // *** Startup Functions *** //
+    void initialize() {
+      return; 
+    }
     void begin(){
       if (this->state == STATE::FAULT) return;
       if (this->state != STATE::UNINITIALIZED) {
@@ -26,32 +28,25 @@ class ir_object {
       } else {
         IrReceiver.begin(this->config.pin); 
       }
-      this->state = STATE::UNVERIFIED;                    // UNINITIALIZED -> UNVERIFIED
+      this->state = STATE::UNVERIFIED;                 // UNINITIALIZED -> UNVERIFIED
+    }
+
+    // *** State and Lifecycle Management *** //
+    void start(){
+      if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+      if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+      IrReceiver.start();
+      if (this->state == STATE::PAUSED) {
+        this->state = saved_state;                        // PAUSED -> prev_saved
+      };
     }
     void stop() {
       IrReceiver.stop();
       if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
       if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-      if (this->state == STATE::UNVERIFIED) {
-        this->state = STATE::UNINITIALIZED;                // UNVERIFIED -> UNINITIALIZED
-        return;
-      };
-      if (this->state == STATE::PAUSED) return;            // PAUSED -> PAUSED + return
-      if (this->state == STATE::VERIFIED) {
-        this->state = STATE::PAUSED;                      // VERIFIED -> PAUSED
-      };                      
-    }
-    void start(){
-      if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-      IrReceiver.start();
-      if (this->state == STATE::UNINITIALIZED) {
-        this->state = STATE::UNVERIFIED;                 // UNINITIALIZED -> UNVERIFIED
-        return;
-      };    
-      if (this->state == STATE::UNVERIFIED) return;      // UNVERIFIED -> UNVERIFIED + return
-      if (this->state == STATE::PAUSED) {
-        this->state = STATE::VERIFIED;                   // PAUSED -> VERIFIED
-      };
+      if (this->state == STATE::PAUSED) return;           // PAUSED -> PAUSED + return
+      this->saved_state = this->state;                    // Save current state (preserve verificaiton status)
+      this->state = STATE::PAUSED;                        // VERIFIED / UNVERIFIED-> PAUSED
     }
     void reset(){
       stop();
@@ -60,18 +55,6 @@ class ir_object {
     }
     void update() {
       return; 
-    }
-
-    // *** Diagnostics *** //
-    void check_connection() { 
-      if (this->state == STATE::UNVERIFIED) {
-        if (this->data.timestamp != 0){
-          this->state = STATE::VERIFIED;           // UNVERIFIED -> VERIFIED
-        }             
-      };
-    }
-    void check_validity() {
-        return; 
     }
 
     // *** Configuration *** //
@@ -155,8 +138,9 @@ class ir_object {
   
   private: 
     CONFIG config{};
-    STATE state;
+    STATE state = STATE::UNINITIALIZED;
     DATA data{};
+    STATE saved_state = STATE::UNINITIALIZED;
 };
   
 }
