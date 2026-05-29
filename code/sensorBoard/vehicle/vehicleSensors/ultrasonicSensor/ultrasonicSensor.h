@@ -145,13 +145,15 @@ class ultrasonic_object {
         void read(){
             // Exception: can only be read when waiting for a response
             // Exception: this function is called by a callback so should never be called manually
-            if (this->state != STATE::WAITING) return;         // STATE != WAITING -> STATE + return
+            // If pause was called while waiting, allows the last reading to be retrived
+            if ((this->state != STATE::WAITING) && (this->state != STATE::PAUSED)) return;         // STATE != WAITING -> STATE + return
             this->data.timestamp = millis();
             this->data.distance.timestamp = this->data.timestamp;
             this->data.distance.value = this->sensor->GetMeasureMM();
             this->data.distance.is_new = true;
-            this->state = STATE::READY;                        // WAITING -> READY
-        }
+            if (this->state == STATE::WAITING) {
+                this->state = STATE::READY;                        // WAITING -> READY
+            }                                                      // PAUSED -> PAUSED 
         void clear() {
             this->data.distance.is_new = false;
         }
@@ -189,12 +191,10 @@ class ultrasonic_object {
 
         // --- instance handlers (real methods) ---
         void ping_callback(AsyncSonar&) {
-            Serial.println("Ultrasonic sensor ping received"); // Debug
             read();                 // WAITING -> read() + READY
         }
 
         void timeout_callback(AsyncSonar&) {
-            Serial.println("Ultrasonic sensor timeout"); // Debug
             if (this->state == STATE::WAITING) this->state = STATE::READY;   // WAITING -> READY
         }
 
