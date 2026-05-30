@@ -46,6 +46,7 @@ UNITS:
 #define GPS_UNIT_h
 
 #include "TinyGPS/TinyGPS++.h"
+#include "TinyGPS/TinyGPS++.cpp"
 
 #include "gpsUnit_t.h"
 

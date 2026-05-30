@@ -28,12 +28,13 @@ void setup() {
 }
 
 void loop() {
-  // Poll the sensor
-  testIR.poll();
-
   // Get the current state of the sensor
   ir_sensor::get_state_str(testIR.get_state(), stateString, sizeof(stateString));
   Serial.println("Current IR sensor state: " + String(stateString));
+
+  // Poll the sensor
+  Serial.println("Polling IR sensor for new data...");
+  testIR.poll();
 
   // Check for new data
   if (testIR.peek().is_new){

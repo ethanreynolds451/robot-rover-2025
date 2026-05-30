@@ -27,14 +27,14 @@ void loop() {
     unsigned long arduino_timestamp = millis();
     unsigned long offset_timestamp = arduino_timestamp - testIR.peek().timestamp;
     
-    // Start building the output string
+    // Prepare the output string
+    memset(outputString, 0, sizeof(outputString));
     int pos = 0;
 
     // Add the arduino timestamp and sensor header data to the string
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", arduino_timestamp);
-    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "ir[");
-    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "n:0,");       
-    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "t:%x", offset_timestamp);
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, "ir[n:0");
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",t:%x", offset_timestamp);
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",s:%x0", static_cast<uint8_t>(testIR.get_state()));
 
     // Add new snsor data
@@ -48,12 +48,12 @@ void loop() {
       pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", testIR.get_data().value);
     } 
 
-    // End the packet and send
+    // End the packet and send over serial
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "]}");
     Serial.println(outputString);
 
     // Clear the data 
     testIR.clear();
   }
-  
+
 }
