@@ -9,7 +9,8 @@ enum class STATE : uint8_t {
   IDENTIFIED    = 2,        // present + ID verified
   CONFIGURED    = 3,        // init/config applied
   READY         = 4,        // producing valid readings
-  FAULT         = 255       // persistent/latched failure
+  ACTIVE        = 5,        // actively being read from 
+  FAULT         = 15        // persistent/latched failure
 };
 
 struct PINS {

@@ -1,4 +1,6 @@
 /* 
+INFO: 
+ - This object uses dynamic memory allocation
 DEPENDENCIES:
  - TinyGPS++            internal
  - SoftwareSerial       external
@@ -64,6 +66,9 @@ class gps_object {
     ~gps_object() {
         reset();    // Resetting deletes any referenced serial objects 
     }
+    gps_object(const gps_object&) = delete;
+    gps_object& operator=(const gps_object&) = delete;
+
 
     // *** State Management *** //
     void initialize() {
@@ -94,7 +99,10 @@ class gps_object {
             }
         } else {
             // Use software serial with the specified pins
-            delete gps_software_serial;
+            if (gps_software_serial != nullptr){
+                delete gps_software_serial;
+                gps_software_serial = nullptr;
+            }
             gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);
         }
         if (gps_hardware_serial != nullptr){
@@ -174,8 +182,12 @@ class gps_object {
     void reset(){
         if (gps_hardware_serial != nullptr){
             gps_hardware_serial->end();
+            delete gps_hardware_serial;
+            gps_hardware_serial = nullptr;
         } else if (gps_software_serial != nullptr) {
             gps_software_serial->end();
+            delete gps_software_serial;
+            gps_software_serial = nullptr;
         }                                      
         this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
         this->data = DATA();                         // Clear data

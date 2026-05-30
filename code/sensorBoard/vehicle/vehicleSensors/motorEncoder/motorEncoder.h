@@ -1,4 +1,10 @@
 /*
+INFO: 
+ - To disable dynamic memory allocation: #define NO_DYNAMIC_ALLOCATION
+FUNCTIONS: 
+
+STATES:
+  - UNINITIALIZED -> READY <-> ACTIVE
 UNITS: 
  - Position: encoder ticks relative to zero position
 */
@@ -14,94 +20,110 @@ namespace motor_encoder {
 
 class encoder_object {
 public:
-    encoder_object(uint8_t pinA, uint8_t pinB) : sensor(pinA, pinB) {
+    encoder_object(uint8_t pinA, uint8_t pinB)
+#ifdef NO_DYNAMIC_ALLOCATION
+    : sensor_object(pinA, pinB)
+#endif
+      {
           this->config.pins.a = pinA;
           this->config.pins.b = pinB;
-        }
+#ifndef NO_DYNAMIC_ALLOCATION
+          // Ensure pins are set to a known state on construction to avoid bugs
+          // Only needed for dynamic allocation mode
+          pinMode(this->config.pins.a, INPUT);
+          pinMode(this->config.pins.b, INPUT);
+#endif
+      }
+    ~encoder_object() {
+      reset();  // Reset handles detatching interrupts and deleting the Encoder instance 
+    };
+    // Copy protections to prevent multiple instances referencing the same hardware / sensor objects
+    encoder_object(const encoder_object&) = delete;
+    encoder_object& operator=(const encoder_object&) = delete;
 
     // *** Startup Functions *** //
     void initialize(){
       if (this->state != STATE::UNINITIALIZED) {
         reset();                    // STATE -> UNINITIALIZED
       }
-      // This version does not have a begin method
-      // sensor.begin(this->config.pins.a, this->config.pins.b);
-      this->state = STATE::DISCONNECTED;    // UNINITIALIZED -> DISCONNECTED
+#ifndef NO_DYNAMIC_ALLOCATION
+      // This was already done in the constructor if there is no dynamic allocation used
+      this->sensor_object = new Encoder(this->config.pins.a, this->config.pins.b);
+#endif
+      this->state = STATE::READY;    // UNINITIALIZED -> READY
     }
     void begin(){
-      if (this->state == STATE::FAULT) return;
-      if (this->state != STATE::UNINITIALIZED) {
-        stop();                     // STATE -> UNINITIALIZED
-      }
-      start();                      // UNINITIALIZED -> DISCONNECTED
-      check_connection();           // UNINITIALIZED -> IDENTIFIED
-      set_zero();                   // IDENTIFIED -> CONFIGURED
-      check_validity();             // CONFIGURED -> READY     
+      // Alias for start, must call initialize first
+      start();                      // READY -> ACTIVE
     }
-
 
     // *** State and Lifecycle Management *** //
-    void check_connection() { 
-      // There is no way to check the connection to the encoder, so this will always return true
-      if (this->state == STATE::UNINITIALIZED) {
-        this->state = STATE::IDENTIFIED;
-      }
-    }
-    void check_validity() {
-      // There is no way to check the validity of the encoder readings, so this will always
-      if (this->state == STATE::CONFIGURED) {
-        this->state = STATE::READY;
-      }
-    }
-    void stop() {
-      if (this->state == STATE::FAULT) return;
-      state = STATE::UNINITIALIZED;
-    }
     void start(){
-      if (this->state != STATE::UNINITIALIZED) return;
-      state = STATE::DISCONNECTED;
+      // Any hardware start would go here if implemented
+      if (this->state != STATE::READY) return;
+      this->state = STATE::ACTIVE; // READY -> ACTIVE
     } 
+    void stop() {
+      // Any hardware stop would go here if implemented
+      if (this->state == STATE::ACTIVE) {
+        this->state = STATE::READY;       // ACTIVE -> READY
+      }                                   // STATE -> STATE        
+    }
     void reset(){
-      stop();
+      // Detatch inturrupts from pins
+      detachInterrupt(digitalPinToInterrupt(this->config.pins.a)); 
+      detachInterrupt(digitalPinToInterrupt(this->config.pins.b)); 
+      // Delete the Encoder instance if using dynamic allocation and set internal pointer to null
+#ifndef NO_DYNAMIC_ALLOCATION
+      if(this->sensor_object != nullptr){
+        delete this->sensor_object;
+        this->sensor_object = nullptr;
+      }
+#endif
+      // Disable pullup resistors by setting to input
+      pinMode(this->config.pins.a, INPUT);
+      pinMode(this->config.pins.b, INPUT);        
+      // Reset data and state
       data = DATA{};
       state = STATE::UNINITIALIZED;
     }
-    void update() {
-      return; 
-    }
 
     // *** Configuration *** //
-    void set_zero() {
-      if (this->state == STATE::FAULT) return;
-      if (this->state == STATE::UNINITIALIZED) return;
-      if (this->state == STATE::DISCONNECTED) return;
-      this->data.zero.timestamp = millis();
-      sensor.write(0);
-      this->data.position.value = 0;
-      this->data.position.is_new = true;
-      if (this->state == STATE::IDENTIFIED) {
-        this->state = STATE::CONFIGURED;
-      }
+#ifndef NO_DYNAMIC_ALLOCATION
+    void set_pins(uint8_t pinA, uint8_t pinB){
+      // Sensor must be reinitialized for pin change to take effect
+      this->config.pins.a = pinA;
+      this->config.pins.b = pinB;
     }
-    void set_position(long position) {
-      if (this->state == STATE::FAULT) return;
-      sensor.write(position); 
-      this->data.position.value = position;
-      this->data.position.is_new = true;
-    }
+#endif
 
     // *** Data Management *** //
     void read() {
       this->data.position.timestamp = millis();
-      this->data.position.value = sensor.read();
+      this->data.position.value = sensor().read();
       this->data.position.is_new = true;
     }
     void clear() {
       this->data.position.is_new = false;
     }
     void poll() {
-      if (this->state != STATE::READY) return;
+      if (this->state != STATE::ACTIVE) return;
       read();
+    }
+    // Unique to encoder: allow writing and setting zero
+    // Allow in active or ready state; affects the data but not the state
+    void write_zero() {
+      if ((this->state != STATE::ACTIVE) && (this->state != STATE::READY)) return;
+      this->data.zero.timestamp = millis();
+      sensor().write(0);
+      this->data.position.value = 0;
+      this->data.position.is_new = true;
+    }
+    void write_position(long position) {
+      if ((this->state != STATE::ACTIVE) && (this->state != STATE::READY)) return;
+      sensor().write(position); 
+      this->data.position.value = position;
+      this->data.position.is_new = true;
     }
 
     // *** Data Retrieval *** //
@@ -115,7 +137,20 @@ public:
     }
         
 private:
-    Encoder sensor;
+    // Provide version without dynamic allocation to use for embedded systems
+#ifdef NO_DYNAMIC_ALLOCATION
+    Encoder sensor_object;
+#else
+    Encoder* sensor_object = nullptr;
+#endif
+    // Helper function to dereference the sensor object if dynamic allocation is used
+    inline Encoder& sensor() { 
+#ifdef NO_DYNAMIC_ALLOCATION
+      return sensor_object; 
+#else
+      return *sensor_object;
+#endif
+    }
     STATE state = STATE::UNINITIALIZED; 
     CONFIG config{};
     DATA data{};
