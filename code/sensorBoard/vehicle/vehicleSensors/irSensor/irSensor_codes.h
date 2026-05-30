@@ -11,6 +11,7 @@ namespace ir_sensor {
 void get_state_str(STATE state, char* buffer, size_t buffer_size = 16){
     uint8_t state_code = static_cast<uint8_t>(state);
     if (buffer_size < 16) return;
+    memset(buffer, 0, buffer_size);
     switch(state_code){
         case 0:
             strncpy(buffer, "UNINITIALIZED", buffer_size);
@@ -43,6 +44,7 @@ void get_state_str(STATE state, char* buffer, size_t buffer_size = 16){
 // Retrieve the string associated with an LED code
 void get_led_str(uint8_t led_code, char* buffer, size_t buffer_size = 16){
     if (buffer_size < 16) return;
+    memset(buffer, 0, buffer_size);
     switch(led_code){
         case 0:
             strncpy(buffer, "LED_OFF", buffer_size);

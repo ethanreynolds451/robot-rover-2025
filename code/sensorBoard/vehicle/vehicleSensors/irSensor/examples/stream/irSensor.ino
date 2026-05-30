@@ -2,8 +2,6 @@
 
 #include "irSensor.h"
 
-#include "irSensor_codes.h"
-
 uint8_t IR_PIN = 4; 
 
 using irSensor = ir_sensor::ir_object;
@@ -15,12 +13,8 @@ char outputString[60];
 
 void setup() {
   Serial.begin(115200); 
+  testIR.initialize();
   testIR.begin();
-  testIR.begin();
-  char stateString[16];
-  ir_sensor::get_state_str(testIR.get_state(), stateString, sizeof(stateString));
-  Serial.println("IR Sensor Initialization Completed; sensor state: ");
-  Serial.println(stateString);
 }
 
 void loop() {
