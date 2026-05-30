@@ -16,26 +16,46 @@ class ir_object {
 
     // *** Startup Functions *** //
     void initialize() {
-      // special case: no initialization funciton
-      return; 
+      if (this->state != STATE::UNINITIALIZED) {
+        reset();                    // STATE -> UNINITIALIZED
+      }
+      this->state = STATE::DISCONNECTED;    // UNINITIALIZED -> DISCONNECTED
     }
     void begin(){
-      if (this->state == STATE::FAULT) return;
-      if (this->state != STATE::UNINITIALIZED) {
-        stop();
-      };
+      if (this->state != STATE::DISCONNECTED) return;
       if(this->config.led_active == LED::LED_ON){
         IrReceiver.begin(this->config.pin, ENABLE_LED_FEEDBACK);    // No hardware initialization, just wont get any data if its not connected right
       } else {
         IrReceiver.begin(this->config.pin); 
       }
-      this->state = STATE::UNVERIFIED;                 // UNINITIALIZED -> UNVERIFIED
+      check_connection();                                 // DISCONNECTED -> IDENTIFIED
+      configure();                                        // IDENTIFIED -> CONFIGURED
+      check_validity();                                   // CONFIGURED -> READY
+      start(); 
     }
 
     // *** State and Lifecycle Management *** //
+    void check_connection() {
+      // There is no way to check the connection to the IR sensor, so this will always return true
+      if (this->state == STATE::DISCONNECTED) {
+        this->state = STATE::IDENTIFIED;             // DISCONNECTED -> IDENTIFIED
+      }
+    }
+    void configure() {
+      // There is no way to configure the IR sensor, so this will always return true
+      if (this->state == STATE::IDENTIFIED) {
+        this->state = STATE::CONFIGURED;             // IDENTIFIED -> CONFIGURED
+      }
+    }
+    void check_validity() {
+      // There is no way to check the validity of the IR sensor readings, so this will
+      if (this->state == STATE::CONFIGURED) {
+        this->state = STATE::READY;                  // CONFIGURED -> READY
+    }
     void start(){
       if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
       if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+      
       IrReceiver.start();
       if (this->state == STATE::PAUSED) {
         this->state = saved_state;                        // PAUSED -> prev_saved

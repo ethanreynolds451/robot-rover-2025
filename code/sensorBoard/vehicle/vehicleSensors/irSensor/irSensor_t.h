@@ -9,11 +9,13 @@ enum class LED : uint8_t {
 };
 
 enum class STATE : uint8_t {
-  UNINITIALIZED = 0,        // never probed yet
-  UNVERIFIED    = 2,        // no data read yet
-  VERIFIED      = 3,        // confirmed functionality by reading data
-  PAUSED        = 4,        // not currently reading data, but was verified before
-  FAULT         = 255       // persistent/latched failure
+  UNINITIALIZED = 0,       
+  DISCONNECTED  = 1,        
+  IDENTIFIED    = 2,        
+  CONFIGURED    = 3,        
+  READY         = 4,        
+  PAUSED        = 5,        
+  FAULT         = 255      
 };
 
 struct CONFIG {
