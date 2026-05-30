@@ -32,6 +32,8 @@ From sensor board:
 
 // t for each sensor is offset from packet timestamp
 // calculated on packet construction, may be off by +- a few ms
+// n is sensor index
+// s is sensor status, first hex digit is state and second is error 
 {t[arduino_timestamp]
 mpu[n, t, a:accel_x;y;z, g:gyro_x;y;z, tp:temp]
 qmc[n, t, h:head, m:mag_x;y;z]
@@ -40,16 +42,17 @@ tof[n, t, d:dist, l:light]
 us[n, t, d:dist]
 tmp[n, t, tp:temp]
 str[t, c:calibrated, p:pos, d:dir]
-ir[n, t, a:addr, c:cmd, d:data]}
+ir[n, t, s, a:addr, c:cmd, d:data]}
 
-// Need to finish figuring out the specific data types for each sensor
-{t[1234]mpu[1,10,123:123:123,234:234:234,30]
+// Example:
+{t[1234]
+mpu[1,10,123:123:123,234:234:234,30]
 qmc[1,15, mag, head, temp]
 gps[n, t, lat, long, alt, vel, head, time, sats]
 tof[n, t, dist, light]us[n, dist]
 tmp[n, t, temp]
 str[t, dir, pos, spd]
-ir[t, addr, cmd, data]}
+ir[n:0,t:1234,s:40,a:8E30,c:7AF3,d:B74C96A1]}
 
 
 IR-only packet wrapped wtith serial manager header:

@@ -1,9 +1,39 @@
 /* 
 DEPENDENCIES:
- - TinyGPS++
- - SoftwareSerial
-TYPES:
- - gps_coordinates: struct containing latitude and longitude as floats
+ - TinyGPS++            internal
+ - SoftwareSerial       external
+FUNCTIONS: 
+ - initialize()         UNINITIALIZED -> DISCONNECTED
+ - check_connection()   DISCONNECTED -> IDENTIFIED/DISCONNECTED
+ - configure()          IDENTIFIED -> CONFIGURED
+ - check_validity()     CONFIGURED -> READY/CONFIGURED
+ - begin()              DISCONNECTED -> IDENTIFIED -> CONFIGURED -> READY -> ACTIVE
+ - start()              READY -> ACTIVE
+ - stop()               ACTIVE -> READY
+ - reset()              * -> UNINITIALIZED
+STATES: 
+ - UNINITIALIZED -> DISCONNECTED
+ - DISCONNECTED <-> CONNECTED
+ - CONNECTED -> CONFIGURED
+ - CONFIGURED <-> READY
+ - READY <-> ACTIVE
+ERRORS
+ - NO_ERROR
+ - NOT_FOUND
+ - NOT_VALID
+ - BUS_FAULT
+ - UNKNOWN
+CONFIGS: 
+ - pins             PINS       ->   uint8_t tx rx, bool using_software_serial
+ - baudrate         unsigned long
+ - timeout          unsigned long
+DATA
+ - coordinates       COORDINATES ->   float latitude longitude
+ - altitude          ALTITUDE    ->   float
+ - speed             SPEED       ->   float
+ - course            COURSE      ->   float
+ - time              TIME        ->   unsigned long (HHMMSSCC)
+ - fix               FIX         ->   uint8_t
 UNITS: 
  - lat / long : degrees, 6 decimal place precision
  - altitude : meters, 2 decimal place precision
@@ -24,12 +54,14 @@ namespace gps_unit {
 class gps_object {
   public:
     // Setup and initialization
-    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600) {
+    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600, unsigned long timeout = 5000) {
         this->config.pins.tx = tx_pin;
         this->config.pins.rx = rx_pin;
         this->config.baudrate = baudrate;
+        this->config.timeout = timeout;
     }
     ~gps_object() {
+        // Make sure to delete any dynamically allocated objects
         delete gps_software_serial;
     }
 
@@ -81,6 +113,7 @@ class gps_object {
         check_connection();         // DISCONNECTED -> IDENTIFIED/DISCONNECTED
         configure();                // IDENTIFIED -> CONFIGURED
         check_validity();           // CONFIGURED -> READY/CONFIGURED
+        start();                    // READY -> ACTIVE
     }   // state transition verified
 
     // *** State and Lifecycle Management *** //
@@ -127,17 +160,21 @@ class gps_object {
         this->state = STATE::IDENTIFIED;                    // STATE -> IDENTIFIED
         this->error = ERROR::NOT_VALID;                     // ERROR -> NOT_VALID
     }   // state transition verified
-    void stop(){
-        // No pause support yet
+    void start(){
+        if (this->state != STATE::READY) return;          // STATE -> STATE + return
+        this->state = STATE::ACTIVE;                      // READY -> ACTIVE
         return; 
     }
-    void start(){
-        return; 
+    void stop(){
+        // Any physical stop would go here if implemented
+        if (this->state == STATE::ACTIVE) {
+            this->state = STATE::READY;                   // ACTIVE -> READY
+        }
     }
     void reset(){
         if (gps_hardware_serial != nullptr){
             gps_hardware_serial->end();
-        } else {
+        } else if (gps_software_serial != nullptr) {
             gps_software_serial->end();
         }                                      
         this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
@@ -154,10 +191,6 @@ class gps_object {
     }
 
     // *** Configuration *** //
-    void set_calibration() {
-        // no caibration parameters yet
-        return; 
-    }
     void set_pins(uint8_t tx_pin, uint8_t rx_pin){
         this->config.pins.tx = tx_pin;
         this->config.pins.rx = rx_pin;
@@ -165,6 +198,9 @@ class gps_object {
     void set_baudrate(uint32_t new_baudrate){
         this->config.baudrate = new_baudrate; 
         stop(); 
+    }
+    void set_timeout(unsigned long new_timeout){
+        this->config.timeout = new_timeout;
     }
 
     // *** Data Management *** //
@@ -219,7 +255,7 @@ class gps_object {
         this->data.fix.is_new = false;
     }
     void poll(){        
-        if(this->state == STATE::READY) {
+        if(this->state == STATE::ACTIVE) {
             read();
         }
     }

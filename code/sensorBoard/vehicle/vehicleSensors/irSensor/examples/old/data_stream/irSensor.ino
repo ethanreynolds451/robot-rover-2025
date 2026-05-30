@@ -14,7 +14,7 @@ char outputString[60];
 
 void setup() {
   Serial.begin(115200); 
-  testIR.begin(); 
+  testIR.begin();
 }
 
 void loop() {

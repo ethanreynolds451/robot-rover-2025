@@ -1,6 +1,6 @@
 
-#ifndef GPS_UNIT_TYPES_H
-#define GPS_UNIT_TYPES_H
+#ifndef GPS_UNIT_T_H
+#define GPS_UNIT_T_H
 
 namespace gps_unit {
 
@@ -12,6 +12,7 @@ enum class STATE : uint8_t {
   IDENTIFIED    = 2,        // present + ID verified
   CONFIGURED    = 3,        // init/config applied
   READY         = 4,        // producing valid readings
+  ACTIVE        = 5,        // Actively being read from
   FAULT         = 255,      // persistent/latched failure, requires reset
 };
 

@@ -15,7 +15,7 @@ enum class STATE : uint8_t {
   CONFIGURED    = 3,    // configurations / calibrations applied
   READY         = 4,    // producing valid data but not active
   ACTIVE        = 5,    // sensor is actively reading data
-  FAULT         = 255   // sensor is in a locked fault state - must be reset / re-initialized
+  FAULT         = 15    // sensor is in a locked fault state - must be reset / re-initialized
 };
 
 struct CONFIG {
@@ -45,7 +45,7 @@ struct DATA {
     unsigned long timestamp = 0;
     COMMAND command;
     ADDRESS address;
-    RAW_DATA data;
+    RAW_DATA raw_data;
 };
 
 }
