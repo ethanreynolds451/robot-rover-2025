@@ -13,8 +13,8 @@ enum class STATE : uint8_t {
   DISCONNECTED  = 1,        
   IDENTIFIED    = 2,        
   CONFIGURED    = 3,        
-  READY         = 4,        
-  PAUSED        = 5,        
+  READY         = 4,       
+  ACTIVE        = 5, 
   FAULT         = 255      
 };
 

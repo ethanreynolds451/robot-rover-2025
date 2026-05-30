@@ -28,9 +28,6 @@ class ir_object {
       } else {
         IrReceiver.begin(this->config.pin); 
       }
-      check_connection();                                 // DISCONNECTED -> IDENTIFIED
-      configure();                                        // IDENTIFIED -> CONFIGURED
-      check_validity();                                   // CONFIGURED -> READY
       start(); 
     }
 
