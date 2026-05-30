@@ -42,6 +42,7 @@ struct RAW_DATA {
 };
 
 struct DATA {
+    bool is_new = false; 
     unsigned long timestamp = 0;
     COMMAND command;
     ADDRESS address;

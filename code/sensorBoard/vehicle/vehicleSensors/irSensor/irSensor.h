@@ -107,10 +107,12 @@ class ir_object {
       }
       IrReceiver.resume();
       if (read_data){
+        this->data.is_new = true;
         this->data.timestamp = millis();
       }
     }
     void clear() {
+      this->data.is_new = false;
       this->data.command.is_new = false; 
       this->data.address.is_new = false; 
       this->data.raw_data.is_new = false; 
@@ -119,7 +121,7 @@ class ir_object {
       if (this->state != STATE::ACTIVE) return;
       if(IrReceiver.decode()){
         if(IrReceiver.decodedIRData.protocol == UNKNOWN){
-            // Exclude any invalid data
+            // Exclude any invalid IR protocol decodes
             IrReceiver.resume();
             return;
         }
@@ -139,10 +141,12 @@ class ir_object {
     }
     const ADDRESS& get_address() {
       this->data.address.is_new = false;
+      this->data.is_new = (this->data.command.is_new || this->data.raw_data.is_new);
       return this->data.address;
     }
     const RAW_DATA& get_data() {
       this->data.raw_data.is_new = false;
+      this->data.is_new = (this->data.command.is_new || this->data.address.is_new);
       return this->data.raw_data;
     }
   

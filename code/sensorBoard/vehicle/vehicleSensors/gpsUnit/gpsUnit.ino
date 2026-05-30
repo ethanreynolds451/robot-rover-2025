@@ -13,25 +13,28 @@ char outputString[128];
 
 void setup(){
     Serial.begin(115200);
-    testGPS.begin(5000);   // Wait up to 5 seconds for GPS to initialize and start sending data
+    testGPS.initialize();
+    delay(1000); // Allow data to start arriving before calling begin, which checks connection
+    testGPS.begin();
 }
 
+// Float conversion functions
 unsigned long hex_float_6(float value){
     // Convert the float to a 32-bit integer with 6 decimal places of precision
     return (unsigned long)(value * 1000000);
 }
-
 unsigned long hex_float_2(float value){
     // Convert the float to a 16-bit integer with 2 decimal places of precision
     return (unsigned long)(value * 100);
 }
 
 void loop(){
-    if (testGPS.update()){
+    gpsUnit.poll();
+
+
         // encode coords as hex_float_6
         // encode all other floats as hex_float_2
         // encode all ints as hex
-        // Calculate timestamps
 
         // Prepare the output string
         int pos = 0; 
