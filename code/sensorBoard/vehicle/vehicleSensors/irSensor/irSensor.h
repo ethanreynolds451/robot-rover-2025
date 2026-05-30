@@ -16,6 +16,7 @@ class ir_object {
 
     // *** Startup Functions *** //
     void initialize() {
+      // special case: no initialization funciton
       return; 
     }
     void begin(){

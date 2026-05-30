@@ -23,7 +23,9 @@ class temp_object {
 
         // *** Startup Functions *** //
         void initialize() {
-            if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
+            if (this->state != STATE::UNINITIALIZED) {         
+                reset();                                       // STATE -> reset() + UNINITIALIZED         
+            }             
             this->state = STATE::IDENTIFIED;    // STATE -> IDENTIFIED
         }   // transición de estado verificada
         void begin(){

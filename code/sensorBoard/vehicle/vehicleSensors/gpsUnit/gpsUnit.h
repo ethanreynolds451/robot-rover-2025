@@ -35,7 +35,6 @@ class gps_object {
 
     // *** State Management *** //
     void initialize() {
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
         if (this->state != STATE::UNINITIALIZED) reset();   // STATE -> reset() + UNINITIALIZED
         
         // Serial setup

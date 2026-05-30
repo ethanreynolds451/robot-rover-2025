@@ -19,7 +19,15 @@ public:
           this->config.pins.b = pinB;
         }
 
-    // *** State Management *** //
+    // *** Startup Functions *** //
+    void initialize(){
+      if (this->state != STATE::UNINITIALIZED) {
+        reset();                    // STATE -> UNINITIALIZED
+      }
+      // This version does not have a begin method
+      // sensor.begin(this->config.pins.a, this->config.pins.b);
+      this->state = STATE::DISCONNECTED;    // UNINITIALIZED -> DISCONNECTED
+    }
     void begin(){
       if (this->state == STATE::FAULT) return;
       if (this->state != STATE::UNINITIALIZED) {
@@ -30,29 +38,9 @@ public:
       set_zero();                   // IDENTIFIED -> CONFIGURED
       check_validity();             // CONFIGURED -> READY     
     }
-    void stop() {
-      if (this->state == STATE::FAULT) return;
-      state = STATE::UNINITIALIZED;
-    }
-    void start(){
-      if (this->state == STATE::FAULT) return;
-      if (this->state != STATE::UNINITIALIZED) {
-        stop();                    // STATE -> UNINITIALIZED
-      }
-      // This version does not have a begin method
-      // sensor.begin(this->config.pins.a, this->config.pins.b);
-      this->state = STATE::DISCONNECTED;    // UNINITIALIZED -> DISCONNECTED
-    } 
-    void reset(){
-      stop();
-      data = DATA{};
-      state = STATE::UNINITIALIZED;
-    }
-    void update() {
-      return; 
-    }
 
-    // *** Diagnostics *** //
+
+    // *** State and Lifecycle Management *** //
     void check_connection() { 
       // There is no way to check the connection to the encoder, so this will always return true
       if (this->state == STATE::UNINITIALIZED) {
@@ -64,6 +52,22 @@ public:
       if (this->state == STATE::CONFIGURED) {
         this->state = STATE::READY;
       }
+    }
+    void stop() {
+      if (this->state == STATE::FAULT) return;
+      state = STATE::UNINITIALIZED;
+    }
+    void start(){
+      if (this->state != STATE::UNINITIALIZED) return;
+      state = STATE::DISCONNECTED;
+    } 
+    void reset(){
+      stop();
+      data = DATA{};
+      state = STATE::UNINITIALIZED;
+    }
+    void update() {
+      return; 
     }
 
     // *** Configuration *** //
@@ -87,11 +91,10 @@ public:
     }
 
     // *** Data Management *** //
-    bool read() {
+    void read() {
       this->data.position.timestamp = millis();
       this->data.position.value = sensor.read();
       this->data.position.is_new = true;
-      return true; 
     }
     void clear() {
       this->data.position.is_new = false;

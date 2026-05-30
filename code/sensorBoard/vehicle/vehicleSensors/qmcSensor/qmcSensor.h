@@ -25,7 +25,6 @@ class qmc_object {
 
     // *** Startup Functions *** //
     void initialize(WIRE start_wire = WIRE::NO_START_WIRE) {
-        if (this->state == STATE::FAULT) return;           // FAULT -> FAULT, return
         if (this->state != STATE::UNINITIALIZED) {
             reset();                                       // STATE -> reset() + UNINITIALIZED         
         }
