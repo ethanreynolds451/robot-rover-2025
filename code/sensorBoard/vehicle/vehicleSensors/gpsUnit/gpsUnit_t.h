@@ -89,6 +89,7 @@ struct FIX {
 
 struct DATA {
     unsigned long timestamp = 0;    // Packet timestamp
+    bool is_new = false;            // Flag to indicate if any new data is present in the packet
     POSITION position;              // Data describing position
     VELOCITY velocity;              // Data describing velocity
     TIME time;                      // GPS time

@@ -242,10 +242,12 @@ class gps_object {
             data_read = true;
         }
         if (data_read) {
+            this->data.is_new = true;
             this->data.timestamp = millis();
         }
     }
     void clear(){
+        this->data.is_new = false;
         this->data.position.coordinates.is_new = false;
         this->data.position.altitude.is_new = false;
         this->data.velocity.course.is_new = false;
@@ -267,26 +269,32 @@ class gps_object {
     const DATA& peek() const { return this->data; }
     const COORDINATES& get_coordinates() { 
         this->data.position.coordinates.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.position.coordinates;
     }
     const ALTITUDE& get_altitude() { 
         this->data.position.altitude.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.position.altitude;
     }
     const SPEED& get_speed() {
         this->data.velocity.speed.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.velocity.speed;
     }
     const COURSE& get_course() {
         this->data.velocity.course.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.velocity.course;
     }
     const TIME& get_time() {
         this->data.time.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.time;
     }
     const FIX& get_fix() {
         this->data.fix.is_new = false;
+        this->data.is_new = (this->data.position.coordinates.is_new || this->data.position.altitude.is_new || this->data.velocity.course.is_new || this->data.velocity.speed.is_new || this->data.time.is_new || this->data.fix.is_new);
         return this->data.fix;
     }
 
