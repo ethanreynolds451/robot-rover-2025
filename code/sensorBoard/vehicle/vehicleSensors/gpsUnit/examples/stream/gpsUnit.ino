@@ -30,7 +30,7 @@ unsigned long hex_float_2(float value){
 
 void loop(){
     testGPS.poll();
-    if (testGPS.is_new_data()){
+    if (testGPS.peek().is_new){
         // encode coords as hex_float_6
         // encode all other floats as hex_float_2
         // encode all ints as hex

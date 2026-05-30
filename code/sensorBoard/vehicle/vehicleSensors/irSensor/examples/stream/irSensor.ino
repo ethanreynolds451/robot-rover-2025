@@ -18,48 +18,42 @@ void setup() {
 }
 
 void loop() {
-  // Poll the sensor
+
   testIR.poll();
 
-  // Check for new data
   if (testIR.peek().is_new){
-    ir_sensor::STATE state = testIR.get_state();
 
-    // Calculate timestamps
+    // Calculate timestamps and offsets for the packet
     unsigned long arduino_timestamp = millis();
-    unsigned long offset_timestamp = arduino_timestamp - data.timestamp;
-
-    // Declare and the string incrementer to 0
-    int pos = 0; 
+    unsigned long offset_timestamp = arduino_timestamp - testIR.peek().timestamp;
+    
+    // Start building the output string
+    int pos = 0;
 
     // Add the arduino timestamp and sensor header data to the string
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "{t[%x]", arduino_timestamp);
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "ir[");
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "n:0,");       
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "t:%x", offset_timestamp);
-    pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",s:%x0", static_cast<uint8_t>(state));
+    pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",s:%x0", static_cast<uint8_t>(testIR.get_state()));
 
-    // Add any new snsor data
+    // Add new snsor data
     if(testIR.peek().command.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", irSensor.get_command().value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", testIR.get_command().value);
     }
     if(testIR.peek().address.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", irSensor.get_address().value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", testIR.get_address().value);
     }
     if(testIR.peek().raw_data.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", irSensor.get_data().value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", testIR.get_data().value);
     } 
 
-    // End the packet
+    // End the packet and send
     pos += snprintf(outputString + pos, sizeof(outputString) - pos, "]}");
-
-    // Send the packet over serial with newline character to indicate end of packet
-    // This does not go through the serial manager's packetization system since this is a simple test
-    // It is guarenteed to always be less than 64 bytes
     Serial.println(outputString);
 
-    // Clear the IR data to ensure no old data is transmitted in the next loop
-    // Just a safety measure since they should all be cleared by the getter functions
+    // Clear the data 
     testIR.clear();
   }
+  
 }
