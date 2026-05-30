@@ -36,20 +36,18 @@ void loop() {
   Serial.println("Current IR sensor state: " + String(stateString));
 
   // Check for new data
-  ir_sensor::DATA data = testIR.peek();
-  if (data.command.is_new || data.address.is_new || data.raw_data.is_new){
+  if (testIR.peek().is_new){
     Serial.println("New IR data received:");
     // Print new data
-    if(data.command.is_new){
-        Serial.println(" - Command: " + String(irSensor.get_command().value) + " (timestamp: " + String(data.command.timestamp) + ")");
+    if(testIR.peek().command.is_new){
+        Serial.println(" - Command: " + String(irSensor.get_command().value) + " (timestamp: " + String(testIR.peek().command.timestamp) + ")");
     }
-    if(data.address.is_new){
-        Serial.println(" - Address: " + String(irSensor.get_address().value) + " (timestamp: " + String(data.address.timestamp) + ")");
+    if(testIR.peek().address.is_new){
+        Serial.println(" - Address: " + String(irSensor.get_address().value) + " (timestamp: " + String(testIR.peek().address.timestamp) + ")");
     }
-    if(data.raw_data.is_new){
-        Serial.println(" - Raw Data: " + String(irSensor.get_data().value) + " (timestamp: " + String(data.raw_data.timestamp) + ")");
+    if(testIR.peek().raw_data.is_new){
+        Serial.println(" - Raw Data: " + String(irSensor.get_data().value) + " (timestamp: " + String(testIR.peek().raw_data.timestamp) + ")");
     }
-
     testIR.clear();
   }
   delay(loop_delay);

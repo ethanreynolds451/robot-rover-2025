@@ -14,7 +14,7 @@ char outputString[128];
 void setup(){
     Serial.begin(115200);
     testGPS.initialize();
-    delay(1000); // Allow data to start arriving before calling begin, which checks connection
+    delay(1500); // Allow data to start arriving before calling begin, which checks connection
     testGPS.begin();
 }
 
@@ -29,9 +29,8 @@ unsigned long hex_float_2(float value){
 }
 
 void loop(){
-    gpsUnit.poll();
-
-
+    testGPS.poll();
+    if (testGPS.is_new_data()){
         // encode coords as hex_float_6
         // encode all other floats as hex_float_2
         // encode all ints as hex

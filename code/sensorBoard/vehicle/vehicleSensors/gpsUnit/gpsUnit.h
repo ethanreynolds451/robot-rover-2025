@@ -61,8 +61,7 @@ class gps_object {
         this->config.timeout = timeout;
     }
     ~gps_object() {
-        // Make sure to delete any dynamically allocated objects
-        delete gps_software_serial;
+        reset();    // Resetting deletes any referenced serial objects 
     }
 
     // *** State Management *** //
