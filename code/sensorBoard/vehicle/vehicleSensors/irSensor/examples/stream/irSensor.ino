@@ -23,7 +23,7 @@ void loop() {
 
   // Check for new data
   ir_sensor::DATA data = testIR.peek();
-  if (data.command.is_new || data.address.is_new || data.raw_data.is_new){
+  if (data.is_new){
     ir_sensor::STATE state = testIR.get_state();
 
     // Calculate timestamps
@@ -42,13 +42,13 @@ void loop() {
 
     // Add any new snsor data
     if(data.command.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", data.command.value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",c:%x", irSensor.get_command().value);
     }
     if(data.address.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", data.address.value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", irSensor.get_address().value);
     }
     if(data.raw_data.is_new){
-      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", data.raw_data.value);
+      pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",d:%x", irSensor.get_data().value);
     } 
 
     // End the packet
