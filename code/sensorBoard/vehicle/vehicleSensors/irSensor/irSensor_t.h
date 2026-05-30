@@ -9,13 +9,13 @@ enum class LED : uint8_t {
 };
 
 enum class STATE : uint8_t {
-  UNINITIALIZED = 0,       
-  DISCONNECTED  = 1,        
-  IDENTIFIED    = 2,        
-  CONFIGURED    = 3,        
-  READY         = 4,       
-  ACTIVE        = 5, 
-  FAULT         = 255      
+  UNINITIALIZED = 0,    // hardware not initialized
+  DISCONNECTED  = 1,    // initialized but not connected or connection not checked
+  IDENTIFIED    = 2,    // sensor connection verified
+  CONFIGURED    = 3,    // configurations / calibrations applied
+  READY         = 4,    // producing valid data but not active
+  ACTIVE        = 5,    // sensor is actively reading data
+  FAULT         = 255   // sensor is in a locked fault state - must be reset / re-initialized
 };
 
 struct CONFIG {
