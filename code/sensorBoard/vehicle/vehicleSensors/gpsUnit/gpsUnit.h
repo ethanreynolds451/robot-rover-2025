@@ -40,16 +40,16 @@ class gps_object {
         
         // Serial setup
         // To use hardware serial, set tx_pin to 0 and rx_pin to the desired hardware serial port number
-        if (tx_pin == 0){
-            if (rx_pin == 0){
+        if (config.pins.tx == 0){
+            if (config.pins.rx == 0){
                 gps_hardware_serial = &Serial;   // Use hardware serial 0
             } 
 #if defined(ARDUINO_AVR_MEGA2560)
-            else if (rx_pin == 1){
+            else if (config.pins.rx == 1){
                 gps_hardware_serial = &Serial1;  // Use hardware serial 1
-            } else if (rx_pin == 2){
+            } else if (config.pins.rx == 2){
                 gps_hardware_serial = &Serial2;  // Use hardware serial 2
-            } else if (rx_pin == 3){
+            } else if (config.pins.rx == 3){
                 gps_hardware_serial = &Serial3;  // Use hardware serial 3
             } 
 #endif
@@ -77,75 +77,38 @@ class gps_object {
         }
         this->state = STATE::DISCONNECTED;            // UNINITIALIZED -> DISCONNECTED
     }   // state transition verified
-
-
-
-
-
     void begin(){
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-        if (this->state != STATE::DISCONNECTED) {
-            stop();
-            start(); 
-        };
-        update(); 
-        check_connection();         // DISCONNECTED -> IDENTIFIED
-        calibrate();                // IDENTIFIED -> CONFIGURED
-        check_validity();           // CONFIGURED -> READY
-    }
+        if (this->state != STATE::DISCONNECTED) return;     // STATE -> STATE, return 
+        check_connection();         // DISCONNECTED -> IDENTIFIED/DISCONNECTED
+        configure();                // IDENTIFIED -> CONFIGURED
+        check_validity();           // CONFIGURED -> READY/CONFIGURED
+    }   // state transition verified
 
-
-
-
-    void stop(){
-        if (this->state == STATE::FAULT) return;     // FAULT -> FAULT + return
-        if (gps_hardware_serial != nullptr){
-            gps_hardware_serial->end();
-        } else {
-            gps_software_serial->end();
-        }
-        this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
-    }
-    void start(){
-        if (this->state == STATE::FAULT) return;     // FAULT -> FAULT + return
-        if (gps_hardware_serial != nullptr){
-            gps_hardware_serial->begin(this->config.baudrate); 
-        } else {
-            gps_software_serial->begin(this->config.baudrate);
-        }
-        this->state = STATE::DISCONNECTED;            // STATE -> DISCONNECTED
-    }
-    void reset(){
-        stop();                                      // STATE -> UNINITIALIZED
-        this->data = DATA();                         // Clear data
-        this->error = ERROR::NO_ERROR;               // ERROR -> NO_ERROR
-    }
-    void update(){
-        if (gps_serial->available()) {
-            while (gps_serial->available()) {
-                gps.encode(gps_serial->read());
-            }
-            this->last_data_time = millis();
-        }
-    }
-
-    // *** Diagnostics *** //
+    // *** State and Lifecycle Management *** //
     void check_connection() { 
         if (this->state == STATE::FAULT) return;           // FAULT -> FAULT + return
         if (this->state == STATE::UNINITIALIZED) return;   // UNINITIALIZED -> UNINITIALIZED + return
+        update(); 
         unsigned long now = millis();
         if ((now - this->last_data_time) < this->config.timeout){
             if (this->state == STATE::DISCONNECTED) {
                 this->state = STATE::IDENTIFIED;           // DISCONNECTED -> IDENTIFIED
-                if (this->error == ERROR::NOT_FOUND) {
-                    this->error = ERROR::NO_ERROR;         // NOT_FOUND -> NO_ERROR
-                }
-            }                                                
+            }                                             
+            if (this->error == ERROR::NOT_FOUND) {
+                this->error = ERROR::NO_ERROR;              // NOT_FOUND -> NO_ERROR
+            }                                             
             return;                                        // STATE -> STATE + return
         }
         this->state = STATE::DISCONNECTED;                 // STATE -> DISCONNECTED  
         this->error = ERROR::NOT_FOUND;                    // ERROR -> NOT_FOUND
-    }
+    }   // state transition verified
+    void configure() {
+        // No calibration parameters for GPS
+        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
+        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
+        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
+        this->state = STATE::CONFIGURED;                    // STATE -> CONFIGURED
+    }   // state transition verified
     void check_validity() {
         if (this->state == STATE::FAULT) return;           // FAULT -> FAULT + return
         if (this->state == STATE::UNINITIALIZED) return;   // UNINITIALIZED -> UNINITIALIZED + return
@@ -156,77 +119,56 @@ class gps_object {
              !(gps.charsProcessed() < 50)) {
                 if (this->state == STATE::CONFIGURED) {
                     this->state = STATE::READY;             // CONFIGURED -> READY
-                    if (this->error == ERROR::NOT_VALID) {
-                        this->error = ERROR::NO_ERROR;      // NOT_VALID -> NO_ERROR
-                    }
-                } 
+                }
+                if (this->error == ERROR::NOT_VALID) {
+                    this->error = ERROR::NO_ERROR;          // NOT_VALID -> NO_ERROR
+                }
                 return;                                     // STATE -> STATE + return
              }
         this->state = STATE::IDENTIFIED;                    // STATE -> IDENTIFIED
         this->error = ERROR::NOT_VALID;                     // ERROR -> NOT_VALID
+    }   // state transition verified
+    void stop(){
+        // No pause support yet
+        return; 
+    }
+    void start(){
+        return; 
+    }
+    void reset(){
+        if (gps_hardware_serial != nullptr){
+            gps_hardware_serial->end();
+        } else {
+            gps_software_serial->end();
+        }                                      
+        this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
+        this->data = DATA();                         // Clear data
+        this->error = ERROR::NO_ERROR;               // ERROR -> NO_ERROR
+    }   // state transition verified
+    void update(){
+        if (gps_serial->available()) {
+            while (gps_serial->available()) {
+                gps.encode(gps_serial->read());
+            }
+            this->last_data_time = millis();
+        }
     }
 
     // *** Configuration *** //
     void set_calibration() {
+        // no caibration parameters yet
         return; 
     }
-    void calibrate() {
-        // No calibration parameters for GPS
-        if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-        if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-        if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-        if (this->state == STATE::IDENTIFIED) {
-            this->state = STATE::CONFIGURED;
-        }
-        return;                                             // STATE -> STATE + return   
+    void set_pins(uint8_t tx_pin, uint8_t rx_pin){
+        this->config.pins.tx = tx_pin;
+        this->config.pins.rx = rx_pin;
     }
-    // Serial setters and getters
     void set_baudrate(uint32_t new_baudrate){
         this->config.baudrate = new_baudrate; 
         stop(); 
     }
-    void set_pins(uint8_t tx_pin, uint8_t rx_pin){
-        stop();
-        this->config.pins.tx = tx_pin;
-        this->config.pins.rx = rx_pin;
-            if (tx_pin == 0){
-                if (rx_pin == 0){
-                    gps_hardware_serial = &Serial;   // Use hardware serial 0
-                } 
-#if defined(ARDUINO_AVR_MEGA2560) 
-                else if (rx_pin == 1){
-                    gps_hardware_serial = &Serial1;  // Use hardware serial 1
-                } else if (rx_pin == 2){
-                    gps_hardware_serial = &Serial2;  // Use hardware serial 2
-                } else if (rx_pin == 3){
-                    gps_hardware_serial = &Serial3;  // Use hardware serial 3
-                } 
-#endif                
-                else {
-                    // Invalid hardware serial port, default to software serial using default pins
-                    gps_hardware_serial = nullptr;
-                    this->config.pins.tx = 11;
-                    this->config.pins.rx = 10;
-                    delete gps_software_serial;
-                    gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);
-                }
-            } else {
-                // Use software serial with the specified pins
-                delete gps_software_serial;
-                gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);    
-            }
-        if (gps_hardware_serial != nullptr){
-            delete gps_software_serial;
-            gps_software_serial=nullptr;
-            gps_serial = gps_hardware_serial;
-            this->config.pins.using_software_serial = false;
-        } else {
-            gps_serial = gps_software_serial;
-            this->config.pins.using_software_serial = true;
-        }
-    }
 
-    // Data interface functions
+    // *** Data Management *** //
     void read(){
         bool data_read = false;
         if (gps.location.isValid()) {
