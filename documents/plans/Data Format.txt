@@ -41,7 +41,7 @@ gps[n, t, s, p:fix_sign;lat;sign;long, a:sign;alt, v:vel, h:head, g:time, f:n_sa
 tof[n, t, d:dist, l:light]
 us[n, t, d:dist]
 tmp[n, t, tp:temp]
-enc[n, t, s, p:pos, d:dir]
+enc[n, t, s, p:sign;pos]
 ir[n, t, s, a:addr, c:cmd, d:data]}
 
 // Example:
@@ -51,7 +51,7 @@ qmc[1,15, mag, head, temp]
 gps[n:0,t:1234,p;0;9A6B327C;1;764B7DE5,a:0;927B343F,v:27CD648A,h:82F41AD9,g:29A62FF3,f:03]
 tof[n, t, dist, light]us[n, dist]
 tmp[n, t, temp]
-str[t, dir, pos, spd]
+enc[n:0,t:1234,s:40,p:1;93B2]
 ir[n:0,t:1234,s:40,a:8E30,c:7AF3,d:B74C96A1]}
 
 

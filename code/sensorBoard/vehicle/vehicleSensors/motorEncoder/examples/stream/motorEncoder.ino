@@ -16,6 +16,10 @@ motorEncoder encoder(PIN_A, PIN_B);
 // Buffer to hold the output string
 char outputString[60];
 
+uint8_t sign_bit(long value){
+    return (value < 0) ? 1 : 0;
+}
+
 void setup(){
     Serial.begin(BAUDRATE); 
     encoder.initialize();
@@ -43,7 +47,7 @@ void loop(){
 
         // Add new snsor data
         if(encoder.peek().position.is_new){
-          pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",p:%x", encoder.get_position().value);
+          pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",p:%x;%x", sign_bit(encoder.get_position().value), abs(encoder.get_position().value));
         } 
 
         // End the packet and send over serial
