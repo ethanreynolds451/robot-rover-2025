@@ -10,7 +10,7 @@
 
 # Sensor parameter         :     encoding
 
-arduino_timestamp         :     "hex"
+arduino_timestamp          :     "unsigned_hex"
 
 encoder:
   arduino_timestamp        :     "hex_timestamp_offset"
@@ -20,22 +20,22 @@ gps:
   arduino_timestamp        :     "hex_timestamp_offset"
   position                 :     "signed_hex_float_6"
   altitude                 :     "signed_hex_float_2"
-  heading                  :     "hex_float_2"
-  speed_kmph               :     "hex_float_2"
-  gps_time                 :     "hex"
-  sats                     :     "hex"
+  heading                  :     "unsigned_hex_float_2"
+  speed_kmph               :     "unsigned_hex_float_2"
+  gps_time                 :     "unsigned_hex"
+  sats                     :     "unsigned_hex"
 
 ir_remote:
   arduino_timestamp        :     "hex_timestamp_offset"
-  address                  :     "hex"
-  command                  :     "hex"
-  data                     :     "hex"
+  address                  :     "unsigned_hex"
+  command                  :     "unsigned_hex"
+  data                     :     "unsigned_hex"
 
 mpu:
   arduino_timestamp        :     "hex_timestamp_offset"
   accel                    :     "signed_hex" 
   gyrp                     :     "signed_hex" 
-  temp                     :     "signed_hex"
+  temp                     :     "signed_hex_float_2"
 
 qmc:
   arduino_timestamp        :     "hex_timestamp_offset"
