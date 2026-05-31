@@ -19,21 +19,20 @@ void setup(){
 }
 
 // Float conversion functions
-unsigned long hex_float_6(float value){
+long hex_float_6(float value){
     // Convert the float to a 32-bit integer with 6 decimal places of precision
-    return (unsigned long)(abs(value) * 1000000);
+    return (long)(abs(value) * 1000000);
 }
-unsigned long hex_float_2(float value){
+long hex_float_2(float value){
     // Convert the float to a 32-bit integer with 2 decimal places of precision
-    return (unsigned long)(abs(value) * 100);
-}
-uint8_t sign_bit (float value){
-    return (value < 0) ? 1 : 0;
+    return (long)(abs(value) * 100);
 }
 
-// encode coords as hex_float_6
+// encode coords as signed_hex_float_6
+// encode altitude as signed_hex_float_2
 // encode all other floats as hex_float_2
 // encode all ints as hex
+// *** Note: signed and unsigned use the exact same encoding method but must be decoded differently
 
 void loop(){
 
@@ -58,11 +57,11 @@ void loop(){
 
         // Add new sensor data
         if (testGPS.peek().position.coordinates.is_new){
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",p:%x%x", sign_bit(testGPS.get_coordinates().latitude), hex_float_6(testGPS.get_coordinates().latitude));
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x%x", sign_bit(testGPS.get_coordinates().longitude), hex_float_6(testGPS.get_coordinates().longitude));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",p:%x", hex_float_6(testGPS.get_coordinates().latitude));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ";%x", hex_float_6(testGPS.get_coordinates().longitude));
         }
         if (testGPS.peek().position.altitude.is_new){
-            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x%x", sign_bit(testGPS.get_altitude().value), hex_float_2(testGPS.get_altitude().value));
+            pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",a:%x", hex_float_2(testGPS.get_altitude().value));
         }
         if (testGPS.peek().velocity.speed.is_new){
             pos += snprintf(outputString + pos, sizeof(outputString) - pos, ",v:%x", hex_float_2(testGPS.get_speed().value));

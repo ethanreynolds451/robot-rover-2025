@@ -6,6 +6,7 @@
 # *** Determines what to do if the recieved data encoding doesn't exactly match the ros data type
 
 # Note: MUST ensure floats are truncated to the correct number of decial places and converted to ints
+# For signed encodings, the sign "bit" is the most significant character in the hex string
 
 # Sensor parameter         :     encoding
 
@@ -13,13 +14,12 @@ arduino_timestamp         :     "hex"
 
 encoder:
   arduino_timestamp        :     "hex_timestamp_offset"
-  direction                :     "unsigned_direction" 
-  position                 :     "hex"
+  position                 :     "signed_hex"
 
 gps:
   arduino_timestamp        :     "hex_timestamp_offset"
-  position                 :     "hex_float_6"
-  altitude                 :     "hex_float_2"
+  position                 :     "signed_hex_float_6"
+  altitude                 :     "signed_hex_float_2"
   heading                  :     "hex_float_2"
   speed_kmph               :     "hex_float_2"
   gps_time                 :     "hex"
@@ -33,9 +33,9 @@ ir_remote:
 
 mpu:
   arduino_timestamp        :     "hex_timestamp_offset"
-  accel                    :     "hex_float_2" 
-  gyrp                     :     "hex_float_2" 
-  temp                     :     "hex_float_2"
+  accel                    :     "signed_hex" 
+  gyrp                     :     "signed_hex" 
+  temp                     :     "signed_hex"
 
 qmc:
   arduino_timestamp        :     "hex_timestamp_offset"

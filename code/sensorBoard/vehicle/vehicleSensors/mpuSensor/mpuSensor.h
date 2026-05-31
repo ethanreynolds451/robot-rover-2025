@@ -41,6 +41,7 @@ class mpu_object {
         check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
         configure();                                        // IDENTIFIED -> CONFIGURED   
         check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+        start();                                            // READY -> ACTIVE
     }   // state transition verified
 
     // *** State and Lifecycle Management *** //
@@ -98,14 +99,14 @@ class mpu_object {
         }
     }   // state transition verified
     void start(){
-        if (this->state != STATE::PAUSED) return;           // STATE -> STATE, return
+        if (this->state != STATE::READY) return;            // STATE -> STATE, return
         sensor.enableSleep(false);
-        this->state = STATE::READY;                         // PAUSED -> READY
+        this->state = STATE::ACTIVE;                        // READY -> ACTIVE
     }   // state transition verified
     void stop() {
-        if (this->state != STATE::READY) return;            // STATE -> STATE, return
+        if (this->state != STATE::ACTIVE) return;            // STATE -> STATE, return
         sensor.enableSleep(true);
-        this->state = STATE::PAUSED;                        // READY -> PAUSED
+        this->state = STATE::READY;                         // ACTIVE -> READY
     }   // state transition verified
     void reset(){
         data = DATA{};
@@ -174,7 +175,7 @@ class mpu_object {
         data.temp.is_new = false;
     }
     void poll() {
-        if (this->state != STATE::READY) return;          // READY -> READY, return
+        if (this->state != STATE::ACTIVE) return;          // STATE -> STATE, return
         read();
     }
 

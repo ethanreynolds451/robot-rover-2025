@@ -14,16 +14,16 @@ enum class STATE : uint8_t {
   DISCONNECTED  = 1,        // probe failed / not present
   IDENTIFIED    = 2,        // present + ID verified
   CONFIGURED    = 3,        // init/config applied
-  READY         = 4,        // producing valid readings
-  PAUSED        = 5,        // temporarily paused (e.g. to save power)
-  FAULT         = 255       // persistent/latched failure
+  READY         = 4,        // ready to read valid data, but not actively reading
+  ACTIVE        = 5,        // actively reading data
+  FAULT         = 15        // persistent/latched failure
 };
 
 enum class ERROR : uint8_t {
     NO_ERROR    = 0,        // No error, sensor is functioning properly
     NOT_FOUND   = 1,        // The sensor was not found durring initialization
     NOT_VALID   = 2,        // The sensor is not returing valid data
-    UNKNOWN     = 255       // An unknown error has ocurred
+    UNKNOWN     = 15       // An unknown error has ocurred
 };
 
 enum class WIRE : bool {
