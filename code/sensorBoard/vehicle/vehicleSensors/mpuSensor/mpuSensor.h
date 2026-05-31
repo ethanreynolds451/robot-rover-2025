@@ -5,9 +5,9 @@ DEPENDENCIES:
  - Adafruit_Unified_Sensor
  - Timer
 UNITS
- - Acceleration: m/s^2
- - Gyro: rad/s
- - Temperature: C
+ - Acceleration: raw (must convert to m/s^2 using accel range config)
+ - Gyro: raw (must convert to rad/s using gyro range config)
+ - Temperature: raw (must convert to C using formula from datasheet)
 */
 
 #ifndef MPUSENSOR_h
@@ -140,30 +140,29 @@ class mpu_object {
     // *** Data Management *** //
     void read(){
         bool is_data = false;
-        sensors_event_t a, g, t;        // Data type from MPU library
-        sensor.getEvent(&a, &g, &t); 
+        sensors_rawevent_t raw_data;                    // Get everything as uint16_t for easier transmisison encoding
+        if (!sensor.getRawEvent(&raw_data)) return;     // Has built-in method for checking if reading failed (returns bool)
         // Only update each parameter if there are valid readings
-        if (!isnan(a.acceleration.x) && !isnan(a.acceleration.y) && !isnan(a.acceleration.z)) {
-            data.accel.value.x = a.acceleration.x;
-            data.accel.value.y = a.acceleration.y;
-            data.accel.value.z = a.acceleration.z;
+        if ((raw_data.accel.x != 0) || (raw_data.accel.y != 0) || (raw_data.accel.z != 0)) {
+            data.accel.value.x = raw_data.accel.x;
+            data.accel.value.y = raw_data.accel.y;
+            data.accel.value.z = raw_data.accel.z;
             data.accel.is_new = true;
             data.accel.timestamp = millis();
             is_data = true;
         } 
-        if (!isnan(g.gyro.x) && !isnan(g.gyro.y) && !isnan(g.gyro.z)) {
-            data.gyro.value.x = g.gyro.x;
-            data.gyro.value.y = g.gyro.y;
-            data.gyro.value.z = g.gyro.z;
+        if ((raw_data.gyro.x != 0) || (raw_data.gyro.y != 0) || (raw_data.gyro.z != 0)) {
+            data.gyro.value.x = raw_data.gyro.x;
+            data.gyro.value.y = raw_data.gyro.y;
+            data.gyro.value.z = raw_data.gyro.z;
             data.gyro.is_new = true;
             data.gyro.timestamp = millis();
             is_data = true;
         }
-        if(!isnan(t.temperature)) {
-            data.temp.value = t.temperature;
+        if(is_data) {
+            data.temp.value = raw_data.temperature;
             data.temp.is_new = true;
             data.temp.timestamp = millis();
-            is_data = true;
         }
         if (is_data) {
             data.timestamp = millis();

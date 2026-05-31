@@ -38,6 +38,7 @@ struct CALIBRATION {
 };
 
 struct INVALID_DATA {
+    // For validity checks, values are converted to real units using sensor.getEvent()
     float accel_max = 160;
     float gyro_max = 2000;
     int temp_min = -40;
@@ -51,9 +52,9 @@ struct CONFIG {
 };
 
 struct VECTOR_3 {
-    int16_t x = 0.0;
-    int16_t y = 0.0;
-    int16_t z = 0.0;
+    int16_t x = 0;
+    int16_t y = 0;
+    int16_t z = 0;
 };
 
 struct ACCEL {
@@ -71,7 +72,7 @@ struct GYRO {
 struct TEMP {
     bool is_new = false;
     unsigned long timestamp = 0;
-    float value = 0.0;
+    int16_t value = 0;
 };
 
 struct DATA {
