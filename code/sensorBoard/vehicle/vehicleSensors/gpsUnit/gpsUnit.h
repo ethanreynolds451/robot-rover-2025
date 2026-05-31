@@ -1,6 +1,6 @@
 /* 
 INFO: 
- - To use dynamic allocation: #define USE_DYNAMIC_ALLOCATION_gpsUnit
+ - To use dynamic allocation: #define USE_DYNAMIC_ALLOCATION_GPSUNIT
 DEPENDENCIES:
  - TinyGPS++            internal
  - SoftwareSerial       external
@@ -57,7 +57,17 @@ namespace gps_unit {
 class gps_object {
   public:
     // Setup and initialization
-    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600, unsigned long timeout = 5000) {
+    gps_object(uint8_t tx_pin = 11, uint8_t rx_pin = 10, unsigned long baudrate = 9600, unsigned long timeout = 5000) 
+#ifndef USE_DYNAMIC_ALLOCATION_GPSUNIT
+    // Must initialize the software serial object in the constructor initializer list
+    // Safe to construct hardware serial pins but must not attempt to use it for serial communication
+    : gps_software_serial(rx_pin, tx_pin)
+    {
+        this->software_serial_pins.tx = tx_pin;
+        this->software_serial_pins.rx = rx_pin;
+#else
+    {
+#endif
         this->config.pins.tx = tx_pin;
         this->config.pins.rx = rx_pin;
         this->config.baudrate = baudrate;
@@ -68,7 +78,6 @@ class gps_object {
     }
     gps_object(const gps_object&) = delete;
     gps_object& operator=(const gps_object&) = delete;
-
 
     // *** State Management *** //
     void initialize() {
@@ -90,30 +99,56 @@ class gps_object {
             } 
 #endif
             else {
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
                 // Invalid hardware serial port, default to software serial using default pins
                 gps_hardware_serial = nullptr;
                 this->config.pins.tx = 11;
                 this->config.pins.rx = 10;
                 delete gps_software_serial;
                 gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);
+#else
+                // Use the software serial object constructed in the constructor
+                // Setting hardware serial to nullptr will signal assignment of software serial instead
+                // Guarenteed to exist since it was constructed in the constructor initializer list
+                gps_hardware_serial = nullptr;
+#endif
             }
+        // Otherwise use software serial with the specified pins
         } else {
-            // Use software serial with the specified pins
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
+            // Dynamically allocate the software serial object to allow for switching pins on initialization
             if (gps_software_serial != nullptr){
                 delete gps_software_serial;
                 gps_software_serial = nullptr;
             }
-            gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);
-        }
-        if (gps_hardware_serial != nullptr){
-            delete gps_software_serial;
-            gps_software_serial=nullptr;
+            gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);   
+#endif  
+        }      
+        // Make the pointer assignments
+        if (gps_hardware_serial != nullptr) {
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
+            if (gps_software_serial != nullptr) {
+                delete gps_software_serial;
+                gps_software_serial = nullptr;
+            }
+#endif
             gps_serial = gps_hardware_serial;
             this->config.pins.using_software_serial = false;
+            gps_hardware_serial->begin(config.baudrate);
         } else {
-            gps_serial = gps_software_serial;
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
+            if (gps_software_serial == nullptr) {
+                gps_software_serial = new SoftwareSerial(this->config.pins.rx, this->config.pins.tx);
+            }
+            gps_serial = gps_software_serial;          // <-- FIX (not &)
+            gps_software_serial->begin(config.baudrate);
+#else
+            gps_serial = &gps_software_serial;         // <-- OK in static mode
+            gps_software_serial.begin(config.baudrate);
+#endif
             this->config.pins.using_software_serial = true;
         }
+        
         this->state = STATE::DISCONNECTED;            // UNINITIALIZED -> DISCONNECTED
     }   // state transition verified
     void begin(){
@@ -180,18 +215,29 @@ class gps_object {
         }
     }
     void reset(){
-        if (gps_hardware_serial != nullptr){
+        // Reset the serial objects
+        if (gps_hardware_serial != nullptr) {
             gps_hardware_serial->end();
-            delete gps_hardware_serial;
+            // Don't attempt to delete the hardware serial object!
             gps_hardware_serial = nullptr;
-        } else if (gps_software_serial != nullptr) {
+        } else {
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
+        if (gps_software_serial != nullptr) {
             gps_software_serial->end();
             delete gps_software_serial;
             gps_software_serial = nullptr;
-        }                                      
+        }
+#else
+        // static object always exists
+        gps_software_serial.end();
+#endif
+        }                     
+        // Reset the hardware / software serial selection
+        this->gps_serial = nullptr;      
+        // Reset internal parameters           
         this->state = STATE::UNINITIALIZED;          // STATE -> UNINITIALIZED
-        this->data = DATA();                         // Clear data
         this->error = ERROR::NO_ERROR;               // ERROR -> NO_ERROR
+        this->data = DATA();                         // Clear data
     }   // state transition verified
     void update(){
         if (gps_serial->available()) {
@@ -204,12 +250,21 @@ class gps_object {
 
     // *** Configuration *** //
     void set_pins(uint8_t tx_pin, uint8_t rx_pin){
+#ifndef USE_DYNAMIC_ALLOCATION_GPSUNIT
+        if (tx_pin != 0) {
+            // Prevent attempts to switch software serial pins if not using dynamic alocation
+            this->config.pins.tx = this->software_serial_pins.tx = tx_pin;
+            this->config.pins.rx = this->software_serial_pins.rx = rx_pin;
+            this->config.pins.using_software_serial = true;
+            return; 
+        }
+#endif  
+        // Can still switch to a hardware serial port since these are already constructed 
         this->config.pins.tx = tx_pin;
         this->config.pins.rx = rx_pin;
     }
     void set_baudrate(uint32_t new_baudrate){
         this->config.baudrate = new_baudrate; 
-        stop(); 
     }
     void set_timeout(unsigned long new_timeout){
         this->config.timeout = new_timeout;
@@ -314,16 +369,24 @@ class gps_object {
   private:
     // Device
     TinyGPSPlus gps;
-    CONFIG config;
-    STATE state;
-    ERROR error;
-    SoftwareSerial* gps_software_serial = nullptr;      // Software serial object that may or may not be used  
+    CONFIG config{};
+    STATE state = STATE::UNINITIALIZED;
+    ERROR error = ERROR::NO_ERROR;
+#ifdef USE_DYNAMIC_ALLOCATION_GPSUNIT
+    // Allow software serial to be dynamically allocated to switch pins
+    SoftwareSerial* gps_software_serial = nullptr;  
+#else
+    // Create a static software serial object
+    SoftwareSerial gps_software_serial; 
+    PINS software_serial_pins;                
+#endif
+    // These don't count as dynamic allocation since they are just pointers assigned to either existing hardware or a software serial objects
     HardwareSerial* gps_hardware_serial = nullptr;      // This is a pointer to a hardware serial object. Can be dynamically switched for however many hardware ports are available              
     Stream* gps_serial = nullptr;                       // This is a pointer to the currently used serial object, whether it be hardware or software serial, that the rest of the code will use to interact with the GPS regardless of the underlying serial type 
     // Internal trackers
     unsigned long last_data_time = 0;              // Timestamp of when data was last recieved from the GPS unit, used for connection checking  
     // Data
-    DATA data;
+    DATA data{};
 };
 
 }
