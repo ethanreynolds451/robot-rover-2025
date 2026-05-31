@@ -1,6 +1,6 @@
 /*
 INFO: 
- - To disable dynamic memory allocation: #define NO_DYNAMIC_ALLOCATION
+ - To disable dynamic memory allocation: #define NO_DYNAMIC_ALLOCATION_motorEncoder
 FUNCTIONS: 
 
 STATES:
@@ -21,13 +21,13 @@ namespace motor_encoder {
 class encoder_object {
 public:
     encoder_object(uint8_t pinA, uint8_t pinB)
-#ifdef NO_DYNAMIC_ALLOCATION
+#ifndef USE_DYNAMIC_ALLOCATION_motorEncoder
     : sensor_object(pinA, pinB)
 #endif
       {
           this->config.pins.a = pinA;
           this->config.pins.b = pinB;
-#ifndef NO_DYNAMIC_ALLOCATION
+#ifdef USE_DYNAMIC_ALLOCATION_motorEncoder
           // Ensure pins are set to a known state on construction to avoid bugs
           // Only needed for dynamic allocation mode
           pinMode(this->config.pins.a, INPUT);
@@ -46,7 +46,7 @@ public:
       if (this->state != STATE::UNINITIALIZED) {
         reset();                    // STATE -> UNINITIALIZED
       }
-#ifndef NO_DYNAMIC_ALLOCATION
+#ifdef USE_DYNAMIC_ALLOCATION_motorEncoder
       // This was already done in the constructor if there is no dynamic allocation used
       this->sensor_object = new Encoder(this->config.pins.a, this->config.pins.b);
 #endif
@@ -74,7 +74,7 @@ public:
       detachInterrupt(digitalPinToInterrupt(this->config.pins.a)); 
       detachInterrupt(digitalPinToInterrupt(this->config.pins.b)); 
       // Delete the Encoder instance if using dynamic allocation and set internal pointer to null
-#ifndef NO_DYNAMIC_ALLOCATION
+#ifdef USE_DYNAMIC_ALLOCATION_motorEncoder
       if(this->sensor_object != nullptr){
         delete this->sensor_object;
         this->sensor_object = nullptr;
@@ -89,7 +89,7 @@ public:
     }
 
     // *** Configuration *** //
-#ifndef NO_DYNAMIC_ALLOCATION
+#ifndef USE_DYNAMIC_ALLOCATION_motorEncoder
     void set_pins(uint8_t pinA, uint8_t pinB){
       // Sensor must be reinitialized for pin change to take effect
       this->config.pins.a = pinA;
@@ -137,17 +137,17 @@ public:
         
 private:
     // Provide version without dynamic allocation to use for embedded systems
-#ifdef NO_DYNAMIC_ALLOCATION
-    Encoder sensor_object;
+#ifdef NO_DYNAMIC_ALLOCATION_motorEncoder
+    Encoder* sensor_object = nullptr; 
 #else
-    Encoder* sensor_object = nullptr;
+    Encoder sensor_object; 
 #endif
     // Helper function to dereference the sensor object if dynamic allocation is used
     inline Encoder& sensor() { 
-#ifdef NO_DYNAMIC_ALLOCATION
-      return sensor_object; 
-#else
+#ifdef USE_DYNAMIC_ALLOCATION_motorEncoder
       return *sensor_object;
+#else
+      return sensor_object;
 #endif
     }
     STATE state = STATE::UNINITIALIZED; 

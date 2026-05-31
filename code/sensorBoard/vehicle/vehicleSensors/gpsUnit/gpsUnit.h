@@ -1,6 +1,6 @@
 /* 
 INFO: 
- - This object uses dynamic memory allocation
+ - To use dynamic allocation: #define USE_DYNAMIC_ALLOCATION_gpsUnit
 DEPENDENCIES:
  - TinyGPS++            internal
  - SoftwareSerial       external
