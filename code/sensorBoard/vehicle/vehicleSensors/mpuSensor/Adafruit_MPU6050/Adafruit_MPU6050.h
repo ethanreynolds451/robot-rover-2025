@@ -262,6 +262,18 @@ public:
   Adafruit_Sensor *getAccelerometerSensor(void);
   Adafruit_Sensor *getGyroSensor(void);
 
+  // ADDED: allow raw data to be retrieved, bypassing conversion layer for more efficient transmission encoding
+  void getRawSensorData(int16_t *accelX, int16_t *accelY, int16_t *accelZ,
+                                int16_t *gyroX, int16_t *gyroY, int16_t *gyroZ, int16_t *temp) {
+    *accelX = rawAccX;
+    *accelY = rawAccY;
+    *accelZ = rawAccZ;
+    *gyroX = rawGyroX;
+    *gyroY = rawGyroY;
+    *gyroZ = rawGyroZ;
+    *temp = rawTemp;
+                    };
+
 private:
   void _getRawSensorData(void);
   void _scaleSensorData(void);

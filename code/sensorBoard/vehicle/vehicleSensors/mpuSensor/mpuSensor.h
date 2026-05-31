@@ -1,9 +1,9 @@
 /*
 DEPENDENCIES: 
- - Wire
- - Adafruit_BusIO
- - Adafruit_Unified_Sensor
- - Timer
+ - Wire                                       external
+ - Adafruit_MPU6050 (modified version)        internal
+ - Adafruit_BusIO                             internal
+ - Adafruit_Unified_Sensor                    internal
 UNITS
  - Acceleration: raw (must convert to m/s^2 using accel range config)
  - Gyro: raw (must convert to rad/s using gyro range config)
@@ -140,35 +140,44 @@ class mpu_object {
     // *** Data Management *** //
     void read(){
         bool is_data = false;
-        sensors_rawevent_t raw_data;                    // Get everything as uint16_t for easier transmisison encoding
-        if (!sensor.getRawEvent(&raw_data)) return;     // Has built-in method for checking if reading failed (returns bool)
+
+        // Create intermediate DATA variable to hold raw sensor data before validation
+        DATA raw_data;
+
+        // Based on custom getter function added to Adafruit_MPU6050 library that retrieves raw values from the internal variables
+        sensor.getRawSensorData(&raw_data.accel.value.x, &raw_data.accel.value.y, &raw_data.accel.value.z,
+                                    &raw_data.gyro.value.x, &raw_data.gyro.value.y, &raw_data.gyro.value.z,
+                                    &raw_data.temp.value);
+
         // Only update each parameter if there are valid readings
-        if ((raw_data.accel.x != 0) || (raw_data.accel.y != 0) || (raw_data.accel.z != 0)) {
-            data.accel.value.x = raw_data.accel.x;
-            data.accel.value.y = raw_data.accel.y;
-            data.accel.value.z = raw_data.accel.z;
+        if ((raw_data.accel.value.x != 0) || (raw_data.accel.value.y != 0) || (raw_data.accel.value.z != 0)) {
+            data.accel.value.x = raw_data.accel.value.x;
+            data.accel.value.y = raw_data.accel.value.y;
+            data.accel.value.z = raw_data.accel.value.z;
             data.accel.is_new = true;
             data.accel.timestamp = millis();
             is_data = true;
         } 
-        if ((raw_data.gyro.x != 0) || (raw_data.gyro.y != 0) || (raw_data.gyro.z != 0)) {
-            data.gyro.value.x = raw_data.gyro.x;
-            data.gyro.value.y = raw_data.gyro.y;
-            data.gyro.value.z = raw_data.gyro.z;
+        if ((raw_data.gyro.value.x != 0) || (raw_data.gyro.value.y != 0) || (raw_data.gyro.value.z != 0)) {
+            data.gyro.value.x = raw_data.gyro.value.x;
+            data.gyro.value.y = raw_data.gyro.value.y;
+            data.gyro.value.z = raw_data.gyro.value.z;
             data.gyro.is_new = true;
             data.gyro.timestamp = millis();
             is_data = true;
         }
         if(is_data) {
-            data.temp.value = raw_data.temperature;
+            data.temp.value = raw_data.temp.value;
             data.temp.is_new = true;
             data.temp.timestamp = millis();
         }
         if (is_data) {
             data.timestamp = millis();
+            data.is_new = true;
         }
     }
     void clear() {
+        data.is_new = false;
         data.accel.is_new = false;
         data.gyro.is_new = false;
         data.temp.is_new = false;
@@ -188,14 +197,17 @@ class mpu_object {
     const DATA& peek() const { return this->data; }
     const ACCEL& get_acceleration() { 
         this->data.accel.is_new = false;
+        this->data.is_new = (this->data.accel.is_new || this->data.gyro.is_new || this->data.temp.is_new); 
         return this->data.accel; 
     }
     const GYRO& get_gyro() { 
         this->data.gyro.is_new = false;
+        this->data.is_new = (this->data.accel.is_new || this->data.gyro.is_new || this->data.temp.is_new); 
         return this->data.gyro; 
     }
     const TEMP& get_temperature() {
         this->data.temp.is_new = false;
+        this->data.is_new = (this->data.accel.is_new || this->data.gyro.is_new || this->data.temp.is_new); 
         return this->data.temp; 
     }
     // Only if access as sensors_event_t is needed, otherwise use above getters for optimal memory management
@@ -210,6 +222,7 @@ class mpu_object {
         sensor_data.gyro.z = data.gyro.value.z;
         sensor_data.temperature = data.temp.value;
         sensor_data.timestamp = data.timestamp;
+        data.is_new = false;
         data.accel.is_new = false;
         data.gyro.is_new = false;
         data.temp.is_new = false;

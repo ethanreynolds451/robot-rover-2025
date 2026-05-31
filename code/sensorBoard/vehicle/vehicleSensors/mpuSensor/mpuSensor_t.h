@@ -5,8 +5,6 @@
 #define MPUPARAM_GYRORANGE_DEFAULT MPU6050_RANGE_250_DEG   // estimate for low speed vehcile, increase if needed
 #define MPUPARAM_BANDWIDTH_DEFAULT MPU6050_BAND_44_HZ      // based on 25 ms relay timeout
 
-#include "Adafruit_MPU6050/Adafruit_MPU6050.h"
-
 namespace mpu_sensor {
 
 enum class STATE : uint8_t {
@@ -80,6 +78,7 @@ struct DATA {
     GYRO gyro;
     TEMP temp;
     unsigned long timestamp = 0;
+    bool is_new = false;
 };
 
 }
