@@ -114,7 +114,6 @@ public:
     // Allow in active or ready state; affects the data but not the state
     void write_zero() {
       if ((this->state != STATE::ACTIVE) && (this->state != STATE::READY)) return;
-      this->data.zero.timestamp = millis();
       sensor().write(0);
       this->data.position.value = 0;
       this->data.position.is_new = true;

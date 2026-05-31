@@ -22,10 +22,6 @@ struct CONFIG {
     PINS pins;
 };
 
-struct ZERO {
-    unsigned long timestamp = 0;
-};
-
 struct POSITION {
     bool is_new = false;
     long value = 0;
@@ -34,7 +30,6 @@ struct POSITION {
 
 struct DATA {
     unsigned long timestamp = 0;
-    ZERO zero;
     POSITION position;
 };
 

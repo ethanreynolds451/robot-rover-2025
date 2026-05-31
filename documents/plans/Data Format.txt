@@ -41,7 +41,7 @@ gps[n, t, s, p:fix_sign;lat;sign;long, a:sign;alt, v:vel, h:head, g:time, f:n_sa
 tof[n, t, d:dist, l:light]
 us[n, t, d:dist]
 tmp[n, t, tp:temp]
-str[t, c:calibrated, p:pos, d:dir]
+enc[n, t, s, p:pos, d:dir]
 ir[n, t, s, a:addr, c:cmd, d:data]}
 
 // Example:
