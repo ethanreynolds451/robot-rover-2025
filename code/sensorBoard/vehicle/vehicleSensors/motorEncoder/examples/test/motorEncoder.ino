@@ -1,7 +1,5 @@
 // Test script for motor encoder sensor
 
-#define NO_DYNAMIC_ALLOCATION
-
 #include <Encoder.h>
 #include "Encoder/Encoder.h"
 #include "motorEncoder.h"

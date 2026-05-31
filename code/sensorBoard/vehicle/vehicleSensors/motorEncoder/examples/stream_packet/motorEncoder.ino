@@ -1,8 +1,6 @@
 // Stream encoder data in ROS sensor string parser format
 // Streams as encoder 0, which maps to the steering encoder data topic
 
-#define NO_DYNAMIC_ALLOCATION
-
 #include <Encoder.h>
 #include "Encoder/Encoder.h"
 #include "motorEncoder.h"
