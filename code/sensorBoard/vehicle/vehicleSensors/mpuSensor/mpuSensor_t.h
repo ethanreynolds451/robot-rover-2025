@@ -51,9 +51,9 @@ struct CONFIG {
 };
 
 struct VECTOR_3 {
-    float x = 0.0;
-    float y = 0.0;
-    float z = 0.0;
+    int16_t x = 0.0;
+    int16_t y = 0.0;
+    int16_t z = 0.0;
 };
 
 struct ACCEL {
