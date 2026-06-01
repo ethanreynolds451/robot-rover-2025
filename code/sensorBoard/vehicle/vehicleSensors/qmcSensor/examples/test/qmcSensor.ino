@@ -1,3 +1,5 @@
+// Test script for QMC sensor
+
 #include <Wire.h>
 #include "qmcSensor.h"
 

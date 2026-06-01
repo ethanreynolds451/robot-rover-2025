@@ -1,3 +1,5 @@
+// Stream QMC data in ROS parser format
+
 #include <Wire.h>
 #include "qmcSensor.h"
 
@@ -8,5 +10,5 @@ void setup(){
 }
 
 void loop(){
-
+    
 }
