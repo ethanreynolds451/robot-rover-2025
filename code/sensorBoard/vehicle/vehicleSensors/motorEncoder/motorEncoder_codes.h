@@ -7,33 +7,17 @@ namespace motor_encoder {
 
 // Retrieve the string associated with a state code
 void get_state_str(STATE state, char* buffer, size_t buffer_size = 16){
-    uint8_t state_code = static_cast<uint8_t>(state);
     if (buffer_size < 16) return;
     memset(buffer, 0, buffer_size);
-    switch(state_code){
-        case 0:
-            strncpy(buffer, "UNINITIALIZED", buffer_size);
-            break;
-        case 1:
-            strncpy(buffer, "DISCONNECTED", buffer_size);
-            break;
-        case 2:
-            strncpy(buffer, "IDENTIFIED", buffer_size);
-            break;
-        case 3:
-            strncpy(buffer, "CONFIGURED", buffer_size);
-            break;
-        case 4:
-            strncpy(buffer, "READY", buffer_size);
-            break;
-        case 5:
-            strncpy(buffer, "ACTIVE", buffer_size);
-            break;
-        case 15:
-            strncpy(buffer, "FAULT", buffer_size);
-            break;
-        default:
-            return;
+    switch(state){
+        case STATE::UNINITIALIZED: snprintf(buffer, buffer_size, "UNINITIALIZED"); break;
+        case STATE::DISCONNECTED:  snprintf(buffer, buffer_size, "DISCONNECTED"); break;
+        case STATE::IDENTIFIED:    snprintf(buffer, buffer_size, "IDENTIFIED"); break;
+        case STATE::CONFIGURED:    snprintf(buffer, buffer_size, "CONFIGURED"); break;
+        case STATE::READY:         snprintf(buffer, buffer_size, "READY"); break;
+        case STATE::ACTIVE:        snprintf(buffer, buffer_size, "ACTIVE"); break;
+        case STATE::FAULT:         snprintf(buffer, buffer_size, "FAULT"); break;
+        default:                   snprintf(buffer, buffer_size, "UNDEFINED_STATE"); break;
     }
 }
 

@@ -39,6 +39,7 @@ class qmc_object {
         check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
         configure();                                        // IDENTIFIED -> CONFIGURED   
         check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+        start();                                            // READY -> ACTIVE
     }   // state transition verified
 
     // *** State and Lifecycle Management *** //
@@ -97,14 +98,14 @@ class qmc_object {
         }
     }   // transición de estado verificada
     void start(){
-        if (this->state != STATE::PAUSED) return;           // STATE -> STATE, return
-        sensor.setMode(0x01,0x0C,0x10,0X00);                // Poner en modo continuo como en la inicialización
-        this->state = STATE::READY;                         // PAUSED -> READY
+        if (this->state != STATE::READY) return;           // STATE -> STATE, return
+        sensor.setMode(0x01,0x0C,0x10,0X00);               // Poner en modo continuo como en la inicialización
+        this->state = STATE::ACTIVE;                       // READY -> ACTIVE
     }   // state transition verified
     void stop() {
-        if (this->state != STATE::READY) return;            // STATE -> STATE, return
+        if (this->state != STATE::ACTIVE) return;            // STATE -> STATE, return
         sensor.setMode(0x00,0x0C,0x10,0X00);                // Poner en reposo para ahorrar energía
-        this->state = STATE::PAUSED;                        // READY -> PAUSED
+        this->state = STATE::READY;                        // ACTIVE -> READY
     }   // transition de estado verificada
     void reset(){
         this->data = DATA{};
@@ -126,7 +127,7 @@ class qmc_object {
     void set_calibration_offsets(VECTOR_3 offsets){
         this->config.calibration.offsets = offsets;
     }
-    void set_calibration_scales(VECTOR_3 scales){
+    void set_calibration_scales(VECTOR_3_FLOAT scales){
         this->config.calibration.scales = scales;
     }
     void set_invalid_data_thresholds(INVALID_DATA thresholds){
@@ -146,13 +147,17 @@ class qmc_object {
         this->data.mag.value.y = sensor.getY();
         this->data.mag.value.z = sensor.getZ();
         this->data.mag.is_new = true;
+        // Data
+        this->data.timestamp = millis();
+        this->data.is_new = true;
     }
     void clear(){
+        data.is_new = false;
         data.mag.is_new = false;
         data.direction.is_new = false;
     }
     void poll() {
-        if (this->state != STATE::READY) return;          // READY -> READY, return
+        if (this->state != STATE::ACTIVE) return;          // STATE -> STATE, return
         read();
     }
 
@@ -161,16 +166,18 @@ class qmc_object {
     const uint8_t& get_address() const { return this->config.address; }
     const CALIBRATION& get_calibration() const { return this->config.calibration; }
     const VECTOR_3& get_calibration_offsets() const { return this->config.calibration.offsets; }
-    const VECTOR_3& get_calibration_scales() const { return this->config.calibration.scales; }
+    const VECTOR_3_FLOAT& get_calibration_scales() const { return this->config.calibration.scales; }
     const STATE& get_state() const { return this->state; }
     const ERROR& get_error() const { return this->error; }
     const DATA& peek() const { return this->data; }
     const MAG& get_mag() {
         this->data.mag.is_new = false;
+        this->data.is_new = (this->data.direction.is_new || this->data.mag.is_new); 
         return this->data.mag;
     }
     const DIRECTION& get_direction() {
         this->data.direction.is_new = false;
+        this->data.is_new = (this->data.direction.is_new || this->data.mag.is_new);
         return this->data.direction;
     }
     
