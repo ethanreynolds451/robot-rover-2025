@@ -44,7 +44,7 @@ qmc:
 
 temperature:
   arduino_timestamp        :     "hex_timestamp_offset"
-  temp                     :     "hex_float_2"
+  temp                     :     "signed_hex_float_2"
 
 tof:
   arduino_timestamp        :     "hex_timestamp_offset"

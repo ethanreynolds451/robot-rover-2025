@@ -47,10 +47,11 @@ ir[n, t, s, a:addr, c:cmd, d:data]}
 // Examples (each value represented is max possible length of chars)
 {t[1234ABCD]
 mpu[n:0,t:1234;s:40,a:320D;1B23;F398,g:32B2;A64B;95BC,c:372B]
-qmc[n:0,t:1234,h:96B3,m:4BC9;10F8;D8C3]
+qmc[n:0,t:1234,s:40,h:96B3,m:4BC9;10F8;D8C3]
 gps[n:0,t:1234,s:40,p;9A6B327C;764B7DE5,a:927B343F,v:27CD648A,h:82F41AD9,g:29A62FF3,f:03]
 tof[n, t, dist, light]us[n, dist]
-tmp[n, t, temp]
+ult[n, t, d:dist]
+tmp[n:0,t:1234,s:04,c:056F]
 enc[n:0,t:1234,s:40,p:902C43B2]
 ir[n:0,t:1234,s:40,a:8E30,c:7AF3,d:B74C96A1]}
 

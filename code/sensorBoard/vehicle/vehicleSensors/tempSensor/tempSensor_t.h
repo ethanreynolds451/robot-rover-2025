@@ -8,13 +8,14 @@ enum class STATE : uint8_t {
   IDENTIFIED    = 1,        // initialized
   CONFIGURED    = 2,        // init/config applied
   READY         = 3,        // producing valid readings
-  FAULT         = 255       // persistent/latched failure
+  ACTIVE        = 4,        // actively reading data
+  FAULT         = 15       // persistent/latched failure
 };
 
 enum class ERROR : uint8_t {
     NO_ERROR    = 0,        // No error, sensor is functioning properly
     NOT_VALID   = 2,        // The sensor is not returing valid data
-    UNKNOWN     = 255       // An unknown error has ocurred
+    UNKNOWN     = 15       // An unknown error has ocurred
 };
 
 struct CALIBRATION {

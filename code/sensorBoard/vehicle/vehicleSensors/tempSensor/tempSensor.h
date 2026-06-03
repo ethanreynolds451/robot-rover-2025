@@ -34,7 +34,6 @@ class temp_object {
         }
 
         // *** State and Lifecycle Management *** //
-        void check_connection() { }
         void configure() {
             if (this->state == STATE::FAULT) return;                           // FAULT -> FAULT, return
             if (this->state == STATE::UNINITIALIZED) return;                   // UNINITIALIZED -> UNINITIALIZED, return          
@@ -60,8 +59,14 @@ class temp_object {
                 }
             } 
         }   // transición de estado verificada
-        void start() { }
-        void stop() { }
+        void start() { 
+            if (this->state != STATE::READY) return;            // READY -> READY, return
+            this->state = STATE::ACTIVE;                       // READY -> ACTIVE
+        }
+        void stop() { 
+            if (this->state != STATE::ACTIVE) return;           // ACTIVE -> ACTIVE, return
+            this->state = STATE::READY;                         // ACTIVE -> READY
+        }
         void reset(){
             this->data = DATA{};
             this->state = STATE::UNINITIALIZED;                 // STATE -> UNINITIALIZED
@@ -96,7 +101,7 @@ class temp_object {
             this->data.measurement.is_new = false;
         }
         void poll() {
-            if (this->state != STATE::READY) return;            // STATE -> STATE, return
+            if (this->state != STATE::ACTIVE) return;            // STATE -> STATE, return
             read();
         }
 

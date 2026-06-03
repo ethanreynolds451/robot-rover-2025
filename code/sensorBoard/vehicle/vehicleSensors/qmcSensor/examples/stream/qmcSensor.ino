@@ -12,7 +12,7 @@ using qmcSensor = qmc_sensor::qmc_object;
 qmcSensor qmc(ADDRESS); 
 
 // Buffer to hold the output string
-char outputString[53];      // Value is max possible number of characters for valid string, including null character
+char outputString[58];      // Value is max possible number of characters for valid string, including null character
 // More than 63 bytes so will require multiple blocking serial writes
 // Use packet version for non-blocking stream// Use packet version for non-blocking stream
 
