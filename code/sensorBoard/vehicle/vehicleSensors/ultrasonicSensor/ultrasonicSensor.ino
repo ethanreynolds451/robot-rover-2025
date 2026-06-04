@@ -31,6 +31,8 @@ void setup() {
 }
 
 void loop() {
+  // Need to call update for AsyncSonar!
+  ultrasonic.update(); 
 
   ultrasonic_sensor::get_state_str(ultrasonic.get_state(), stateString, sizeof(stateString));
   ultrasonic_sensor::get_error_str(ultrasonic.get_error(), errorString, sizeof(errorString));

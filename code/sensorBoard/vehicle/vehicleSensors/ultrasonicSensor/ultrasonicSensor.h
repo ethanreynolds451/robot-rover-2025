@@ -192,11 +192,11 @@ class ultrasonic_object {
 
         // --- instance handlers (real methods) ---
         void ping_callback(AsyncSonar&) {
-            read();                 // WAITING -> read() + READY
+            read();                 // WAITING -> read(), WAITING-> ACTIVE
         }
 
         void timeout_callback(AsyncSonar&) {
-            if (this->state == STATE::WAITING) this->state = STATE::READY;   // WAITING -> READY
+            if (this->state == STATE::WAITING) this->state = STATE::ACTIVE;   // WAITING -> ACTIVE
         }
 
         // --- registry (kept private inside class) ---
