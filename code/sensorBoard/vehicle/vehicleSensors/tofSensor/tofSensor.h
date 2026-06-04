@@ -57,6 +57,7 @@ class tof_object {
         check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
         configure();                                        // IDENTIFIED -> CONFIGURED   
         check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+        start();                                            // READY -> ACTIVE
     }   // state transition verified
 
     // *** State and Lifecycle Management *** //
@@ -113,14 +114,14 @@ class tof_object {
         }
     }   // transición de estado verificada
     void start(){
-        if (this->state != STATE::PAUSED) return;           // STATE -> STATE, return
+        if (this->state != STATE::READY) return;            // STATE -> STATE, return
         sensor.startContinuous();                           // Poner en modo continuo como en la inicialización
-        this->state = STATE::READY;                         // PAUSED -> READY
+        this->state = STATE::ACTIVE;                        // READY -> ACTIVE
     }   // state transition verified
     void stop() {
-        if (this->state != STATE::READY) return;            // STATE -> STATE, return
+        if (this->state != STATE::ACTIVE) return;           // STATE -> STATE, return
         sensor.stopContinuous();                            // Poner en reposo para ahorrar energía
-        this->state = STATE::PAUSED;                        // READY -> PAUSED
+        this->state = STATE::READY;                         // ACTIVE -> READY
     }   // transition de estado verificada
     void reset(){
         digitalWrite(config.pin, LOW);                      // Deactivating sensor resets the address
@@ -167,12 +168,14 @@ class tof_object {
         this->data.signal_quality.is_new = true;
 
         this->data.timestamp = millis();
+        this->data.is_new = true;
     }
     void clear(){
-        data.range.is_new = false;
-        data.signal_rate.is_new = false;
-        data.background_rate.is_new = false;
-        data.signal_quality.is_new = false;
+        this->data.is_new = false;
+        this->data.range.is_new = false;
+        this->data.signal_rate.is_new = false;
+        this->data.background_rate.is_new = false;
+        this->data.signal_quality.is_new = false;
     }
     void poll() {
         if (this->state != STATE::READY) return;          // READY -> READY,
@@ -190,18 +193,22 @@ class tof_object {
     const DATA& peek() const { return this->data; }
     const RANGE& get_range() {
         this->data.range.is_new = false;
+        this->data.is_new = (this->data.range.is_new || this->data.signal_rate.is_new || this->data.background_rate.is_new || this->data.signal_quality.is_new);
         return this->data.range;
     }
     const SIGNAL_RATE& get_signal_rate() {
         this->data.signal_rate.is_new = false;
+        this->data.is_new = (this->data.range.is_new || this->data.signal_rate.is_new || this->data.background_rate.is_new || this->data.signal_quality.is_new);
         return this->data.signal_rate;
     }
     const BACKGROUND_RATE& get_background_rate() {
         this->data.background_rate.is_new = false;
+        this->data.is_new = (this->data.range.is_new || this->data.signal_rate.is_new || this->data.background_rate.is_new || this->data.signal_quality.is_new);
         return this->data.background_rate;
     }
     const SIGNAL_QUALITY& get_signal_quality() {
         this->data.signal_quality.is_new = false;
+        this->data.is_new = (this->data.range.is_new || this->data.signal_rate.is_new || this->data.background_rate.is_new || this->data.signal_quality.is_new);
         return this->data.signal_quality;
     }
    

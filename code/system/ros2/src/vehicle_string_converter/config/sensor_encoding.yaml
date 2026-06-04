@@ -48,8 +48,10 @@ temperature:
 
 tof:
   arduino_timestamp        :     "hex_timestamp_offset"
-  range                    :     "hex"
-  intensity                :     "hex"
+  range                    :     "unsigned_hex"
+  background_rate          :     "unsigned_hex"
+  signal_rate              :     "unsigned_hex"
+  signal_quality           :     "unsigned_hex"
 
 ultrasonic:
   arduino_timestamp        :     "hex_timestamp_offset"

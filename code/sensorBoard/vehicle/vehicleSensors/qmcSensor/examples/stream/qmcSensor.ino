@@ -3,8 +3,6 @@
 #include <Wire.h>
 #include "qmcSensor.h"
 
-#include "qmcSensor_codes.h"
-
 uint8_t ADDRESS = 0x0D; 
 
 using qmcSensor = qmc_sensor::qmc_object;
@@ -29,7 +27,7 @@ void loop() {
 
   if (qmc.peek().is_new){
 
-    // Calculate timestamps and offsets for the packet
+    // Calcucode/sensorBoard/vehicle/vehicleSensors/tofSensor/examples/blank/tofSensor.inolate timestamps and offsets for the packet
     unsigned long arduino_timestamp = millis();
     unsigned long offset_timestamp = arduino_timestamp - qmc.peek().timestamp;
     
