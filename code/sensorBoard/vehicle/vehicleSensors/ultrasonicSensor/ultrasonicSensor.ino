@@ -2,8 +2,8 @@
 
 #include "ultrasonicSensor_codes.h"
 
-uint8_t TRIG = 2; 
-uint8_t ECHO = 3;
+uint8_t TRIG = 30; 
+uint8_t ECHO = 31;
 unsigned long BAUDRATE = 115200;
 unsigned long LOOP_DELAY = 500;
 
