@@ -3,6 +3,8 @@
 #include "tofSensor_codes.h"
 
 uint8_t ADDRESS = 0x30; // Just a random address to verify that reassignment works
+unsigned long BAUDRATE = 115200;
+unsigned long LOOP_DELAY = 500;
 
 using tofSensor = tof_sensor::tof_object;
 
@@ -12,7 +14,7 @@ char stateString[16];
 char errorString[16];
 
 void setup() {
-  Serial.begin(115200); 
+  Serial.begin(BAUDRATE); 
   Serial.println("Serial communication started");
   Serial.println("Initializing ToF sensor...");
   // This does the blocking address reasignment
@@ -58,5 +60,7 @@ void loop() {
     // Clear the data 
     tof.clear();
   }
+
+  delay(LOOP_DELAY);
 
 }

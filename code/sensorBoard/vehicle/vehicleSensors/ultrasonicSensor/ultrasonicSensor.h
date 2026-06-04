@@ -49,6 +49,7 @@ class ultrasonic_object {
             check_connection();                                 // DISCONNECTED -> IDENTIFIED / DISCONNECTED
             configure();                                        // IDENTIFIED -> CONFIGURED
             check_validity();                                   // CONFIGURED -> READY / CONFIGURED
+            start();                                            // READY -> ACTIVE
         }   // state transition verified
 
         // *** State and Lifecycle Management *** //
@@ -107,13 +108,13 @@ class ultrasonic_object {
             }
         }      // state transition verified 
         void start(){
-            if (this->state != STATE::PAUSED) return;           // STATE != PAUSED -> STATE + return
-            this->state = STATE::READY;                         // PAUSED -> READY
+            if (this->state != STATE::READY) return;           // STATE != PAUSED -> STATE + return
+            this->state = STATE::ACTIVE;                       // PAUSED -> READY
         }   // state transition verified
         void stop() {
             // This doesn't actually do anything to the sensor, just stops poll and update from being called until start is called again
-            if ((this->state != STATE::READY) && (this->state != STATE::WAITING)) return;            // STATE != READY -> STATE + return
-            this->state = STATE::PAUSED;                        // READY -> PAUSED
+            if ((this->state != STATE::ACTIVE) && (this->state != STATE::WAITING)) return;            // STATE != READY -> STATE + return
+            this->state = STATE::READY;                        // READY -> PAUSED
         }   // transition de estado verificada
         void reset(){
             // Destroy any previous instance to prepare for reinitialization
@@ -125,11 +126,7 @@ class ultrasonic_object {
             this->error = ERROR::NO_ERROR;                       // ERROR -> NO_ERROR
         }   // state transition verificada
         void update() {
-            if (this->state == STATE::FAULT) return;            // FAULT -> FAULT + return
-            if (this->state == STATE::UNINITIALIZED) return;    // UNINITIALIZED -> UNINITIALIZED + return
-            if (this->state == STATE::DISCONNECTED) return;     // DISCONNECTED -> DISCONNECTED + return
-            if (this->state == STATE::CONFIGURED) return;       // CONFIGURED -> CONFIGURED + return
-            if (this->state == STATE::PAUSED) return;           // PAUSED -> PAUSED + return{
+            if ((this->state != STATE::ACTIVE) && (this->state != STATE::WAITING)) return;            // STATE != READY -> STATE + return
             // Update only if sensor is active or waiting
             sensor->Update();    
         }   // transición de estado verificada
@@ -147,19 +144,22 @@ class ultrasonic_object {
             // Exception: can only be read when waiting for a response
             // Exception: this function is called by a callback so should never be called manually
             // If pause was called while waiting, allows the last reading to be retrived
-            if ((this->state != STATE::WAITING) && (this->state != STATE::PAUSED)) return;         // STATE != WAITING -> STATE + return
+            if ((this->state != STATE::WAITING) && (this->state != STATE::ACTIVE)) return;         // STATE != WAITING -> STATE + return
             this->data.timestamp = millis();
+            this->data.is_new = true;
             this->data.distance.timestamp = this->data.timestamp;
             this->data.distance.value = this->sensor->GetMeasureMM();
             this->data.distance.is_new = true;
             if (this->state == STATE::WAITING) {
-                this->state = STATE::READY;                        // WAITING -> READY
-            }                                                      // PAUSED -> PAUSED 
+                this->state = STATE::ACTIVE;                        // WAITING -> READY
+            }
+        }                                                          // PAUSED -> PAUSED 
         void clear() {
+            this->data.is_new = false;
             this->data.distance.is_new = false;
         }
         void poll() {
-            if (this->state == STATE::READY) {
+            if (this->state == STATE::ACTIVE) {
                 this->state = STATE::WAITING;                 // READY -> WAITING
                 sensor->Start();                              // Start ping, wait for callback to read data and promote to READY
             }
@@ -174,7 +174,7 @@ class ultrasonic_object {
         const DATA& peek() const { return this->data; }
         const DISTANCE& get_distance() {
             this->data.distance.is_new = false;
-            return this->data.distance;
+            this->data.is_new = this->data.distance.is_new;     // Completely redundant but future compatible if other parameters are added
         }
 
     private:
