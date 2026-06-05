@@ -34,7 +34,6 @@ class ultrasonic_object {
             delete sensor;
         }
 
-
         // *** Startup Functions *** //
         void initialize() {
             if (sensor != nullptr) {
@@ -192,7 +191,7 @@ class ultrasonic_object {
 
         // --- instance handlers (real methods) ---
         void ping_callback(AsyncSonar&) {
-            read();                 // WAITING -> read(), WAITING-> ACTIVE
+            read();                 // WAITING -> read(), ACTIVE
         }
 
         void timeout_callback(AsyncSonar&) {
