@@ -174,6 +174,7 @@ class ultrasonic_object {
         const DISTANCE& get_distance() {
             this->data.distance.is_new = false;
             this->data.is_new = this->data.distance.is_new;     // Completely redundant but future compatible if other parameters are added
+            return this->data.distance;
         }
 
     private:

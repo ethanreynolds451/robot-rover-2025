@@ -1,47 +1,62 @@
 #include "ultrasonicSensor.h"
 
-#define TRIG 2
-#define ECHO 3
-#define POLL_INTERVAL 100
+#include "ultrasonicSensor_codes.h"
 
-using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;
-ultrasonicSensor testUltrasonic(TRIG, ECHO);
+
+uint8_t TRIG = A9; 
+uint8_t ECHO = A8;
+unsigned long BAUDRATE = 115200;
+unsigned long POLL_INTERVAL = 500;
 
 unsigned long timer = millis(); 
 
-void setup(){
-  testUltrasonic.initialize(); 
-  Serial.begin(115200);
-  Serial.println("Iniciando Sensor"); 
-  testUltrasonic.begin();
-  Serial.println("Sensor Iniciado");
+using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;
 
-  ultrasonic_sensor::ERROR error = testUltrasonic.get_error();
-  if(error != ultrasonic_sensor::ERROR::NO_ERROR){
-    Serial.print("Se produjo un error: ");
-    Serial.println(static_cast<int>(error));
-  } else {
-    Serial.println("No error reported");
-  }
+ultrasonicSensor ultrasonic(TRIG, ECHO);
 
-  ultrasonic_sensor::STATE state = testUltrasonic.get_state();
-  Serial.print("Estado del sensor: ");
-  Serial.println(static_cast<int>(state));
+char stateString[16];
+char errorString[16];
+
+void setup() {
+    Serial.begin(BAUDRATE); 
+    Serial.println("Started serial communication");
+    Serial.println("Initializing ultrasonic sensor...");
+    ultrasonic.initialize();
+    ultrasonic_sensor::get_state_str(ultrasonic.get_state(), stateString, sizeof(stateString));
+    ultrasonic_sensor::get_error_str(ultrasonic.get_error(), errorString, sizeof(errorString));
+    Serial.print("Ultrasonic sensor initialized with state : " + String(stateString) + " and error: " + String(errorString) + "\n" );
+    Serial.println("Beginning ultrasonic sensor...");
+    ultrasonic.begin();
+    ultrasonic_sensor::get_state_str(ultrasonic.get_state(), stateString, sizeof(stateString));
+    ultrasonic_sensor::get_error_str(ultrasonic.get_error(), errorString, sizeof(errorString));
+    Serial.println("Ultrasonic sensor started with state : " + String(stateString) + " and error: " + String(errorString) + "\n" );
+    Serial.println("Entering main loop...");
 }
 
-void loop(){
-  testUltrasonic.update();
-  
+void loop() {
+  // Need to call update for AsyncSonar!
+  ultrasonic.update(); 
+
   if((millis() - timer) > POLL_INTERVAL){
-    //Serial.println("Polling sensor"); 
-    testUltrasonic.poll();
     timer = millis(); 
-  }
   
-  ultrasonic_sensor::DATA data = testUltrasonic.peek();
-  if(data.distance.is_new){
-    Serial.println("New data available"); 
-    testUltrasonic.get_distance();
-    Serial.println(data.distance.value); 
+  ultrasonic_sensor::get_state_str(ultrasonic.get_state(), stateString, sizeof(stateString));
+  ultrasonic_sensor::get_error_str(ultrasonic.get_error(), errorString, sizeof(errorString));
+  Serial.println("Current ultrasonic sensor state : " + String(stateString) + " and error: " + String(errorString) + "\n" );
+
+  Serial.println("Polling ultrasonic sensor...");
+  ultrasonic.poll();
+
+  if (ultrasonic.peek().is_new){
+    Serial.println("New ultrasonic sensor data available: ");
+    // Print new snsor data
+    if(ultrasonic.peek().distance.is_new){
+        Serial.println("Distance: " + String(ultrasonic.get_distance().value) + " mm");
+    }
+    // Clear the data 
+    ultrasonic.clear();
   }
+
+  }
+
 }
