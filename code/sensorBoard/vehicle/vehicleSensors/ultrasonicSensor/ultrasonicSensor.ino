@@ -1,7 +1,7 @@
 #include "ultrasonicSensor.h"
 
-#define TRIG 2
-#define ECHO 3
+#define TRIG A1
+#define ECHO A2
 #define POLL_INTERVAL 100
 
 using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;

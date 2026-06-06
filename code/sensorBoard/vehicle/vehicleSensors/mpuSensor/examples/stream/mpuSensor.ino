@@ -1,5 +1,6 @@
 // Stream data from the MPU Sensor in ROS parser format
 
+#include <Wire.h>
 #include "mpuSensor.h"
 
 uint8_t ADDRESS = 0x68; 
