@@ -137,6 +137,13 @@ class ultrasonic_object {
         void set_pins(PINS pins) {
             this->config.pins = pins;
         }
+        void set_and_update_temp_calibration(int8_t temp_calibration) {
+            this->config.calibration.temp = temp_calibration;
+            // Exception to general rule requring re-check for configuraiton changes
+            // Allows temperature calibration to be updated based on actual readings without unnesecary overhead
+            // Since this is only software level, skipping state checks for simplicity
+            sensor->SetTemperatureCorrection(this->config.calibration.temp);
+        }
 
         // *** Data Management *** //
         void read(){
