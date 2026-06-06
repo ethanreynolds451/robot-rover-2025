@@ -2,10 +2,13 @@
 
 #include "ultrasonicSensor_codes.h"
 
-uint8_t TRIG = 32; 
-uint8_t ECHO = 33;
+
+uint8_t TRIG = 30; 
+uint8_t ECHO = A11;
 unsigned long BAUDRATE = 115200;
-unsigned long LOOP_DELAY = 500;
+unsigned long POLL_INTERVAL = 500;
+
+unsigned long timer = millis(); 
 
 using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;
 
@@ -34,6 +37,9 @@ void loop() {
   // Need to call update for AsyncSonar!
   ultrasonic.update(); 
 
+  if((millis() - timer) > POLL_INTERVAL){
+    timer = millis(); 
+  
   ultrasonic_sensor::get_state_str(ultrasonic.get_state(), stateString, sizeof(stateString));
   ultrasonic_sensor::get_error_str(ultrasonic.get_error(), errorString, sizeof(errorString));
   Serial.println("Current ultrasonic sensor state : " + String(stateString) + " and error: " + String(errorString) + "\n" );
@@ -51,6 +57,6 @@ void loop() {
     ultrasonic.clear();
   }
 
-  delay(LOOP_DELAY);
+  }
 
 }

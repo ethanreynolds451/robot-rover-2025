@@ -1,7 +1,7 @@
 #include "ultrasonicSensor.h"
 
-uint8_t TRIG = 2; 
-uint8_t ECHO = 3;
+uint8_t TRIG = 38; 
+uint8_t ECHO = A15;
 
 using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;
 
@@ -17,6 +17,7 @@ void setup() {
 }
 
 void loop() {
+  ultrasonic.update(); 
 
   ultrasonic.poll();
 
