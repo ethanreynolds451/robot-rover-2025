@@ -1,11 +1,12 @@
 #include "ultrasonicSensor.h"
 
-#define TRIG 2
-#define ECHO 3
-#define POLL_INTERVAL 100
+#include "ultrasonicSensor_codes.h"
 
-using ultrasonicSensor = ultrasonic_sensor::ultrasonic_object;
-ultrasonicSensor testUltrasonic(TRIG, ECHO);
+
+uint8_t TRIG = A9; 
+uint8_t ECHO = A8;
+unsigned long BAUDRATE = 115200;
+unsigned long POLL_INTERVAL = 500;
 
 unsigned long timer = millis(); 
 
