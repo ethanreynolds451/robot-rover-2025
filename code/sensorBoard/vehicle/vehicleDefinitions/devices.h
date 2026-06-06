@@ -1,3 +1,5 @@
+// Note: the index of each sensor corresponds to the index in its data packet which is mapped to the frame ID then sensor name in the ROS system 
+
 #ifndef DEVICES_H
 #define DEVICES_H
 
@@ -12,7 +14,7 @@ ult ultrasonic_sensor[] = {
     {
     .trig_pin = 30,
     .echo_pin = A11,
-    .temp_calibration = 25, 
+    .temp_calibration = 25,         // Note: this is just default, will be updated regularly based on readings from the external temperature sensor
     .timeout_distance = 1200 
     }, 
     // Front left ultrasonic
@@ -38,7 +40,6 @@ ult ultrasonic_sensor[] = {
     },
     // Rear ultrasonic
     {  
-    .index = 4,
     .trig_pin = 38,
     .echo_pin = A15,
     .temp_calibration = 25, 
