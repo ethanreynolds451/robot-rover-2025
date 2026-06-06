@@ -3,12 +3,13 @@
 #include "tofSensor_codes.h"
 
 uint8_t ADDRESS = 0x30; // Just a random address to verify that reassignment works
+uint8_t PIN = 24;       // Just a random pin to verify that power control works
 unsigned long BAUDRATE = 115200;
 unsigned long LOOP_DELAY = 500;
 
 using tofSensor = tof_sensor::tof_object;
 
-tofSensor tof(ADDRESS); 
+tofSensor tof(ADDRESS, PIN, tof_sensor::WIRE::START_WIRE); 
 
 char stateString[16];
 char errorString[16];
@@ -22,8 +23,8 @@ void setup() {
   tof_sensor::get_state_str(tof.get_state(), stateString, sizeof(stateString));
   tof_sensor::get_error_str(tof.get_error(), errorString, sizeof(errorString));
   Serial.println("ToF sensor initialized with state: " + String(stateString) + " and error: " + String(errorString));
-  Serial.println("Waiting 100ms before starting sensor...");
-  delay(100);    // Short delay for I2C initialization
+  Serial.println("Waiting 500ms before starting sensor...");
+  delay(500);    // Short delay for I2C initialization
   Serial.println("Starting ToF sensor...");
   tof.begin();
   tof_sensor::get_state_str(tof.get_state(), stateString, sizeof(stateString));
