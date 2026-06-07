@@ -15,6 +15,7 @@ using mpuSensor = mpu_sensor::mpu_object;
 mpuSensor mpu(ADDRESS); 
 
 char stateString[16];  
+char errorString[16];  
 
 void setup() {
   Serial.begin(BAUDRATE); 
@@ -22,15 +23,17 @@ void setup() {
   Serial.println("Initializing MPU Sensor...");
   mpu.initialize(mpu_sensor::WIRE::START_WIRE);
   mpu_sensor::get_state_str(mpu.get_state(), stateString, sizeof(stateString));
+  mpu_sensor::get_error_str(mpu.get_error(), errorString, sizeof(errorString));
   Serial.println("MPU initialization completed"); 
-  Serial.println("MPU state: " + String(stateString));
+  Serial.println("MPU state: " + String(stateString) + " and error: " + String(errorString));
   Serial.println("Waiting for I2C communication to stabilize...");
   delay(I2C_DELAY); 
   Serial.println("Starting MPU Sensor...");
   mpu.begin();
   Serial.println("MPU Sensor started");
-  mpu_sensor::get_state_str(mpu.get_state(), stateString, sizeof(stateString)); 
-  Serial.println("MPU state: " + String(stateString));    
+  mpu_sensor::get_state_str(mpu.get_state(), stateString, sizeof(stateString));
+  mpu_sensor::get_error_str(mpu.get_error(), errorString, sizeof(errorString));
+  Serial.println("MPU state: " + String(stateString) + " and error: " + String(errorString));
   Serial.println("Setup complete, entering main loop in " + String(STARTUP_DELAY) + " ms...");
 }
 

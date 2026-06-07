@@ -38,9 +38,18 @@ class mpu_object {
     }   // state transition verified
     void begin(){
         if (this->state != STATE::DISCONNECTED) return;     // STATE -> STATE, return
+        Serial.println("Checking connection"); 
+        delay(100); 
         check_connection();                                 // DISCONNECTED -> DISCONNECTED/IDENTIFIED
+        Serial.println("Setting configuration"); 
+        delay(100); 
+        // Fatal runtime error happens here
         configure();                                        // IDENTIFIED -> CONFIGURED   
+        Serial.println("Checking validity"); 
+        delay(100);
         check_validity();                                   // CONFIGURED -> CONFIGURED/READY
+        Serial.println("Activating sensor"); 
+        delay(100);
         start();                                            // READY -> ACTIVE
     }   // state transition verified
 
