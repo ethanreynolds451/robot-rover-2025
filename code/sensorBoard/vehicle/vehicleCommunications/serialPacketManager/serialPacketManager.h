@@ -21,51 +21,23 @@ namespace serial_packet_manager {
 
 class SerialPacketManager {
   public: 
-    SerialPacketManager(unsigned long baudrate = 115200, uint8_t serial_port = 0)
-      {
-        this->config.baudrate = baudrate;
-        this->config.port = serial_port;
-        // Allow the packet manager to be used on any hardware serial port present
-            if (config.port == 0){
-                serial = &Serial;   // Use hardware serial 0
-            } 
-#if defined(HAVE_HWSERIAL1) || defined(PIN_SERIAL1_RX) || defined(SERIAL1_PRESENT)            
-            else if (config.port == 1){
-                serial = &Serial1;  // Use hardware serial 1
-            } 
-#endif 
-#if defined(HAVE_HWSERIAL2) || defined(PIN_SERIAL2_RX) || defined(SERIAL2_PRESENT)            
-            else if (config.port == 2){
-                serial = &Serial2;  // Use hardware serial 2
-            } 
-#endif
-#if defined(HAVE_HWSERIAL3) || defined(PIN_SERIAL3_RX) || defined(SERIAL3_PRESENT)            
-            else if (config.port == 3){
-                serial = &Serial3;  // Use hardware serial 3
-            } 
-#endif   
-            else {
-                // Fallback to ensure it is defined even if an invalid port is specified
-                serial = &Serial;
-            }      
-  }
-    ~SerialPacketManager(){
-        reset();  // Stop serial communication and clear buffers on destruction
-    };
+    SerialPacketManager(unsigned long baudrate = 115200, uint8_t serial_port = 0);
+    ~SerialPacketManager();
     
-
     //********** Activity Management ********** /
 
-    void begin();     // Initializes the serial communication with the configured baudrate and port, must call after setting parameters for them to take effect
-    void start();     // Start the packet manager, allowing it to send and receive data based on the configured transport mode
-    void stop();      // Stops the packet manager, halting all sending and receiving activity but does not reset buffers or state
-    void reset();     // Resets the packet manager, clearing buffers and resetting state but does not change configuration
-    void update();    // Automatically manages transmission and reception (when set to AUTOMATIC transport mode)
-    void send();      // Manually trigger sending of data in the outbound buffer (not allowed in AUTOMATIC transport mode)
-    void read();      // Manually trigger reading of data into the inbound buffer (not allowed in AUTOMATIC transport mode)
+    void begin();       // Brings to active state
+    void initialize();  // Initializes the serial communication with the configured baudrate and port, must call after setting parameters for them to take effect
+    void start();       // Start the packet manager, allowing it to send and receive data based on the configured transport mode
+    void stop();        // Stops the packet manager, halting all sending and receiving activity but does not reset buffers or state
+    
+    void reset();       // Resets the packet manager, clearing buffers and resetting state but does not change configuration
+    void update();      // Automatically manages transmission and reception (when set to AUTOMATIC transport mode)
+    void send();        // Manually trigger sending of data in the outbound buffer (not allowed in AUTOMATIC transport mode)
+    void read();        // Manually trigger reading of data into the inbound buffer (not allowed in AUTOMATIC transport mode)
 
 
-    // ********** Configuration ********** /
+    // ********** Configuration ********** //
 
     // Configuration setters
     void set_port(uint8_t port) { this->config.port = port; };
@@ -93,7 +65,7 @@ class SerialPacketManager {
     packetid_t add_and_send(const char* data, size_t max_length = PACKET_DATA_SIZE*PACKET_MANAGER_OUTBOUND_BUFFER_SIZE);      // Data constituting a complete transmission, marks data as ready to send
     
     // For manual retrieval of data (Warning: relies on internal management and only valid until next mutating call)
-    const char* const* view_outbound_data() const { return this->outgoing_data; } 
+    const char* const* view_outbound_data() const { return this->output.data; } 
     DATA_PACKET outbound_data_packet_bounds(packetid_t packet_id) const;  // Get the bounds for the data packet's location in the outbound data buffer
     
     // Copy the data into a provided buffer, returns bytes written
@@ -107,7 +79,7 @@ class SerialPacketManager {
     // ********** Inbound Data Management ********** //
 
     // For manual retrieval of data (Warning: relies on internal management and only valid until next mutating call)
-    const char* const* view_inbound_data() const { return this->incoming_data; } 
+    const char* const* view_inbound_data() const { return this->input.data; } 
     DATA_PACKET inbound_data_packet_bounds(packetid_t packet_id) const;   // Inclusive start index in inbound data buffer
     
     // Copy the data into a provided buffer, returns bytes written
@@ -134,40 +106,37 @@ class SerialPacketManager {
     // Return an ordered array of all active data packet IDs
     // Allocated lenght is based on number of packets
     // Empty slots are filled with 0xFFFF
-    const packetid_t* get_inbound_packet_ids();
-    const packetid_t* get_outbound_packet_ids();
+    const packetid_t* get_inbound_packet_ids() { return this->input.ids; };
+    const packetid_t* get_outbound_packet_ids() { return this->output.ids; };
 
     // ********** Serial Packet Accessors ********** //
 
     // Should not be used for normal operation but may be required for debugging or advanced use
 
     // Access a specific serial packet by its header
-    const SERIAL_PACKET& get_inbound_packet(const HEADER& header);
-    const SERIAL_PACKET& get_outbound_packet(const HEADER& header);
+    const SERIAL_PACKET& get_inbound_packet(const HEADER& header) { return find_packet(this->input.packets, this->input.buffer_size, header); };
+    const SERIAL_PACKET& get_outbound_packet(const HEADER& header) {return find_packet(this->output.packets, this->output.buffer_size, header);};
 
     // Buffer management
-    const char* view_inbound_serial_buffer() const { return this->incoming_packet; }
-    const char* view_outbound_serial_buffer() const { return this->outgoing_packet; }
-    void clear_inbound_serial_buffer();
-    void clear_outbound_serial_buffer();
+    const char* view_inbound_serial_buffer() const { return this->input.serial_buffer; };
+    const char* view_outbound_serial_buffer() const { return this->output.serial_buffer; };
+    void clear_inbound_serial_buffer() { memset(this->input.serial_buffer, 0, ARDUINO_SERIAL_BUFFER_SIZE); };
+    void clear_outbound_serial_buffer() { memset(this->output.serial_buffer, 0, ARDUINO_SERIAL_BUFFER_SIZE); };
 
   private: 
+    // *** Internal Data *** ///
     HardwareSerial* serial = nullptr;
     CONFIG config{};
     STATE state = STATE::UNINITIALIZED;
-    SERIAL_PACKET inbound_packets[PACKET_MANAGER_INBOUND_BUFFER_SIZE];
-    SERIAL_PACKET outbound_packets[PACKET_MANAGER_OUTBOUND_BUFFER_SIZE];
-    // Buffers to hold packets converted to strings or recieved as strings
-    // Act as a "virtual serial buffer" 
-    char incoming_packet[ARDUINO_SERIAL_BUFFER_SIZE]; 
-    char outgoing_packet[ARDUINO_SERIAL_BUFFER_SIZE];
-    // Hold ordered pointers to the data fields in the packets, initialize each element to nullptr
-    const char* incoming_data[PACKET_MANAGER_INBOUND_BUFFER_SIZE] = {nullptr};  
-    const char* outgoing_data[PACKET_MANAGER_OUTBOUND_BUFFER_SIZE] = {nullptr};
-    // Hold ordered pointers to the packet IDs for tracking and management
-    packetid_t inbound_packet_ids[PACKET_MANAGER_INBOUND_BUFFER_SIZE] = {INVALID_PACKET_ID};
-    packetid_t outbound_packet_ids[PACKET_MANAGER_OUTBOUND_BUFFER_SIZE] = {INVALID_PACKET_ID};
-}; 
+    // Use input and output structs to package all relevant data for easier management
+    INPUT input{};
+    OUTPUT output{};
+    // *** Internal Functions *** ///
+    SERIAL_PACKET* find_packet(const SERIAL_PACKET* packets, const packetindex_t num_packets, const HEADER& header);
+
+    void update_incoming_data();           // Update data and id pointers 
+    void update_outgoing_data();
+  }; 
 
 }
 
