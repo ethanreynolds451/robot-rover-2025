@@ -131,8 +131,9 @@ class SerialPacketManager {
     // Use input and output structs to package all relevant data for easier management
     INPUT input{};
     OUTPUT output{};
+    
     // *** Internal Functions *** ///
-    SERIAL_PACKET* find_packet(const SERIAL_PACKET* packets, const packetindex_t num_packets, const HEADER& header);
+    SERIAL_PACKET* find_packet(const SERIAL_PACKET* packets, const HEADER& header);
 
     void update_incoming_data();           // Update data and id pointers 
     void update_outgoing_data();

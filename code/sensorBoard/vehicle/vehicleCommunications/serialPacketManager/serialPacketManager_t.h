@@ -79,6 +79,7 @@ struct SERIAL_PACKET {
     uint8_t checksum;               // 2 bytes (hex)
 }; // Reserve 2 bytes for delimiters and 2 bytes for null + newline when string formated
 
+
 struct INPUT {
     packetid_t buffer_size = PACKET_MANAGER_INBOUND_BUFFER_SIZE;
     char serial_buffer[ARDUINO_SERIAL_BUFFER_SIZE];

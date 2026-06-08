@@ -3,5 +3,21 @@ sensor board     ->     vent
 
 purple  grey    blue    green
 
-To Do: 
-- Rebuild mosfet board
+green   :   speed
+blue    :   steering
+gray    :   headlights
+purple  :   unassigned
+
+speed _______    _______  headlights
+steer _____  |  |  _____  unused
+           | |  | |
+          |·|·||·|·|
+           
+          || <---- speed
+
+          || <---- steer
+
+          |·|·||·|·|
+green _____| |  | |_____  purple
+blue  _______|  |_______  gray  
+    
