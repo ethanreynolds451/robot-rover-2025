@@ -125,6 +125,9 @@ SPM::find_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const 
     return nullptr;
 }
 
+// Return the packet ID of the 
 SPM::get_complete_packet_id(const SERIAL_PACKET* packets, packetindex_t num_packets, unsigned long timestamp) {
-
+    
 }
+
+SPM::get_working_packet_id()
