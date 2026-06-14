@@ -114,8 +114,7 @@ SPM::packetid_t get_oldest_outbound_packet_id();
 // *** Internal Functions *** //
 
 // Return a pointer to the packet with the matching header, or nullptr if not found
-SPM::find_packet(const SERIAL_PACKET* packets, const HEADER& header){
-    
+SPM::find_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const HEADER& header){
     for(SERIAL_PACKET* packet = packets; packet < packets + num_packets; packet++){
         if(packet->header.packet_id == header.packet_id && 
            packet->header.packet_index == header.packet_index && 
@@ -126,6 +125,6 @@ SPM::find_packet(const SERIAL_PACKET* packets, const HEADER& header){
     return nullptr;
 }
 
-SPM::get_latest_complete_packet()
+SPM::get_complete_packet_id(const SERIAL_PACKET* packets, packetindex_t num_packets, unsigned long timestamp) {
 
 }

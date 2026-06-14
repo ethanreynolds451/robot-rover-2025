@@ -71,9 +71,11 @@ struct HEADER {
 };
 
 struct SERIAL_PACKET {
-    unsigned long timestamp;        // internal tracing, not part of the string packet
-    bool is_new = false;            // internal tracking, not part of the string packet
-    PACKET_STATUS status;           // 1 byte (not part of the string packet)
+    // Internal metadata
+    unsigned long timestamp;     
+    bool is_new = false;           
+    PACKET_STATUS status;          
+    // String formated packet structure
     HEADER header;                  // 8 bytes
     char data[PACKET_DATA_SIZE];    // 50 bytes (variable length data)
     uint8_t checksum;               // 2 bytes (hex)
