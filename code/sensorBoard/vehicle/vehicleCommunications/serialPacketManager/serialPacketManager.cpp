@@ -114,7 +114,7 @@ SPM::packetid_t get_oldest_outbound_packet_id();
 // *** Internal Functions *** //
 
 // Return a pointer to the packet with the matching header, or nullptr if not found
-SPM::find_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const HEADER& header){
+SPM::find_serial_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const HEADER& header){
     for(SERIAL_PACKET* packet = packets; packet < packets + num_packets; packet++){
         if(packet->header.packet_id == header.packet_id && 
            packet->header.packet_index == header.packet_index && 
@@ -125,9 +125,27 @@ SPM::find_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const 
     return nullptr;
 }
 
-// Return the packet ID of the 
-SPM::get_complete_packet_id(const SERIAL_PACKET* packets, packetindex_t num_packets, unsigned long timestamp) {
-    
+// Return the packet ID of the packet closest to the provided timestamp
+// For the oldest packet, use 0; for the newest, use millis() or a max value
+// Returns 0xFFFF if no complete packets are available
+SPM::get_closest_complete_packet_id(const SERIAL_PACKET* packets, packetindex_t num_packets, unsigned long timestamp) {
+    packetindex_t closest_packet = INVALID_PACKET_ID;
+    unsigned long closest_time_diff = ULONG_MAX;
+    for(SERIAL_PACKET* packet = packets; packet < num_packets; packet++){
+        if(packet->status == PACKET_STATUS::COMPLETE){
+            if(abs(packet->timestamp - timestamp) < closest_time_diff){
+                closest_time_diff = abs(packet->timestamp - timestamp);
+                if(packet->header.packet_id != INVALID_PACKET_ID){
+                    closest_packet = packet->header.packet_id;
+                }
+            }
+        }
+    }
+    return closest_packet;
 }
 
-SPM::get_working_packet_id()
+SPM::get_working_packet_id(){
+
+}
+
+}

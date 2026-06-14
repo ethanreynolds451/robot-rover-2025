@@ -98,10 +98,10 @@ class SerialPacketManager {
     packetid_t get_working_outbound_packet_id();
 
     // Get latest and oldest complete data packet IDs (returns 0xFFFF if none available)
-    packetid_t get_latest_inbound_packet_id();
-    packetid_t get_latest_outbound_packet_id();
-    packetid_t get_oldest_inbound_packet_id();
-    packetid_t get_oldest_outbound_packet_id();
+    packetid_t get_latest_inbound_packet_id() { return get_closest_complete_packet_id(this->input.packets, this->input.buffer_size, ULONG_MAX); };
+    packetid_t get_latest_outbound_packet_id() {return get_closest_complete_packet_id(this->output.packets, this->output.buffer_size, ULONG_MAX); };
+    packetid_t get_oldest_inbound_packet_id() { return get_closest_complete_packet_id(this->input.packets, this->input.buffer_size, 0); };
+    packetid_t get_oldest_outbound_packet_id() { return get_closest_complete_packet_id(this->output.packets, this->output.buffer_size, 0); };
 
     // Return an ordered array of all active data packet IDs
     // Allocated lenght is based on number of packets
@@ -114,8 +114,8 @@ class SerialPacketManager {
     // Should not be used for normal operation but may be required for debugging or advanced use
 
     // Access a specific serial packet by its header
-    const SERIAL_PACKET& get_inbound_packet(const HEADER& header) { return find_packet(this->input.packets, this->input.buffer_size, header); };
-    const SERIAL_PACKET& get_outbound_packet(const HEADER& header) {return find_packet(this->output.packets, this->output.buffer_size, header);};
+    const SERIAL_PACKET& get_inbound_serial_packet(const HEADER& header) { return find_serial_packet(this->input.packets, this->input.buffer_size, header); };
+    const SERIAL_PACKET& get_outbound_serial_packet(const HEADER& header) {return find_serial_packet(this->output.packets, this->output.buffer_size, header); };
 
     // Buffer management
     const char* view_inbound_serial_buffer() const { return this->input.serial_buffer; };
@@ -135,8 +135,11 @@ class SerialPacketManager {
     // *** Internal Functions *** ///
 
     // Return a reference to the packet with matching header or nullptr if not found
-    const SERIAL_PACKET& find_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const HEADER& header);
+    const SERIAL_PACKET& find_serial_packet(const SERIAL_PACKET* packets, packetindex_t num_packets, const HEADER& header);
+    // Find the packet ID of the data packet closest to the provided timestamp
+    packetid_t get_closest_complete_packet_id(const SERIAL_PACKET* packets, packetindex_t num_packets, unsigned long timestamp);
 
+    // Update the ordered character pointer and ID arrays to refect the current state of the buffers
     void update_incoming_data();   
     void update_outgoing_data();
   }; 

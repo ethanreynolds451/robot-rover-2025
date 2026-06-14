@@ -65,22 +65,25 @@ struct CONFIG {
 
 struct HEADER {
     // Must update if packetid_t type changes
-    packetid_t packet_id;           // 4 bytes (hex encoded)size
-    packetindex_t packet_index;     // 2 bytes (hex encoded)
-    packetindex_t packet_count;     // 2 bytes (hex encoded)
+    packetid_t packet_id = INVALID_PACKET_ID;           // 4 bytes (hex encoded)size
+    packetindex_t packet_index = 0;                     // 2 bytes (hex encoded)
+    packetindex_t packet_count = 0;                     // 2 bytes (hex encoded)
 };
 
 struct SERIAL_PACKET {
     // Internal metadata
-    unsigned long timestamp;     
+    unsigned long timestamp = 0;     
     bool is_new = false;           
-    PACKET_STATUS status;          
+    PACKET_STATUS status = PACKET_STATUS::CLEAR;          
     // String formated packet structure
     HEADER header;                  // 8 bytes
     char data[PACKET_DATA_SIZE];    // 50 bytes (variable length data)
     uint8_t checksum;               // 2 bytes (hex)
 }; // Reserve 2 bytes for delimiters and 2 bytes for null + newline when string formated
 
+
+// Note: each serial packet has a unique header but not a unique ID;
+// The ID refers to the data packet, which may be composed of multiple serial packets
 
 struct INPUT {
     packetid_t buffer_size = PACKET_MANAGER_INBOUND_BUFFER_SIZE;
@@ -98,6 +101,7 @@ struct OUTPUT {
     packetid_t ids[PACKET_MANAGER_OUTBOUND_BUFFER_SIZE] = {INVALID_PACKET_ID};
 };
 
+// This isn't used to hold data but instead describes the location of a data packet within the serial packet buffer 
 struct DATA_PACKET {
     packetindex_t packet_start;     // Inclusive start index in the serial packet buffer for this data packet
     packetindex_t packet_end;       // Exclusive end index in the serial packet buffer for this data packet
