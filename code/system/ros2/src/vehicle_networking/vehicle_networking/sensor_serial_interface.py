@@ -25,7 +25,7 @@ NOT YET IMPLEMENTED
 
 Topics: 
  Subscribes to: 
-- /vehicle/sensor_packets
+- /vehicle/sensor_control_packets
     - String messages containing packetized sensor commands to send to the sensor board
  Publishes to: 
 - /vehicle/sensor_data_packets

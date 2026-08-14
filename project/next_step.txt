@@ -1,5 +1,6 @@
 Next (physical):
 - Ran AI on the serial module, need to test on hardware
+- Rebuilding Serial Manager
 
 Next (ROS):
 - Revise serial manager nodes to handle buffering
