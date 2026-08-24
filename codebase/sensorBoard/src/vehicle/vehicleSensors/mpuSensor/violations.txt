@@ -1,0 +1,3 @@
+Setting MPU parameters will not load them; load_parameters must be called after updating
+Only supports use of the defualt I2C bus
+No advanced error tracking functions, only connection check

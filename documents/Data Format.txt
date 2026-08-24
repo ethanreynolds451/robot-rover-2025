@@ -1,0 +1,67 @@
+To control board: 
+
+{t[ros_timestamp]
+br[brake_on]
+rv[direction_reversed]
+srv[steering_reversed]
+su[motors_series]
+sp[speed (0 – 100)]
+ssp[steer_speed(0 – 100 )]}
+
+// Leave timestamp empty for arduino to ignore
+{t[]br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+
+
+From control board: 
+
+{t[arduino_timestamp]
+br[brake_on]
+rv[direction_reversed]
+srv[steering_reversed]
+su[motors_series]
+sp[speed (0 – 100)]
+ssp[steer_speed(0 – 100 )]}
+
+{t[1234]br[0]rv[0]srv[0]su[0]sp[0]ssp[0]}
+
+
+To sensor board: none implemented yet
+
+
+From sensor board: 
+
+// t for each sensor is offset from packet timestamp
+// calculated on packet construction, may be off by +- a few ms
+// n is sensor index
+// s is sensor status, first hex digit is state and second is error 
+{t[arduino_timestamp]
+mpu[n, t, s, a:accel_x;y;z, g:gyro_x;y;z, c:temp]
+qmc[n, t, s, h:head, m:mag_x;y;z]
+gps[n, t, s, p:lat;long, a:alt, v:vel, h:head, g:time, f:n_sats]
+tof[n, t, s, r:range, b:background_rate, g:signal_rate, q:signal_quality]
+ult[n, t, s, r:range]
+tmp[n, t, s, tp:temp]
+enc[n, t, s, p:sign;pos]
+ ir[n, t, s, a:addr, c:cmd, d:data]}
+
+// Examples (each value represented is max possible length of chars)
+{t[1234ABCD]
+mpu[n:0,t:1234;s:40,a:320D;1B23;F398,g:32B2;A64B;95BC,c:372B]
+qmc[n:0,t:1234,s:40,h:96B3,m:4BC9;10F8;D8C3]
+gps[n:0,t:1234,s:40,p;9A6B327C;764B7DE5,a:927B343F,v:27CD648A,h:82F41AD9,g:29A62FF3,f:03]
+tof[n:0,t:1234,s40,r7B43,b:B583,g:85A4,q:01]
+*ult[n:0,t:1234,s:40,r:37BD]
+tmp[n:0,t:1234,s:40,c:056F]
+enc[n:0,t:1234,s:40,p:902C43B2]
+ir[n:0,t:1234,s:40,a:8E30,c:7AF3,d:B74C96A1]}
+
+
+IR-only packet wrapped wtith serial manager header:
+ABCD0101|{t[1234ABCD]ir[t:1234,a:5678,c:9ABC,d:1234ABCD]}|B
+
+Example if packet is longer:
+ABCD0201|{data[reallylongdatathatmakesthepacketmorethan|A\n
+ABCD0202|sixtyfourbytes]}|B\n
+
+
+

@@ -1,0 +1,24 @@
+2026-03-15 {
+	Compiled successfully
+	Added timestamp feature
+	Compiled successfully
+	Updated some function names for clarity
+	Compiled successfully
+	Changed to clear "updated" flag whenever data is retrieved
+	Compiled successfully
+	Note: might need to figure out if it holds the previous input, may need timeout for  implementation
+}
+2026-03-16 {
+	Updated to filter invalid data (only known protocols and non-zero values are accepted)
+	Compiled successfully
+	Tested and functional on Megab with Sony 3.3V IR sensor on pin 4 and generic remote controllers
+}
+2026-05-17 {
+	Updated test script for compatibility with data format used by ROS system
+	Now includes Arduino timestamp and offset
+	Fully functional for IR control, no bugs found
+}
+2026-05-23 {
+	Added modular include
+	Namespaced
+}

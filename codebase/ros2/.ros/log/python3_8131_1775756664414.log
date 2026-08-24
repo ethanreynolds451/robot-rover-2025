@@ -1,0 +1,2 @@
+[INFO] [1775756664.473273531] [serial_manager]: Starting Serial Manager Node
+[ERROR] [1775756664.474198064] [serial_manager]: Error loading device identifiers file: 'SerialManager' object has no attribute 'logger'

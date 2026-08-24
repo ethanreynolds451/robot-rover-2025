@@ -1,5 +1,0 @@
-[console_scripts]
-control_string_builder = vehicle_string_converter.control_string_builder:main
-control_string_parser = vehicle_string_converter.control_string_parser:main
-sensor_string_parser = vehicle_string_converter.sensor_string_parser:main
-

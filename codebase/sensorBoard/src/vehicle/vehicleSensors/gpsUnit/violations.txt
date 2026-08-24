@@ -1,0 +1,3 @@
+- Each data value is not timestamped; only the full reading is
+- GPS is not calibrated and no method to do so exists
+- Dynamic allocation is used but managed well

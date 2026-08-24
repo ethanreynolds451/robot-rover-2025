@@ -1,0 +1,55 @@
+# This file defines the mapping of each internal sensor field to the corresponding value in its custom message type
+ 
+# *** Determines which field in the sensor message type gets assigned which piece of data
+
+encoder:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  d     :       "direction"
+  p     :       "position"
+  v     :       "velocity"
+
+gps:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  p     :       "position"
+  v     :       "speed_kmph"
+  h     :       "heading"
+  gt    :       "gps_time"
+  s     :       "sats"
+
+ir_remote:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp" 
+  a     :       "address"
+  c     :       "command"
+  d     :       "data"
+
+mpu:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  i     :       "imu"
+  tp    :       "temp"
+
+qmc:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  m     :       "mag"
+  h     :       "heading"
+  tp    :       "temp"
+
+temperature:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  tp    :       "temp"
+
+tof:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  d     :       "range"
+  l     :       "intensity"
+
+ultrasonic:
+  n     :       "frame_id"
+  t     :       "arduino_timestamp"
+  d     :       "range"

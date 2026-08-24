@@ -1,0 +1,1 @@
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/srv/detail/reset_serial_port__rosidl_typesupport_introspection_c.h

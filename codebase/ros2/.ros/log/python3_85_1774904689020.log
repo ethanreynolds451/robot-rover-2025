@@ -1,0 +1,57 @@
+[INFO] [1774904689.075121193] [control_serial_interface]: Starting Control Serial Interface Node
+[INFO] [1774904689.077279246] [control_serial_interface]: Topics intitialized
+[INFO] [1774904689.080484088] [control_serial_interface]: Serial services intitialized
+[INFO] [1774904689.083560512] [control_serial_interface]: Serial parameters intitialized
+[INFO] [1774904689.085295376] [control_serial_interface]: Control Serial Interface Node initialized successfully:
+[WARN] [1774904689.185364300] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.285338241] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.385586508] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.485341925] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.585849193] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.685327976] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.785331403] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.885332985] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904689.985370646] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.085336418] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.185321853] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.285332680] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.385942717] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.485870343] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.585911954] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.685741215] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.785336123] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.885333939] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904690.985336450] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.085337380] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.185337377] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.285329578] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.385335635] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.485328258] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.585335762] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.685328589] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.785334201] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.885327262] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904691.985332379] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.085336955] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.196800602] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.287357830] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.390421098] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.485455367] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.585832192] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.685325888] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.785337362] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.885338755] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904692.985338416] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.085337133] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.185330053] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.285328857] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.385341961] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.485335148] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.585332182] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.685333625] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.785342072] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.885352246] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904693.985275975] [control_serial_interface]: Serial port is not open, unable to read data
+[WARN] [1774904694.085330465] [control_serial_interface]: Serial port is not open, unable to read data
+[INFO] [1774904694.086104196] [control_serial_interface]: Attempting to open serial port for control board
+[INFO] [1774904694.086718607] [control_serial_interface]: Requesting serial port from serial manager service

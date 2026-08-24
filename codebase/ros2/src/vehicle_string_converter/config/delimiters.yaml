@@ -1,0 +1,7 @@
+packet_start        :       "{"
+packet_end          :       "}"
+field_start         :       "["
+field_end           :       "]"
+key_delimiter       :       ","
+value_delimiter     :       ":"
+list_delimiter      :       ";"

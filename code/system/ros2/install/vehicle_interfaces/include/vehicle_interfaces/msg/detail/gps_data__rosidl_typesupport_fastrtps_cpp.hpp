@@ -1,1 +1,0 @@
-/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_typesupport_fastrtps_cpp/vehicle_interfaces/msg/detail/gps_data__rosidl_typesupport_fastrtps_cpp.hpp

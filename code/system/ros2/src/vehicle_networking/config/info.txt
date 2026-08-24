@@ -1,1 +1,0 @@
-Use the get_device_info script to retrieve the values in the same way that the code will be.

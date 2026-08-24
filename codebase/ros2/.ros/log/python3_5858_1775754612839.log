@@ -1,0 +1,151 @@
+[INFO] [1775754612.895351239] [vehicle_control_string_builder]: Starting Vehicle Control String Builder Node
+[INFO] [1775754612.901271516] [vehicle_control_string_builder]: Successfully loaded control codes
+[INFO] [1775754613.430042589] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754613.430886575] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754614.436777501] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754614.437664840] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754615.436749979] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754615.437704658] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754616.432453964] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754616.434986675] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754617.432746398] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754617.434073110] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754618.430875385] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754618.432143180] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754619.434611407] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754619.436035618] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754620.433532415] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754620.438641978] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754621.432165239] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754621.434119737] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754622.434937904] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754622.438145691] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754623.431001246] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754623.432622909] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754624.435500660] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754624.438445607] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754625.433705683] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754625.438123690] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754626.430430451] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754626.431759221] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754627.430153416] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754627.432284371] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754628.433148619] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754628.435998327] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754629.430156372] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754629.431090762] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754630.432647900] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754630.435283495] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754631.434200685] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754631.436948139] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754632.437064896] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754632.439090779] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754633.431844122] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754633.434835858] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754634.431622041] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754634.432667030] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754635.433362966] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754635.436144592] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754636.435791903] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754636.437026594] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754637.430745033] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754637.431383556] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754638.430163676] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754638.431069497] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754639.432513310] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754639.433423133] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754640.436300806] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754640.440534520] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754641.433765669] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754641.436632332] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754642.434479319] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754642.435644411] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754643.430026210] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754643.430819390] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754644.431664084] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754644.434022085] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754645.430556176] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754645.432143423] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754646.430179594] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754646.431792792] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754647.433143563] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754647.435979999] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754648.430464682] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754648.431939267] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754649.431649103] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754649.434917801] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754650.431977509] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754650.432987050] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754651.429849165] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754651.430474771] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754652.429488785] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754652.430184778] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754653.434454743] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754653.437508902] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754654.430210994] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754654.430806827] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754655.433583848] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754655.436396959] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754656.429318556] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754656.429921485] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754657.433077732] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754657.435241057] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754658.432647839] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754658.435543120] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754659.433017353] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754659.435571084] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754660.433378635] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754660.436112932] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754661.433231262] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754661.435895127] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754662.433973237] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754662.436649018] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754663.431708604] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754663.432595021] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754664.432418257] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754664.434429753] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754665.432306921] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754665.433293526] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754666.432992107] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754666.435594189] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754667.430377097] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754667.431081420] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754668.432843523] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754668.435818045] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754669.431243487] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754669.432602094] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754670.431650244] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754670.433401888] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754671.432091750] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754671.435286195] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754672.430816720] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754672.432172695] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754673.430031403] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754673.431679088] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754674.430413552] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754674.431996836] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754675.430302284] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754675.431178096] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754676.433734086] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754676.436324584] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754677.430781442] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754677.431613530] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754678.432704655] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754678.433506819] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754679.433390608] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754679.435749911] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754680.430838597] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754680.432905957] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754681.433143403] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754681.435682714] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754682.430133437] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754682.432875839] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754683.431569752] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754683.434934743] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754684.430446874] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754684.431187448] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754685.432586115] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754685.434897174] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754686.431144257] [vehicle_control_string_builder]: Converted control message to string: 
+[ERROR] [1775754686.432036116] [vehicle_control_string_builder]: Failed to convert control message to string format
+[INFO] [1775754687.430977597] [vehicle_contro

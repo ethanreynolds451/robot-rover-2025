@@ -1,0 +1,7 @@
+brake           :   True
+drive_reverse   :   False
+steer_reverse   :   False
+shift_up        :   False
+drive_power     :   0
+steer_power     :   0
+fan_speed       :   0

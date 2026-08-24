@@ -1,0 +1,2 @@
+[INFO] [1775752655.645639626] [vehicle_control_string_builder]: Starting Vehicle Control String Builder Node
+[ERROR] [1775752655.651040443] [vehicle_control_string_builder]: Error loading control files; system will be unable to interface with control board: [Errno 2] No such file or directory: '/root/install/vehicle_string_converter/share/vehicle_string_converter/config/control_codes.yaml'

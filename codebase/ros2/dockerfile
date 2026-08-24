@@ -1,0 +1,20 @@
+# Dockerfile for ROS2 Foxy + Vehicle Networking
+FROM osrf/ros:foxy-desktop
+
+# Avoid prompts during apt install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-venv \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies (you can also use requirements.txt)
+RUN pip3 install --no-cache-dir pyserial
+
+
+# Default command: open bash
+CMD ["/bin/bash"]

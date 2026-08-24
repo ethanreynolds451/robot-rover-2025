@@ -1,0 +1,20 @@
+2026-05-19 {
+	Initial code build
+	AI debug
+	Compiled successfully
+}
+2026-05-20 {
+	Made some small modifications, added getter and set default values
+	Made test script for debug, not in ROS format
+}
+2026-05-23 {
+	Added modular include
+	Namespcaed
+	Added lat/long struct
+	Compiled successfully
+	Reformated test file for ROS format compatibility
+	Compiled successfully
+}
+2026-05-24 {
+	Rewrote to comply with optimized format
+}

@@ -1,3 +1,0 @@
-No support for dynamic pin change
-Uses pin interrupts and encodes parameters, so nothing else can take the pins cleanly, 
-  including another instance of the encoder object

@@ -1,3 +1,0 @@
-[INFO] [1774989041.842907930] [control_serial_interface]: Starting Control Serial Interface Node
-[WARN] [1774989044.855535286] [control_serial_interface]: Control board serial port is not open, attempting to open
-[INFO] [1774989044.856244175] [control_serial_interface]: Attempting to open serial port for control board

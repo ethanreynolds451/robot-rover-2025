@@ -1,0 +1,121 @@
+[INFO] [1775873688.709218462] [vehicle_control_string_parser]: Starting Vehicle Control String Parser Node
+[INFO] [1775873688.712693991] [vehicle_control_string_parser]: Successfully loaded control codes
+[ERROR] [1775873780.476303465] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873780.477148089] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873781.423358297] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873781.424928926] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873782.373687452] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873782.375759506] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873783.324220708] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873783.327116288] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873784.276644741] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873784.279094705] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873785.276676134] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873785.279379472] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873786.274565604] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873786.275608636] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873787.276706108] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873787.279669411] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873788.274178496] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873788.275876231] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873789.274072043] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873789.274800226] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873790.277584836] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873790.280451291] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873791.276477691] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873791.279077135] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873792.276696076] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873792.279219442] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873793.276989489] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873793.279612904] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873794.274734279] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873794.277339365] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873795.277581971] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873795.281002572] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873796.277429467] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873796.281474336] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873797.277322064] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873797.280453244] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873798.277006909] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873798.280343921] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873799.277763464] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873799.282911801] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873800.276654924] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873800.280863209] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873801.274692281] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873801.276020191] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873802.274602732] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873802.275404843] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873803.274247964] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873803.274911270] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873804.276683541] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873804.279990577] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873805.273716080] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873805.274532641] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873806.274912618] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873806.276534734] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873807.279108532] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873807.280972303] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873808.277565816] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873808.281008347] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873809.274933099] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873809.278987577] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873810.278966706] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873810.282981168] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873811.276873053] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873811.280083825] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873812.276653408] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873812.278482084] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873813.274214378] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873813.274917007] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873814.276740357] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873814.279260789] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873815.278688671] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873815.282022659] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873816.276918204] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873816.279650263] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873817.276442988] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873817.279404426] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873818.277866454] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873818.280661045] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873819.276810065] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873819.279378868] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873820.278752307] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873820.281891131] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873821.276855752] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873821.279809250] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873822.281064279] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873822.283942089] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873823.277132171] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873823.279413138] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873824.274686913] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873824.275585079] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873825.277345428] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873825.280269339] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873826.276378262] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873826.277522743] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873827.274737541] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873827.275638436] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873828.276354448] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873828.277938592] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873829.278245633] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873829.287235421] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873830.273831602] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873830.274637002] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873831.278303889] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873831.280521908] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873832.276375995] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873832.278631305] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873833.274576943] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873833.275563725] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873834.275575920] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873834.277074525] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873835.277249905] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873835.280117674] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873836.275209096] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873836.278019982] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873837.274875295] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873837.276005923] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873838.274361617] [vehicle_control_string_parser]: Data delimiters not defined in config files; unable to validate incoming messages
+[ERROR] [1775873838.275218247] [vehicle_control_string_parser]: Failed to convert control status message to ControlData format
+[ERROR] [1775873839.275033135] [vehicle_control_string_parser]: Data deli

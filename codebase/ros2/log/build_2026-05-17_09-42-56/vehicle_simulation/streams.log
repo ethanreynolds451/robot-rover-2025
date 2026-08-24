@@ -1,0 +1,41 @@
+[1.197s] Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_simulation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/install.log --install-scripts $base/lib/vehicle_simulation --single-version-externally-managed install_data
+[1.526s] running egg_info
+[1.526s] creating ../../build/vehicle_simulation/vehicle_simulation.egg-info
+[1.528s] writing ../../build/vehicle_simulation/vehicle_simulation.egg-info/PKG-INFO
+[1.531s] writing dependency_links to ../../build/vehicle_simulation/vehicle_simulation.egg-info/dependency_links.txt
+[1.532s] writing entry points to ../../build/vehicle_simulation/vehicle_simulation.egg-info/entry_points.txt
+[1.532s] writing requirements to ../../build/vehicle_simulation/vehicle_simulation.egg-info/requires.txt
+[1.532s] writing top-level names to ../../build/vehicle_simulation/vehicle_simulation.egg-info/top_level.txt
+[1.533s] writing manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+[1.596s] reading manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+[1.597s] writing manifest file '../../build/vehicle_simulation/vehicle_simulation.egg-info/SOURCES.txt'
+[1.597s] running build
+[1.597s] running build_py
+[1.598s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build
+[1.598s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib
+[1.598s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation
+[1.598s] copying vehicle_simulation/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation
+[1.598s] copying vehicle_simulation/vehicle_control_sim.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation
+[1.621s] copying vehicle_simulation/vehicle_sensor_sim.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation
+[1.655s] running install
+[1.656s] running install_lib
+[1.657s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+[1.658s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+[1.658s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_control_sim.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+[1.658s] copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build/lib/vehicle_simulation/vehicle_sensor_sim.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation
+[1.658s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/__init__.py to __init__.cpython-38.pyc
+[1.660s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_control_sim.py to vehicle_control_sim.cpython-38.pyc
+[1.661s] byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation/vehicle_sensor_sim.py to vehicle_sensor_sim.cpython-38.pyc
+[1.662s] running install_data
+[1.662s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/ament_index
+[1.663s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/ament_index/resource_index
+[1.663s] creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/ament_index/resource_index/packages
+[1.663s] copying resource/vehicle_simulation -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/ament_index/resource_index/packages
+[1.663s] copying package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation
+[1.663s] running install_egg_info
+[1.665s] Copying ../../build/vehicle_simulation/vehicle_simulation.egg-info to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages/vehicle_simulation-0.0.0-py3.8.egg-info
+[1.666s] running install_scripts
+[1.693s] Installing vehicle_control_sim script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/vehicle_simulation
+[1.693s] Installing vehicle_sensor_sim script to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/vehicle_simulation
+[1.693s] writing list of installed files to '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/install.log'
+[1.731s] Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_simulation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/install.log --install-scripts $base/lib/vehicle_simulation --single-version-externally-managed install_data

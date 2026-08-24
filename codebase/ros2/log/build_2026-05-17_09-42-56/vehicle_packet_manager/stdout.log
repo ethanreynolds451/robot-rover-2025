@@ -1,0 +1,31 @@
+running egg_info
+creating ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info
+writing ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/PKG-INFO
+writing dependency_links to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/dependency_links.txt
+writing entry points to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/entry_points.txt
+writing requirements to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/requires.txt
+writing top-level names to ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/top_level.txt
+writing manifest file '../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/SOURCES.txt'
+reading manifest file '../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/SOURCES.txt'
+writing manifest file '../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build/lib
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build/lib/vehicle_packet_manager
+copying vehicle_packet_manager/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build/lib/vehicle_packet_manager
+running install
+running install_lib
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager
+copying /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build/lib/vehicle_packet_manager/__init__.py -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager
+byte-compiling /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/ament_index
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/ament_index/resource_index
+creating /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/ament_index/resource_index/packages
+copying resource/vehicle_packet_manager -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/ament_index/resource_index/packages
+copying package.xml -> /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager
+running install_egg_info
+Copying ../../build/vehicle_packet_manager/vehicle_packet_manager.egg-info to /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages/vehicle_packet_manager-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log'

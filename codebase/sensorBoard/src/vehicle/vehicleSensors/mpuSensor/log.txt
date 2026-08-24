@@ -1,0 +1,22 @@
+2026-03-15 {
+	Initial code build
+	Compiled successfully
+}
+2026-03-16 {
+	Test failed, resetting Arduino continually in MPU setup
+	Might be a hardware issue, need to do I2C bus test
+}
+2026-05-20 {
+	Re-writing for better integration, no blocking functions
+}
+2026-05-23 {
+	Rewrote in accordance with guidelines, compiled successfully
+}
+2026-05-25 {
+	Rewrote in accordance with optimized guidelines
+	Compiled successfully
+}
+2026-05-25 {
+	Transición de estado verificado
+	Compilado exitosamente
+}

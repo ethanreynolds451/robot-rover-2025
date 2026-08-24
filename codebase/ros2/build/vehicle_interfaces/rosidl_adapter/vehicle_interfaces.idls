@@ -1,0 +1,13 @@
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:srv/GetSerialPort.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:srv/ResetSerialPort.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:srv/GetSerialDeviceStatus.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/SensorData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/ControlData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/EncoderData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/GPSData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/IRData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/MPUData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/QMCData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/TemperatureData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/ToFData.idl
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_adapter/vehicle_interfaces:msg/UltrasonicData.idl

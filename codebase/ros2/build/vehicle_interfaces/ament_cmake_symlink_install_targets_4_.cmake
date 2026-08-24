@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_py/vehicle_interfaces/vehicle_interfaces_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so" "TARGETS" "vehicle_interfaces__rosidl_typesupport_c__pyext" "DESTINATION" "lib/python3.8/site-packages/vehicle_interfaces")

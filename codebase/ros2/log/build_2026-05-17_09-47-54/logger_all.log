@@ -1,0 +1,404 @@
+[1.073s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[1.074s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f7b3cbd9370>>, merge_install=False, metas=['./colcon.meta'], mixin=None, mixin_files=None, mixin_verb=('build',), packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f7b3cbd9370>, verb_name='build', verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7f7b3cbe9340>)
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.493s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.493s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2'
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.494s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.510s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.510s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.510s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.510s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.511s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.512s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extension 'ignore'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extension 'ignore_ament_install'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extensions ['colcon_pkg']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extension 'colcon_pkg'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extensions ['colcon_meta']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extension 'colcon_meta'
+[1.514s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extensions ['ros']
+[1.514s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_interfaces) by extension 'ros'
+[1.517s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_interfaces' with type 'ros.ament_cmake' and name 'vehicle_interfaces'
+[1.517s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['ignore', 'ignore_ament_install']
+[1.517s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ignore'
+[1.517s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ignore_ament_install'
+[1.517s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['colcon_pkg']
+[1.518s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'colcon_pkg'
+[1.518s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['colcon_meta']
+[1.518s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'colcon_meta'
+[1.518s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extensions ['ros']
+[1.518s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_navigation) by extension 'ros'
+[1.519s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_navigation' with type 'ros.ament_python' and name 'vehicle_navigation'
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['ignore', 'ignore_ament_install']
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ignore'
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ignore_ament_install'
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['colcon_pkg']
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'colcon_pkg'
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['colcon_meta']
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'colcon_meta'
+[1.519s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extensions ['ros']
+[1.520s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_networking) by extension 'ros'
+[1.521s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_networking' with type 'ros.ament_python' and name 'vehicle_networking'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extensions ['ignore', 'ignore_ament_install']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extension 'ignore'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extension 'ignore_ament_install'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extensions ['colcon_pkg']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extension 'colcon_pkg'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extensions ['colcon_meta']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extension 'colcon_meta'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extensions ['ros']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_packet_manager) by extension 'ros'
+[1.522s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_packet_manager' with type 'ros.ament_python' and name 'vehicle_packet_manager'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extensions ['ignore', 'ignore_ament_install']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extension 'ignore'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extension 'ignore_ament_install'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extensions ['colcon_pkg']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extension 'colcon_pkg'
+[1.523s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extensions ['colcon_meta']
+[1.523s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extension 'colcon_meta'
+[1.523s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extensions ['ros']
+[1.523s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_simulation) by extension 'ros'
+[1.523s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_simulation' with type 'ros.ament_python' and name 'vehicle_simulation'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extensions ['ignore', 'ignore_ament_install']
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extension 'ignore'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extension 'ignore_ament_install'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extensions ['colcon_pkg']
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extension 'colcon_pkg'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extensions ['colcon_meta']
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extension 'colcon_meta'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extensions ['ros']
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(src/vehicle_string_converter) by extension 'ros'
+[1.525s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vehicle_string_converter' with type 'ros.ament_python' and name 'vehicle_string_converter'
+[1.525s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.525s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.525s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.525s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.525s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.606s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.606s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.609s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 6 installed packages in /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install
+[1.630s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 204 installed packages in /opt/ros/foxy
+[1.647s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_args' from command line to 'None'
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_target' from command line to 'None'
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[1.773s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[1.774s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[1.774s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[1.774s] Level 5:colcon.colcon_core.verb:set package 'vehicle_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.774s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces', 'symlink_install': False, 'test_result_base': None}
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_args' from command line to 'None'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_target' from command line to 'None'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_clean_cache' from command line to 'False'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_clean_first' from command line to 'False'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'cmake_force_configure' from command line to 'False'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'ament_cmake_args' from command line to 'None'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'catkin_cmake_args' from command line to 'None'
+[1.775s] Level 5:colcon.colcon_core.verb:set package 'vehicle_navigation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.775s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_navigation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_navigation', 'symlink_install': False, 'test_result_base': None}
+[1.776s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_args' from command line to 'None'
+[1.776s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_target' from command line to 'None'
+[1.776s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_clean_cache' from command line to 'False'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_clean_first' from command line to 'False'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'cmake_force_configure' from command line to 'False'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'ament_cmake_args' from command line to 'None'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'catkin_cmake_args' from command line to 'None'
+[1.777s] Level 5:colcon.colcon_core.verb:set package 'vehicle_networking' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.777s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_networking' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking', 'symlink_install': False, 'test_result_base': None}
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_args' from command line to 'None'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_target' from command line to 'None'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_clean_cache' from command line to 'False'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_clean_first' from command line to 'False'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'cmake_force_configure' from command line to 'False'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'ament_cmake_args' from command line to 'None'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'catkin_cmake_args' from command line to 'None'
+[1.778s] Level 5:colcon.colcon_core.verb:set package 'vehicle_packet_manager' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.779s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_packet_manager' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager', 'symlink_install': False, 'test_result_base': None}
+[1.779s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_args' from command line to 'None'
+[1.779s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_target' from command line to 'None'
+[1.779s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_clean_cache' from command line to 'False'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_clean_first' from command line to 'False'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'cmake_force_configure' from command line to 'False'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'ament_cmake_args' from command line to 'None'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'catkin_cmake_args' from command line to 'None'
+[1.780s] Level 5:colcon.colcon_core.verb:set package 'vehicle_simulation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.780s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_simulation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation', 'symlink_install': False, 'test_result_base': None}
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_args' from command line to 'None'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_target' from command line to 'None'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_clean_cache' from command line to 'False'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_clean_first' from command line to 'False'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'cmake_force_configure' from command line to 'False'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'ament_cmake_args' from command line to 'None'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'catkin_cmake_args' from command line to 'None'
+[1.781s] Level 5:colcon.colcon_core.verb:set package 'vehicle_string_converter' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.781s] DEBUG:colcon.colcon_core.verb:Building package 'vehicle_string_converter' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter', 'merge_install': False, 'path': '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_string_converter', 'symlink_install': False, 'test_result_base': None}
+[1.782s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.784s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.785s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces' with build type 'ament_cmake'
+[1.785s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_interfaces'
+[1.789s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.789s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.789s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.814s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_navigation' with build type 'ament_python'
+[1.814s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_navigation', 'ament_prefix_path')
+[1.815s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/ament_prefix_path.ps1'
+[1.817s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/ament_prefix_path.dsv'
+[1.818s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/ament_prefix_path.sh'
+[1.819s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.820s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.826s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking' with build type 'ament_python'
+[1.827s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_networking', 'ament_prefix_path')
+[1.828s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.ps1'
+[1.829s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.dsv'
+[1.831s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/ament_prefix_path.sh'
+[1.832s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.832s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.841s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager' with build type 'ament_python'
+[1.842s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_packet_manager', 'ament_prefix_path')
+[1.843s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/ament_prefix_path.ps1'
+[1.860s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/ament_prefix_path.dsv'
+[1.861s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/ament_prefix_path.sh'
+[1.862s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.862s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.878s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --build /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces -- -j4 -l4
+[2.529s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_navigation'
+[2.530s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.530s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.934s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking'
+[2.935s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.935s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.425s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager'
+[3.426s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.426s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.449s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --build /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces -- -j4 -l4
+[3.465s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --install /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
+[3.799s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_interfaces)
+[3.804s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces' for CMake module files
+[3.806s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces' for CMake config files
+[3.807s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'cmake_prefix_path')
+[3.813s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking:/opt/ros/foxy /usr/bin/cmake --install /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces
+[3.814s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.ps1'
+[3.815s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.dsv'
+[3.816s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.sh'
+[3.818s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib'
+[3.818s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'ld_library_path_lib')
+[3.819s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.ps1'
+[3.820s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.dsv'
+[3.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.sh'
+[3.821s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/bin'
+[3.822s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib/pkgconfig/vehicle_interfaces.pc'
+[3.822s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib/python3.8/site-packages'
+[3.822s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'pythonpath')
+[3.823s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.ps1'
+[3.832s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.dsv'
+[3.833s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.sh'
+[3.834s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/bin'
+[3.836s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.ps1'
+[3.839s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.dsv'
+[3.840s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.sh'
+[3.843s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.bash'
+[3.865s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.zsh'
+[3.873s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/colcon-core/packages/vehicle_interfaces)
+[3.875s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_interfaces)
+[3.884s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces' for CMake module files
+[3.886s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces' for CMake config files
+[3.887s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'cmake_prefix_path')
+[3.887s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.ps1'
+[3.888s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.dsv'
+[3.897s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/cmake_prefix_path.sh'
+[3.898s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib'
+[3.898s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'ld_library_path_lib')
+[3.899s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.ps1'
+[3.905s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.dsv'
+[3.906s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/ld_library_path_lib.sh'
+[3.907s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/bin'
+[3.916s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib/pkgconfig/vehicle_interfaces.pc'
+[3.916s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/lib/python3.8/site-packages'
+[3.917s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_interfaces', 'pythonpath')
+[3.917s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.ps1'
+[3.919s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.dsv'
+[3.920s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/hook/pythonpath.sh'
+[3.921s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/bin'
+[3.922s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.ps1'
+[3.936s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.dsv'
+[3.938s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.sh'
+[3.939s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.bash'
+[3.941s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/vehicle_interfaces/package.zsh'
+[3.942s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_interfaces/share/colcon-core/packages/vehicle_interfaces)
+[3.949s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation' with build type 'ament_python'
+[3.950s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_simulation', 'ament_prefix_path')
+[3.950s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/ament_prefix_path.ps1'
+[3.951s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/ament_prefix_path.dsv'
+[3.952s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/ament_prefix_path.sh'
+[3.954s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.954s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.519s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation'
+[4.520s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.520s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.106s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_packet_manager build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log --install-scripts $base/lib/vehicle_packet_manager --single-version-externally-managed install_data
+[5.120s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_navigation': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_navigation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/install.log --install-scripts $base/lib/vehicle_navigation --single-version-externally-managed install_data
+[5.133s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed install_data
+[5.448s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_simulation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/install.log --install-scripts $base/lib/vehicle_simulation --single-version-externally-managed install_data
+[5.960s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager' for CMake module files
+[5.963s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager' for CMake config files
+[5.965s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib'
+[5.962s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_packet_manager' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_packet_manager build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_packet_manager/install.log --install-scripts $base/lib/vehicle_packet_manager --single-version-externally-managed install_data
+[5.966s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/bin'
+[5.966s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/pkgconfig/vehicle_packet_manager.pc'
+[5.967s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/lib/python3.8/site-packages'
+[5.968s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_packet_manager', 'pythonpath')
+[5.969s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath.ps1'
+[5.971s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath.dsv'
+[5.972s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/hook/pythonpath.sh'
+[5.974s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/bin'
+[5.974s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_packet_manager)
+[5.976s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/package.ps1'
+[5.978s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/package.dsv'
+[5.979s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/package.sh'
+[5.981s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/package.bash'
+[5.982s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/vehicle_packet_manager/package.zsh'
+[5.984s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_packet_manager/share/colcon-core/packages/vehicle_packet_manager)
+[5.986s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_string_converter' with build type 'ament_python'
+[5.986s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_string_converter', 'ament_prefix_path')
+[5.988s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/ament_prefix_path.ps1'
+[5.989s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/ament_prefix_path.dsv'
+[5.990s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/ament_prefix_path.sh'
+[5.992s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.992s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.004s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation' for CMake module files
+[6.005s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_navigation' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_navigation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_navigation/install.log --install-scripts $base/lib/vehicle_navigation --single-version-externally-managed install_data
+[6.006s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation' for CMake config files
+[6.007s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib'
+[6.007s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/bin'
+[6.008s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/pkgconfig/vehicle_navigation.pc'
+[6.008s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/lib/python3.8/site-packages'
+[6.008s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_navigation', 'pythonpath')
+[6.009s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/pythonpath.ps1'
+[6.010s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/pythonpath.dsv'
+[6.011s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/hook/pythonpath.sh'
+[6.013s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/bin'
+[6.013s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_navigation)
+[6.014s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/package.ps1'
+[6.015s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/package.dsv'
+[6.017s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/package.sh'
+[6.018s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/package.bash'
+[6.018s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/vehicle_navigation/package.zsh'
+[6.019s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_navigation/share/colcon-core/packages/vehicle_navigation)
+[6.022s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking' for CMake module files
+[6.024s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_networking' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_networking build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_networking/install.log --install-scripts $base/lib/vehicle_networking --single-version-externally-managed install_data
+[6.024s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking' for CMake config files
+[6.025s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib'
+[6.026s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/bin'
+[6.026s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/pkgconfig/vehicle_networking.pc'
+[6.026s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/lib/python3.8/site-packages'
+[6.026s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_networking', 'pythonpath')
+[6.027s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.ps1'
+[6.028s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.dsv'
+[6.029s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/hook/pythonpath.sh'
+[6.030s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/bin'
+[6.030s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_networking)
+[6.031s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/package.ps1'
+[6.033s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/package.dsv'
+[6.034s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/package.sh'
+[6.035s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/package.bash'
+[6.036s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/vehicle_networking/package.zsh'
+[6.037s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_networking/share/colcon-core/packages/vehicle_networking)
+[6.507s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_string_converter'
+[6.509s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[6.509s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.524s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation' for CMake module files
+[6.525s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_simulation' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_simulation build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_simulation/install.log --install-scripts $base/lib/vehicle_simulation --single-version-externally-managed install_data
+[6.526s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation' for CMake config files
+[6.527s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib'
+[6.527s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/bin'
+[6.529s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/pkgconfig/vehicle_simulation.pc'
+[6.530s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/lib/python3.8/site-packages'
+[6.530s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_simulation', 'pythonpath')
+[6.530s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/pythonpath.ps1'
+[6.531s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/pythonpath.dsv'
+[6.532s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/hook/pythonpath.sh'
+[6.533s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/bin'
+[6.533s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_simulation)
+[6.534s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/package.ps1'
+[6.535s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/package.dsv'
+[6.536s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/package.sh'
+[6.536s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/package.bash'
+[6.537s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/vehicle_simulation/package.zsh'
+[6.538s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_simulation/share/colcon-core/packages/vehicle_simulation)
+[7.180s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_string_converter': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_string_converter build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/install.log --install-scripts $base/lib/vehicle_string_converter --single-version-externally-managed install_data
+[7.709s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter' for CMake module files
+[7.711s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter' for CMake config files
+[7.712s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib'
+[7.713s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/bin'
+[7.713s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/pkgconfig/vehicle_string_converter.pc'
+[7.715s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages'
+[7.715s] Level 1:colcon.colcon_core.shell:create_environment_hook('vehicle_string_converter', 'pythonpath')
+[7.716s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/src/vehicle_string_converter' returned '0': PYTHONPATH=/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vehicle_string_converter build --build-base /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/build install --record /home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_string_converter/install.log --install-scripts $base/lib/vehicle_string_converter --single-version-externally-managed install_data
+[7.716s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/pythonpath.ps1'
+[7.717s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/pythonpath.dsv'
+[7.718s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/hook/pythonpath.sh'
+[7.719s] Level 1:colcon.colcon_core.environment:checking '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/bin'
+[7.719s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vehicle_string_converter)
+[7.719s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/package.ps1'
+[7.720s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/package.dsv'
+[7.721s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/package.sh'
+[7.722s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/package.bash'
+[7.722s] INFO:colcon.colcon_core.shell:Creating package script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/vehicle_string_converter/package.zsh'
+[7.723s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/vehicle_string_converter/share/colcon-core/packages/vehicle_string_converter)
+[7.723s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[7.724s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[7.724s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[7.725s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[7.726s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[7.727s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/local_setup.ps1'
+[7.728s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/_local_setup_util_ps1.py'
+[7.757s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/setup.ps1'
+[7.759s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/local_setup.sh'
+[7.760s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/_local_setup_util_sh.py'
+[7.760s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/setup.sh'
+[7.762s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/local_setup.bash'
+[7.763s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/setup.bash'
+[7.764s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/local_setup.zsh'
+[7.765s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/install/setup.zsh'

@@ -1,0 +1,1 @@
+/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_typesupport_introspection_c/vehicle_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h

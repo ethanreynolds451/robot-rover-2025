@@ -1,1 +1,0 @@
-/home/ethanreynolds/vscode/robot-rover-2025/code/system/ros2/build/vehicle_interfaces/rosidl_generator_cpp/vehicle_interfaces/msg/detail/to_f_data__type_support.hpp

@@ -1,0 +1,4 @@
+# generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
+
+set(vehicle_interfaces_IDL_FILES "srv/GetSerialPort.idl;srv/ResetSerialPort.idl;srv/GetSerialDeviceStatus.idl;msg/SensorData.idl;msg/ControlData.idl;msg/EncoderData.idl;msg/GPSData.idl;msg/IRData.idl;msg/MPUData.idl;msg/QMCData.idl;msg/TemperatureData.idl;msg/ToFData.idl;msg/UltrasonicData.idl")
+set(vehicle_interfaces_INTERFACE_FILES "srv/GetSerialPort.srv;srv/GetSerialPort_Request.msg;srv/GetSerialPort_Response.msg;srv/ResetSerialPort.srv;srv/ResetSerialPort_Request.msg;srv/ResetSerialPort_Response.msg;srv/GetSerialDeviceStatus.srv;srv/GetSerialDeviceStatus_Request.msg;srv/GetSerialDeviceStatus_Response.msg;msg/SensorData.msg;msg/ControlData.msg;msg/EncoderData.msg;msg/GPSData.msg;msg/IRData.msg;msg/MPUData.msg;msg/QMCData.msg;msg/TemperatureData.msg;msg/ToFData.msg;msg/UltrasonicData.msg")
